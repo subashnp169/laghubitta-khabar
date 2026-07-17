@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+@theme {
+  --color-mfi-50: #eff6ff;
+  --color-mfi-100: #dbeafe;
+  --color-mfi-200: #bfdbfe;
+  --color-mfi-300: #93c5fd;
+  --color-mfi-400: #60a5fa;
+  --color-mfi-500: #1e40af;
+  --color-mfi-600: #1e3a8a;
+  --color-mfi-700: #1e3a5f;
+  --color-mfi-800: #0f172a;
+  --color-mfi-900: #020617;
+  --color-accent-50: #fdf2f8;
+  --color-accent-100: #fce7f3;
+  --color-accent-200: #fbcfe8;
+  --color-accent-300: #f9a8d4;
+  --color-accent-400: #f472b6;
+  --color-accent-500: #ec4899;
+  --color-accent-600: #db2777;
+  --color-accent-700: #be185d;
+  --color-accent-800: #9d174d;
+  --color-accent-900: #831843;
+  --color-nrb-50: #f0fdf4;
+  --color-nrb-100: #dcfce7;
+  --color-nrb-500: #22c55e;
+  --color-nrb-600: #16a34a;
+  --color-nrb-700: #15803d;
+  --font-sans: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+
+.ticker-wrap {
+  animation: ticker-scroll 30s linear infinite;
+}
+
+@keyframes ticker-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.pulse-dot {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}

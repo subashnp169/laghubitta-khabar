@@ -1,0 +1,7 @@
+{
+  "buildCommand": "npm run build",
+  "buildOutputDirectory": "out",
+  "environment": {
+    "NODE_VERSION": "24"
+  }
+}
