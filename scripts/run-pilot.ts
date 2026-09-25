@@ -19,6 +19,7 @@ import { join } from "node:path";
 
 import {
   BrowserDiscovery,
+  DISCOVERY_HINT_RULES,
   buildEngine,
   composeExtractors,
   ControlledFetcher,
@@ -204,20 +205,7 @@ async function main(): Promise<void> {
           new LocalSourceRegistry(dbPath),
           new ControlledFetcher(policy),
           {
-            rules: [
-              { capability: "NEWS", hrefHint: "notice" },
-              { capability: "NEWS", hrefHint: "news" },
-              { capability: "REPORTS", hrefHint: "report" },
-              { capability: "REPORTS", hrefHint: "annual" },
-              { capability: "DOCUMENT_ARCHIVE", hrefHint: "document" },
-              { capability: "DOCUMENT_ARCHIVE", hrefHint: "download" },
-              { capability: "CAREER_PAGE", hrefHint: "career" },
-              { capability: "CAREER_PAGE", hrefHint: "vacancy" },
-              { capability: "BRANCH_DIRECTORY", hrefHint: "branch" },
-              { capability: "BRANCH_DIRECTORY", hrefHint: "contact" },
-              { capability: "WEBSITE", hrefHint: "" },
-              { capability: "SITEMAP", prefersSitemap: true },
-            ],
+            rules: DISCOVERY_HINT_RULES,
             maxTargets: budget.maxTargets,
           },
         ),

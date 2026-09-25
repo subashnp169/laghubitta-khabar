@@ -46,6 +46,41 @@ export interface DiscoveryConfig {
 const MAX_TARGETS_DEFAULT = 50;
 
 /**
+ * Standard href-hint rule set used by both the live pilot BrowserDiscovery and
+ * the Phase F backfill (single source of truth; ordering defines priority).
+ */
+export const DISCOVERY_HINT_RULES: DiscoveryRule[] = [
+  { capability: "NEWS", hrefHint: "notice" },
+  { capability: "NEWS", hrefHint: "news" },
+  { capability: "REPORTS", hrefHint: "report" },
+  { capability: "REPORTS", hrefHint: "annual" },
+  { capability: "DOCUMENT_ARCHIVE", hrefHint: "document" },
+  { capability: "DOCUMENT_ARCHIVE", hrefHint: "download" },
+  { capability: "CAREER_PAGE", hrefHint: "career" },
+  { capability: "CAREER_PAGE", hrefHint: "vacancy" },
+  { capability: "BRANCH_DIRECTORY", hrefHint: "branch" },
+  { capability: "BRANCH_DIRECTORY", hrefHint: "contact" },
+  { capability: "WEBSITE", hrefHint: "" },
+  { capability: "SITEMAP", prefersSitemap: true },
+];
+
+/**
+ * Deterministic classification of a discovered URL into a specific (non
+ * catch-all) capability. Used by the Phase F backfill to persist located
+ * capability pages; skips the WEBSITE catch-all and SITEMAP rule (no hint).
+ */
+export function locateCapabilityForUrl(raw: string): CapabilityKind | null {
+  const u = raw.toLowerCase();
+  for (const rule of DISCOVERY_HINT_RULES) {
+    const hint = rule.hrefHint;
+    if (!hint || hint === "") continue;
+    if (u.includes(hint.toLowerCase())) return rule.capability;
+  }
+  if (u.includes("sitemap") || /\.xml$/i.test(u)) return "SITEMAP";
+  return null;
+}
+
+/**
  * Asset URLs that are never link-discovery targets: styles, scripts, images,
  * fonts, media. Generic (not per-site): keeps bounded discovery from burning
  * budget on static assets during LINK/CONFIG/SITEMAP walks. PDF is NOT here —

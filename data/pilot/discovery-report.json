@@ -1,0 +1,2210 @@
+{
+  "generatedAt": "2026-09-25T12:13:51.903Z",
+  "dbPath": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\lk-pilot-Az2umP\\pilot.db",
+  "sources": 51,
+  "locatedUrls": 158,
+  "locatedSlotsPerSource": 209,
+  "perCapability": {
+    "REPORTS": 35,
+    "NEWS": 31,
+    "BRANCH_DIRECTORY": 33,
+    "CAREER_PAGE": 26,
+    "DOCUMENT_ARCHIVE": 26,
+    "SITEMAP": 7
+  },
+  "perSource": [
+    {
+      "institution": "mfi-001",
+      "source": "nirdhan-website",
+      "root": "https://www.nirdhan.com.np",
+      "located": {
+        "WEBSITE": {
+          "url": "https://www.nirdhan.com.np",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "https://www.nirdhan.com.np/quaterly-report",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "NEWS": {
+          "url": "https://www.nirdhan.com.np/news",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "https://www.nirdhan.com.np",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "CAREER_PAGE": {
+          "url": "https://www.nirdhan.com.np",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "SITEMAP": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        }
+      },
+      "lastRunSnapshots": 2
+    },
+    {
+      "institution": "mfi-003",
+      "source": "chhimek-website",
+      "root": "https://www.chhimekbank.org",
+      "located": {
+        "WEBSITE": {
+          "url": "https://www.chhimekbank.org",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "NEWS": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "CAREER_PAGE": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "SITEMAP": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        }
+      },
+      "lastRunSnapshots": 0
+    },
+    {
+      "institution": "mfi-020",
+      "source": "mero-website",
+      "root": "https://www.meromicrofinance.com",
+      "located": {
+        "WEBSITE": {
+          "url": "https://www.meromicrofinance.com",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "NEWS": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "https://www.meromicrofinance.com/branches",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "CAREER_PAGE": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "SITEMAP": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        }
+      },
+      "lastRunSnapshots": 0
+    },
+    {
+      "institution": "mfi-047",
+      "source": "matribhumi-website",
+      "root": "https://matribhumimf.com.np",
+      "located": {
+        "WEBSITE": {
+          "url": "https://matribhumimf.com.np",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "https://matribhumimf.com.np",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "NEWS": {
+          "url": "https://matribhumimf.com.np/storage/notices/01M31DVW8MF1D5NKWR6A8Y4XY9.pdf",
+          "http_status": 200,
+          "anchor": "link"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "https://matribhumimf.com.np",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "CAREER_PAGE": {
+          "url": "https://career.matribhumimf.com.np",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "https://matribhumimf.com.np",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "SITEMAP": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        }
+      },
+      "lastRunSnapshots": 0
+    },
+    {
+      "institution": "mfi-034",
+      "source": "infinity-website",
+      "root": "https://infinitylbsl.com.np",
+      "located": {
+        "WEBSITE": {
+          "url": "https://infinitylbsl.com.np",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "NEWS": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "CAREER_PAGE": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "SITEMAP": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        }
+      },
+      "lastRunSnapshots": 0
+    },
+    {
+      "institution": "mfi-030",
+      "source": "aarambha-website",
+      "root": "https://www.aarambhachautari.com",
+      "located": {
+        "WEBSITE": {
+          "url": "https://www.aarambhachautari.com",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "https://www.aarambhachautari.com",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "NEWS": {
+          "url": "https://www.aarambhachautari.com/cat/news",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "https://www.aarambhachautari.com",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "CAREER_PAGE": {
+          "url": "https://www.aarambhachautari.com",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "https://www.aarambhachautari.com",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "SITEMAP": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        }
+      },
+      "lastRunSnapshots": 0
+    },
+    {
+      "institution": "mfi-049",
+      "source": "aatmanirbhar-website",
+      "root": "https://aatmanirbhar.com.np",
+      "located": {
+        "WEBSITE": {
+          "url": "https://aatmanirbhar.com.np",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "https://aatmanirbhar.com.np/annual-general-meeting",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "NEWS": {
+          "url": "https://aatmanirbhar.com.np/news",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "https://aatmanirbhar.com.np/contact",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "CAREER_PAGE": {
+          "url": "https://aatmanirbhar.com.np/career",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "SITEMAP": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        }
+      },
+      "lastRunSnapshots": 10
+    },
+    {
+      "institution": "mfi-031",
+      "source": "asha-website",
+      "root": "https://ashamicrofinance.com.np",
+      "located": {
+        "WEBSITE": {
+          "url": "https://ashamicrofinance.com.np",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "https://ashamicrofinance.com.np/financial-reports/interest-rate",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "NEWS": {
+          "url": "https://ashamicrofinance.com.np/news",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "https://ashamicrofinance.com.np",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "CAREER_PAGE": {
+          "url": "https://ashamicrofinance.com.np/vacancy-2",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "SITEMAP": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        }
+      },
+      "lastRunSnapshots": 0
+    },
+    {
+      "institution": "mfi-051",
+      "source": "aviyan-website",
+      "root": "https://www.aviyanlaghubitta.com",
+      "located": {
+        "WEBSITE": {
+          "url": "https://www.aviyanlaghubitta.com",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "NEWS": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "CAREER_PAGE": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "SITEMAP": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        }
+      },
+      "lastRunSnapshots": 0
+    },
+    {
+      "institution": "mfi-043",
+      "source": "cyc-website",
+      "root": "https://cycnlbsl.org.np",
+      "located": {
+        "WEBSITE": {
+          "url": "https://cycnlbsl.org.np",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "https://cycnlbsl.org.np",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "NEWS": {
+          "url": "https://cycnlbsl.org.np/wp-sitemap-posts-notice-1.xml",
+          "http_status": 200,
+          "anchor": "link"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "https://cycnlbsl.org.np/wp-sitemap-posts-branch-1.xml",
+          "http_status": 200,
+          "anchor": "link"
+        },
+        "CAREER_PAGE": {
+          "url": "https://cycnlbsl.org.np/wp-sitemap-posts-career-1.xml",
+          "http_status": 200,
+          "anchor": "link"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "https://cycnlbsl.org.np",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "SITEMAP": {
+          "url": "https://cycnlbsl.org.np/wp-sitemap-posts-page-1.xml",
+          "http_status": 200,
+          "anchor": "link"
+        }
+      },
+      "lastRunSnapshots": 0
+    },
+    {
+      "institution": "mfi-002",
+      "source": "deproscbank-website",
+      "root": "https://www.deproscbank.com.np",
+      "located": {
+        "WEBSITE": {
+          "url": "https://www.deproscbank.com.np",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "https://www.deproscbank.com.np",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "NEWS": {
+          "url": "https://www.deproscbank.com.np/en/main/pages/notice",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "CAREER_PAGE": {
+          "url": "https://www.deproscbank.com.np",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "https://www.deproscbank.com.np",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "SITEMAP": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        }
+      },
+      "lastRunSnapshots": 0
+    },
+    {
+      "institution": "mfi-004",
+      "source": "swbbl-website",
+      "root": "https://www.swbbl.com.np",
+      "located": {
+        "WEBSITE": {
+          "url": "https://www.swbbl.com.np",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "https://www.swbbl.com.np",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "NEWS": {
+          "url": "https://www.swbbl.com.np/internal-relation-notice",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "CAREER_PAGE": {
+          "url": "https://www.swbbl.com.np",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "https://www.swbbl.com.np",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "SITEMAP": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        }
+      },
+      "lastRunSnapshots": 0
+    },
+    {
+      "institution": "mfi-005",
+      "source": "skbbl-website",
+      "root": "https://www.skbbl.com.np",
+      "located": {
+        "WEBSITE": {
+          "url": "https://www.skbbl.com.np",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "https://www.skbbl.com.np",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "NEWS": {
+          "url": "https://www.skbbl.com.np/download/notices",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "https://www.skbbl.com.np/contact-us",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "CAREER_PAGE": {
+          "url": "https://www.skbbl.com.np",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "https://www.skbbl.com.np",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "SITEMAP": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        }
+      },
+      "lastRunSnapshots": 0
+    },
+    {
+      "institution": "mfi-006",
+      "source": "nerudemirmire-website",
+      "root": "https://www.nerudemirmire.com.np",
+      "located": {
+        "WEBSITE": {
+          "url": "https://www.nerudemirmire.com.np",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "https://www.nerudemirmire.com.np/annual-report",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "NEWS": {
+          "url": "https://www.nerudemirmire.com.np/newsandevent",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "https://www.nerudemirmire.com.np/branch",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "CAREER_PAGE": {
+          "url": "https://www.nerudemirmire.com.np/career",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "https://www.nerudemirmire.com.np/download",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "SITEMAP": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        }
+      },
+      "lastRunSnapshots": 0
+    },
+    {
+      "institution": "mfi-007",
+      "source": "mlbbank-website",
+      "root": "https://mlbbank.com.np",
+      "located": {
+        "WEBSITE": {
+          "url": "https://mlbbank.com.np",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "NEWS": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "CAREER_PAGE": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "SITEMAP": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        }
+      },
+      "lastRunSnapshots": 0
+    },
+    {
+      "institution": "mfi-008",
+      "source": "slbbl-website",
+      "root": "https://www.slbbl.com.np",
+      "located": {
+        "WEBSITE": {
+          "url": "https://www.slbbl.com.np",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "NEWS": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "https://www.slbbl.com.np/wp-sitemap-posts-branches-1.xml",
+          "http_status": 200,
+          "anchor": "link"
+        },
+        "CAREER_PAGE": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "SITEMAP": {
+          "url": "https://www.slbbl.com.np/wp-sitemap-posts-financials-1.xml",
+          "http_status": 200,
+          "anchor": "link"
+        }
+      },
+      "lastRunSnapshots": 0
+    },
+    {
+      "institution": "mfi-009",
+      "source": "fmdb-website",
+      "root": "https://fmdb.com.np",
+      "located": {
+        "WEBSITE": {
+          "url": "https://fmdb.com.np",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "https://fmdb.com.np",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "NEWS": {
+          "url": "https://fmdb.com.np/notices/AGM-Notice",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "CAREER_PAGE": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "https://fmdb.com.np",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "SITEMAP": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        }
+      },
+      "lastRunSnapshots": 0
+    },
+    {
+      "institution": "mfi-010",
+      "source": "kalikabank-website",
+      "root": "https://www.kalikabank.com.np",
+      "located": {
+        "WEBSITE": {
+          "url": "https://www.kalikabank.com.np",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "https://www.kalikabank.com.np",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "NEWS": {
+          "url": "https://www.kalikabank.com.np/newsandevent",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "https://www.kalikabank.com.np/branch",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "CAREER_PAGE": {
+          "url": "https://www.kalikabank.com.np/career",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "https://www.kalikabank.com.np",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "SITEMAP": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        }
+      },
+      "lastRunSnapshots": 0
+    },
+    {
+      "institution": "mfi-011",
+      "source": "jucbank-website",
+      "root": "https://www.jucbank.com.np",
+      "located": {
+        "WEBSITE": {
+          "url": "https://www.jucbank.com.np",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "https://www.jucbank.com.np",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "NEWS": {
+          "url": "https://www.jucbank.com.np/categories/news",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "https://www.jucbank.com.np",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "CAREER_PAGE": {
+          "url": "https://www.jucbank.com.np/categories/career",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "https://www.jucbank.com.np",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "SITEMAP": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        }
+      },
+      "lastRunSnapshots": 0
+    },
+    {
+      "institution": "mfi-012",
+      "source": "swmfi-website",
+      "root": "https://swmfi.com.np",
+      "located": {
+        "WEBSITE": {
+          "url": "https://swmfi.com.np",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "https://swmfi.com.np",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "NEWS": {
+          "url": "https://swmfi.com.np/notices",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "https://swmfi.com.np/branches",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "CAREER_PAGE": {
+          "url": "https://swmfi.com.np",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "https://swmfi.com.np",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "SITEMAP": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        }
+      },
+      "lastRunSnapshots": 0
+    },
+    {
+      "institution": "mfi-013",
+      "source": "laxmilaghu-website",
+      "root": "https://laxmilaghu.com.np",
+      "located": {
+        "WEBSITE": {
+          "url": "https://laxmilaghu.com.np",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "https://laxmilaghu.com.np/quartely-reports",
+          "http_status": 200,
+          "anchor": "link"
+        },
+        "NEWS": {
+          "url": "https://laxmilaghu.com.np/lxlbnewss",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "https://laxmilaghu.com.np/branch-network-2",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "CAREER_PAGE": {
+          "url": "https://laxmilaghu.com.np",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "https://laxmilaghu.com.np/downloads",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "SITEMAP": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        }
+      },
+      "lastRunSnapshots": 1
+    },
+    {
+      "institution": "mfi-014",
+      "source": "himalayanlaghubitta-website",
+      "root": "https://himalayanlaghubitta.com",
+      "located": {
+        "WEBSITE": {
+          "url": "https://himalayanlaghubitta.com",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "https://himalayanlaghubitta.com",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "NEWS": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "https://himalayanlaghubitta.com/page/contactus/9",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "CAREER_PAGE": {
+          "url": "https://himalayanlaghubitta.com/page/careers/7",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "https://himalayanlaghubitta.com",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "SITEMAP": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        }
+      },
+      "lastRunSnapshots": 0
+    },
+    {
+      "institution": "mfi-015",
+      "source": "vlbs-website",
+      "root": "https://vlbs.com.np",
+      "located": {
+        "WEBSITE": {
+          "url": "https://vlbs.com.np",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "NEWS": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "https://vlbs.com.np/branchesmap",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "CAREER_PAGE": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "SITEMAP": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        }
+      },
+      "lastRunSnapshots": 0
+    },
+    {
+      "institution": "mfi-016",
+      "source": "nmbmicrofinance-website",
+      "root": "https://nmbmicrofinance.com",
+      "located": {
+        "WEBSITE": {
+          "url": "https://nmbmicrofinance.com",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "https://nmbmicrofinance.com",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "NEWS": {
+          "url": "https://nmbmicrofinance.com/Reports/2026/7/Finance,%20Audit,%20IT,%20Agricultural%20Technician%20Shortlisted%20Notice-202607271032315200.pdf",
+          "http_status": 200,
+          "anchor": "link"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "https://nmbmicrofinance.com/About/Contactus",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "CAREER_PAGE": {
+          "url": "https://nmbmicrofinance.com",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "https://nmbmicrofinance.com",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "SITEMAP": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        }
+      },
+      "lastRunSnapshots": 0
+    },
+    {
+      "institution": "mfi-017",
+      "source": "forwardmfbank-website",
+      "root": "https://forwardmfbank.com.np",
+      "located": {
+        "WEBSITE": {
+          "url": "https://forwardmfbank.com.np",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "https://forwardmfbank.com.np",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "NEWS": {
+          "url": "https://forwardmfbank.com.np/index.php/gallery-notice",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "https://forwardmfbank.com.np",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "CAREER_PAGE": {
+          "url": "https://forwardmfbank.com.np/index.php/careers",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "https://forwardmfbank.com.np",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "SITEMAP": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        }
+      },
+      "lastRunSnapshots": 0
+    },
+    {
+      "institution": "mfi-018",
+      "source": "gilb-website",
+      "root": "https://gilb.com.np",
+      "located": {
+        "WEBSITE": {
+          "url": "https://gilb.com.np",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "https://gilb.com.np/annual-report",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "NEWS": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "CAREER_PAGE": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "SITEMAP": {
+          "url": "https://gilb.com.np/category-sitemap.xml",
+          "http_status": 200,
+          "anchor": "link"
+        }
+      },
+      "lastRunSnapshots": 3
+    },
+    {
+      "institution": "mfi-019",
+      "source": "mslbsl-website",
+      "root": "https://www.mslbsl.com.np",
+      "located": {
+        "WEBSITE": {
+          "url": "https://www.mslbsl.com.np",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "https://www.mslbsl.com.np",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "NEWS": {
+          "url": "https://www.mslbsl.com.np/noticeboard",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "https://www.mslbsl.com.np/branches",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "CAREER_PAGE": {
+          "url": "https://www.mslbsl.com.np/career/online-registration",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "https://www.mslbsl.com.np",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "SITEMAP": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        }
+      },
+      "lastRunSnapshots": 0
+    },
+    {
+      "institution": "mfi-021",
+      "source": "samata-website",
+      "root": "https://www.samata.org.np",
+      "located": {
+        "WEBSITE": {
+          "url": "https://www.samata.org.np",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "https://www.samata.org.np/reports",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "NEWS": {
+          "url": "https://www.samata.org.np/bod-election-notice-2078",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "https://www.samata.org.np/about-us/branch-network",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "CAREER_PAGE": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "https://www.samata.org.np/download",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "SITEMAP": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        }
+      },
+      "lastRunSnapshots": 0
+    },
+    {
+      "institution": "mfi-022",
+      "source": "rsdcmf-website",
+      "root": "https://www.rsdcmf.com",
+      "located": {
+        "WEBSITE": {
+          "url": "https://www.rsdcmf.com",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "https://www.rsdcmf.com/annual-reports",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "NEWS": {
+          "url": "https://www.rsdcmf.com/news-and-events",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "https://www.rsdcmf.com/branches",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "CAREER_PAGE": {
+          "url": "https://www.rsdcmf.com",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "https://www.rsdcmf.com/downloads",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "SITEMAP": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        }
+      },
+      "lastRunSnapshots": 0
+    },
+    {
+      "institution": "mfi-023",
+      "source": "slbsl-website",
+      "root": "https://www.slbsl.com.np",
+      "located": {
+        "WEBSITE": {
+          "url": "https://www.slbsl.com.np",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "https://www.slbsl.com.np/agmReport.html",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "NEWS": {
+          "url": "https://www.slbsl.com.np/notices.html",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "https://www.slbsl.com.np/branchDetails.html",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "CAREER_PAGE": {
+          "url": "https://www.slbsl.com.np/career.html",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "https://www.slbsl.com.np/downloads.html",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "SITEMAP": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        }
+      },
+      "lastRunSnapshots": 0
+    },
+    {
+      "institution": "mfi-024",
+      "source": "nationalmicrofinance-website",
+      "root": "https://nationalmicrofinance.com.np",
+      "located": {
+        "WEBSITE": {
+          "url": "https://nationalmicrofinance.com.np",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "https://nationalmicrofinance.com.np/annual-report",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "NEWS": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "https://nationalmicrofinance.com.np/contact-us",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "CAREER_PAGE": {
+          "url": "https://nationalmicrofinance.com.np/career",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "SITEMAP": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        }
+      },
+      "lastRunSnapshots": 0
+    },
+    {
+      "institution": "mfi-025",
+      "source": "gblbs-website",
+      "root": "https://www.gblbs.com.np",
+      "located": {
+        "WEBSITE": {
+          "url": "https://www.gblbs.com.np",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "https://www.gblbs.com.np",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "NEWS": {
+          "url": "https://www.gblbs.com.np/cnotices.html",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "https://www.gblbs.com.np",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "CAREER_PAGE": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "https://www.gblbs.com.np",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "SITEMAP": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        }
+      },
+      "lastRunSnapshots": 0
+    },
+    {
+      "institution": "mfi-026",
+      "source": "weannepal-website",
+      "root": "https://weannepal.com",
+      "located": {
+        "WEBSITE": {
+          "url": "https://weannepal.com",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "https://weannepal.com/wean-nepal-reports-sitemap.xml",
+          "http_status": 200,
+          "anchor": "link"
+        },
+        "NEWS": {
+          "url": "https://weannepal.com/wean-nepal-notices-sitemap.xml",
+          "http_status": 200,
+          "anchor": "link"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "CAREER_PAGE": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "https://weannepal.com/wean-nepal-downloads-sitemap.xml",
+          "http_status": 200,
+          "anchor": "link"
+        },
+        "SITEMAP": {
+          "url": "https://weannepal.com/author-sitemap.xml",
+          "http_status": 200,
+          "anchor": "link"
+        }
+      },
+      "lastRunSnapshots": 0
+    },
+    {
+      "institution": "mfi-027",
+      "source": "unnatislbs-website",
+      "root": "https://unnatislbs.com.np",
+      "located": {
+        "WEBSITE": {
+          "url": "https://unnatislbs.com.np",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "NEWS": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "https://unnatislbs.com.np/branches-map",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "CAREER_PAGE": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "SITEMAP": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        }
+      },
+      "lastRunSnapshots": 0
+    },
+    {
+      "institution": "mfi-028",
+      "source": "nadeplaghubitta-website",
+      "root": "https://www.nadeplaghubitta.com",
+      "located": {
+        "WEBSITE": {
+          "url": "https://www.nadeplaghubitta.com",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "https://www.nadeplaghubitta.com",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "NEWS": {
+          "url": "https://www.nadeplaghubitta.com/35-days-notice",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "https://www.nadeplaghubitta.com/contact",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "CAREER_PAGE": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "https://www.nadeplaghubitta.com",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "SITEMAP": {
+          "url": "https://www.nadeplaghubitta.com/wp-sitemap-posts-page-1.xml",
+          "http_status": 200,
+          "anchor": "link"
+        }
+      },
+      "lastRunSnapshots": 0
+    },
+    {
+      "institution": "mfi-029",
+      "source": "supportmicrofinance-website",
+      "root": "https://www.supportmicrofinance.com.np",
+      "located": {
+        "WEBSITE": {
+          "url": "https://www.supportmicrofinance.com.np",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "https://www.supportmicrofinance.com.np/annual-report",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "NEWS": {
+          "url": "https://www.supportmicrofinance.com.np/notice",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "https://www.supportmicrofinance.com.np/branch",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "CAREER_PAGE": {
+          "url": "https://www.supportmicrofinance.com.np/career",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "SITEMAP": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        }
+      },
+      "lastRunSnapshots": 0
+    },
+    {
+      "institution": "mfi-032",
+      "source": "guranslaghubitta-website",
+      "root": "https://guranslaghubitta.com.np",
+      "located": {
+        "WEBSITE": {
+          "url": "https://guranslaghubitta.com.np",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "NEWS": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "CAREER_PAGE": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "SITEMAP": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        }
+      },
+      "lastRunSnapshots": 0
+    },
+    {
+      "institution": "mfi-033",
+      "source": "ganapatimicro-website",
+      "root": "https://ganapatimicro.com.np",
+      "located": {
+        "WEBSITE": {
+          "url": "https://ganapatimicro.com.np",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "NEWS": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "CAREER_PAGE": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "SITEMAP": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        }
+      },
+      "lastRunSnapshots": 0
+    },
+    {
+      "institution": "mfi-035",
+      "source": "swabhimaanlaghubitta-website",
+      "root": "https://swabhimaanlaghubitta.com.np",
+      "located": {
+        "WEBSITE": {
+          "url": "https://swabhimaanlaghubitta.com.np",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "NEWS": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "CAREER_PAGE": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "SITEMAP": {
+          "url": "https://swabhimaanlaghubitta.com.np/author-sitemap.xml",
+          "http_status": 200,
+          "anchor": "link"
+        }
+      },
+      "lastRunSnapshots": 0
+    },
+    {
+      "institution": "mfi-036",
+      "source": "sampadalaghubitta-website",
+      "root": "https://www.sampadalaghubitta.com.np",
+      "located": {
+        "WEBSITE": {
+          "url": "https://www.sampadalaghubitta.com.np",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "https://www.sampadalaghubitta.com.np/document/annual-report",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "NEWS": {
+          "url": "https://www.sampadalaghubitta.com.np/notices",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "https://www.sampadalaghubitta.com.np/branches",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "CAREER_PAGE": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "https://www.sampadalaghubitta.com.np/upload/document/1779192979-Proxy%20Form.pdf",
+          "http_status": 200,
+          "anchor": "link"
+        },
+        "SITEMAP": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        }
+      },
+      "lastRunSnapshots": 0
+    },
+    {
+      "institution": "mfi-037",
+      "source": "nicasialaghubitta-website",
+      "root": "https://www.nicasialaghubitta.com",
+      "located": {
+        "WEBSITE": {
+          "url": "https://www.nicasialaghubitta.com",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "NEWS": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "CAREER_PAGE": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "SITEMAP": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        }
+      },
+      "lastRunSnapshots": 0
+    },
+    {
+      "institution": "mfi-038",
+      "source": "mlbsl-website",
+      "root": "https://www.mlbsl.com.np",
+      "located": {
+        "WEBSITE": {
+          "url": "https://www.mlbsl.com.np",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "https://www.mlbsl.com.np/downloads/annual-report",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "NEWS": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "https://www.mlbsl.com.np/branches/category/branch-office",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "CAREER_PAGE": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "https://www.mlbsl.com.np/downloads/financial-literacymember-training",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "SITEMAP": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        }
+      },
+      "lastRunSnapshots": 10
+    },
+    {
+      "institution": "mfi-039",
+      "source": "manushilbs-website",
+      "root": "https://www.manushilbs.com",
+      "located": {
+        "WEBSITE": {
+          "url": "https://www.manushilbs.com",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "NEWS": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "CAREER_PAGE": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "SITEMAP": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        }
+      },
+      "lastRunSnapshots": 0
+    },
+    {
+      "institution": "mfi-040",
+      "source": "uniquenepalmicrofinance-website",
+      "root": "https://uniquenepalmicrofinance.com.np",
+      "located": {
+        "WEBSITE": {
+          "url": "https://uniquenepalmicrofinance.com.np",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "https://uniquenepalmicrofinance.com.np",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "NEWS": {
+          "url": "https://uniquenepalmicrofinance.com.np/news",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "https://uniquenepalmicrofinance.com.np",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "CAREER_PAGE": {
+          "url": "https://uniquenepalmicrofinance.com.np/career",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "https://uniquenepalmicrofinance.com.np",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "SITEMAP": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        }
+      },
+      "lastRunSnapshots": 10
+    },
+    {
+      "institution": "mfi-041",
+      "source": "ulbsl-website",
+      "root": "https://www.ulbsl.com.np",
+      "located": {
+        "WEBSITE": {
+          "url": "https://www.ulbsl.com.np",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "https://www.ulbsl.com.np/report",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "NEWS": {
+          "url": "https://www.ulbsl.com.np/news",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "https://www.ulbsl.com.np/branch",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "CAREER_PAGE": {
+          "url": "https://www.ulbsl.com.np",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "SITEMAP": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        }
+      },
+      "lastRunSnapshots": 3
+    },
+    {
+      "institution": "mfi-042",
+      "source": "dhaulagiribank-website",
+      "root": "https://dhaulagiribank.com",
+      "located": {
+        "WEBSITE": {
+          "url": "https://dhaulagiribank.com",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "https://dhaulagiribank.com/annual-report",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "NEWS": {
+          "url": "https://dhaulagiribank.com/news-events",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "https://dhaulagiribank.com",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "CAREER_PAGE": {
+          "url": "https://dhaulagiribank.com",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "SITEMAP": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        }
+      },
+      "lastRunSnapshots": 0
+    },
+    {
+      "institution": "mfi-044",
+      "source": "slbs-website",
+      "root": "https://slbs.nesdonepal.org",
+      "located": {
+        "WEBSITE": {
+          "url": "https://slbs.nesdonepal.org",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "NEWS": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "CAREER_PAGE": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "SITEMAP": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        }
+      },
+      "lastRunSnapshots": 0
+    },
+    {
+      "institution": "mfi-045",
+      "source": "swastiklbs-website",
+      "root": "https://swastiklbs.com.np",
+      "located": {
+        "WEBSITE": {
+          "url": "https://swastiklbs.com.np",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "https://swastiklbs.com.np/annual-report",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "NEWS": {
+          "url": "https://swastiklbs.com.np/news-events-%e0%a4%b8%e0%a5%81%e0%a4%9a%e0%a4%a8%e0%a4%be-%e0%a4%a4%e0%a4%a5%e0%a4%be-%e0%a4%95%e0%a4%be%e0%a4%b0%e0%a5%8d%e0%a4%af%e0%a4%95%e0%a5%8d%e0%a4%b0%e0%a4%ae%e0%a4%b9%e0%a4%b0%e0%a5%81",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "CAREER_PAGE": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "SITEMAP": {
+          "url": "https://swastiklbs.com.np/wp-sitemap-posts-page-1.xml",
+          "http_status": 200,
+          "anchor": "link"
+        }
+      },
+      "lastRunSnapshots": 0
+    },
+    {
+      "institution": "mfi-046",
+      "source": "shrijanshil-website",
+      "root": "https://shrijanshil.org",
+      "located": {
+        "WEBSITE": {
+          "url": "https://shrijanshil.org",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "NEWS": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "CAREER_PAGE": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "SITEMAP": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        }
+      },
+      "lastRunSnapshots": 0
+    },
+    {
+      "institution": "mfi-048",
+      "source": "jeevanbikasmf-website",
+      "root": "https://jeevanbikasmf.com",
+      "located": {
+        "WEBSITE": {
+          "url": "https://jeevanbikasmf.com",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "https://jeevanbikasmf.com",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "NEWS": {
+          "url": "https://jeevanbikasmf.com/notice",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "https://jeevanbikasmf.com/contact-us",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "CAREER_PAGE": {
+          "url": "https://jeevanbikasmf.com/career",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "https://jeevanbikasmf.com",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
+        },
+        "SITEMAP": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        }
+      },
+      "lastRunSnapshots": 0
+    },
+    {
+      "institution": "mfi-050",
+      "source": "sanjeevanilaghubitta-website",
+      "root": "https://sanjeevanilaghubitta.com.np",
+      "located": {
+        "WEBSITE": {
+          "url": "https://sanjeevanilaghubitta.com.np",
+          "http_status": null,
+          "anchor": "config"
+        },
+        "REPORTS": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "NEWS": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "BRANCH_DIRECTORY": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "CAREER_PAGE": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "DOCUMENT_ARCHIVE": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        },
+        "SITEMAP": {
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
+        }
+      },
+      "lastRunSnapshots": 0
+    }
+  ]
+}

@@ -28,6 +28,8 @@ export {
 export { nodeResolveHost } from "./fetcher.node";
 export {
   BrowserDiscovery,
+  DISCOVERY_HINT_RULES,
+  locateCapabilityForUrl,
   extractSameHostLinks,
   parseRobotsSitemap,
   parseSitemapLocs,

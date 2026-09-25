@@ -3,11 +3,13 @@
 import type { CrawlSource, CrawlSummary } from "@/types";
 
 export const crawlSummary: CrawlSummary = {
-  "generatedAt": "2026-09-25T11:35:43.078Z",
+  "generatedAt": "2026-09-25T12:13:09.530Z",
   "mode": "idempotency (repeat)",
   "institutions": 51,
   "sources": 51,
   "withEvidence": 45,
+  "capabilitiesLocated": 209,
+  "sourcesWithLocatedPages": 51,
   "runs": 102,
   "items": 733,
   "snapshots": 403,
@@ -37,6 +39,43 @@ export const crawlSources: CrawlSource[] = [
       "CAREER_PAGE",
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
+    ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://www.aarambhachautari.com",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": "https://www.aarambhachautari.com",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": "https://www.aarambhachautari.com/cat/news",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": "https://www.aarambhachautari.com",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": "https://www.aarambhachautari.com",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": "https://www.aarambhachautari.com",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      }
     ],
     "runs": 2,
     "snapshots": 10,
@@ -82,6 +121,43 @@ export const crawlSources: CrawlSource[] = [
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
     ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://aatmanirbhar.com.np",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": "https://aatmanirbhar.com.np/annual-general-meeting",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": "https://aatmanirbhar.com.np/news",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": "https://aatmanirbhar.com.np/contact",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": "https://aatmanirbhar.com.np/career",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no DOCUMENT_ARCHIVE page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      }
+    ],
     "runs": 2,
     "snapshots": 20,
     "items": 20,
@@ -111,6 +187,43 @@ export const crawlSources: CrawlSource[] = [
       "CAREER_PAGE",
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
+    ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://ashamicrofinance.com.np",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": "https://ashamicrofinance.com.np/financial-reports/interest-rate",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": "https://ashamicrofinance.com.np/news",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": "https://ashamicrofinance.com.np",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": "https://ashamicrofinance.com.np/vacancy-2",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no DOCUMENT_ARCHIVE page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      }
     ],
     "runs": 2,
     "snapshots": 10,
@@ -148,6 +261,43 @@ export const crawlSources: CrawlSource[] = [
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
     ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://www.aviyanlaghubitta.com",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no REPORTS page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no NEWS page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no BRANCH_DIRECTORY page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no CAREER_PAGE page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no DOCUMENT_ARCHIVE page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      }
+    ],
     "runs": 2,
     "snapshots": 0,
     "items": 2,
@@ -178,6 +328,43 @@ export const crawlSources: CrawlSource[] = [
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
     ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://www.chhimekbank.org",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no REPORTS page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no NEWS page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no BRANCH_DIRECTORY page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no CAREER_PAGE page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no DOCUMENT_ARCHIVE page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      }
+    ],
     "runs": 2,
     "snapshots": 0,
     "items": 0,
@@ -207,6 +394,43 @@ export const crawlSources: CrawlSource[] = [
       "CAREER_PAGE",
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
+    ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://cycnlbsl.org.np",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": "https://cycnlbsl.org.np",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": "https://cycnlbsl.org.np/wp-sitemap-posts-notice-1.xml",
+        "note": "phase F backfill 2026-09-25: anchor=link (http 200, application/xml; charset=UTF-8)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": "https://cycnlbsl.org.np/wp-sitemap-posts-branch-1.xml",
+        "note": "phase F backfill 2026-09-25: anchor=link (http 200, application/xml; charset=UTF-8)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": "https://cycnlbsl.org.np/wp-sitemap-posts-career-1.xml",
+        "note": "phase F backfill 2026-09-25: anchor=link (http 200, application/xml; charset=UTF-8)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": "https://cycnlbsl.org.np",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": "https://cycnlbsl.org.np/wp-sitemap-posts-page-1.xml",
+        "note": "phase F backfill 2026-09-25: anchor=link (http 200, application/xml; charset=UTF-8)"
+      }
     ],
     "runs": 2,
     "snapshots": 10,
@@ -244,6 +468,43 @@ export const crawlSources: CrawlSource[] = [
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
     ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://www.deproscbank.com.np",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": "https://www.deproscbank.com.np",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": "https://www.deproscbank.com.np/en/main/pages/notice",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no BRANCH_DIRECTORY page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": "https://www.deproscbank.com.np",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": "https://www.deproscbank.com.np",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      }
+    ],
     "runs": 2,
     "snapshots": 10,
     "items": 20,
@@ -278,6 +539,43 @@ export const crawlSources: CrawlSource[] = [
       "CAREER_PAGE",
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
+    ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://dhaulagiribank.com",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": "https://dhaulagiribank.com/annual-report",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": "https://dhaulagiribank.com/news-events",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": "https://dhaulagiribank.com",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": "https://dhaulagiribank.com",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no DOCUMENT_ARCHIVE page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      }
     ],
     "runs": 2,
     "snapshots": 10,
@@ -321,6 +619,43 @@ export const crawlSources: CrawlSource[] = [
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
     ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://fmdb.com.np",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": "https://fmdb.com.np",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": "https://fmdb.com.np/notices/AGM-Notice",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no BRANCH_DIRECTORY page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no CAREER_PAGE page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": "https://fmdb.com.np",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      }
+    ],
     "runs": 2,
     "snapshots": 10,
     "items": 20,
@@ -356,6 +691,43 @@ export const crawlSources: CrawlSource[] = [
       "CAREER_PAGE",
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
+    ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://forwardmfbank.com.np",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": "https://forwardmfbank.com.np",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": "https://forwardmfbank.com.np/index.php/gallery-notice",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": "https://forwardmfbank.com.np",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": "https://forwardmfbank.com.np/index.php/careers",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": "https://forwardmfbank.com.np",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      }
     ],
     "runs": 2,
     "snapshots": 10,
@@ -399,6 +771,43 @@ export const crawlSources: CrawlSource[] = [
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
     ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://ganapatimicro.com.np",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no REPORTS page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no NEWS page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no BRANCH_DIRECTORY page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no CAREER_PAGE page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no DOCUMENT_ARCHIVE page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      }
+    ],
     "runs": 2,
     "snapshots": 1,
     "items": 2,
@@ -428,6 +837,43 @@ export const crawlSources: CrawlSource[] = [
       "CAREER_PAGE",
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
+    ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://www.gblbs.com.np",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": "https://www.gblbs.com.np",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": "https://www.gblbs.com.np/cnotices.html",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": "https://www.gblbs.com.np",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no CAREER_PAGE page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": "https://www.gblbs.com.np",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      }
     ],
     "runs": 2,
     "snapshots": 6,
@@ -468,6 +914,43 @@ export const crawlSources: CrawlSource[] = [
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
     ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://gilb.com.np",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": "https://gilb.com.np/annual-report",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no NEWS page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no BRANCH_DIRECTORY page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no CAREER_PAGE page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no DOCUMENT_ARCHIVE page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": "https://gilb.com.np/category-sitemap.xml",
+        "note": "phase F backfill 2026-09-25: anchor=link (http 200, text/xml; charset=UTF-8)"
+      }
+    ],
     "runs": 2,
     "snapshots": 13,
     "items": 20,
@@ -498,6 +981,43 @@ export const crawlSources: CrawlSource[] = [
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
     ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://guranslaghubitta.com.np",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no REPORTS page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no NEWS page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no BRANCH_DIRECTORY page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no CAREER_PAGE page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no DOCUMENT_ARCHIVE page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      }
+    ],
     "runs": 2,
     "snapshots": 0,
     "items": 0,
@@ -527,6 +1047,43 @@ export const crawlSources: CrawlSource[] = [
       "CAREER_PAGE",
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
+    ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://himalayanlaghubitta.com",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": "https://himalayanlaghubitta.com",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no NEWS page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": "https://himalayanlaghubitta.com/page/contactus/9",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": "https://himalayanlaghubitta.com/page/careers/7",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": "https://himalayanlaghubitta.com",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      }
     ],
     "runs": 2,
     "snapshots": 10,
@@ -564,6 +1121,43 @@ export const crawlSources: CrawlSource[] = [
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
     ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://infinitylbsl.com.np",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no REPORTS page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no NEWS page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no BRANCH_DIRECTORY page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no CAREER_PAGE page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no DOCUMENT_ARCHIVE page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      }
+    ],
     "runs": 2,
     "snapshots": 1,
     "items": 2,
@@ -593,6 +1187,43 @@ export const crawlSources: CrawlSource[] = [
       "CAREER_PAGE",
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
+    ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://jeevanbikasmf.com",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": "https://jeevanbikasmf.com",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": "https://jeevanbikasmf.com/notice",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": "https://jeevanbikasmf.com/contact-us",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": "https://jeevanbikasmf.com/career",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": "https://jeevanbikasmf.com",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      }
     ],
     "runs": 2,
     "snapshots": 9,
@@ -629,6 +1260,43 @@ export const crawlSources: CrawlSource[] = [
       "CAREER_PAGE",
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
+    ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://www.jucbank.com.np",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": "https://www.jucbank.com.np",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": "https://www.jucbank.com.np/categories/news",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": "https://www.jucbank.com.np",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": "https://www.jucbank.com.np/categories/career",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": "https://www.jucbank.com.np",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      }
     ],
     "runs": 2,
     "snapshots": 10,
@@ -668,6 +1336,43 @@ export const crawlSources: CrawlSource[] = [
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
     ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://www.kalikabank.com.np",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": "https://www.kalikabank.com.np",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": "https://www.kalikabank.com.np/newsandevent",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": "https://www.kalikabank.com.np/branch",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": "https://www.kalikabank.com.np/career",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": "https://www.kalikabank.com.np",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      }
+    ],
     "runs": 2,
     "snapshots": 10,
     "items": 20,
@@ -703,6 +1408,43 @@ export const crawlSources: CrawlSource[] = [
       "CAREER_PAGE",
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
+    ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://laxmilaghu.com.np",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": "https://laxmilaghu.com.np/quartely-reports",
+        "note": "phase F backfill 2026-09-25: anchor=link (http 200, text/html; charset=UTF-8)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": "https://laxmilaghu.com.np/lxlbnewss",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": "https://laxmilaghu.com.np/branch-network-2",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": "https://laxmilaghu.com.np",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": "https://laxmilaghu.com.np/downloads",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      }
     ],
     "runs": 2,
     "snapshots": 11,
@@ -740,6 +1482,43 @@ export const crawlSources: CrawlSource[] = [
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
     ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://www.manushilbs.com",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no REPORTS page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no NEWS page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no BRANCH_DIRECTORY page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no CAREER_PAGE page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no DOCUMENT_ARCHIVE page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      }
+    ],
     "runs": 2,
     "snapshots": 0,
     "items": 0,
@@ -769,6 +1548,43 @@ export const crawlSources: CrawlSource[] = [
       "CAREER_PAGE",
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
+    ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://matribhumimf.com.np",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": "https://matribhumimf.com.np",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": "https://matribhumimf.com.np/storage/notices/01M31DVW8MF1D5NKWR6A8Y4XY9.pdf",
+        "note": "phase F backfill 2026-09-25: anchor=link (http 200, application/pdf)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": "https://matribhumimf.com.np",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": "https://career.matribhumimf.com.np",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": "https://matribhumimf.com.np",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      }
     ],
     "runs": 2,
     "snapshots": 9,
@@ -811,6 +1627,43 @@ export const crawlSources: CrawlSource[] = [
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
     ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://www.meromicrofinance.com",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no REPORTS page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no NEWS page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": "https://www.meromicrofinance.com/branches",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no CAREER_PAGE page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no DOCUMENT_ARCHIVE page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      }
+    ],
     "runs": 2,
     "snapshots": 4,
     "items": 8,
@@ -840,6 +1693,43 @@ export const crawlSources: CrawlSource[] = [
       "CAREER_PAGE",
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
+    ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://mlbbank.com.np",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no REPORTS page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no NEWS page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no BRANCH_DIRECTORY page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no CAREER_PAGE page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no DOCUMENT_ARCHIVE page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      }
     ],
     "runs": 2,
     "snapshots": 1,
@@ -871,6 +1761,43 @@ export const crawlSources: CrawlSource[] = [
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
     ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://www.mlbsl.com.np",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": "https://www.mlbsl.com.np/downloads/annual-report",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no NEWS page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": "https://www.mlbsl.com.np/branches/category/branch-office",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no CAREER_PAGE page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": "https://www.mlbsl.com.np/downloads/financial-literacymember-training",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      }
+    ],
     "runs": 2,
     "snapshots": 20,
     "items": 20,
@@ -900,6 +1827,43 @@ export const crawlSources: CrawlSource[] = [
       "CAREER_PAGE",
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
+    ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://www.mslbsl.com.np",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": "https://www.mslbsl.com.np",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": "https://www.mslbsl.com.np/noticeboard",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": "https://www.mslbsl.com.np/branches",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": "https://www.mslbsl.com.np/career/online-registration",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": "https://www.mslbsl.com.np",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      }
     ],
     "runs": 2,
     "snapshots": 9,
@@ -937,6 +1901,43 @@ export const crawlSources: CrawlSource[] = [
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
     ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://www.nadeplaghubitta.com",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": "https://www.nadeplaghubitta.com",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": "https://www.nadeplaghubitta.com/35-days-notice",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": "https://www.nadeplaghubitta.com/contact",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no CAREER_PAGE page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": "https://www.nadeplaghubitta.com",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": "https://www.nadeplaghubitta.com/wp-sitemap-posts-page-1.xml",
+        "note": "phase F backfill 2026-09-25: anchor=link (http 200, application/xml; charset=UTF-8)"
+      }
+    ],
     "runs": 2,
     "snapshots": 9,
     "items": 18,
@@ -973,6 +1974,43 @@ export const crawlSources: CrawlSource[] = [
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
     ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://nationalmicrofinance.com.np",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": "https://nationalmicrofinance.com.np/annual-report",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no NEWS page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": "https://nationalmicrofinance.com.np/contact-us",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": "https://nationalmicrofinance.com.np/career",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no DOCUMENT_ARCHIVE page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      }
+    ],
     "runs": 2,
     "snapshots": 7,
     "items": 14,
@@ -1002,6 +2040,43 @@ export const crawlSources: CrawlSource[] = [
       "CAREER_PAGE",
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
+    ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://www.nerudemirmire.com.np",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": "https://www.nerudemirmire.com.np/annual-report",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": "https://www.nerudemirmire.com.np/newsandevent",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": "https://www.nerudemirmire.com.np/branch",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": "https://www.nerudemirmire.com.np/career",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": "https://www.nerudemirmire.com.np/download",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      }
     ],
     "runs": 2,
     "snapshots": 10,
@@ -1033,6 +2108,43 @@ export const crawlSources: CrawlSource[] = [
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
     ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://www.nicasialaghubitta.com",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no REPORTS page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no NEWS page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no BRANCH_DIRECTORY page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no CAREER_PAGE page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no DOCUMENT_ARCHIVE page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      }
+    ],
     "runs": 2,
     "snapshots": 1,
     "items": 2,
@@ -1062,6 +2174,43 @@ export const crawlSources: CrawlSource[] = [
       "CAREER_PAGE",
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
+    ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://www.nirdhan.com.np",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": "https://www.nirdhan.com.np/quaterly-report",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": "https://www.nirdhan.com.np/news",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": "https://www.nirdhan.com.np",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": "https://www.nirdhan.com.np",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no DOCUMENT_ARCHIVE page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      }
     ],
     "runs": 2,
     "snapshots": 12,
@@ -1100,6 +2249,43 @@ export const crawlSources: CrawlSource[] = [
       "CAREER_PAGE",
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
+    ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://nmbmicrofinance.com",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": "https://nmbmicrofinance.com",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": "https://nmbmicrofinance.com/Reports/2026/7/Finance,%20Audit,%20IT,%20Agricultural%20Technician%20Shortlisted%20Notice-202607271032315200.pdf",
+        "note": "phase F backfill 2026-09-25: anchor=link (http 200, application/pdf)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": "https://nmbmicrofinance.com/About/Contactus",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": "https://nmbmicrofinance.com",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": "https://nmbmicrofinance.com",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      }
     ],
     "runs": 2,
     "snapshots": 10,
@@ -1143,6 +2329,43 @@ export const crawlSources: CrawlSource[] = [
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
     ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://www.rsdcmf.com",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": "https://www.rsdcmf.com/annual-reports",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": "https://www.rsdcmf.com/news-and-events",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": "https://www.rsdcmf.com/branches",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": "https://www.rsdcmf.com",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": "https://www.rsdcmf.com/downloads",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      }
+    ],
     "runs": 2,
     "snapshots": 10,
     "items": 20,
@@ -1175,6 +2398,43 @@ export const crawlSources: CrawlSource[] = [
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
     ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://www.samata.org.np",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": "https://www.samata.org.np/reports",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": "https://www.samata.org.np/bod-election-notice-2078",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": "https://www.samata.org.np/about-us/branch-network",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no CAREER_PAGE page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": "https://www.samata.org.np/download",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      }
+    ],
     "runs": 2,
     "snapshots": 7,
     "items": 14,
@@ -1204,6 +2464,43 @@ export const crawlSources: CrawlSource[] = [
       "CAREER_PAGE",
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
+    ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://www.sampadalaghubitta.com.np",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": "https://www.sampadalaghubitta.com.np/document/annual-report",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": "https://www.sampadalaghubitta.com.np/notices",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": "https://www.sampadalaghubitta.com.np/branches",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no CAREER_PAGE page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": "https://www.sampadalaghubitta.com.np/upload/document/1779192979-Proxy%20Form.pdf",
+        "note": "phase F backfill 2026-09-25: anchor=link (http 200, application/pdf)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      }
     ],
     "runs": 2,
     "snapshots": 9,
@@ -1235,6 +2532,43 @@ export const crawlSources: CrawlSource[] = [
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
     ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://sanjeevanilaghubitta.com.np",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no REPORTS page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no NEWS page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no BRANCH_DIRECTORY page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no CAREER_PAGE page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no DOCUMENT_ARCHIVE page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      }
+    ],
     "runs": 2,
     "snapshots": 0,
     "items": 0,
@@ -1265,6 +2599,43 @@ export const crawlSources: CrawlSource[] = [
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
     ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://shrijanshil.org",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no REPORTS page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no NEWS page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no BRANCH_DIRECTORY page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no CAREER_PAGE page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no DOCUMENT_ARCHIVE page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      }
+    ],
     "runs": 2,
     "snapshots": 1,
     "items": 2,
@@ -1294,6 +2665,43 @@ export const crawlSources: CrawlSource[] = [
       "CAREER_PAGE",
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
+    ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://www.skbbl.com.np",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": "https://www.skbbl.com.np",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": "https://www.skbbl.com.np/download/notices",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": "https://www.skbbl.com.np/contact-us",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": "https://www.skbbl.com.np",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": "https://www.skbbl.com.np",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      }
     ],
     "runs": 2,
     "snapshots": 10,
@@ -1336,6 +2744,43 @@ export const crawlSources: CrawlSource[] = [
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
     ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://www.slbbl.com.np",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no REPORTS page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no NEWS page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": "https://www.slbbl.com.np/wp-sitemap-posts-branches-1.xml",
+        "note": "phase F backfill 2026-09-25: anchor=link (http 200, application/xml; charset=UTF-8)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no CAREER_PAGE page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no DOCUMENT_ARCHIVE page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": "https://www.slbbl.com.np/wp-sitemap-posts-financials-1.xml",
+        "note": "phase F backfill 2026-09-25: anchor=link (http 200, application/xml; charset=UTF-8)"
+      }
+    ],
     "runs": 2,
     "snapshots": 10,
     "items": 20,
@@ -1365,6 +2810,43 @@ export const crawlSources: CrawlSource[] = [
       "CAREER_PAGE",
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
+    ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://slbs.nesdonepal.org",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no REPORTS page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no NEWS page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no BRANCH_DIRECTORY page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no CAREER_PAGE page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no DOCUMENT_ARCHIVE page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      }
     ],
     "runs": 2,
     "snapshots": 0,
@@ -1396,6 +2878,43 @@ export const crawlSources: CrawlSource[] = [
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
     ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://www.slbsl.com.np",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": "https://www.slbsl.com.np/agmReport.html",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": "https://www.slbsl.com.np/notices.html",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": "https://www.slbsl.com.np/branchDetails.html",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": "https://www.slbsl.com.np/career.html",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": "https://www.slbsl.com.np/downloads.html",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      }
+    ],
     "runs": 2,
     "snapshots": 10,
     "items": 20,
@@ -1425,6 +2944,43 @@ export const crawlSources: CrawlSource[] = [
       "CAREER_PAGE",
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
+    ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://www.supportmicrofinance.com.np",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": "https://www.supportmicrofinance.com.np/annual-report",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": "https://www.supportmicrofinance.com.np/notice",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": "https://www.supportmicrofinance.com.np/branch",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": "https://www.supportmicrofinance.com.np/career",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no DOCUMENT_ARCHIVE page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      }
     ],
     "runs": 2,
     "snapshots": 7,
@@ -1456,6 +3012,43 @@ export const crawlSources: CrawlSource[] = [
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
     ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://swabhimaanlaghubitta.com.np",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no REPORTS page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no NEWS page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no BRANCH_DIRECTORY page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no CAREER_PAGE page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no DOCUMENT_ARCHIVE page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": "https://swabhimaanlaghubitta.com.np/author-sitemap.xml",
+        "note": "phase F backfill 2026-09-25: anchor=link (http 200, text/xml; charset=UTF-8)"
+      }
+    ],
     "runs": 2,
     "snapshots": 8,
     "items": 16,
@@ -1486,6 +3079,43 @@ export const crawlSources: CrawlSource[] = [
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
     ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://swastiklbs.com.np",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": "https://swastiklbs.com.np/annual-report",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": "https://swastiklbs.com.np/news-events-%e0%a4%b8%e0%a5%81%e0%a4%9a%e0%a4%a8%e0%a4%be-%e0%a4%a4%e0%a4%a5%e0%a4%be-%e0%a4%95%e0%a4%be%e0%a4%b0%e0%a5%8d%e0%a4%af%e0%a4%95%e0%a5%8d%e0%a4%b0%e0%a4%ae%e0%a4%b9%e0%a4%b0%e0%a5%81",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no BRANCH_DIRECTORY page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no CAREER_PAGE page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no DOCUMENT_ARCHIVE page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": "https://swastiklbs.com.np/wp-sitemap-posts-page-1.xml",
+        "note": "phase F backfill 2026-09-25: anchor=link (http 200, application/xml; charset=UTF-8)"
+      }
+    ],
     "runs": 2,
     "snapshots": 10,
     "items": 20,
@@ -1515,6 +3145,43 @@ export const crawlSources: CrawlSource[] = [
       "CAREER_PAGE",
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
+    ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://www.swbbl.com.np",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": "https://www.swbbl.com.np",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": "https://www.swbbl.com.np/internal-relation-notice",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no BRANCH_DIRECTORY page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": "https://www.swbbl.com.np",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": "https://www.swbbl.com.np",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      }
     ],
     "runs": 2,
     "snapshots": 9,
@@ -1552,6 +3219,43 @@ export const crawlSources: CrawlSource[] = [
       "CAREER_PAGE",
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
+    ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://swmfi.com.np",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": "https://swmfi.com.np",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": "https://swmfi.com.np/notices",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": "https://swmfi.com.np/branches",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": "https://swmfi.com.np",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": "https://swmfi.com.np",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      }
     ],
     "runs": 2,
     "snapshots": 10,
@@ -1591,6 +3295,43 @@ export const crawlSources: CrawlSource[] = [
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
     ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://www.ulbsl.com.np",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": "https://www.ulbsl.com.np/report",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": "https://www.ulbsl.com.np/news",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": "https://www.ulbsl.com.np/branch",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": "https://www.ulbsl.com.np",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no DOCUMENT_ARCHIVE page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      }
+    ],
     "runs": 2,
     "snapshots": 13,
     "items": 20,
@@ -1623,6 +3364,43 @@ export const crawlSources: CrawlSource[] = [
       "CAREER_PAGE",
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
+    ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://uniquenepalmicrofinance.com.np",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": "https://uniquenepalmicrofinance.com.np",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": "https://uniquenepalmicrofinance.com.np/news",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": "https://uniquenepalmicrofinance.com.np",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": "https://uniquenepalmicrofinance.com.np/career",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": "https://uniquenepalmicrofinance.com.np",
+        "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      }
     ],
     "runs": 2,
     "snapshots": 20,
@@ -1666,6 +3444,43 @@ export const crawlSources: CrawlSource[] = [
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
     ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://unnatislbs.com.np",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no REPORTS page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no NEWS page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": "https://unnatislbs.com.np/branches-map",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no CAREER_PAGE page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no DOCUMENT_ARCHIVE page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      }
+    ],
     "runs": 2,
     "snapshots": 3,
     "items": 6,
@@ -1696,6 +3511,43 @@ export const crawlSources: CrawlSource[] = [
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
     ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://vlbs.com.np",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no REPORTS page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no NEWS page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": "https://vlbs.com.np/branchesmap",
+        "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no CAREER_PAGE page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no DOCUMENT_ARCHIVE page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      }
+    ],
     "runs": 2,
     "snapshots": 3,
     "items": 6,
@@ -1725,6 +3577,43 @@ export const crawlSources: CrawlSource[] = [
       "CAREER_PAGE",
       "DOCUMENT_ARCHIVE",
       "SITEMAP"
+    ],
+    "capabilityPages": [
+      {
+        "capability": "WEBSITE",
+        "knownUrl": "https://weannepal.com",
+        "note": null
+      },
+      {
+        "capability": "REPORTS",
+        "knownUrl": "https://weannepal.com/wean-nepal-reports-sitemap.xml",
+        "note": "phase F backfill 2026-09-25: anchor=link (http 200, text/xml; charset=UTF-8)"
+      },
+      {
+        "capability": "NEWS",
+        "knownUrl": "https://weannepal.com/wean-nepal-notices-sitemap.xml",
+        "note": "phase F backfill 2026-09-25: anchor=link (http 200, text/xml; charset=UTF-8)"
+      },
+      {
+        "capability": "BRANCH_DIRECTORY",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no BRANCH_DIRECTORY page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "CAREER_PAGE",
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-25: no CAREER_PAGE page located (0 hint pages fetched, 0 evidence-producing URLs)"
+      },
+      {
+        "capability": "DOCUMENT_ARCHIVE",
+        "knownUrl": "https://weannepal.com/wean-nepal-downloads-sitemap.xml",
+        "note": "phase F backfill 2026-09-25: anchor=link (http 200, text/xml; charset=UTF-8)"
+      },
+      {
+        "capability": "SITEMAP",
+        "knownUrl": "https://weannepal.com/author-sitemap.xml",
+        "note": "phase F backfill 2026-09-25: anchor=link (http 200, text/xml; charset=UTF-8)"
+      }
     ],
     "runs": 2,
     "snapshots": 10,

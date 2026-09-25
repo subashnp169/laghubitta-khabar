@@ -102,9 +102,26 @@ export default function IngestionPage() {
                   </td>
                   <td className="px-3 py-2">
                     <div className="flex flex-wrap gap-1 max-w-[220px]">
-                      {c.capabilities.map((cap) => (
-                        <span key={cap} className="text-[9px] font-semibold px-1.5 py-0.5 rounded bg-slate-100 text-slate-500">{cap}</span>
-                      ))}
+                      {c.capabilities.map((cap) => {
+                        const loc = c.capabilityPages?.find((l) => l.capability === cap);
+                        if (loc?.knownUrl) {
+                          return (
+                            <a
+                              key={cap}
+                              href={loc.knownUrl}
+                              target="_blank"
+                              rel="noopener"
+                              title={`${loc.knownUrl}\n${loc.note ?? ""}`}
+                              className="text-[9px] font-semibold px-1.5 py-0.5 rounded bg-mfi-50 text-mfi-700 hover:bg-mfi-100 hover:underline"
+                            >
+                              {cap}
+                            </a>
+                          );
+                        }
+                        return (
+                          <span key={cap} className="text-[9px] font-semibold px-1.5 py-0.5 rounded bg-slate-100 text-slate-500">{cap}</span>
+                        );
+                      })}
                     </div>
                   </td>
                   <td className="px-3 py-2 text-right text-slate-600">{c.runs}</td>

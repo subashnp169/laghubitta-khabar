@@ -36,6 +36,13 @@ interface ReportJson {
   perSource?: Array<Record<string, unknown>>;
 }
 
+interface PilotSourcesJson {
+  sources?: Array<{
+    id: string;
+    capabilities?: Array<{ capability: string; known_url: string | null; note?: string }>;
+  }>;
+}
+
 const samplesFor = (db: DB, sourceId: string, fieldName: string, limit: number): string[] => {
   const rows = qa(
     db,
@@ -76,6 +83,27 @@ function main(): void {
     if (typeof s.source === "string") discBySource.set(s.source, z(s.discoveryUrls));
   }
 
+  // Phase F discovery backfill (pilot-backfill-discovery.ts) persists located
+  // capability pages into pilot-sources.json; merge so the snapshot is sourced
+  // from the same evidence DB, keeping the page UI deterministic.
+  const locatedPagesBySource = new Map<string, Array<{ capability: string; knownUrl: string | null; note: string | null }>>();
+  if (existsSync(join(process.cwd(), "data", "pilot", "pilot-sources.json"))) {
+    const pilotJson = JSON.parse(
+      readFileSync(join(process.cwd(), "data", "pilot", "pilot-sources.json"), "utf8"),
+    ) as PilotSourcesJson;
+    for (const srcPage of pilotJson.sources ?? []) {
+      const pages: Array<{ capability: string; knownUrl: string | null; note: string | null }> = [];
+      for (const cap of srcPage.capabilities ?? []) {
+        pages.push({
+          capability: cap.capability,
+          knownUrl: cap.known_url ?? null,
+          note: cap.note ?? null,
+        });
+      }
+      locatedPagesBySource.set(srcPage.id, pages);
+    }
+  }
+
   const sources = qa(db, "SELECT * FROM ingestion_sources ORDER BY id");
   const institutionIdOf = new Map<string, string>();
   for (const s of sources) {
@@ -110,12 +138,14 @@ function main(): void {
     const caps = (config.capabilities ?? [])
       .map((x) => (typeof x.capability === "string" ? x.capability : typeof x.intent === "string" ? String(x.intent) : undefined))
       .filter((x): x is string => typeof x === "string");
+    const capabilityPages = locatedPagesBySource.get(sid) ?? [];
 
     return {
       sourceId: sid,
       institutionId: institutionIdOf.get(sid) ?? "",
       website: src.url,
       capabilities: caps,
+      capabilityPages,
       runs: z(c.runs),
       snapshots: z(snapsFor.n),
       items: z(itemsFor.n),
@@ -149,8 +179,13 @@ function main(): void {
   const pdf = q(db, "SELECT COUNT(*) n FROM source_snapshots WHERE mime_type LIKE '%pdf%'") as Row;
 
   const healthCounts: Record<string, number> = {};
+  let capabilitiesLocated = 0;
+  let sourcesWithLocatedPages = 0;
   for (const p of picked) {
     healthCounts[p.status] = z(healthCounts[p.status]) + 1;
+    const located = (p.capabilityPages ?? []).filter((l) => l.knownUrl && l.knownUrl !== "");
+    capabilitiesLocated += located.length;
+    if (located.length > 0) sourcesWithLocatedPages += 1;
   }
 
   const summary = {
@@ -159,6 +194,8 @@ function main(): void {
     institutions: z(institutions.n),
     sources: picked.length,
     withEvidence: z(snapped.n),
+    capabilitiesLocated,
+    sourcesWithLocatedPages,
     runs: z(runs.n),
     items: z(items.n),
     snapshots: z(snaps.n),

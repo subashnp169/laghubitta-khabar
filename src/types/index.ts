@@ -98,11 +98,18 @@ export interface IndustryReport {
   category: string;
 }
 
+export interface CapabilityLocation {
+  capability: string;
+  knownUrl: string | null;
+  note: string | null;
+}
+
 export interface CrawlSource {
   sourceId: string;
   institutionId: string;
   website: string;
   capabilities: string[];
+  capabilityPages: CapabilityLocation[];
   runs: number;
   snapshots: number;
   items: number;
@@ -127,6 +134,8 @@ export interface CrawlSummary {
   institutions: number;
   sources: number;
   withEvidence: number;
+  capabilitiesLocated: number;
+  sourcesWithLocatedPages: number;
   runs: number;
   items: number;
   snapshots: number;

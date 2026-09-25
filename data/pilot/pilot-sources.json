@@ -1,7 +1,7 @@
 {
   "$schema": "pilot-evidence/v1",
   "generated_at": "2026-09-25T10:17:19.345Z",
-  "provenance_note": "Phase B canonical evidence records for the 10-MFB ingestion pilot (mfi-030, mfi-049, mfi-031, mfi-051, mfi-043 added in the 5→10 expansion; baseline 5: mfi-001, mfi-003, mfi-020, mfi-034, mfi-047). Only URLs with a real backing source are recorded. The sole proven URL per institution is the official website as published in the NRB BFI list (source nrb-bfi-mid-may-2026). All secondary capabilities (reports, notices, branches, career, news) are DISCOVERY INTENTS: known_url=null until Phase F discovery locates and snapshots a real page under the site domain. Nothing here is marked VERIFIED; every record starts CANDIDATE. No URL in this file was invented: every non-null url traces to nrb-bfi-mid-may-2026 (official_links entries, status=CANDIDATE, verified=0).\nPhase R expansion: extended deterministically from 10 to 20 sources (next 10 ACTIVE master institutions with an NRB-proven official_website, by id ascending). Only WEBSITE has a real URL; all other capabilities remain discovery intents.\nPhase R expansion: extended deterministically from 20 to 30 sources (next 10 ACTIVE master institutions with an NRB-proven official_website, by id ascending). Only WEBSITE has a real URL; all other capabilities remain discovery intents.\nPhase R expansion: extended deterministically from 30 to 40 sources (next 10 ACTIVE master institutions with an NRB-proven official_website, by id ascending). Only WEBSITE has a real URL; all other capabilities remain discovery intents.\nPhase R expansion: extended deterministically from 40 to 51 sources (next 11 ACTIVE master institutions with an NRB-proven official_website, by id ascending). Only WEBSITE has a real URL; all other capabilities remain discovery intents.",
+  "provenance_note": "Phase B canonical evidence records for the 10-MFB ingestion pilot (mfi-030, mfi-049, mfi-031, mfi-051, mfi-043 added in the 5→10 expansion; baseline 5: mfi-001, mfi-003, mfi-020, mfi-034, mfi-047). Only URLs with a real backing source are recorded. The sole proven URL per institution is the official website as published in the NRB BFI list (source nrb-bfi-mid-may-2026). All secondary capabilities (reports, notices, branches, career, news) are DISCOVERY INTENTS: known_url=null until Phase F discovery locates and snapshots a real page under the site domain. Nothing here is marked VERIFIED; every record starts CANDIDATE. No URL in this file was invented: every non-null url traces to nrb-bfi-mid-may-2026 (official_links entries, status=CANDIDATE, verified=0).\nPhase R expansion: extended deterministically from 10 to 20 sources (next 10 ACTIVE master institutions with an NRB-proven official_website, by id ascending). Only WEBSITE has a real URL; all other capabilities remain discovery intents.\nPhase R expansion: extended deterministically from 20 to 30 sources (next 10 ACTIVE master institutions with an NRB-proven official_website, by id ascending). Only WEBSITE has a real URL; all other capabilities remain discovery intents.\nPhase R expansion: extended deterministically from 30 to 40 sources (next 10 ACTIVE master institutions with an NRB-proven official_website, by id ascending). Only WEBSITE has a real URL; all other capabilities remain discovery intents.\nPhase R expansion: extended deterministically from 40 to 51 sources (next 11 ACTIVE master institutions with an NRB-proven official_website, by id ascending). Only WEBSITE has a real URL; all other capabilities remain discovery intents.\nPhase F backfill: Discovery results from the pilot evidence DB persisted back into each capability's known_url where a real same-domain page was located & snapshotted (deterministic classification via the shared hint matcher, evidence-anchored: prefers the page that produced the capability's field assertions over a bare hint match; regenerated 2026-09-25). All statuses stay CANDIDATE; nothing is VERIFIED.",
   "sources": [
     {
       "id": "nirdhan-website",
@@ -22,50 +22,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://www.nirdhan.com.np",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.nirdhan.com.np/quaterly-report",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.nirdhan.com.np/news",
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.nirdhan.com.np",
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.nirdhan.com.np",
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no DOCUMENT_ARCHIVE page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
         }
       ]
     },
@@ -88,50 +87,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://www.chhimekbank.org",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no REPORTS page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no NEWS page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no BRANCH_DIRECTORY page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no CAREER_PAGE page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no DOCUMENT_ARCHIVE page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
         }
       ]
     },
@@ -154,50 +152,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://www.meromicrofinance.com",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no REPORTS page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no NEWS page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.meromicrofinance.com/branches",
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no CAREER_PAGE page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no DOCUMENT_ARCHIVE page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
         }
       ]
     },
@@ -220,50 +217,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://matribhumimf.com.np",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://matribhumimf.com.np",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://matribhumimf.com.np/storage/notices/01M31DVW8MF1D5NKWR6A8Y4XY9.pdf",
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http 200, application/pdf)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://matribhumimf.com.np",
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://career.matribhumimf.com.np",
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://matribhumimf.com.np",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
         }
       ]
     },
@@ -286,50 +282,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://infinitylbsl.com.np",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no REPORTS page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no NEWS page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no BRANCH_DIRECTORY page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no CAREER_PAGE page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no DOCUMENT_ARCHIVE page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
         }
       ]
     },
@@ -352,50 +347,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://www.aarambhachautari.com",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.aarambhachautari.com",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.aarambhachautari.com/cat/news",
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.aarambhachautari.com",
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.aarambhachautari.com",
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.aarambhachautari.com",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
         }
       ]
     },
@@ -418,50 +412,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://aatmanirbhar.com.np",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://aatmanirbhar.com.np/annual-general-meeting",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://aatmanirbhar.com.np/news",
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://aatmanirbhar.com.np/contact",
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://aatmanirbhar.com.np/career",
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no DOCUMENT_ARCHIVE page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
         }
       ]
     },
@@ -484,50 +477,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://ashamicrofinance.com.np",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://ashamicrofinance.com.np/financial-reports/interest-rate",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://ashamicrofinance.com.np/news",
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://ashamicrofinance.com.np",
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://ashamicrofinance.com.np/vacancy-2",
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no DOCUMENT_ARCHIVE page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
         }
       ]
     },
@@ -550,50 +542,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://www.aviyanlaghubitta.com",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no REPORTS page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no NEWS page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no BRANCH_DIRECTORY page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no CAREER_PAGE page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no DOCUMENT_ARCHIVE page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
         }
       ]
     },
@@ -616,50 +607,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://cycnlbsl.org.np",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://cycnlbsl.org.np",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://cycnlbsl.org.np/wp-sitemap-posts-notice-1.xml",
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http 200, application/xml; charset=UTF-8)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://cycnlbsl.org.np/wp-sitemap-posts-branch-1.xml",
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http 200, application/xml; charset=UTF-8)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://cycnlbsl.org.np/wp-sitemap-posts-career-1.xml",
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http 200, application/xml; charset=UTF-8)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://cycnlbsl.org.np",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://cycnlbsl.org.np/wp-sitemap-posts-page-1.xml",
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http 200, application/xml; charset=UTF-8)"
         }
       ]
     },
@@ -682,50 +672,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://www.deproscbank.com.np",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.deproscbank.com.np",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.deproscbank.com.np/en/main/pages/notice",
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no BRANCH_DIRECTORY page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.deproscbank.com.np",
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.deproscbank.com.np",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
         }
       ]
     },
@@ -748,50 +737,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://www.swbbl.com.np",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.swbbl.com.np",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.swbbl.com.np/internal-relation-notice",
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no BRANCH_DIRECTORY page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.swbbl.com.np",
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.swbbl.com.np",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
         }
       ]
     },
@@ -814,50 +802,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://www.skbbl.com.np",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.skbbl.com.np",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.skbbl.com.np/download/notices",
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.skbbl.com.np/contact-us",
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.skbbl.com.np",
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.skbbl.com.np",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
         }
       ]
     },
@@ -880,50 +867,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://www.nerudemirmire.com.np",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.nerudemirmire.com.np/annual-report",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.nerudemirmire.com.np/newsandevent",
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.nerudemirmire.com.np/branch",
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.nerudemirmire.com.np/career",
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.nerudemirmire.com.np/download",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
         }
       ]
     },
@@ -946,50 +932,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://mlbbank.com.np",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no REPORTS page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no NEWS page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no BRANCH_DIRECTORY page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no CAREER_PAGE page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no DOCUMENT_ARCHIVE page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
         }
       ]
     },
@@ -1012,50 +997,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://www.slbbl.com.np",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no REPORTS page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no NEWS page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.slbbl.com.np/wp-sitemap-posts-branches-1.xml",
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http 200, application/xml; charset=UTF-8)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no CAREER_PAGE page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no DOCUMENT_ARCHIVE page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.slbbl.com.np/wp-sitemap-posts-financials-1.xml",
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http 200, application/xml; charset=UTF-8)"
         }
       ]
     },
@@ -1078,50 +1062,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://fmdb.com.np",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://fmdb.com.np",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://fmdb.com.np/notices/AGM-Notice",
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no BRANCH_DIRECTORY page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no CAREER_PAGE page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://fmdb.com.np",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
         }
       ]
     },
@@ -1144,50 +1127,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://www.kalikabank.com.np",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.kalikabank.com.np",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.kalikabank.com.np/newsandevent",
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.kalikabank.com.np/branch",
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.kalikabank.com.np/career",
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.kalikabank.com.np",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
         }
       ]
     },
@@ -1210,50 +1192,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://www.jucbank.com.np",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.jucbank.com.np",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.jucbank.com.np/categories/news",
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.jucbank.com.np",
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.jucbank.com.np/categories/career",
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.jucbank.com.np",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
         }
       ]
     },
@@ -1276,50 +1257,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://swmfi.com.np",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://swmfi.com.np",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://swmfi.com.np/notices",
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://swmfi.com.np/branches",
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://swmfi.com.np",
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://swmfi.com.np",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
         }
       ]
     },
@@ -1342,50 +1322,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://laxmilaghu.com.np",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://laxmilaghu.com.np/quartely-reports",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http 200, text/html; charset=UTF-8)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://laxmilaghu.com.np/lxlbnewss",
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://laxmilaghu.com.np/branch-network-2",
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://laxmilaghu.com.np",
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://laxmilaghu.com.np/downloads",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
         }
       ]
     },
@@ -1408,50 +1387,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://himalayanlaghubitta.com",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://himalayanlaghubitta.com",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no NEWS page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://himalayanlaghubitta.com/page/contactus/9",
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://himalayanlaghubitta.com/page/careers/7",
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://himalayanlaghubitta.com",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
         }
       ]
     },
@@ -1474,50 +1452,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://vlbs.com.np",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no REPORTS page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no NEWS page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://vlbs.com.np/branchesmap",
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no CAREER_PAGE page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no DOCUMENT_ARCHIVE page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
         }
       ]
     },
@@ -1540,50 +1517,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://nmbmicrofinance.com",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://nmbmicrofinance.com",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://nmbmicrofinance.com/Reports/2026/7/Finance,%20Audit,%20IT,%20Agricultural%20Technician%20Shortlisted%20Notice-202607271032315200.pdf",
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http 200, application/pdf)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://nmbmicrofinance.com/About/Contactus",
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://nmbmicrofinance.com",
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://nmbmicrofinance.com",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
         }
       ]
     },
@@ -1606,50 +1582,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://forwardmfbank.com.np",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://forwardmfbank.com.np",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://forwardmfbank.com.np/index.php/gallery-notice",
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://forwardmfbank.com.np",
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://forwardmfbank.com.np/index.php/careers",
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://forwardmfbank.com.np",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
         }
       ]
     },
@@ -1672,50 +1647,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://gilb.com.np",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://gilb.com.np/annual-report",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no NEWS page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no BRANCH_DIRECTORY page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no CAREER_PAGE page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no DOCUMENT_ARCHIVE page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://gilb.com.np/category-sitemap.xml",
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http 200, text/xml; charset=UTF-8)"
         }
       ]
     },
@@ -1738,50 +1712,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://www.mslbsl.com.np",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.mslbsl.com.np",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.mslbsl.com.np/noticeboard",
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.mslbsl.com.np/branches",
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.mslbsl.com.np/career/online-registration",
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.mslbsl.com.np",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
         }
       ]
     },
@@ -1804,50 +1777,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://www.samata.org.np",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.samata.org.np/reports",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.samata.org.np/bod-election-notice-2078",
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.samata.org.np/about-us/branch-network",
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no CAREER_PAGE page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.samata.org.np/download",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
         }
       ]
     },
@@ -1870,50 +1842,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://www.rsdcmf.com",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.rsdcmf.com/annual-reports",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.rsdcmf.com/news-and-events",
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.rsdcmf.com/branches",
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.rsdcmf.com",
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.rsdcmf.com/downloads",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
         }
       ]
     },
@@ -1936,50 +1907,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://www.slbsl.com.np",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.slbsl.com.np/agmReport.html",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.slbsl.com.np/notices.html",
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.slbsl.com.np/branchDetails.html",
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.slbsl.com.np/career.html",
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.slbsl.com.np/downloads.html",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
         }
       ]
     },
@@ -2002,50 +1972,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://nationalmicrofinance.com.np",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://nationalmicrofinance.com.np/annual-report",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no NEWS page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://nationalmicrofinance.com.np/contact-us",
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://nationalmicrofinance.com.np/career",
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no DOCUMENT_ARCHIVE page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
         }
       ]
     },
@@ -2068,50 +2037,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://www.gblbs.com.np",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.gblbs.com.np",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.gblbs.com.np/cnotices.html",
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.gblbs.com.np",
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no CAREER_PAGE page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.gblbs.com.np",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
         }
       ]
     },
@@ -2134,50 +2102,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://weannepal.com",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://weannepal.com/wean-nepal-reports-sitemap.xml",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http 200, text/xml; charset=UTF-8)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://weannepal.com/wean-nepal-notices-sitemap.xml",
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http 200, text/xml; charset=UTF-8)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no BRANCH_DIRECTORY page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no CAREER_PAGE page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://weannepal.com/wean-nepal-downloads-sitemap.xml",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http 200, text/xml; charset=UTF-8)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://weannepal.com/author-sitemap.xml",
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http 200, text/xml; charset=UTF-8)"
         }
       ]
     },
@@ -2200,50 +2167,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://unnatislbs.com.np",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no REPORTS page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no NEWS page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://unnatislbs.com.np/branches-map",
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no CAREER_PAGE page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no DOCUMENT_ARCHIVE page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
         }
       ]
     },
@@ -2266,50 +2232,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://www.nadeplaghubitta.com",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.nadeplaghubitta.com",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.nadeplaghubitta.com/35-days-notice",
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.nadeplaghubitta.com/contact",
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no CAREER_PAGE page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.nadeplaghubitta.com",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.nadeplaghubitta.com/wp-sitemap-posts-page-1.xml",
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http 200, application/xml; charset=UTF-8)"
         }
       ]
     },
@@ -2332,50 +2297,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://www.supportmicrofinance.com.np",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.supportmicrofinance.com.np/annual-report",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.supportmicrofinance.com.np/notice",
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.supportmicrofinance.com.np/branch",
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.supportmicrofinance.com.np/career",
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no DOCUMENT_ARCHIVE page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
         }
       ]
     },
@@ -2398,50 +2362,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://guranslaghubitta.com.np",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no REPORTS page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no NEWS page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no BRANCH_DIRECTORY page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no CAREER_PAGE page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no DOCUMENT_ARCHIVE page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
         }
       ]
     },
@@ -2464,50 +2427,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://ganapatimicro.com.np",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no REPORTS page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no NEWS page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no BRANCH_DIRECTORY page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no CAREER_PAGE page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no DOCUMENT_ARCHIVE page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
         }
       ]
     },
@@ -2530,50 +2492,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://swabhimaanlaghubitta.com.np",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no REPORTS page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no NEWS page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no BRANCH_DIRECTORY page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no CAREER_PAGE page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no DOCUMENT_ARCHIVE page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://swabhimaanlaghubitta.com.np/author-sitemap.xml",
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http 200, text/xml; charset=UTF-8)"
         }
       ]
     },
@@ -2596,50 +2557,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://www.sampadalaghubitta.com.np",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.sampadalaghubitta.com.np/document/annual-report",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.sampadalaghubitta.com.np/notices",
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.sampadalaghubitta.com.np/branches",
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no CAREER_PAGE page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.sampadalaghubitta.com.np/upload/document/1779192979-Proxy%20Form.pdf",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http 200, application/pdf)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
         }
       ]
     },
@@ -2662,50 +2622,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://www.nicasialaghubitta.com",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no REPORTS page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no NEWS page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no BRANCH_DIRECTORY page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no CAREER_PAGE page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no DOCUMENT_ARCHIVE page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
         }
       ]
     },
@@ -2728,50 +2687,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://www.mlbsl.com.np",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.mlbsl.com.np/downloads/annual-report",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no NEWS page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.mlbsl.com.np/branches/category/branch-office",
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no CAREER_PAGE page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.mlbsl.com.np/downloads/financial-literacymember-training",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
         }
       ]
     },
@@ -2794,50 +2752,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://www.manushilbs.com",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no REPORTS page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no NEWS page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no BRANCH_DIRECTORY page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no CAREER_PAGE page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no DOCUMENT_ARCHIVE page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
         }
       ]
     },
@@ -2860,50 +2817,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://uniquenepalmicrofinance.com.np",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://uniquenepalmicrofinance.com.np",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://uniquenepalmicrofinance.com.np/news",
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://uniquenepalmicrofinance.com.np",
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://uniquenepalmicrofinance.com.np/career",
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://uniquenepalmicrofinance.com.np",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
         }
       ]
     },
@@ -2926,50 +2882,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://www.ulbsl.com.np",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.ulbsl.com.np/report",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.ulbsl.com.np/news",
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.ulbsl.com.np/branch",
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://www.ulbsl.com.np",
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no DOCUMENT_ARCHIVE page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
         }
       ]
     },
@@ -2992,50 +2947,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://dhaulagiribank.com",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://dhaulagiribank.com/annual-report",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://dhaulagiribank.com/news-events",
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://dhaulagiribank.com",
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://dhaulagiribank.com",
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no DOCUMENT_ARCHIVE page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
         }
       ]
     },
@@ -3058,50 +3012,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://slbs.nesdonepal.org",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no REPORTS page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no NEWS page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no BRANCH_DIRECTORY page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no CAREER_PAGE page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no DOCUMENT_ARCHIVE page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
         }
       ]
     },
@@ -3124,50 +3077,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://swastiklbs.com.np",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://swastiklbs.com.np/annual-report",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://swastiklbs.com.np/news-events-%e0%a4%b8%e0%a5%81%e0%a4%9a%e0%a4%a8%e0%a4%be-%e0%a4%a4%e0%a4%a5%e0%a4%be-%e0%a4%95%e0%a4%be%e0%a4%b0%e0%a5%8d%e0%a4%af%e0%a4%95%e0%a5%8d%e0%a4%b0%e0%a4%ae%e0%a4%b9%e0%a4%b0%e0%a5%81",
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no BRANCH_DIRECTORY page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no CAREER_PAGE page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no DOCUMENT_ARCHIVE page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://swastiklbs.com.np/wp-sitemap-posts-page-1.xml",
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http 200, application/xml; charset=UTF-8)"
         }
       ]
     },
@@ -3190,50 +3142,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://shrijanshil.org",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no REPORTS page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no NEWS page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no BRANCH_DIRECTORY page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no CAREER_PAGE page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no DOCUMENT_ARCHIVE page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
         }
       ]
     },
@@ -3256,50 +3207,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://jeevanbikasmf.com",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://jeevanbikasmf.com",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://jeevanbikasmf.com/notice",
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://jeevanbikasmf.com/contact-us",
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://jeevanbikasmf.com/career",
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=link (http ?, ?)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
-          "known_url": null,
+          "known_url": "https://jeevanbikasmf.com",
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: anchor=evidence-homepage (http 200, text/html)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
         }
       ]
     },
@@ -3322,50 +3272,49 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://sanjeevanilaghubitta.com.np",
-          "link_type": "WEBSITE",
-          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+          "link_type": "WEBSITE"
         },
         {
           "capability": "REPORTS",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no REPORTS page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "NEWS",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "NOTICE_BOARD",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no NEWS page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "BRANCH_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no BRANCH_DIRECTORY page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "CAREER_PAGE",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "CAREER_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no CAREER_PAGE page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "DOCUMENT_ARCHIVE",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "REPORT_PAGE",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no DOCUMENT_ARCHIVE page located (0 hint pages fetched, 0 evidence-producing URLs)"
         },
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
           "known_url": null,
           "link_type": "OTHER",
-          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+          "note": "phase F backfill 2026-09-25: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
         }
       ]
     }
