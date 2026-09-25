@@ -97,3 +97,48 @@ export interface IndustryReport {
   metrics: ReportMetric[];
   category: string;
 }
+
+export interface CrawlSource {
+  sourceId: string;
+  institutionId: string;
+  website: string;
+  capabilities: string[];
+  runs: number;
+  snapshots: number;
+  items: number;
+  documents: number;
+  errors: number;
+  changedItems: number;
+  discoveredUrls: number;
+  status: string;
+  lastStatus: string | null;
+  lastRun: string | null;
+  branchCount: number;
+  vacancyCount: number;
+  documentCount: number;
+  branchNames: string[];
+  vacancyTitles: string[];
+  documentTitles: string[];
+}
+
+export interface CrawlSummary {
+  generatedAt: string;
+  mode: string;
+  institutions: number;
+  sources: number;
+  withEvidence: number;
+  runs: number;
+  items: number;
+  snapshots: number;
+  documents: number;
+  errors: number;
+  fetchFailures: number;
+  passCount: number;
+  failCount: number;
+  pendingCount: number;
+  conflictsOpen: number;
+  duplicateSnapshotGroups: number;
+  pdfSnapshots: number;
+  healthy: number;
+  degraded: number;
+}

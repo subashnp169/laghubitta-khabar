@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { institutions } from "@/data/institutions";
+import { crawlSummary } from "@/data/pilot";
 import InstitutionCard from "@/components/institutions/InstitutionCard";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "MFI Directory — Laghubitta Khabar",
@@ -18,6 +20,10 @@ export default function InstitutionsPage() {
         </div>
         <h1 className="text-2xl font-bold text-slate-800">MFI Directory</h1>
         <p className="text-sm text-slate-500 mt-1">{institutions.length} licensed Class D institutions</p>
+        <p className="text-xs text-slate-400 mt-1">
+          Ingestion pipeline covers {crawlSummary.sources} institutions ({crawlSummary.withEvidence} with evidence snapshots)
+          <Link href="/ingestion" className="text-mfi-600 hover:underline ml-1">Control Room →</Link>
+        </p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

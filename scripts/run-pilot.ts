@@ -20,14 +20,21 @@ import { join } from "node:path";
 import {
   BrowserDiscovery,
   buildEngine,
+  composeExtractors,
   ControlledFetcher,
   deterministicHtmlCanonicalizer,
+  financialMetadataExtractor,
   LocalSqliteEvidenceWriter,
   LocalSourceRegistry,
   nodeResolveHost,
+  peopleExtractor,
+  peopleValidators,
   pilotValidators,
+  branchDirectoryExtractor,
+  structuredValidators,
+  vacancyExtractor,
 } from "../lib/ingestion";
-import type { ExtractedEvidence } from "../lib/ingestion";
+import type { ExtractedEvidence, HtmlExtractor } from "../lib/ingestion";
 
 const require = createRequire(import.meta.url);
 const Database = require("better-sqlite3") as new (p: string) => {
@@ -55,19 +62,13 @@ const BUDGET_JSON = join(process.cwd(), "data", "pilot", "pilot-budget.json");
 // ---------------------------------------------------------------------------
 // Deterministic extraction (Phase L: AI stays OFF). Only structured, obvious
 // fields with confidence floors. No invented values; nothing high-confidence
-// that isn't literally on the page.
+// that isn't literally on the page. Phase R3/R4 modules (people, branches,
+// vacancies, financial document metadata) are composed in and self-limit by
+// the page capability.
 // ---------------------------------------------------------------------------
-const pilotExtractor = {
+const pilotExtractor: HtmlExtractor = {
   parserId: "pilot-html-v1",
-  async extract(ctx: {
-    sourceId: string;
-    institutionId?: string;
-    capability: string;
-    url: string;
-    parserId: string;
-    contentHash: string;
-    body: Uint8Array;
-  }): Promise<ExtractedEvidence[]> {
+  async extract(ctx) {
     const text = new TextDecoder().decode(ctx.body);
     const out: ExtractedEvidence[] = [];
     const t = /<title[^>]*>([\s\S]*?)<\/title>/i.exec(text)?.[1]
@@ -98,6 +99,20 @@ const pilotExtractor = {
     return out;
   },
 };
+
+const pilotStructuredExtractor: HtmlExtractor = composeExtractors(
+  composeExtractors(pilotExtractor, peopleExtractor),
+  composeExtractors(
+    branchDirectoryExtractor,
+    composeExtractors(vacancyExtractor, financialMetadataExtractor),
+  ),
+);
+
+const pilotAllValidators = [
+  ...pilotValidators,
+  ...peopleValidators,
+  ...structuredValidators,
+];
 
 async function main(): Promise<void> {
   const repeat = process.argv.includes("--repeat");
@@ -138,6 +153,22 @@ async function main(): Promise<void> {
     db2.prepare(
       `INSERT OR IGNORE INTO validation_rules (id, rule_code, name, category, severity, active, params_json)
        VALUES ('r-pilot-email', 'PILOT_EMAIL', 'pilot email field sanity', 'SANITY', 'WARN', 1, '{}')`,
+    ).run();
+    db2.prepare(
+      `INSERT OR IGNORE INTO validation_rules (id, rule_code, name, category, severity, active, params_json)
+       VALUES ('r-people-directory', 'PEOPLE_DIRECTORY', 'people directory extraction', 'SANITY', 'WARN', 1, '{}')`,
+    ).run();
+    db2.prepare(
+      `INSERT OR IGNORE INTO validation_rules (id, rule_code, name, category, severity, active, params_json)
+       VALUES ('r-branch-directory', 'BRANCH_DIRECTORY', 'branch directory extraction', 'SANITY', 'WARN', 1, '{}')`,
+    ).run();
+    db2.prepare(
+      `INSERT OR IGNORE INTO validation_rules (id, rule_code, name, category, severity, active, params_json)
+       VALUES ('r-vacancies', 'VACANCIES', 'career vacancy extraction', 'SANITY', 'WARN', 1, '{}')`,
+    ).run();
+    db2.prepare(
+      `INSERT OR IGNORE INTO validation_rules (id, rule_code, name, category, severity, active, params_json)
+       VALUES ('r-financial-metadata', 'FINANCIAL_METADATA', 'financial document metadata extraction', 'SANITY', 'WARN', 1, '{}')`,
     ).run();
     db2.close();
   }
@@ -190,10 +221,10 @@ async function main(): Promise<void> {
             maxTargets: budget.maxTargets,
           },
         ),
-        extractor: pilotExtractor,
+        extractor: pilotStructuredExtractor,
         writer: new LocalSqliteEvidenceWriter(dbPath),
         canonicalizer: deterministicHtmlCanonicalizer,
-        validators: pilotValidators,
+        validators: pilotAllValidators,
       };
       const engine = buildEngine(deps);
       const out = await engine.runSource(s.id, { budget, now: new Date().toISOString() });

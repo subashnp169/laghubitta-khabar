@@ -1,7 +1,7 @@
 {
   "$schema": "pilot-evidence/v1",
-  "generated_at": "2026-09-24T18:10:55.484Z",
-  "provenance_note": "Phase B canonical evidence records for the 10-MFB ingestion pilot (mfi-030, mfi-049, mfi-031, mfi-051, mfi-043 added in the 5→10 expansion; baseline 5: mfi-001, mfi-003, mfi-020, mfi-034, mfi-047). Only URLs with a real backing source are recorded. The sole proven URL per institution is the official website as published in the NRB BFI list (source nrb-bfi-mid-may-2026). All secondary capabilities (reports, notices, branches, career, news) are DISCOVERY INTENTS: known_url=null until Phase F discovery locates and snapshots a real page under the site domain. Nothing here is marked VERIFIED; every record starts CANDIDATE. No URL in this file was invented: every non-null url traces to nrb-bfi-mid-may-2026 (official_links entries, status=CANDIDATE, verified=0).",
+  "generated_at": "2026-09-25T10:17:19.345Z",
+  "provenance_note": "Phase B canonical evidence records for the 10-MFB ingestion pilot (mfi-030, mfi-049, mfi-031, mfi-051, mfi-043 added in the 5→10 expansion; baseline 5: mfi-001, mfi-003, mfi-020, mfi-034, mfi-047). Only URLs with a real backing source are recorded. The sole proven URL per institution is the official website as published in the NRB BFI list (source nrb-bfi-mid-may-2026). All secondary capabilities (reports, notices, branches, career, news) are DISCOVERY INTENTS: known_url=null until Phase F discovery locates and snapshots a real page under the site domain. Nothing here is marked VERIFIED; every record starts CANDIDATE. No URL in this file was invented: every non-null url traces to nrb-bfi-mid-may-2026 (official_links entries, status=CANDIDATE, verified=0).\nPhase R expansion: extended deterministically from 10 to 20 sources (next 10 ACTIVE master institutions with an NRB-proven official_website, by id ascending). Only WEBSITE has a real URL; all other capabilities remain discovery intents.\nPhase R expansion: extended deterministically from 20 to 30 sources (next 10 ACTIVE master institutions with an NRB-proven official_website, by id ascending). Only WEBSITE has a real URL; all other capabilities remain discovery intents.\nPhase R expansion: extended deterministically from 30 to 40 sources (next 10 ACTIVE master institutions with an NRB-proven official_website, by id ascending). Only WEBSITE has a real URL; all other capabilities remain discovery intents.\nPhase R expansion: extended deterministically from 40 to 51 sources (next 11 ACTIVE master institutions with an NRB-proven official_website, by id ascending). Only WEBSITE has a real URL; all other capabilities remain discovery intents.",
   "sources": [
     {
       "id": "nirdhan-website",
@@ -616,6 +616,2712 @@
           "capability": "WEBSITE",
           "status": "CANDIDATE",
           "known_url": "https://cycnlbsl.org.np",
+          "link_type": "WEBSITE",
+          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+        },
+        {
+          "capability": "REPORTS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "NEWS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "NOTICE_BOARD",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "BRANCH_DIRECTORY",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "BRANCH_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "CAREER_PAGE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "CAREER_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "SITEMAP",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "OTHER",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        }
+      ]
+    },
+    {
+      "id": "deproscbank-website",
+      "source_type": "MFB_WEBSITE",
+      "source_scope": "INSTITUTION",
+      "source_grade": "A",
+      "institution_id": "mfi-002",
+      "url": "https://www.deproscbank.com.np",
+      "domain": "www.deproscbank.com.np",
+      "title": "Deprosc Laghubitta Bittiya Sanstha Ltd. — official website",
+      "publisher": "Deprosc Laghubitta Bittiya Sanstha Ltd.",
+      "proven_by": "nrb-bfi-mid-may-2026",
+      "status": "CANDIDATE",
+      "verified": 0,
+      "is_active": 1,
+      "capabilities": [
+        {
+          "capability": "WEBSITE",
+          "status": "CANDIDATE",
+          "known_url": "https://www.deproscbank.com.np",
+          "link_type": "WEBSITE",
+          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+        },
+        {
+          "capability": "REPORTS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "NEWS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "NOTICE_BOARD",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "BRANCH_DIRECTORY",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "BRANCH_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "CAREER_PAGE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "CAREER_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "SITEMAP",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "OTHER",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        }
+      ]
+    },
+    {
+      "id": "swbbl-website",
+      "source_type": "MFB_WEBSITE",
+      "source_scope": "INSTITUTION",
+      "source_grade": "A",
+      "institution_id": "mfi-004",
+      "url": "https://www.swbbl.com.np",
+      "domain": "www.swbbl.com.np",
+      "title": "Swabalamban Laghubitta Bittiya Sanstha Ltd. — official website",
+      "publisher": "Swabalamban Laghubitta Bittiya Sanstha Ltd.",
+      "proven_by": "nrb-bfi-mid-may-2026",
+      "status": "CANDIDATE",
+      "verified": 0,
+      "is_active": 1,
+      "capabilities": [
+        {
+          "capability": "WEBSITE",
+          "status": "CANDIDATE",
+          "known_url": "https://www.swbbl.com.np",
+          "link_type": "WEBSITE",
+          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+        },
+        {
+          "capability": "REPORTS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "NEWS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "NOTICE_BOARD",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "BRANCH_DIRECTORY",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "BRANCH_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "CAREER_PAGE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "CAREER_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "SITEMAP",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "OTHER",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        }
+      ]
+    },
+    {
+      "id": "skbbl-website",
+      "source_type": "MFB_WEBSITE",
+      "source_scope": "INSTITUTION",
+      "source_grade": "A",
+      "institution_id": "mfi-005",
+      "url": "https://www.skbbl.com.np",
+      "domain": "www.skbbl.com.np",
+      "title": "Sana Kisan Bikas Laghubitta Bittiya Sanstha Ltd. — official website",
+      "publisher": "Sana Kisan Bikas Laghubitta Bittiya Sanstha Ltd.",
+      "proven_by": "nrb-bfi-mid-may-2026",
+      "status": "CANDIDATE",
+      "verified": 0,
+      "is_active": 1,
+      "capabilities": [
+        {
+          "capability": "WEBSITE",
+          "status": "CANDIDATE",
+          "known_url": "https://www.skbbl.com.np",
+          "link_type": "WEBSITE",
+          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+        },
+        {
+          "capability": "REPORTS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "NEWS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "NOTICE_BOARD",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "BRANCH_DIRECTORY",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "BRANCH_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "CAREER_PAGE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "CAREER_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "SITEMAP",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "OTHER",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        }
+      ]
+    },
+    {
+      "id": "nerudemirmire-website",
+      "source_type": "MFB_WEBSITE",
+      "source_scope": "INSTITUTION",
+      "source_grade": "A",
+      "institution_id": "mfi-006",
+      "url": "https://www.nerudemirmire.com.np",
+      "domain": "www.nerudemirmire.com.np",
+      "title": "Nerude Mirmire Laghubitta Bittiya Sanstha Ltd. — official website",
+      "publisher": "Nerude Mirmire Laghubitta Bittiya Sanstha Ltd.",
+      "proven_by": "nrb-bfi-mid-may-2026",
+      "status": "CANDIDATE",
+      "verified": 0,
+      "is_active": 1,
+      "capabilities": [
+        {
+          "capability": "WEBSITE",
+          "status": "CANDIDATE",
+          "known_url": "https://www.nerudemirmire.com.np",
+          "link_type": "WEBSITE",
+          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+        },
+        {
+          "capability": "REPORTS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "NEWS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "NOTICE_BOARD",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "BRANCH_DIRECTORY",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "BRANCH_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "CAREER_PAGE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "CAREER_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "SITEMAP",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "OTHER",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        }
+      ]
+    },
+    {
+      "id": "mlbbank-website",
+      "source_type": "MFB_WEBSITE",
+      "source_scope": "INSTITUTION",
+      "source_grade": "A",
+      "institution_id": "mfi-007",
+      "url": "https://mlbbank.com.np",
+      "domain": "mlbbank.com.np",
+      "title": "Mithila Laghubitta Bittiya Sanstha Ltd. — official website",
+      "publisher": "Mithila Laghubitta Bittiya Sanstha Ltd.",
+      "proven_by": "nrb-bfi-mid-may-2026",
+      "status": "CANDIDATE",
+      "verified": 0,
+      "is_active": 1,
+      "capabilities": [
+        {
+          "capability": "WEBSITE",
+          "status": "CANDIDATE",
+          "known_url": "https://mlbbank.com.np",
+          "link_type": "WEBSITE",
+          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+        },
+        {
+          "capability": "REPORTS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "NEWS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "NOTICE_BOARD",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "BRANCH_DIRECTORY",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "BRANCH_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "CAREER_PAGE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "CAREER_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "SITEMAP",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "OTHER",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        }
+      ]
+    },
+    {
+      "id": "slbbl-website",
+      "source_type": "MFB_WEBSITE",
+      "source_scope": "INSTITUTION",
+      "source_grade": "A",
+      "institution_id": "mfi-008",
+      "url": "https://www.slbbl.com.np",
+      "domain": "www.slbbl.com.np",
+      "title": "Sworojgar Laghubitta Bittiya Sanstha Ltd. — official website",
+      "publisher": "Sworojgar Laghubitta Bittiya Sanstha Ltd.",
+      "proven_by": "nrb-bfi-mid-may-2026",
+      "status": "CANDIDATE",
+      "verified": 0,
+      "is_active": 1,
+      "capabilities": [
+        {
+          "capability": "WEBSITE",
+          "status": "CANDIDATE",
+          "known_url": "https://www.slbbl.com.np",
+          "link_type": "WEBSITE",
+          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+        },
+        {
+          "capability": "REPORTS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "NEWS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "NOTICE_BOARD",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "BRANCH_DIRECTORY",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "BRANCH_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "CAREER_PAGE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "CAREER_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "SITEMAP",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "OTHER",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        }
+      ]
+    },
+    {
+      "id": "fmdb-website",
+      "source_type": "MFB_WEBSITE",
+      "source_scope": "INSTITUTION",
+      "source_grade": "A",
+      "institution_id": "mfi-009",
+      "url": "https://fmdb.com.np",
+      "domain": "fmdb.com.np",
+      "title": "First Microfinance Laghubitta Bittiya Sanstha Ltd. — official website",
+      "publisher": "First Microfinance Laghubitta Bittiya Sanstha Ltd.",
+      "proven_by": "nrb-bfi-mid-may-2026",
+      "status": "CANDIDATE",
+      "verified": 0,
+      "is_active": 1,
+      "capabilities": [
+        {
+          "capability": "WEBSITE",
+          "status": "CANDIDATE",
+          "known_url": "https://fmdb.com.np",
+          "link_type": "WEBSITE",
+          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+        },
+        {
+          "capability": "REPORTS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "NEWS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "NOTICE_BOARD",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "BRANCH_DIRECTORY",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "BRANCH_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "CAREER_PAGE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "CAREER_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "SITEMAP",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "OTHER",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        }
+      ]
+    },
+    {
+      "id": "kalikabank-website",
+      "source_type": "MFB_WEBSITE",
+      "source_scope": "INSTITUTION",
+      "source_grade": "A",
+      "institution_id": "mfi-010",
+      "url": "https://www.kalikabank.com.np",
+      "domain": "www.kalikabank.com.np",
+      "title": "Kalika Laghubitta Bittiya Sanstha Ltd. — official website",
+      "publisher": "Kalika Laghubitta Bittiya Sanstha Ltd.",
+      "proven_by": "nrb-bfi-mid-may-2026",
+      "status": "CANDIDATE",
+      "verified": 0,
+      "is_active": 1,
+      "capabilities": [
+        {
+          "capability": "WEBSITE",
+          "status": "CANDIDATE",
+          "known_url": "https://www.kalikabank.com.np",
+          "link_type": "WEBSITE",
+          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+        },
+        {
+          "capability": "REPORTS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "NEWS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "NOTICE_BOARD",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "BRANCH_DIRECTORY",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "BRANCH_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "CAREER_PAGE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "CAREER_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "SITEMAP",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "OTHER",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        }
+      ]
+    },
+    {
+      "id": "jucbank-website",
+      "source_type": "MFB_WEBSITE",
+      "source_scope": "INSTITUTION",
+      "source_grade": "A",
+      "institution_id": "mfi-011",
+      "url": "https://www.jucbank.com.np",
+      "domain": "www.jucbank.com.np",
+      "title": "Janautthan Samudayik Laghubitta Bittiya Sanstha Ltd. — official website",
+      "publisher": "Janautthan Samudayik Laghubitta Bittiya Sanstha Ltd.",
+      "proven_by": "nrb-bfi-mid-may-2026",
+      "status": "CANDIDATE",
+      "verified": 0,
+      "is_active": 1,
+      "capabilities": [
+        {
+          "capability": "WEBSITE",
+          "status": "CANDIDATE",
+          "known_url": "https://www.jucbank.com.np",
+          "link_type": "WEBSITE",
+          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+        },
+        {
+          "capability": "REPORTS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "NEWS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "NOTICE_BOARD",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "BRANCH_DIRECTORY",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "BRANCH_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "CAREER_PAGE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "CAREER_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "SITEMAP",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "OTHER",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        }
+      ]
+    },
+    {
+      "id": "swmfi-website",
+      "source_type": "MFB_WEBSITE",
+      "source_scope": "INSTITUTION",
+      "source_grade": "A",
+      "institution_id": "mfi-012",
+      "url": "https://swmfi.com.np",
+      "domain": "swmfi.com.np",
+      "title": "Suryodaya Womi Laghubitta Bittiya Sanstha Ltd. — official website",
+      "publisher": "Suryodaya Womi Laghubitta Bittiya Sanstha Ltd.",
+      "proven_by": "nrb-bfi-mid-may-2026",
+      "status": "CANDIDATE",
+      "verified": 0,
+      "is_active": 1,
+      "capabilities": [
+        {
+          "capability": "WEBSITE",
+          "status": "CANDIDATE",
+          "known_url": "https://swmfi.com.np",
+          "link_type": "WEBSITE",
+          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+        },
+        {
+          "capability": "REPORTS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "NEWS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "NOTICE_BOARD",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "BRANCH_DIRECTORY",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "BRANCH_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "CAREER_PAGE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "CAREER_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "SITEMAP",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "OTHER",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        }
+      ]
+    },
+    {
+      "id": "laxmilaghu-website",
+      "source_type": "MFB_WEBSITE",
+      "source_scope": "INSTITUTION",
+      "source_grade": "A",
+      "institution_id": "mfi-013",
+      "url": "https://laxmilaghu.com.np",
+      "domain": "laxmilaghu.com.np",
+      "title": "Laxmi Laghubitta Bittiya Sanstha Ltd. — official website",
+      "publisher": "Laxmi Laghubitta Bittiya Sanstha Ltd.",
+      "proven_by": "nrb-bfi-mid-may-2026",
+      "status": "CANDIDATE",
+      "verified": 0,
+      "is_active": 1,
+      "capabilities": [
+        {
+          "capability": "WEBSITE",
+          "status": "CANDIDATE",
+          "known_url": "https://laxmilaghu.com.np",
+          "link_type": "WEBSITE",
+          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+        },
+        {
+          "capability": "REPORTS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "NEWS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "NOTICE_BOARD",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "BRANCH_DIRECTORY",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "BRANCH_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "CAREER_PAGE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "CAREER_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "SITEMAP",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "OTHER",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        }
+      ]
+    },
+    {
+      "id": "himalayanlaghubitta-website",
+      "source_type": "MFB_WEBSITE",
+      "source_scope": "INSTITUTION",
+      "source_grade": "A",
+      "institution_id": "mfi-014",
+      "url": "https://himalayanlaghubitta.com",
+      "domain": "himalayanlaghubitta.com",
+      "title": "Himalayan Laghubitta Bittiya Sanstha Ltd. — official website",
+      "publisher": "Himalayan Laghubitta Bittiya Sanstha Ltd.",
+      "proven_by": "nrb-bfi-mid-may-2026",
+      "status": "CANDIDATE",
+      "verified": 0,
+      "is_active": 1,
+      "capabilities": [
+        {
+          "capability": "WEBSITE",
+          "status": "CANDIDATE",
+          "known_url": "https://himalayanlaghubitta.com",
+          "link_type": "WEBSITE",
+          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+        },
+        {
+          "capability": "REPORTS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "NEWS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "NOTICE_BOARD",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "BRANCH_DIRECTORY",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "BRANCH_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "CAREER_PAGE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "CAREER_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "SITEMAP",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "OTHER",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        }
+      ]
+    },
+    {
+      "id": "vlbs-website",
+      "source_type": "MFB_WEBSITE",
+      "source_scope": "INSTITUTION",
+      "source_grade": "A",
+      "institution_id": "mfi-015",
+      "url": "https://vlbs.com.np",
+      "domain": "vlbs.com.np",
+      "title": "Vijaya Laghubitta Bittiya Sanstha Ltd. — official website",
+      "publisher": "Vijaya Laghubitta Bittiya Sanstha Ltd.",
+      "proven_by": "nrb-bfi-mid-may-2026",
+      "status": "CANDIDATE",
+      "verified": 0,
+      "is_active": 1,
+      "capabilities": [
+        {
+          "capability": "WEBSITE",
+          "status": "CANDIDATE",
+          "known_url": "https://vlbs.com.np",
+          "link_type": "WEBSITE",
+          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+        },
+        {
+          "capability": "REPORTS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "NEWS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "NOTICE_BOARD",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "BRANCH_DIRECTORY",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "BRANCH_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "CAREER_PAGE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "CAREER_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "SITEMAP",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "OTHER",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        }
+      ]
+    },
+    {
+      "id": "nmbmicrofinance-website",
+      "source_type": "MFB_WEBSITE",
+      "source_scope": "INSTITUTION",
+      "source_grade": "A",
+      "institution_id": "mfi-016",
+      "url": "https://nmbmicrofinance.com",
+      "domain": "nmbmicrofinance.com",
+      "title": "NMB Laghubitta Bittiya Sanstha Ltd. — official website",
+      "publisher": "NMB Laghubitta Bittiya Sanstha Ltd.",
+      "proven_by": "nrb-bfi-mid-may-2026",
+      "status": "CANDIDATE",
+      "verified": 0,
+      "is_active": 1,
+      "capabilities": [
+        {
+          "capability": "WEBSITE",
+          "status": "CANDIDATE",
+          "known_url": "https://nmbmicrofinance.com",
+          "link_type": "WEBSITE",
+          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+        },
+        {
+          "capability": "REPORTS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "NEWS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "NOTICE_BOARD",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "BRANCH_DIRECTORY",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "BRANCH_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "CAREER_PAGE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "CAREER_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "SITEMAP",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "OTHER",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        }
+      ]
+    },
+    {
+      "id": "forwardmfbank-website",
+      "source_type": "MFB_WEBSITE",
+      "source_scope": "INSTITUTION",
+      "source_grade": "A",
+      "institution_id": "mfi-017",
+      "url": "https://forwardmfbank.com.np",
+      "domain": "forwardmfbank.com.np",
+      "title": "Forward Microfinance Laghubitta Bittiya Sanstha Ltd. — official website",
+      "publisher": "Forward Microfinance Laghubitta Bittiya Sanstha Ltd.",
+      "proven_by": "nrb-bfi-mid-may-2026",
+      "status": "CANDIDATE",
+      "verified": 0,
+      "is_active": 1,
+      "capabilities": [
+        {
+          "capability": "WEBSITE",
+          "status": "CANDIDATE",
+          "known_url": "https://forwardmfbank.com.np",
+          "link_type": "WEBSITE",
+          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+        },
+        {
+          "capability": "REPORTS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "NEWS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "NOTICE_BOARD",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "BRANCH_DIRECTORY",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "BRANCH_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "CAREER_PAGE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "CAREER_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "SITEMAP",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "OTHER",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        }
+      ]
+    },
+    {
+      "id": "gilb-website",
+      "source_type": "MFB_WEBSITE",
+      "source_scope": "INSTITUTION",
+      "source_grade": "A",
+      "institution_id": "mfi-018",
+      "url": "https://gilb.com.np",
+      "domain": "gilb.com.np",
+      "title": "Global IME Laghubitta Bittiya Sanstha Ltd. — official website",
+      "publisher": "Global IME Laghubitta Bittiya Sanstha Ltd.",
+      "proven_by": "nrb-bfi-mid-may-2026",
+      "status": "CANDIDATE",
+      "verified": 0,
+      "is_active": 1,
+      "capabilities": [
+        {
+          "capability": "WEBSITE",
+          "status": "CANDIDATE",
+          "known_url": "https://gilb.com.np",
+          "link_type": "WEBSITE",
+          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+        },
+        {
+          "capability": "REPORTS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "NEWS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "NOTICE_BOARD",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "BRANCH_DIRECTORY",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "BRANCH_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "CAREER_PAGE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "CAREER_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "SITEMAP",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "OTHER",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        }
+      ]
+    },
+    {
+      "id": "mslbsl-website",
+      "source_type": "MFB_WEBSITE",
+      "source_scope": "INSTITUTION",
+      "source_grade": "A",
+      "institution_id": "mfi-019",
+      "url": "https://www.mslbsl.com.np",
+      "domain": "www.mslbsl.com.np",
+      "title": "Mahuli Laghubitta Bittiya Sanstha Ltd. — official website",
+      "publisher": "Mahuli Laghubitta Bittiya Sanstha Ltd.",
+      "proven_by": "nrb-bfi-mid-may-2026",
+      "status": "CANDIDATE",
+      "verified": 0,
+      "is_active": 1,
+      "capabilities": [
+        {
+          "capability": "WEBSITE",
+          "status": "CANDIDATE",
+          "known_url": "https://www.mslbsl.com.np",
+          "link_type": "WEBSITE",
+          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+        },
+        {
+          "capability": "REPORTS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "NEWS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "NOTICE_BOARD",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "BRANCH_DIRECTORY",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "BRANCH_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "CAREER_PAGE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "CAREER_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "SITEMAP",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "OTHER",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        }
+      ]
+    },
+    {
+      "id": "samata-website",
+      "source_type": "MFB_WEBSITE",
+      "source_scope": "INSTITUTION",
+      "source_grade": "A",
+      "institution_id": "mfi-021",
+      "url": "https://www.samata.org.np",
+      "domain": "www.samata.org.np",
+      "title": "Samata Gharelu Laghubitta Bittiya Sanstha Ltd. — official website",
+      "publisher": "Samata Gharelu Laghubitta Bittiya Sanstha Ltd.",
+      "proven_by": "nrb-bfi-mid-may-2026",
+      "status": "CANDIDATE",
+      "verified": 0,
+      "is_active": 1,
+      "capabilities": [
+        {
+          "capability": "WEBSITE",
+          "status": "CANDIDATE",
+          "known_url": "https://www.samata.org.np",
+          "link_type": "WEBSITE",
+          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+        },
+        {
+          "capability": "REPORTS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "NEWS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "NOTICE_BOARD",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "BRANCH_DIRECTORY",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "BRANCH_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "CAREER_PAGE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "CAREER_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "SITEMAP",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "OTHER",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        }
+      ]
+    },
+    {
+      "id": "rsdcmf-website",
+      "source_type": "MFB_WEBSITE",
+      "source_scope": "INSTITUTION",
+      "source_grade": "A",
+      "institution_id": "mfi-022",
+      "url": "https://www.rsdcmf.com",
+      "domain": "www.rsdcmf.com",
+      "title": "RSDC Laghubitta Bittiya Sanstha Ltd. — official website",
+      "publisher": "RSDC Laghubitta Bittiya Sanstha Ltd.",
+      "proven_by": "nrb-bfi-mid-may-2026",
+      "status": "CANDIDATE",
+      "verified": 0,
+      "is_active": 1,
+      "capabilities": [
+        {
+          "capability": "WEBSITE",
+          "status": "CANDIDATE",
+          "known_url": "https://www.rsdcmf.com",
+          "link_type": "WEBSITE",
+          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+        },
+        {
+          "capability": "REPORTS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "NEWS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "NOTICE_BOARD",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "BRANCH_DIRECTORY",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "BRANCH_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "CAREER_PAGE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "CAREER_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "SITEMAP",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "OTHER",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        }
+      ]
+    },
+    {
+      "id": "slbsl-website",
+      "source_type": "MFB_WEBSITE",
+      "source_scope": "INSTITUTION",
+      "source_grade": "A",
+      "institution_id": "mfi-023",
+      "url": "https://www.slbsl.com.np",
+      "domain": "www.slbsl.com.np",
+      "title": "Samudayik Laghubitta Bittiya Sanstha Ltd. — official website",
+      "publisher": "Samudayik Laghubitta Bittiya Sanstha Ltd.",
+      "proven_by": "nrb-bfi-mid-may-2026",
+      "status": "CANDIDATE",
+      "verified": 0,
+      "is_active": 1,
+      "capabilities": [
+        {
+          "capability": "WEBSITE",
+          "status": "CANDIDATE",
+          "known_url": "https://www.slbsl.com.np",
+          "link_type": "WEBSITE",
+          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+        },
+        {
+          "capability": "REPORTS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "NEWS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "NOTICE_BOARD",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "BRANCH_DIRECTORY",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "BRANCH_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "CAREER_PAGE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "CAREER_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "SITEMAP",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "OTHER",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        }
+      ]
+    },
+    {
+      "id": "nationalmicrofinance-website",
+      "source_type": "MFB_WEBSITE",
+      "source_scope": "INSTITUTION",
+      "source_grade": "A",
+      "institution_id": "mfi-024",
+      "url": "https://nationalmicrofinance.com.np",
+      "domain": "nationalmicrofinance.com.np",
+      "title": "National Laghubitta Bittiya Sanstha Ltd. — official website",
+      "publisher": "National Laghubitta Bittiya Sanstha Ltd.",
+      "proven_by": "nrb-bfi-mid-may-2026",
+      "status": "CANDIDATE",
+      "verified": 0,
+      "is_active": 1,
+      "capabilities": [
+        {
+          "capability": "WEBSITE",
+          "status": "CANDIDATE",
+          "known_url": "https://nationalmicrofinance.com.np",
+          "link_type": "WEBSITE",
+          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+        },
+        {
+          "capability": "REPORTS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "NEWS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "NOTICE_BOARD",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "BRANCH_DIRECTORY",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "BRANCH_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "CAREER_PAGE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "CAREER_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "SITEMAP",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "OTHER",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        }
+      ]
+    },
+    {
+      "id": "gblbs-website",
+      "source_type": "MFB_WEBSITE",
+      "source_scope": "INSTITUTION",
+      "source_grade": "A",
+      "institution_id": "mfi-025",
+      "url": "https://www.gblbs.com.np",
+      "domain": "www.gblbs.com.np",
+      "title": "Grameen Bikas Laghubitta Bittiya Sanstha Ltd. — official website",
+      "publisher": "Grameen Bikas Laghubitta Bittiya Sanstha Ltd.",
+      "proven_by": "nrb-bfi-mid-may-2026",
+      "status": "CANDIDATE",
+      "verified": 0,
+      "is_active": 1,
+      "capabilities": [
+        {
+          "capability": "WEBSITE",
+          "status": "CANDIDATE",
+          "known_url": "https://www.gblbs.com.np",
+          "link_type": "WEBSITE",
+          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+        },
+        {
+          "capability": "REPORTS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "NEWS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "NOTICE_BOARD",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "BRANCH_DIRECTORY",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "BRANCH_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "CAREER_PAGE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "CAREER_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "SITEMAP",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "OTHER",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        }
+      ]
+    },
+    {
+      "id": "weannepal-website",
+      "source_type": "MFB_WEBSITE",
+      "source_scope": "INSTITUTION",
+      "source_grade": "A",
+      "institution_id": "mfi-026",
+      "url": "https://weannepal.com",
+      "domain": "weannepal.com",
+      "title": "Wean Nepal Laghubitta Bittiya Sanstha Ltd. — official website",
+      "publisher": "Wean Nepal Laghubitta Bittiya Sanstha Ltd.",
+      "proven_by": "nrb-bfi-mid-may-2026",
+      "status": "CANDIDATE",
+      "verified": 0,
+      "is_active": 1,
+      "capabilities": [
+        {
+          "capability": "WEBSITE",
+          "status": "CANDIDATE",
+          "known_url": "https://weannepal.com",
+          "link_type": "WEBSITE",
+          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+        },
+        {
+          "capability": "REPORTS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "NEWS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "NOTICE_BOARD",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "BRANCH_DIRECTORY",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "BRANCH_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "CAREER_PAGE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "CAREER_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "SITEMAP",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "OTHER",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        }
+      ]
+    },
+    {
+      "id": "unnatislbs-website",
+      "source_type": "MFB_WEBSITE",
+      "source_scope": "INSTITUTION",
+      "source_grade": "A",
+      "institution_id": "mfi-027",
+      "url": "https://unnatislbs.com.np",
+      "domain": "unnatislbs.com.np",
+      "title": "Unnati Sahakarya Laghubitta Bittiya Sanstha Ltd. — official website",
+      "publisher": "Unnati Sahakarya Laghubitta Bittiya Sanstha Ltd.",
+      "proven_by": "nrb-bfi-mid-may-2026",
+      "status": "CANDIDATE",
+      "verified": 0,
+      "is_active": 1,
+      "capabilities": [
+        {
+          "capability": "WEBSITE",
+          "status": "CANDIDATE",
+          "known_url": "https://unnatislbs.com.np",
+          "link_type": "WEBSITE",
+          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+        },
+        {
+          "capability": "REPORTS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "NEWS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "NOTICE_BOARD",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "BRANCH_DIRECTORY",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "BRANCH_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "CAREER_PAGE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "CAREER_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "SITEMAP",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "OTHER",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        }
+      ]
+    },
+    {
+      "id": "nadeplaghubitta-website",
+      "source_type": "MFB_WEBSITE",
+      "source_scope": "INSTITUTION",
+      "source_grade": "A",
+      "institution_id": "mfi-028",
+      "url": "https://www.nadeplaghubitta.com",
+      "domain": "www.nadeplaghubitta.com",
+      "title": "NADEP Laghubitta Bittiya Sanstha Ltd. — official website",
+      "publisher": "NADEP Laghubitta Bittiya Sanstha Ltd.",
+      "proven_by": "nrb-bfi-mid-may-2026",
+      "status": "CANDIDATE",
+      "verified": 0,
+      "is_active": 1,
+      "capabilities": [
+        {
+          "capability": "WEBSITE",
+          "status": "CANDIDATE",
+          "known_url": "https://www.nadeplaghubitta.com",
+          "link_type": "WEBSITE",
+          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+        },
+        {
+          "capability": "REPORTS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "NEWS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "NOTICE_BOARD",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "BRANCH_DIRECTORY",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "BRANCH_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "CAREER_PAGE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "CAREER_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "SITEMAP",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "OTHER",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        }
+      ]
+    },
+    {
+      "id": "supportmicrofinance-website",
+      "source_type": "MFB_WEBSITE",
+      "source_scope": "INSTITUTION",
+      "source_grade": "A",
+      "institution_id": "mfi-029",
+      "url": "https://www.supportmicrofinance.com.np",
+      "domain": "www.supportmicrofinance.com.np",
+      "title": "Support Laghubitta Bittiya Sanstha Ltd. — official website",
+      "publisher": "Support Laghubitta Bittiya Sanstha Ltd.",
+      "proven_by": "nrb-bfi-mid-may-2026",
+      "status": "CANDIDATE",
+      "verified": 0,
+      "is_active": 1,
+      "capabilities": [
+        {
+          "capability": "WEBSITE",
+          "status": "CANDIDATE",
+          "known_url": "https://www.supportmicrofinance.com.np",
+          "link_type": "WEBSITE",
+          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+        },
+        {
+          "capability": "REPORTS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "NEWS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "NOTICE_BOARD",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "BRANCH_DIRECTORY",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "BRANCH_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "CAREER_PAGE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "CAREER_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "SITEMAP",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "OTHER",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        }
+      ]
+    },
+    {
+      "id": "guranslaghubitta-website",
+      "source_type": "MFB_WEBSITE",
+      "source_scope": "INSTITUTION",
+      "source_grade": "A",
+      "institution_id": "mfi-032",
+      "url": "https://guranslaghubitta.com.np",
+      "domain": "guranslaghubitta.com.np",
+      "title": "Gurans Laghubitta Bittiya Sanstha Ltd. — official website",
+      "publisher": "Gurans Laghubitta Bittiya Sanstha Ltd.",
+      "proven_by": "nrb-bfi-mid-may-2026",
+      "status": "CANDIDATE",
+      "verified": 0,
+      "is_active": 1,
+      "capabilities": [
+        {
+          "capability": "WEBSITE",
+          "status": "CANDIDATE",
+          "known_url": "https://guranslaghubitta.com.np",
+          "link_type": "WEBSITE",
+          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+        },
+        {
+          "capability": "REPORTS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "NEWS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "NOTICE_BOARD",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "BRANCH_DIRECTORY",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "BRANCH_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "CAREER_PAGE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "CAREER_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "SITEMAP",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "OTHER",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        }
+      ]
+    },
+    {
+      "id": "ganapatimicro-website",
+      "source_type": "MFB_WEBSITE",
+      "source_scope": "INSTITUTION",
+      "source_grade": "A",
+      "institution_id": "mfi-033",
+      "url": "https://ganapatimicro.com.np",
+      "domain": "ganapatimicro.com.np",
+      "title": "Ganapati Laghubitta Bittiya Sanstha Ltd. — official website",
+      "publisher": "Ganapati Laghubitta Bittiya Sanstha Ltd.",
+      "proven_by": "nrb-bfi-mid-may-2026",
+      "status": "CANDIDATE",
+      "verified": 0,
+      "is_active": 1,
+      "capabilities": [
+        {
+          "capability": "WEBSITE",
+          "status": "CANDIDATE",
+          "known_url": "https://ganapatimicro.com.np",
+          "link_type": "WEBSITE",
+          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+        },
+        {
+          "capability": "REPORTS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "NEWS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "NOTICE_BOARD",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "BRANCH_DIRECTORY",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "BRANCH_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "CAREER_PAGE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "CAREER_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "SITEMAP",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "OTHER",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        }
+      ]
+    },
+    {
+      "id": "swabhimaanlaghubitta-website",
+      "source_type": "MFB_WEBSITE",
+      "source_scope": "INSTITUTION",
+      "source_grade": "A",
+      "institution_id": "mfi-035",
+      "url": "https://swabhimaanlaghubitta.com.np",
+      "domain": "swabhimaanlaghubitta.com.np",
+      "title": "Swabhimaan Laghubitta Bittiya Sanstha Ltd. — official website",
+      "publisher": "Swabhimaan Laghubitta Bittiya Sanstha Ltd.",
+      "proven_by": "nrb-bfi-mid-may-2026",
+      "status": "CANDIDATE",
+      "verified": 0,
+      "is_active": 1,
+      "capabilities": [
+        {
+          "capability": "WEBSITE",
+          "status": "CANDIDATE",
+          "known_url": "https://swabhimaanlaghubitta.com.np",
+          "link_type": "WEBSITE",
+          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+        },
+        {
+          "capability": "REPORTS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "NEWS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "NOTICE_BOARD",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "BRANCH_DIRECTORY",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "BRANCH_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "CAREER_PAGE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "CAREER_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "SITEMAP",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "OTHER",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        }
+      ]
+    },
+    {
+      "id": "sampadalaghubitta-website",
+      "source_type": "MFB_WEBSITE",
+      "source_scope": "INSTITUTION",
+      "source_grade": "A",
+      "institution_id": "mfi-036",
+      "url": "https://www.sampadalaghubitta.com.np",
+      "domain": "www.sampadalaghubitta.com.np",
+      "title": "Sampada Laghubitta Bittiya Sanstha Ltd. — official website",
+      "publisher": "Sampada Laghubitta Bittiya Sanstha Ltd.",
+      "proven_by": "nrb-bfi-mid-may-2026",
+      "status": "CANDIDATE",
+      "verified": 0,
+      "is_active": 1,
+      "capabilities": [
+        {
+          "capability": "WEBSITE",
+          "status": "CANDIDATE",
+          "known_url": "https://www.sampadalaghubitta.com.np",
+          "link_type": "WEBSITE",
+          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+        },
+        {
+          "capability": "REPORTS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "NEWS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "NOTICE_BOARD",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "BRANCH_DIRECTORY",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "BRANCH_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "CAREER_PAGE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "CAREER_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "SITEMAP",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "OTHER",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        }
+      ]
+    },
+    {
+      "id": "nicasialaghubitta-website",
+      "source_type": "MFB_WEBSITE",
+      "source_scope": "INSTITUTION",
+      "source_grade": "A",
+      "institution_id": "mfi-037",
+      "url": "https://www.nicasialaghubitta.com",
+      "domain": "www.nicasialaghubitta.com",
+      "title": "NIC Asia Laghubitta Bittiya Sanstha Ltd. — official website",
+      "publisher": "NIC Asia Laghubitta Bittiya Sanstha Ltd.",
+      "proven_by": "nrb-bfi-mid-may-2026",
+      "status": "CANDIDATE",
+      "verified": 0,
+      "is_active": 1,
+      "capabilities": [
+        {
+          "capability": "WEBSITE",
+          "status": "CANDIDATE",
+          "known_url": "https://www.nicasialaghubitta.com",
+          "link_type": "WEBSITE",
+          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+        },
+        {
+          "capability": "REPORTS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "NEWS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "NOTICE_BOARD",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "BRANCH_DIRECTORY",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "BRANCH_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "CAREER_PAGE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "CAREER_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "SITEMAP",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "OTHER",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        }
+      ]
+    },
+    {
+      "id": "mlbsl-website",
+      "source_type": "MFB_WEBSITE",
+      "source_scope": "INSTITUTION",
+      "source_grade": "A",
+      "institution_id": "mfi-038",
+      "url": "https://www.mlbsl.com.np",
+      "domain": "www.mlbsl.com.np",
+      "title": "Mahila Laghubitta Bittiya Sanstha Ltd. — official website",
+      "publisher": "Mahila Laghubitta Bittiya Sanstha Ltd.",
+      "proven_by": "nrb-bfi-mid-may-2026",
+      "status": "CANDIDATE",
+      "verified": 0,
+      "is_active": 1,
+      "capabilities": [
+        {
+          "capability": "WEBSITE",
+          "status": "CANDIDATE",
+          "known_url": "https://www.mlbsl.com.np",
+          "link_type": "WEBSITE",
+          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+        },
+        {
+          "capability": "REPORTS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "NEWS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "NOTICE_BOARD",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "BRANCH_DIRECTORY",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "BRANCH_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "CAREER_PAGE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "CAREER_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "SITEMAP",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "OTHER",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        }
+      ]
+    },
+    {
+      "id": "manushilbs-website",
+      "source_type": "MFB_WEBSITE",
+      "source_scope": "INSTITUTION",
+      "source_grade": "A",
+      "institution_id": "mfi-039",
+      "url": "https://www.manushilbs.com",
+      "domain": "www.manushilbs.com",
+      "title": "Manushi Laghubitta Bittiya Sanstha Ltd. — official website",
+      "publisher": "Manushi Laghubitta Bittiya Sanstha Ltd.",
+      "proven_by": "nrb-bfi-mid-may-2026",
+      "status": "CANDIDATE",
+      "verified": 0,
+      "is_active": 1,
+      "capabilities": [
+        {
+          "capability": "WEBSITE",
+          "status": "CANDIDATE",
+          "known_url": "https://www.manushilbs.com",
+          "link_type": "WEBSITE",
+          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+        },
+        {
+          "capability": "REPORTS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "NEWS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "NOTICE_BOARD",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "BRANCH_DIRECTORY",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "BRANCH_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "CAREER_PAGE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "CAREER_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "SITEMAP",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "OTHER",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        }
+      ]
+    },
+    {
+      "id": "uniquenepalmicrofinance-website",
+      "source_type": "MFB_WEBSITE",
+      "source_scope": "INSTITUTION",
+      "source_grade": "A",
+      "institution_id": "mfi-040",
+      "url": "https://uniquenepalmicrofinance.com.np",
+      "domain": "uniquenepalmicrofinance.com.np",
+      "title": "Unique Nepal Laghubitta Bittiya Sanstha Ltd. — official website",
+      "publisher": "Unique Nepal Laghubitta Bittiya Sanstha Ltd.",
+      "proven_by": "nrb-bfi-mid-may-2026",
+      "status": "CANDIDATE",
+      "verified": 0,
+      "is_active": 1,
+      "capabilities": [
+        {
+          "capability": "WEBSITE",
+          "status": "CANDIDATE",
+          "known_url": "https://uniquenepalmicrofinance.com.np",
+          "link_type": "WEBSITE",
+          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+        },
+        {
+          "capability": "REPORTS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "NEWS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "NOTICE_BOARD",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "BRANCH_DIRECTORY",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "BRANCH_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "CAREER_PAGE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "CAREER_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "SITEMAP",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "OTHER",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        }
+      ]
+    },
+    {
+      "id": "ulbsl-website",
+      "source_type": "MFB_WEBSITE",
+      "source_scope": "INSTITUTION",
+      "source_grade": "A",
+      "institution_id": "mfi-041",
+      "url": "https://www.ulbsl.com.np",
+      "domain": "www.ulbsl.com.np",
+      "title": "Upakar Laghubitta Bittiya Sanstha Ltd. — official website",
+      "publisher": "Upakar Laghubitta Bittiya Sanstha Ltd.",
+      "proven_by": "nrb-bfi-mid-may-2026",
+      "status": "CANDIDATE",
+      "verified": 0,
+      "is_active": 1,
+      "capabilities": [
+        {
+          "capability": "WEBSITE",
+          "status": "CANDIDATE",
+          "known_url": "https://www.ulbsl.com.np",
+          "link_type": "WEBSITE",
+          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+        },
+        {
+          "capability": "REPORTS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "NEWS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "NOTICE_BOARD",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "BRANCH_DIRECTORY",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "BRANCH_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "CAREER_PAGE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "CAREER_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "SITEMAP",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "OTHER",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        }
+      ]
+    },
+    {
+      "id": "dhaulagiribank-website",
+      "source_type": "MFB_WEBSITE",
+      "source_scope": "INSTITUTION",
+      "source_grade": "A",
+      "institution_id": "mfi-042",
+      "url": "https://dhaulagiribank.com",
+      "domain": "dhaulagiribank.com",
+      "title": "Dhaulagiri Laghubitta Bittiya Sanstha Ltd. — official website",
+      "publisher": "Dhaulagiri Laghubitta Bittiya Sanstha Ltd.",
+      "proven_by": "nrb-bfi-mid-may-2026",
+      "status": "CANDIDATE",
+      "verified": 0,
+      "is_active": 1,
+      "capabilities": [
+        {
+          "capability": "WEBSITE",
+          "status": "CANDIDATE",
+          "known_url": "https://dhaulagiribank.com",
+          "link_type": "WEBSITE",
+          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+        },
+        {
+          "capability": "REPORTS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "NEWS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "NOTICE_BOARD",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "BRANCH_DIRECTORY",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "BRANCH_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "CAREER_PAGE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "CAREER_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "SITEMAP",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "OTHER",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        }
+      ]
+    },
+    {
+      "id": "slbs-website",
+      "source_type": "MFB_WEBSITE",
+      "source_scope": "INSTITUTION",
+      "source_grade": "A",
+      "institution_id": "mfi-044",
+      "url": "https://slbs.nesdonepal.org",
+      "domain": "slbs.nesdonepal.org",
+      "title": "NESDO Samriddha Laghubitta Bittiya Sanstha Ltd. — official website",
+      "publisher": "NESDO Samriddha Laghubitta Bittiya Sanstha Ltd.",
+      "proven_by": "nrb-bfi-mid-may-2026",
+      "status": "CANDIDATE",
+      "verified": 0,
+      "is_active": 1,
+      "capabilities": [
+        {
+          "capability": "WEBSITE",
+          "status": "CANDIDATE",
+          "known_url": "https://slbs.nesdonepal.org",
+          "link_type": "WEBSITE",
+          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+        },
+        {
+          "capability": "REPORTS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "NEWS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "NOTICE_BOARD",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "BRANCH_DIRECTORY",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "BRANCH_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "CAREER_PAGE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "CAREER_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "SITEMAP",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "OTHER",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        }
+      ]
+    },
+    {
+      "id": "swastiklbs-website",
+      "source_type": "MFB_WEBSITE",
+      "source_scope": "INSTITUTION",
+      "source_grade": "A",
+      "institution_id": "mfi-045",
+      "url": "https://swastiklbs.com.np",
+      "domain": "swastiklbs.com.np",
+      "title": "Swastik Laghubitta Bittiya Sanstha Ltd. — official website",
+      "publisher": "Swastik Laghubitta Bittiya Sanstha Ltd.",
+      "proven_by": "nrb-bfi-mid-may-2026",
+      "status": "CANDIDATE",
+      "verified": 0,
+      "is_active": 1,
+      "capabilities": [
+        {
+          "capability": "WEBSITE",
+          "status": "CANDIDATE",
+          "known_url": "https://swastiklbs.com.np",
+          "link_type": "WEBSITE",
+          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+        },
+        {
+          "capability": "REPORTS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "NEWS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "NOTICE_BOARD",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "BRANCH_DIRECTORY",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "BRANCH_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "CAREER_PAGE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "CAREER_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "SITEMAP",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "OTHER",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        }
+      ]
+    },
+    {
+      "id": "shrijanshil-website",
+      "source_type": "MFB_WEBSITE",
+      "source_scope": "INSTITUTION",
+      "source_grade": "A",
+      "institution_id": "mfi-046",
+      "url": "https://shrijanshil.org",
+      "domain": "shrijanshil.org",
+      "title": "Shrijanshil Laghubitta Bittiya Sanstha Ltd. — official website",
+      "publisher": "Shrijanshil Laghubitta Bittiya Sanstha Ltd.",
+      "proven_by": "nrb-bfi-mid-may-2026",
+      "status": "CANDIDATE",
+      "verified": 0,
+      "is_active": 1,
+      "capabilities": [
+        {
+          "capability": "WEBSITE",
+          "status": "CANDIDATE",
+          "known_url": "https://shrijanshil.org",
+          "link_type": "WEBSITE",
+          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+        },
+        {
+          "capability": "REPORTS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "NEWS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "NOTICE_BOARD",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "BRANCH_DIRECTORY",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "BRANCH_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "CAREER_PAGE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "CAREER_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "SITEMAP",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "OTHER",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        }
+      ]
+    },
+    {
+      "id": "jeevanbikasmf-website",
+      "source_type": "MFB_WEBSITE",
+      "source_scope": "INSTITUTION",
+      "source_grade": "A",
+      "institution_id": "mfi-048",
+      "url": "https://jeevanbikasmf.com",
+      "domain": "jeevanbikasmf.com",
+      "title": "Jeevan Bikash Laghubitta Bittiya Sanstha Ltd. — official website",
+      "publisher": "Jeevan Bikash Laghubitta Bittiya Sanstha Ltd.",
+      "proven_by": "nrb-bfi-mid-may-2026",
+      "status": "CANDIDATE",
+      "verified": 0,
+      "is_active": 1,
+      "capabilities": [
+        {
+          "capability": "WEBSITE",
+          "status": "CANDIDATE",
+          "known_url": "https://jeevanbikasmf.com",
+          "link_type": "WEBSITE",
+          "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
+        },
+        {
+          "capability": "REPORTS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "NEWS",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "NOTICE_BOARD",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "BRANCH_DIRECTORY",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "BRANCH_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "CAREER_PAGE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "CAREER_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "REPORT_PAGE",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        },
+        {
+          "capability": "SITEMAP",
+          "status": "CANDIDATE",
+          "known_url": null,
+          "link_type": "OTHER",
+          "note": "discovery intent — page/URL must be located in pilot before any fetch"
+        }
+      ]
+    },
+    {
+      "id": "sanjeevanilaghubitta-website",
+      "source_type": "MFB_WEBSITE",
+      "source_scope": "INSTITUTION",
+      "source_grade": "A",
+      "institution_id": "mfi-050",
+      "url": "https://sanjeevanilaghubitta.com.np",
+      "domain": "sanjeevanilaghubitta.com.np",
+      "title": "Sanjeevani Laghubitta Bittiya Sanstha Ltd. — official website",
+      "publisher": "Sanjeevani Laghubitta Bittiya Sanstha Ltd.",
+      "proven_by": "nrb-bfi-mid-may-2026",
+      "status": "CANDIDATE",
+      "verified": 0,
+      "is_active": 1,
+      "capabilities": [
+        {
+          "capability": "WEBSITE",
+          "status": "CANDIDATE",
+          "known_url": "https://sanjeevanilaghubitta.com.np",
           "link_type": "WEBSITE",
           "note": "URL from NRB official BFI list (mid-May-2026); not yet fetched"
         },

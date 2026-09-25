@@ -14,9 +14,14 @@
     "smoke:ingest": "tsx scripts/smoke-ingest-fixtures.ts",
     "smoke:ingest-security": "tsx scripts/smoke-ingest-security.ts",
     "smoke:pdf-canonical": "tsx scripts/smoke-pdf-canonical.ts",
+    "smoke:people": "tsx scripts/smoke-people.ts",
+    "smoke:structured": "tsx scripts/smoke-structured.ts",
     "pilot": "tsx scripts/run-pilot.ts",
+    "pilot:expand": "tsx scripts/pilot-expand.ts",
     "pilot:repeat": "tsx scripts/run-pilot.ts --repeat",
     "pilot:report": "tsx scripts/pilot-evidence-report.ts",
+    "pilot:export": "tsx scripts/pilot-export.ts",
+    "control": "tsx scripts/control-panel.ts",
     "check:discipline": "node scripts/check-discipline.cjs"
   },
   "dependencies": {

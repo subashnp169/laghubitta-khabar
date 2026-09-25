@@ -340,7 +340,7 @@ export class GenericIngestionEngine {
         await this.deps.writer.saveAssertion({
           entityType: "institution",
           entityId: source.institutionId ?? "unknown",
-          fieldName: ev.capability.toLowerCase(),
+          fieldName: ev.field ? ev.field.toLowerCase() : ev.capability.toLowerCase(),
           value: ev.text ?? "",
           sourceId: source.id,
           sourceSnapshotId: snapshotId,

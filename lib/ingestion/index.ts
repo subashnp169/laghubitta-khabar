@@ -40,4 +40,29 @@ export {
   pilotValidators,
   titlePresentValidator,
 } from "./validators";
+export {
+  PEOPLE_CAPABILITIES,
+  PEOPLE_DIRECTORY_RULE_ID,
+  composeExtractors,
+  nameLike,
+  peopleDirectoryValidator,
+  peopleExtractor,
+  peopleValidators,
+  type HtmlExtractor,
+} from "./people";
+export {
+  BRANCH_DIRECTORY_RULE_ID,
+  BRANCH_PARSER_ID,
+  FINANCIAL_METADATA_RULE_ID,
+  FINMETADATA_PARSER_ID,
+  VACANCY_RULE_ID,
+  VACANCY_PARSER_ID,
+  branchDirectoryExtractor,
+  branchDirectoryValidator,
+  financialMetadataExtractor,
+  financialMetadataValidator,
+  structuredValidators,
+  vacancyExtractor,
+  vacancyValidator,
+} from "./structured";
 export { LocalSqliteEvidenceWriter, LocalSourceRegistry } from "./adapters/local";

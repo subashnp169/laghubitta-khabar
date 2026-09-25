@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { institutions, getInstitutionBySlug } from "@/data/institutions";
+import { crawlSources, crawlSummary } from "@/data/pilot";
 import Link from "next/link";
 
 export async function generateStaticParams() {
@@ -20,6 +21,8 @@ export default async function InstitutionPage({ params }: { params: Promise<{ sl
   if (!inst) notFound();
 
   const evidenceEntries = Object.entries(inst.evidence);
+  const crawl = crawlSources.find((c) => c.institutionId === inst.id);
+  const website = crawl?.website ?? inst.officialWebsite;
 
   return (
     <div className="max-w-[1000px] mx-auto px-4 py-8">
@@ -73,10 +76,13 @@ export default async function InstitutionPage({ params }: { params: Promise<{ sl
             <div className="flex justify-between py-1 border-b border-slate-100">
               <dt className="text-slate-500">Website</dt>
               <dd className="font-medium text-slate-700 text-right">
-                {inst.officialWebsite ? (
-                  <a href={inst.officialWebsite} target="_blank" rel="noopener" className="text-mfi-600 hover:underline">{inst.officialWebsite}</a>
+                {website ? (
+                  <a href={website} target="_blank" rel="noopener" className="text-mfi-600 hover:underline">{website}</a>
                 ) : (
                   <span className="text-slate-400">Not available</span>
+                )}
+                {crawl && (
+                  <span className="inline-flex items-center gap-1 ml-2 text-[10px] font-semibold px-1.5 py-0.5 rounded-full bg-blue-50 text-blue-700">crawl-verified</span>
                 )}
               </dd>
             </div>
@@ -113,6 +119,79 @@ export default async function InstitutionPage({ params }: { params: Promise<{ sl
           )}
         </div>
       </div>
+
+      {crawl && (
+        <div className="bg-white rounded-xl border border-slate-200 p-4">
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="font-bold text-sm text-slate-700">Crawl Evidence</h2>
+            <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${crawl.status === "HEALTHY" ? "bg-green-50 text-nrb-700" : "bg-amber-50 text-amber-700"}`}>
+              {crawl.status} · {crawl.lastStatus}
+            </span>
+          </div>
+
+          <div className="grid grid-cols-3 md:grid-cols-6 gap-2 mb-4">
+            <div className="bg-slate-50 rounded-lg p-2 text-center">
+              <div className="text-sm font-bold text-slate-800">{crawl.runs}</div>
+              <div className="text-[10px] text-slate-500">Runs</div>
+            </div>
+            <div className="bg-slate-50 rounded-lg p-2 text-center">
+              <div className="text-sm font-bold text-slate-800">{crawl.snapshots}</div>
+              <div className="text-[10px] text-slate-500">Snapshots</div>
+            </div>
+            <div className="bg-slate-50 rounded-lg p-2 text-center">
+              <div className="text-sm font-bold text-slate-800">{crawl.items}</div>
+              <div className="text-[10px] text-slate-500">Items</div>
+            </div>
+            <div className="bg-slate-50 rounded-lg p-2 text-center">
+              <div className="text-sm font-bold text-slate-800">{crawl.discoveredUrls}</div>
+              <div className="text-[10px] text-slate-500">Discovered</div>
+            </div>
+            <div className="bg-slate-50 rounded-lg p-2 text-center">
+              <div className="text-sm font-bold text-slate-800">{crawl.documents}</div>
+              <div className="text-[10px] text-slate-500">Documents</div>
+            </div>
+            <div className="bg-slate-50 rounded-lg p-2 text-center">
+              <div className="text-sm font-bold text-slate-800">{crawl.errors}</div>
+              <div className="text-[10px] text-slate-500">Errors</div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <div className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold mb-2">Branches <span className="normal-case text-slate-400">({crawl.branchCount} extracted)</span></div>
+              <ul className="space-y-1">
+                {crawl.branchNames.map((b) => (
+                  <li key={b} className="text-xs text-slate-600">{b}</li>
+                ))}
+                {crawl.branchNames.length === 0 && <li className="text-xs text-slate-400">None extracted</li>}
+              </ul>
+            </div>
+            <div>
+              <div className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold mb-2">Vacancies <span className="normal-case text-slate-400">({crawl.vacancyCount} extracted)</span></div>
+              <ul className="space-y-1">
+                {crawl.vacancyTitles.map((v) => (
+                  <li key={v} className="text-xs text-slate-600">{v}</li>
+                ))}
+                {crawl.vacancyTitles.length === 0 && <li className="text-xs text-slate-400">None extracted</li>}
+              </ul>
+            </div>
+            <div>
+              <div className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold mb-2">Financial documents <span className="normal-case text-slate-400">({crawl.documentCount} extracted)</span></div>
+              <ul className="space-y-1">
+                {crawl.documentTitles.map((d) => (
+                  <li key={d} className="text-xs text-slate-600 truncate">{d}</li>
+                ))}
+                {crawl.documentTitles.length === 0 && <li className="text-xs text-slate-400">None extracted</li>}
+              </ul>
+            </div>
+          </div>
+
+          <div className="mt-3 text-[10px] text-slate-400">
+            Deterministic ingestion snapshot (mode: {crawlSummary.mode}), evidence extracted without AI/OCR, all assertions UNVERIFIED.
+            <Link href="/ingestion" className="text-mfi-600 hover:underline ml-1">Ingestion Control Room →</Link>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

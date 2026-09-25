@@ -12,6 +12,7 @@ export default function Header() {
           </Link>
           <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
             <Link href="/institutions" className="text-slate-600 hover:text-mfi-600 transition">Institutions</Link>
+            <Link href="/ingestion" className="text-slate-600 hover:text-mfi-600 transition">Ingestion</Link>
             <Link href="/news" className="text-slate-600 hover:text-mfi-600 transition">News</Link>
             <Link href="/reports" className="text-slate-600 hover:text-mfi-600 transition">Reports</Link>
             <Link href="/jobs" className="text-slate-600 hover:text-mfi-600 transition">Jobs</Link>

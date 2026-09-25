@@ -151,6 +151,10 @@ export interface ExtractedEvidence {
   kind: ExtractedKind;
   capability: CapabilityKind;
   sourceUrl: string;
+  /** Optional domesticated field name (e.g. a people role). When present it
+   * overrides `capability` as the assertion field name — keeps capabilities
+   * page-shaped while letting extractors name semantic fields (Phase R3). */
+  field?: string;
   /** For DOCUMENT: relative/absolute href to the document. */
   href?: string;
   text?: string;
