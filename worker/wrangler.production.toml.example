@@ -1,0 +1,20 @@
+# PRODUCTION wrangler config — TEMPLATE. Copy to wrangler.production.toml
+# (gitignored) and fill in the real D1 database id. NEVER commit the filled
+# file, and never add production credentials anywhere in this repo.
+#
+#   cp wrangler.production.toml.example wrangler.production.toml
+#   # edit: set database_id to the real production D1 id
+#   #        set CLOUDFLARE_API_TOKEN via your secret store, not this repo
+#   wrangler deploy --config wrangler.production.toml
+name = "laghubitta-khabar-api"
+main = "src/index.ts"
+compatibility_date = "2026-06-01"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+LK_ENV = "production"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "laghubitta-khabar"
+database_id = "REPLACE_WITH_PRODUCTION_D1_ID"

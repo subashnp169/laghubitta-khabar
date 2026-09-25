@@ -1,0 +1,114 @@
+{
+  "phase": "O — Controlled Evidence Ingestion Pilot",
+  "mode": "idempotency (repeat)",
+  "dbPath": "<scratch-review-db>",
+  "totals": {
+    "runs": 20,
+    "items": 151,
+    "snapshots": 87,
+    "assertions": 93,
+    "errors": 3,
+    "fetch_failures": 1
+  },
+  "perSource": [
+    {
+      "institution": "mfi-001",
+      "source": "nirdhan-website",
+      "snapshots": 12,
+      "unchangedItems": 8,
+      "repeatedOk": true,
+      "discoveryUrls": 11
+    },
+    {
+      "institution": "mfi-003",
+      "source": "chhimek-website",
+      "snapshots": 10,
+      "unchangedItems": 10,
+      "repeatedOk": true,
+      "discoveryUrls": 13
+    },
+    {
+      "institution": "mfi-020",
+      "source": "mero-website",
+      "snapshots": 4,
+      "unchangedItems": 4,
+      "repeatedOk": true,
+      "discoveryUrls": 4
+    },
+    {
+      "institution": "mfi-047",
+      "source": "matribhumi-website",
+      "snapshots": 9,
+      "unchangedItems": 9,
+      "repeatedOk": true,
+      "discoveryUrls": 14
+    },
+    {
+      "institution": "mfi-034",
+      "source": "infinity-website",
+      "snapshots": 1,
+      "unchangedItems": 1,
+      "repeatedOk": true,
+      "discoveryUrls": 1
+    },
+    {
+      "institution": "mfi-030",
+      "source": "aarambha-website",
+      "snapshots": 10,
+      "unchangedItems": 10,
+      "repeatedOk": true,
+      "discoveryUrls": 13
+    },
+    {
+      "institution": "mfi-049",
+      "source": "aatmanirbhar-website",
+      "snapshots": 20,
+      "unchangedItems": 0,
+      "repeatedOk": true,
+      "discoveryUrls": 16
+    },
+    {
+      "institution": "mfi-031",
+      "source": "asha-website",
+      "snapshots": 10,
+      "unchangedItems": 10,
+      "repeatedOk": true,
+      "discoveryUrls": 18
+    },
+    {
+      "institution": "mfi-051",
+      "source": "aviyan-website",
+      "snapshots": 1,
+      "unchangedItems": 1,
+      "repeatedOk": true,
+      "discoveryUrls": 1
+    },
+    {
+      "institution": "mfi-043",
+      "source": "cyc-website",
+      "snapshots": 10,
+      "unchangedItems": 9,
+      "repeatedOk": true,
+      "discoveryUrls": 16
+    }
+  ],
+  "errorsBySource": [
+    {
+      "source": "cyc-website",
+      "type": "FETCH_FAILED",
+      "message": "{\"type\":\"CONNECT_FAILED\",\"message\":\"fetch failed\"}",
+      "url": "https://cycnlbsl.org.np/annual-report",
+      "count": 1
+    },
+    {
+      "source": "matribhumi-website",
+      "type": "HTTP_ERROR",
+      "message": "HTTP 404",
+      "url": "https://matribhumimf.com.np/notices",
+      "count": 2
+    }
+  ],
+  "publishedToPublicSite": false,
+  "aiUsed": false,
+  "note": "scratch review DB only; all assertions UNVERIFIED; no schema change; no publish"
+}

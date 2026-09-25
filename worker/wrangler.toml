@@ -1,0 +1,26 @@
+# ============================================================================
+# DEV/LOCAL wrangler config — NEVER carries a real D1 database id.
+#
+# `wrangler dev` uses this file with a Miniflare-local D1 (no network, no
+# production binding). The database_id below is intentionally not a real D1 id.
+#
+# For STAGING / PRODUCTION use the env-specific configs, which are NEVER
+# committed and are created from the templates by an ops footgun-guard:
+#
+#     cp wrangler.staging.toml.example   wrangler.staging.toml
+#     cp wrangler.production.toml.example wrangler.production.toml
+#     wrangler deploy --config wrangler.staging.toml
+#     wrangler deploy --config wrangler.production.toml
+#
+# Do not fill real ids into this file, and never commit *any* file that
+# contains an actual D1 database id (see docs/OPERATIONS.md).
+# ============================================================================
+name = "laghubitta-khabar-api"
+main = "src/index.ts"
+compatibility_date = "2026-06-01"
+compatibility_flags = ["nodejs_compat"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "laghubitta-khabar-dev"
+database_id = "00000000-0000-0000-0000-000000000000" # placeholder — local only

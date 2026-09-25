@@ -1,7 +1,35 @@
+# --- dependencies & build artifacts ---
 node_modules/
 .next/
 out/
+
+# --- logs ---
 *.log
+
+# --- TypeScript ---
+*.tsbuildinfo
+next-env.d.ts
+
+# --- local environment & secrets (never commit) ---
 .env
 .env.local
 .env.*.local
+worker/.dev.vars
+worker/.dev.vars.*
+!worker/.dev.vars.example
+
+# --- Cloudflare: real D1 configs / credentials (never commit) ---
+worker/wrangler.staging.toml
+worker/wrangler.production.toml
+worker/wrangler.*.local.toml
+.wrangler/
+
+# --- local databases / seeded test data (never commit) ---
+*.db
+*.sqlite
+*.sqlite3
+lk.db
+
+# --- OS / editor ---
+.DS_Store
+Thumbs.db

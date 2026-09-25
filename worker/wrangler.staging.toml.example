@@ -1,0 +1,19 @@
+# STAGING wrangler config — TEMPLATE. Copy to wrangler.staging.toml (gitignored)
+# and fill in the real D1 database id. NEVER commit the filled file.
+#
+#   cp wrangler.staging.toml.example wrangler.staging.toml
+#   # edit: set database_id to the real staging D1 id
+#   wrangler deploy --config wrangler.staging.toml
+name = "laghubitta-khabar-api"
+main = "src/index.ts"
+compatibility_date = "2026-06-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Env vars are sourced from the secret store / CI, not committed.
+[vars]
+LK_ENV = "staging"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "laghubitta-khabar-staging"
+database_id = "REPLACE_WITH_STAGING_D1_ID"

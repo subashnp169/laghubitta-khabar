@@ -1,0 +1,6 @@
+# worker/.dev.vars.example — copy to worker/.dev.vars (gitignored) for `wrangler dev`.
+# NEVER commit the real .dev.vars. Local-only secrets/overrides for the Worker.
+# Nothing here is required for smoke tests (they inject a local SQLite D1 shim).
+
+# Example (secrets go in the Cloudflare secret store, not this file):
+# WEBHOOK_INGESTION_TOKEN=replace-with-your-local-test-token

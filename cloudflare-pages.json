@@ -1,7 +1,15 @@
 {
-  "buildCommand": "npm run build",
-  "buildOutputDirectory": "out",
-  "environment": {
-    "NODE_VERSION": "24"
-  }
+  "build": {
+    "command": "npm run build",
+    "output_directory": "out",
+    "environment": {
+      "NODE_VERSION": "24"
+    }
+  },
+  "routes": [
+    { "pattern": "/*", "execute": [".auth"] },
+    { "pattern": "/images/*", "execute": [] },
+    { "pattern": "/icons/*", "execute": [] },
+    { "pattern": "/_next/static/*", "execute": [] }
+  ]
 }

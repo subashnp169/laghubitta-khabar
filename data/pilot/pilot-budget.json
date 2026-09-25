@@ -1,0 +1,20 @@
+{
+  "$schema": "pilot-budget/v1",
+  "note": "Phase O Controlled Evidence Ingestion Pilot — hard per-run crawl budget. Config values, not per-MFB code. Bounds exist so the first production-like run proves the pipeline (bounded discovery, bounded fetch) instead of becoming a crawler project.",
+  "defaults": {
+    "maxTargets": 20,
+    "maxFetches": 10,
+    "maxDocuments": 5,
+    "maxBytes": 5242880,
+    "maxRedirects": 5,
+    "maxRetries": 2,
+    "maxRuntimeMs": 120000
+  },
+  "perSource": {
+    "nirdhan-website": {},
+    "chhimek-website": {},
+    "mero-website": {},
+    "matribhumi-website": {},
+    "infinity-website": {}
+  }
+}

@@ -1,0 +1,363 @@
+// ============================================================================
+// Local sqlite adapters for the ingestion contract (Phase N fixtures + pilot).
+// implements SourceRegistry + EvidenceWriter against the seeded lk.db.
+// better-sqlite3 is dev-tooling only (never in a Worker bundle).
+// ============================================================================
+
+import { createRequire } from "node:module";
+
+import type {
+  AuditInput,
+  AssertionInput,
+  ConflictInput,
+  ErrorInput,
+  EvidenceWriter,
+  ItemInput,
+  OutboundLinkInput,
+  RunOutcome,
+  SnapshotInput,
+  SourceHealth,
+  SourceRegistry,
+  ValidationInput,
+} from "../contract";
+import type { CapabilitySpec, IngestionSourceSpec } from "../types";
+import { buildIngestionSourceSpec, parseCapabilities } from "../config";
+
+type Row = Record<string, unknown>;
+
+function getDatabase(dbPath: string) {
+  const require = createRequire(import.meta.url);
+  const Database = require("better-sqlite3") as new (p: string) => SqliteDb;
+  return new Database(dbPath);
+}
+
+interface SqliteDb {
+  prepare(sql: string): SqliteStmt;
+  pragma(s: string): unknown;
+  transaction<T extends (...a: never[]) => unknown>(fn: T): T;
+}
+interface SqliteStmt {
+  get(...params: unknown[]): Row | undefined;
+  all(...params: unknown[]): Row[];
+  run(...params: unknown[]): { changes: number };
+}
+
+let uid = 0;
+function genId(prefix: string): string {
+  uid += 1;
+  return `${prefix}-${Date.now().toString(36)}-${uid}`;
+}
+
+const nowIso = () => new Date().toISOString();
+
+// ---------------------------------------------------------------------------
+// SourceRegistry (read + run bookkeeping)
+// ---------------------------------------------------------------------------
+
+export class LocalSourceRegistry implements SourceRegistry {
+  private readonly db: SqliteDb;
+
+  constructor(dbPath: string) {
+    this.db = getDatabase(dbPath);
+  }
+
+  async listEnabled(): Promise<IngestionSourceSpec[]> {
+    const rows = this.db
+      .prepare("SELECT * FROM ingestion_sources WHERE enabled = 1")
+      .all() as Row[];
+    return rows.map((r) => buildIngestionSourceSpec(mapRow(r)));
+  }
+
+  async get(id: string): Promise<IngestionSourceSpec | null> {
+    const r = this.db
+      .prepare("SELECT * FROM ingestion_sources WHERE id = ?")
+      .get(id) as Row | undefined;
+    return r ? buildIngestionSourceSpec(mapRow(r)) : null;
+  }
+
+  async capabilitiesOf(id: string): Promise<CapabilitySpec[]> {
+    const r = this.db
+      .prepare("SELECT config_json FROM ingestion_sources WHERE id = ?")
+      .get(id) as Row | undefined;
+    if (!r) return [];
+    return parseCapabilities(r.config_json ?? "{}");
+  }
+
+  async lastContentHash(sourceId: string, url: string): Promise<string | null> {
+    // Latest snapshot content hash for (source, url) via the most recent item.
+    const r = this.db
+      .prepare(
+        `SELECT i.content_hash AS h
+           FROM ingestion_items i
+           JOIN ingestion_runs r ON r.id = i.run_id
+          WHERE r.ingestion_source_id = ? AND i.url = ?
+          ORDER BY i.id DESC LIMIT 1`,
+      )
+      .get(sourceId, url) as Row | undefined;
+    return r ? (r.h as string) : null;
+  }
+
+  async healthOf(id: string): Promise<SourceHealth | null> {
+    const run = this.db
+      .prepare(
+        `SELECT
+           MAX(r.started_at) AS last_run,
+           MAX(CASE WHEN r.status IN ('SUCCESS','PARTIAL') THEN r.completed_at END) AS last_ok,
+           MAX(CASE WHEN r.status = 'FAILED' THEN r.completed_at END) AS last_fail,
+           SUM(CASE WHEN r.status = 'FAILED' THEN 1 ELSE 0 END) AS fails,
+           SUM(CASE WHEN r.status = 'SUCCESS' THEN 1 ELSE 0 END) AS oks
+         FROM ingestion_runs r WHERE r.ingestion_source_id = ?`,
+      )
+      .get(id) as Row | undefined;
+    if (!run || run.last_run === null) return null;
+    const consec = this.consecutiveFailures(id);
+    return {
+      lastRunAt: (run.last_run as string) ?? null,
+      lastSuccessAt: (run.last_ok as string) ?? null,
+      lastFailureAt: (run.last_fail as string) ?? null,
+      consecutiveFailures: consec,
+      lastHttpStatus: null,
+      lastContentHash: null,
+      nextRetryAt: null,
+    };
+  }
+
+  private consecutiveFailures(sourceId: string): number {
+    const rows = this.db
+      .prepare(
+        "SELECT status FROM ingestion_runs WHERE ingestion_source_id = ? ORDER BY started_at DESC",
+      )
+      .all(sourceId) as Row[];
+    let n = 0;
+    for (const r of rows) {
+      if (r.status === "SUCCESS" || r.status === "PARTIAL") break;
+      if (r.status === "FAILED") n += 1;
+    }
+    return n;
+  }
+
+  async recordRun(outcome: RunOutcome): Promise<void> {
+    const existing = this.db
+      .prepare("SELECT id FROM ingestion_runs WHERE ingestion_source_id = ? AND started_at = ?")
+      .get(outcome.sourceId, outcome.startedAt) as Row | undefined;
+    const id = existing ? (existing.id as string) : `run-${outcome.startedAt}-${outcome.sourceId}`;
+    this.db
+      .prepare(
+        `INSERT INTO ingestion_runs
+           (id, ingestion_source_id, started_at, completed_at, status,
+            items_found, items_changed, items_new, items_failed, parser_version, error_count)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+         ON CONFLICT(id) DO UPDATE SET
+           completed_at = excluded.completed_at,
+           status = excluded.status,
+           items_found = excluded.items_found,
+           items_changed = excluded.items_changed,
+           items_new = excluded.items_new,
+           items_failed = excluded.items_failed,
+           parser_version = excluded.parser_version,
+           error_count = excluded.error_count`,
+      )
+      .run(
+        id,
+        outcome.sourceId,
+        outcome.startedAt,
+        outcome.completedAt,
+        outcome.status,
+        outcome.itemsFound,
+        outcome.itemsChanged,
+        outcome.itemsNew,
+        outcome.itemsFailed,
+        outcome.parserVersion ?? null,
+        outcome.errorCount,
+      );
+    const patch = this.db
+      .prepare(
+        `UPDATE ingestion_sources
+            SET last_run_at = COALESCE(?, last_run_at),
+                last_success_at = CASE WHEN ? IN ('SUCCESS','PARTIAL') THEN ? ELSE last_success_at END,
+                error_count = error_count + ?
+          WHERE id = ?`,
+      );
+    const errDelta = outcome.status === "FAILED" ? 1 : 0;
+    patch.run(
+      outcome.startedAt,
+      outcome.status,
+      outcome.completedAt,
+      errDelta,
+      outcome.sourceId,
+    );
+  }
+}
+
+// ---------------------------------------------------------------------------
+// EvidenceWriter (append-only; INSERT OR IGNORE keeps idempotent re-runs)
+// ---------------------------------------------------------------------------
+
+export class LocalSqliteEvidenceWriter implements EvidenceWriter {
+  private readonly db: SqliteDb;
+
+  constructor(dbPath: string) {
+    this.db = getDatabase(dbPath);
+  }
+
+  async saveSnapshot(input: SnapshotInput): Promise<string> {
+    const id = genId("snap");
+    this.db
+      .prepare(
+        `INSERT OR IGNORE INTO source_snapshots
+           (id, source_id, fetched_at, content_hash, http_status, mime_type,
+            r2_key, parser_version, extraction_status)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      )
+      .run(
+        id, input.sourceId, input.fetchedAt, input.contentHash,
+        input.httpStatus, input.mimeType, input.r2Key, input.parserVersion,
+        input.extractionStatus,
+      );
+    return id;
+  }
+
+  async updateExtractionStatus(snapshotId: string, status: SnapshotInput["extractionStatus"]): Promise<void> {
+    this.db.prepare("UPDATE source_snapshots SET extraction_status = ? WHERE id = ?").run(status, snapshotId);
+  }
+
+  async saveItem(input: ItemInput): Promise<void> {
+    this.db
+      .prepare(
+        `INSERT OR IGNORE INTO ingestion_items
+           (id, run_id, url, item_type, status, content_hash)
+         VALUES (?, ?, ?, ?, ?, ?)`,
+      )
+      .run(genId("item"), input.runId, input.url, input.itemType, input.status, input.contentHash ?? null);
+  }
+
+  async saveAssertion(input: AssertionInput): Promise<void> {
+    this.db
+      .prepare(
+        `INSERT OR IGNORE INTO data_assertions
+           (id, entity_type, entity_id, field_name, value, source_id,
+            source_snapshot_id, observed_at, confidence, verification_status)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      )
+      .run(
+        genId("as"), input.entityType, input.entityId, input.fieldName, input.value,
+        input.sourceId, input.sourceSnapshotId, input.observedAt,
+        input.confidence, input.verificationStatus,
+      );
+  }
+
+  async saveConflict(input: ConflictInput): Promise<void> {
+    this.db
+      .prepare(
+        `INSERT OR IGNORE INTO data_conflicts
+           (id, entity_type, entity_id, field_name, source_a_id, value_a,
+            source_b_id, value_b, detected_at, resolution_status, resolution_note)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      )
+      .run(
+        genId("cf"), input.entityType, input.entityId, input.fieldName,
+        input.sourceAId, input.valueA, input.sourceBId, input.valueB,
+        input.detectedAt, input.resolutionStatus, input.resolutionNote ?? null,
+      );
+  }
+
+  async saveValidation(input: ValidationInput): Promise<void> {
+    this.db
+      .prepare(
+        `INSERT OR IGNORE INTO validation_results
+           (id, target_type, target_id, rule_id, severity, status, message, evidence_json)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+      )
+      .run(
+        genId("vr"), input.targetType, input.targetId, input.ruleId,
+        input.severity, input.status, input.message ?? null, input.evidenceJson,
+      );
+  }
+
+  async saveError(input: ErrorInput): Promise<void> {
+    this.db
+      .prepare(
+        `INSERT OR IGNORE INTO ingestion_errors
+           (id, run_id, ingestion_source_id, url, error_type, error_message, retry_count)
+         VALUES (?, ?, ?, ?, ?, ?, ?)`,
+      )
+      .run(
+        genId("err"), input.runId, input.sourceId ?? null, input.url ?? null,
+        input.errorType, input.errorMessage, input.retryCount,
+      );
+  }
+
+  async saveOutboundLink(input: OutboundLinkInput): Promise<void> {
+    const id = `doc-${input.scopeKey}-${input.slug}`;
+    const now = nowIso();
+    const availability = input.availabilityStatus ?? "UNKNOWN";
+    // Insert-on-first-sighting; the UNIQUE(scope_key, slug) keeps ONE logical
+    // link per document while source_snapshots carries every version's evidence.
+    this.db
+      .prepare(
+        `INSERT OR IGNORE INTO outbound_links
+           (id, scope_key, institution_id, slug, target_type, label, target_url,
+            canonical_url, content_hash, availability_status, source_id,
+            first_seen_at, last_checked_at, is_active, created_at, updated_at)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?, ?)`,
+      )
+      .run(
+        id, input.scopeKey, input.institutionId ?? null, input.slug,
+        input.targetType, input.label, input.targetUrl,
+        input.canonicalUrl ?? null, input.contentHash ?? null, availability,
+        input.sourceId, input.firstSeenAt, input.lastCheckedAt ?? null, now, now,
+      );
+    // New version sighted → refresh hash/availability/check time on the SAME
+    // link row (old versions are the retained snapshot rows, never overwritten).
+    this.db
+      .prepare(
+        `UPDATE outbound_links
+            SET content_hash = ?,
+                availability_status = ?,
+                last_checked_at = ?,
+                updated_at = ?
+          WHERE scope_key = ? AND slug = ?`,
+      )
+      .run(
+        input.contentHash ?? null, availability, input.lastCheckedAt ?? null,
+        now, input.scopeKey, input.slug,
+      );
+  }
+
+  async appendAudit(input: AuditInput): Promise<void> {
+    this.db
+      .prepare(
+        `INSERT OR IGNORE INTO audit_logs
+           (id, action, target_type, target_id, before_json, after_json, created_at)
+         VALUES (?, ?, ?, ?, ?, ?, ?)`,
+      )
+      .run(
+        genId("aud"), input.action, input.targetType, input.targetId,
+        input.beforeJson ?? null, input.afterJson ?? null, nowIso(),
+      );
+  }
+}
+
+// ---------------------------------------------------------------------------
+
+function mapRow(r: Row): {
+  id: string;
+  url: string;
+  domain?: string | null;
+  source_type: string;
+  institution_id?: string | null;
+  config_json?: string | null;
+  enabled?: number | null;
+  fetch_interval_minutes?: number | null;
+} {
+  return {
+    id: r.id as string,
+    url: r.url as string,
+    domain: r.domain as string | null,
+    source_type: r.source_type as string,
+    institution_id: r.institution_id as string | null,
+    config_json: r.config_json as string | null,
+    enabled: r.enabled as number | null,
+    fetch_interval_minutes: r.fetch_interval_minutes as number | null,
+  };
+}

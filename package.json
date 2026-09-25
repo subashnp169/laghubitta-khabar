@@ -6,7 +6,18 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "seed": "node scripts/seed.cjs",
+    "smoke": "tsx scripts/smoke-api.ts",
+    "smoke:worker": "tsx scripts/smoke-worker.ts",
+    "smoke:ingest": "tsx scripts/smoke-ingest-fixtures.ts",
+    "smoke:ingest-security": "tsx scripts/smoke-ingest-security.ts",
+    "smoke:pdf-canonical": "tsx scripts/smoke-pdf-canonical.ts",
+    "pilot": "tsx scripts/run-pilot.ts",
+    "pilot:repeat": "tsx scripts/run-pilot.ts --repeat",
+    "pilot:report": "tsx scripts/pilot-evidence-report.ts",
+    "check:discipline": "node scripts/check-discipline.cjs"
   },
   "dependencies": {
     "next": "16.2.10",
@@ -18,9 +29,11 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "better-sqlite3": "^12.11.1",
     "eslint": "^9",
     "eslint-config-next": "16.2.10",
     "tailwindcss": "^4",
+    "tsx": "^4.23.0",
     "typescript": "^5"
   }
 }
