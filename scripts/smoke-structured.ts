@@ -24,9 +24,14 @@ import {
   branchDirectoryExtractor,
   branchDirectoryValidator,
   BRANCH_DIRECTORY_RULE_ID,
+  composeExtractors,
   financialMetadataExtractor,
   financialMetadataValidator,
   FINANCIAL_METADATA_RULE_ID,
+  nrbListingExtractor,
+  nrbListingValidator,
+  NRB_LISTING_RULE_ID,
+  nrbStructuredValidators,
   structuredValidators,
   vacancyExtractor,
   vacancyValidator,
@@ -84,16 +89,16 @@ function discoverHome(capability: DiscoveredTarget["capability"] = "WEBSITE") {
   };
 }
 
-function makeSource(id: string): IngestionSourceSpec {
+function makeSource(id: string, sourceType: IngestionSourceSpec["sourceType"] = "MFB_WEBSITE", capability: DiscoveredTarget["capability"] = "WEBSITE"): IngestionSourceSpec {
   return {
     id: `r4-${id}`,
     url: `https://fixture.test/${id}`,
     domain: "fixture.test",
-    sourceType: "MFB_WEBSITE",
+    sourceType,
     enabled: true,
     fetchIntervalMinutes: 1440,
     capabilities: [
-      { kind: "WEBSITE", status: "CANDIDATE", knownUrl: `https://fixture.test/${id}` },
+      { kind: capability, status: "CANDIDATE", knownUrl: `https://fixture.test/${id}` },
     ],
   };
 }
@@ -111,10 +116,11 @@ function scratchDb(): string {
 
 function seedScratch(dbPath: string, src: IngestionSourceSpec): void {
   const db = new Database(dbPath);
+  const isNrb = src.sourceType === "NRB";
   db.prepare(
     `INSERT INTO sources (id, source_type, source_scope, source_grade, url, domain, title, publisher, is_active)
-     VALUES (?, 'MFB_WEBSITE', 'INSTITUTION', 'A', ?, ?, ?, 'fixture', 1)`,
-  ).run(src.id, src.url, src.domain, `fixture: ${src.id}`);
+     VALUES (?, ?, ?, 'A', ?, ?, ?, 'fixture', 1)`,
+  ).run(src.id, isNrb ? "NRB" : "MFB_WEBSITE", isNrb ? "NRB" : "INSTITUTION", src.url, src.domain, `fixture: ${src.id}`);
   db.prepare(
     `INSERT INTO ingestion_sources (id, url, domain, source_type, institution_id, config_json, enabled, fetch_interval_minutes)
      VALUES (?, ?, ?, ?, NULL, ?, 1, 1440)`,
@@ -123,6 +129,7 @@ function seedScratch(dbPath: string, src: IngestionSourceSpec): void {
     [BRANCH_DIRECTORY_RULE_ID, "BRANCH_DIRECTORY", "branch directory extraction", "SANITY", "WARN"],
     [VACANCY_RULE_ID, "VACANCIES", "career vacancy extraction", "SANITY", "WARN"],
     [FINANCIAL_METADATA_RULE_ID, "FINANCIAL_METADATA", "financial document metadata extraction", "SANITY", "WARN"],
+    [NRB_LISTING_RULE_ID, "NRB_LISTING", "nrb listing extraction", "SANITY", "WARN"],
     ["r-pilot-title", "PILOT_TITLE", "pilot title present", "SANITY", "WARN"],
     ["r-pilot-email", "PILOT_EMAIL", "pilot email field sanity", "SANITY", "WARN"],
   ]) {
@@ -134,11 +141,11 @@ function seedScratch(dbPath: string, src: IngestionSourceSpec): void {
   db.close();
 }
 
-type AnyExtractor = { parserId: string; extract(ctx: { sourceId: string; institutionId?: string; capability: string; url: string; parserId: string; contentHash: string; body: Uint8Array }): Promise<ExtractedEvidence[]> };
+type AnyExtractor = { parserId: string; extract(ctx: { sourceId: string; institutionId?: string; sourceType?: string; capability: string; url: string; parserId: string; contentHash: string; body: Uint8Array }): Promise<ExtractedEvidence[]> };
 
-async function runFixture(id: string, body: string, capability: DiscoveredTarget["capability"], extractor: AnyExtractor, validators: unknown) {
+async function runFixture(id: string, body: string, capability: DiscoveredTarget["capability"], extractor: AnyExtractor, validators: unknown, sourceType: IngestionSourceSpec["sourceType"] = "MFB_WEBSITE") {
   const dbPath = scratchDb();
-  const src = makeSource(id);
+  const src = makeSource(id, sourceType, capability);
   seedScratch(dbPath, src);
   const engine = buildEngine({
     registry: new LocalSourceRegistry(dbPath),
@@ -225,6 +232,59 @@ const REPORTS_PLAIN = `<html><body>
 <ul>
   <li><a href="/memo-1.pdf">Office Memo January</a></li>
   <li><a href="/photo.jpg">Community Photo</a></li>
+</ul>
+</body></html>`;
+
+// Live NRB arrowed-list row shape (nrb.org.np category pages): a
+// `.text-primary` title anchor, then `.font-size-xs` with a `.text-muted` date
+// and a `.text-muted.text-uppercase` size. Some rows nest pointer anchors
+// (`<a href="">pdf</a>` / real `.pdf` "pdf") inside the title element — those
+// must never pollute the extracted title.
+const NRB_LISTING = `<html><body>
+<h3>Quarterly Situation of MFIs</h3>
+<ul class="arrowed-list arrowed-list--border">
+  <li>
+    <span class="text-primary"><a href="https://www.nrb.org.np/mfd/quarterly-situation-of-microfinance-institutions-2026-09/" target="_blank">Quarterly Situation of Microfinance Institutions 2026</a></span>
+    <div class="font-size-xs"><span class="mr-3 text-muted">September 22, 2026</span><span class="text-muted text-uppercase">416.86 kb</span></div>
+  </li>
+  <li>
+    <span class="text-primary"><a href="https://www.nrb.org.np/mfd/quarterly-situation-of-microfinance-institutions-2026-06/" target="_blank">Quarterly Situation of Microfinance Institutions 2026 (Q3)</a></span>
+    <div class="font-size-xs"><span class="mr-3 text-muted">June 30, 2026</span><span class="text-muted text-uppercase">1.23 mb</span></div>
+  </li>
+  <li>
+    <span class="text-primary"><a href="https://www.nrb.org.np/mfd/quarterly-situation-of-microfinance-institutions-2026-03/" target="_blank">Quarterly Situation of Microfinance Institutions 2026 (Q2) (<a href="">pdf</a> / <a href="https://www.nrb.org.np/contents/uploads/2026/03/q2.pdf">pdf</a>)</a></span>
+    <div class="font-size-xs"><span class="mr-3 text-muted">March 31, 2026</span><span class="text-muted text-uppercase">900 kb</span></div>
+  </li>
+</ul>
+<ul class="arrowed-list widget_archive">
+  <li><a href="https://www.nrb.org.np/category/key-financial-indicators/">Archives (Quarterly Financial Highlights)</a></li>
+  <li><a href="https://www.nrb.org.np/category/annual-reports/">Financial Statements</a></li>
+  <li><a href="https://www.nrb.org.np/category/notice/">NRB Quarterly news</a></li>
+</ul>
+</body></html>`;
+
+// Same page without the nested pointer anchors (used for the composed N4 case
+// so every extractor reads identical titles).
+const NRB_LISTING_CLEAN = `<html><body>
+<h3>Quarterly Situation of MFIs</h3>
+<ul class="arrowed-list arrowed-list--border">
+  <li>
+    <span class="text-primary"><a href="https://www.nrb.org.np/mfd/quarterly-situation-of-microfinance-institutions-2026-09/" target="_blank">Quarterly Situation of Microfinance Institutions 2026</a></span>
+    <div class="font-size-xs"><span class="mr-3 text-muted">September 22, 2026</span><span class="text-muted text-uppercase">416.86 kb</span></div>
+  </li>
+  <li>
+    <span class="text-primary"><a href="https://www.nrb.org.np/mfd/quarterly-situation-of-microfinance-institutions-2026-06/" target="_blank">Quarterly Situation of Microfinance Institutions 2026 (Q3)</a></span>
+    <div class="font-size-xs"><span class="mr-3 text-muted">June 30, 2026</span><span class="text-muted text-uppercase">1.23 mb</span></div>
+  </li>
+  <li>
+    <span class="text-primary"><a href="https://www.nrb.org.np/mfd/quarterly-situation-of-microfinance-institutions-2026-03/" target="_blank">Quarterly Situation of Microfinance Institutions 2026 (Q2)</a></span>
+    <div class="font-size-xs"><span class="mr-3 text-muted">March 31, 2026</span><span class="text-muted text-uppercase">900 kb</span></div>
+  </li>
+</ul>
+<ul class="arrowed-list widget_archive">
+  <li><a href="https://www.nrb.org.np/category/key-financial-indicators/">Archives (Quarterly Financial Highlights)</a></li>
+  <li><a href="https://www.nrb.org.np/category/annual-reports/">Financial Statements</a></li>
+  <li><a href="https://www.nrb.org.np/category/notice/">NRB Quarterly news</a></li>
 </ul>
 </body></html>`;
 
@@ -492,6 +552,89 @@ async function main(): Promise<void> {
         a.value === "वार्षिक प्रतिवेदन आ.ब. २०७८/७९",
     ),
   );
+}
+
+// ============================================================================
+// N1 — NRB arrowed-list page (institution-less, sourceType NRB): every anchored
+// entry becomes an outbound document link + one DOCUMENT_TITLE assertion,
+// entity falls back to the source, nested pdf pointers never pollute titles,
+// date/size stay evidence-only, all assertions UNVERIFIED
+// ============================================================================
+{
+  const { out, dbPath } = await runFixture("n1", NRB_LISTING, "DOCUMENT_ARCHIVE", nrbListingExtractor, [nrbListingValidator], "NRB");
+  check("N1 run ok", out.ok === true);
+  const asserts = qa(dbPath, "SELECT field_name, value, verification_status, confidence, entity_type, entity_id FROM data_assertions");
+  check("N1 exactly 3 document_title assertions", asserts.length === 3 && asserts.every((a) => a.field_name === "document_title"));
+  check("N1 nested-pdf title cleaned (no pointer junk)", asserts.some((a) => a.value === "Quarterly Situation of Microfinance Institutions 2026 (Q2)"));
+  check("N1 sidebar/category links never become documents", asserts.every((a) => a.value !== "Financial Statements" && a.value !== "NRB Quarterly news" && a.value !== "Archives (Quarterly Financial Highlights)"));
+  check("N1 per-entry assertions UNVERIFIED + confidence>=0.5", asserts.every((a) => a.verification_status === "UNVERIFIED" && Number(a.confidence) >= 0.5));
+  check("N1 assertions attach to the source (no institution)", asserts.every((a) => a.entity_type === "source" && a.entity_id === "r4-n1"));
+  check("N1 date/size never asserted", (q(dbPath, "SELECT COUNT(*) c FROM data_assertions WHERE field_name IN ('document_date','document_size')") as { c: number }).c === 0);
+  const links = qa(dbPath, "SELECT target_type, availability_status, target_url, label FROM outbound_links");
+  check("N1 exactly 3 outbound document links", links.length === 3 && links.every((l) => l.target_type === "DOCUMENT"));
+  check("N1 outbound links UNKNOWN (not yet depth-checked)", links.every((l) => l.availability_status === "UNKNOWN"));
+  check("N1 outbound target_urls are the /mfd/ entries", links.every((l) => String(l.target_url).startsWith("https://www.nrb.org.np/mfd/")));
+  check("N1 outbound labels are the entry titles", links.some((l) => l.label === "Quarterly Situation of Microfinance Institutions 2026"));
+  const val = qa(dbPath, `SELECT status, evidence_json FROM validation_results WHERE rule_id='${NRB_LISTING_RULE_ID}'`);
+  check("N1 nrb-listing validator PASS", val.length === 1 && val[0].status === "PASS");
+  const ev = JSON.parse(String(val[0].evidence_json)) as { count: number; attrs: Array<{ field: string; text: string }> };
+  check("N1 validator evidence count=3", ev.count === 3);
+  check("N1 date evidence present (volatile, unasserted)", ev.attrs.some((a) => a.field === "DOCUMENT_DATE" && a.text === "2026-09-22"));
+  check("N1 size evidence present (volatile, unasserted)", ev.attrs.some((a) => a.field === "DOCUMENT_SIZE" && a.text === "416.86 kb"));
+}
+
+// ============================================================================
+// N2 — same listing HTML under a non-NRB (MFB_WEBSITE) source: the NRB parser
+// stays silent; zero assertions, validator PENDING
+// ============================================================================
+{
+  const { out, dbPath } = await runFixture("n2", NRB_LISTING, "DOCUMENT_ARCHIVE", nrbListingExtractor, [nrbListingValidator]);
+  check("N2 run ok", out.ok === true);
+  check("N2 zero NRB assertions outside NRB scope", (q(dbPath, "SELECT COUNT(*) c FROM data_assertions") as { c: number }).c === 0);
+  const val = qa(dbPath, `SELECT status FROM validation_results WHERE rule_id='${NRB_LISTING_RULE_ID}'`);
+  check("N2 validator PENDING (not a defect)", val.length === 1 && val[0].status === "PENDING");
+}
+
+// ============================================================================
+// N3 — direct extraction gating: sourceType NRB + DOCUMENT_ARCHIVE/REPORTS is
+// the only combination that fires; non-listing bodies are ignored
+// ============================================================================
+{
+  const offCapability = await nrbListingExtractor.extract({
+    sourceId: "n3a", sourceType: "NRB", capability: "WEBSITE", url: "https://fixture.test/n3a",
+    parserId: "n3a", contentHash: "h", body: new TextEncoder().encode(NRB_LISTING),
+  });
+  check("N3 silent on WEBSITE capability", offCapability.length === 0);
+  const offScope = await nrbListingExtractor.extract({
+    sourceId: "n3b", capability: "DOCUMENT_ARCHIVE", url: "https://fixture.test/n3b",
+    parserId: "n3b", contentHash: "h", body: new TextEncoder().encode(NRB_LISTING),
+  });
+  check("N3 silent without sourceType NRB", offScope.length === 0);
+  const active = await nrbListingExtractor.extract({
+    sourceId: "n3c", sourceType: "NRB", capability: "REPORTS", url: "https://fixture.test/n3c",
+    parserId: "n3c", contentHash: "h", body: new TextEncoder().encode(NRB_LISTING),
+  });
+  check("N3 active on NRB REPORTS (3 links + 3 titles)", active.filter((e) => e.kind === "LINK").length === 3 && active.filter((e) => e.kind === "FIELD" && e.field === "DOCUMENT_TITLE").length === 3);
+  const nonListing = await nrbListingExtractor.extract({
+    sourceId: "n3d", sourceType: "NRB", capability: "DOCUMENT_ARCHIVE", url: "https://fixture.test/n3d",
+    parserId: "n3d", contentHash: "h", body: new TextEncoder().encode(CONTACT_PAGE),
+  });
+  check("N3 silent on non-listing NRB body", nonListing.length === 0);
+}
+
+// ============================================================================
+// N4 — production composition (nrb-listing-v1 + finmeta-html-v1) on the same
+// NRB page: overlapping DOCUMENT_TITLE evidence is deduped to one per title
+// ============================================================================
+{
+  const { out, dbPath } = await runFixture("n4", NRB_LISTING_CLEAN, "DOCUMENT_ARCHIVE", composeExtractors(nrbListingExtractor, financialMetadataExtractor), nrbStructuredValidators, "NRB");
+  check("N4 run ok", out.ok === true);
+  const asserts = qa(dbPath, "SELECT value FROM data_assertions WHERE field_name='document_title'");
+  check("N4 exactly 3 document_title (overlap deduped across extractors)", asserts.length === 3);
+  check("N4 unique Q2 title present once", asserts.filter((a) => a.value === "Quarterly Situation of Microfinance Institutions 2026 (Q2)").length === 1);
+  check("N4 finmeta does not pollute NRB sidebar into documents", asserts.every((a) => a.value !== "Financial Statements" && a.value !== "Archives (Quarterly Financial Highlights)"));
+  const links = qa(dbPath, "SELECT COUNT(*) c FROM outbound_links");
+  check("N4 outbound links still 3 in composition", (links[0].c as number) === 3);
 }
 
 console.log(`\nPhase R4 structured-metadata results: ${pass} ok / ${fail} fail`);

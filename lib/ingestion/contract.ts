@@ -121,6 +121,9 @@ export interface DiscoveryOptions {
 export interface ExtractionContext {
   sourceId: string;
   institutionId?: string;
+  /** Regulatory/regulator-scoped marker (e.g. "NRB" for nrb.org.np) — lets
+   * institution-agnostic parsers self-limit to a source family. Additive. */
+  sourceType?: string;
   capability: string;
   url: string;
   parserId: string;
@@ -311,6 +314,7 @@ export interface EngineDeps {
     extract(ctx: {
       sourceId: string;
       institutionId?: string;
+      sourceType?: string;
       capability: string;
       url: string;
       parserId: string;

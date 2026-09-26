@@ -1,0 +1,76 @@
+{
+  "phase": "M1.5.1 — NRB intake (eight crawlable NRB sources)",
+  "mode": "idempotency (repeat)",
+  "dbPath": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\lk-nrb-EzQrr5\\nrb.db",
+  "totals": {
+    "runs": 16,
+    "items": 22,
+    "snapshots": 11,
+    "assertions": 109,
+    "outbound_links": 97,
+    "errors": 0,
+    "fetch_failures": 0
+  },
+  "perSource": [
+    {
+      "source": "nrb-annual-reports",
+      "assertions": 11,
+      "outboundLinks": 10,
+      "snapshots": 1,
+      "errors": 0
+    },
+    {
+      "source": "nrb-bfi-archive",
+      "assertions": 11,
+      "outboundLinks": 10,
+      "snapshots": 1,
+      "errors": 0
+    },
+    {
+      "source": "nrb-kfi",
+      "assertions": 21,
+      "outboundLinks": 19,
+      "snapshots": 2,
+      "errors": 0
+    },
+    {
+      "source": "nrb-mfd-archive",
+      "assertions": 11,
+      "outboundLinks": 10,
+      "snapshots": 1,
+      "errors": 0
+    },
+    {
+      "source": "nrb-mfd-home",
+      "assertions": 2,
+      "outboundLinks": 0,
+      "snapshots": 1,
+      "errors": 0
+    },
+    {
+      "source": "nrb-mfi-supervision",
+      "assertions": 9,
+      "outboundLinks": 8,
+      "snapshots": 1,
+      "errors": 0
+    },
+    {
+      "source": "nrb-quarterly-interest-rate",
+      "assertions": 22,
+      "outboundLinks": 20,
+      "snapshots": 2,
+      "errors": 0
+    },
+    {
+      "source": "nrb-quarterly-situation",
+      "assertions": 22,
+      "outboundLinks": 20,
+      "snapshots": 2,
+      "errors": 0
+    }
+  ],
+  "errorsBySource": [],
+  "publishedToPublicSite": false,
+  "aiUsed": false,
+  "note": "scratch review DB only; all assertions UNVERIFIED; regulator-scoped sources (no institution_id); no schema change; no publish"
+}

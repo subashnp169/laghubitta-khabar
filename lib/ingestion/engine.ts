@@ -90,6 +90,7 @@ import type {
   ErrorInput,
   FetchOptions,
   ItemInput,
+  OutboundLinkInput,
   Validator,
 } from "./contract";
 import type {
@@ -340,7 +341,7 @@ export class GenericIngestionEngine {
     let extracted: ExtractedEvidence[];
     try {
       extracted = await this.deps.extractor.extract(
-        { sourceId: source.id, institutionId: source.institutionId, capability: target.capability, url: target.url, parserId: this.deps.extractor.parserId, contentHash: fetched.contentHash, body: fetched.body },
+        { sourceId: source.id, institutionId: source.institutionId, sourceType: source.sourceType, capability: target.capability, url: target.url, parserId: this.deps.extractor.parserId, contentHash: fetched.contentHash, body: fetched.body },
       );
       await this.deps.writer.updateExtractionStatus(snapshotId, "EXTRACTED");
     } catch {
@@ -387,12 +388,21 @@ export class GenericIngestionEngine {
     }
 
     // Phase G: ASSERTION — evidence-first. Confidence below threshold never
-    // becomes an assertion visible to the public.
+    // becomes an assertion visible to the public. Deduped per snapshot by
+    // (field, value) so composed extractors that see the same title (e.g. the
+    // NRB listing parser + the financial-metadata parser) assert it once.
+    const assertedKeys = new Set<string>();
     for (const ev of extracted) {
       if (ev.kind === "FIELD" && ev.confidence >= 0.5) {
+        const key = `${(ev.field ?? ev.capability).toLowerCase()}|${ev.text ?? ""}`;
+        if (assertedKeys.has(key)) continue;
+        assertedKeys.add(key);
         await this.deps.writer.saveAssertion({
-          entityType: "institution",
-          entityId: source.institutionId ?? "unknown",
+          // Institution-scoped sources assert against the institution;
+          // regulator/regulatory sources (e.g. NRB, no institution_id) assert
+          // against the source itself so the ledger stays honest per crawler.
+          entityType: source.institutionId ? "institution" : "source",
+          entityId: source.institutionId ?? source.id,
           fieldName: ev.field ? ev.field.toLowerCase() : ev.capability.toLowerCase(),
           value: ev.text ?? "",
           sourceId: source.id,
@@ -401,6 +411,44 @@ export class GenericIngestionEngine {
           confidence: ev.confidence,
           verificationStatus: "UNVERIFIED",
         } satisfies AssertionInput);
+      }
+    }
+
+    // Phase G (1.5 addition): LINK evidence → durable outbound_links rows.
+    // An HTML page whose extractor saw real links (e.g. NRB arrowed-list
+    // entries) persists each as an outbound document link — the same row shape
+    // the non-HTML document path writes above, but sourced from a listing page.
+    // Availability stays UNKNOWN until a future depth check inspects the target.
+    for (const ev of extracted) {
+      if (ev.kind !== "LINK" || (ev.confidence ?? 0) < 0.5) continue;
+      if (!ev.href || ev.href.startsWith("#") || ev.href.startsWith("javascript:")) continue;
+      let targetUrl: string;
+      try {
+        targetUrl = new URL(ev.href, target.url).href;
+      } catch {
+        continue;
+      }
+      const knownTargetTypes = new Set(["WEBSITE", "DOCUMENT", "JOB", "DIRECTIVE", "NOTICE", "SOCIAL", "OTHER"]);
+      let targetType: OutboundLinkInput["targetType"] = "DOCUMENT";
+      if (ev.documentType && knownTargetTypes.has(ev.documentType)) {
+        targetType = ev.documentType as OutboundLinkInput["targetType"];
+      }
+      try {
+        await this.deps.writer.saveOutboundLink({
+          scopeKey: source.institutionId ?? source.id,
+          institutionId: source.institutionId,
+          slug: documentSlug(targetUrl),
+          targetType,
+          label: ev.text ?? `document at ${targetUrl}`,
+          targetUrl,
+          availabilityStatus: "UNKNOWN",
+          sourceId: source.id,
+          firstSeenAt: now,
+          lastCheckedAt: now,
+        });
+        await this.deps.writer.appendAudit({ action: "OUTBOUND_LINK_PERSISTED", targetType: "outbound_link", targetId: runId, afterJson: JSON.stringify({ url: targetUrl, slug: documentSlug(targetUrl) }) });
+      } catch (e) {
+        await this.deps.writer.appendAudit({ action: "OUTBOUND_LINK_PERSISTED", targetType: "outbound_link", targetId: runId, afterJson: JSON.stringify({ url: targetUrl, error: (e as Error).message }) });
       }
     }
 

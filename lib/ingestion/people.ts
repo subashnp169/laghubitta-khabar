@@ -33,6 +33,7 @@ export interface HtmlExtractor {
   extract(ctx: {
     sourceId: string;
     institutionId?: string;
+    sourceType?: string;
     capability: string;
     url: string;
     parserId: string;

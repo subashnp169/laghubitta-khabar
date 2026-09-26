@@ -1,0 +1,23 @@
+{
+  "$schema": "nrb-budget/v1",
+  "note": "Phase 1.5 NRB intake — hard per-run crawl budget for the 8 crawlable NRB sources. Config values, not per-MFB code. NRB category pages are shallow WordPress archives (each page holds ~10 entries), so single/two-page listings fit comfortably; the KFI family gets page-2 targets and a slightly higher document cap. Bounds exist so intake proves the pipeline instead of becoming a crawler project.",
+  "defaults": {
+    "maxTargets": 40,
+    "maxFetches": 30,
+    "maxDocuments": 14,
+    "maxBytes": 5242880,
+    "maxRedirects": 5,
+    "maxRetries": 2,
+    "maxRuntimeMs": 240000
+  },
+  "perSource": {
+    "nrb-quarterly-situation": {},
+    "nrb-kfi": {},
+    "nrb-mfi-supervision": {},
+    "nrb-mfd-home": {},
+    "nrb-mfd-archive": {},
+    "nrb-annual-reports": {},
+    "nrb-bfi-archive": {},
+    "nrb-quarterly-interest-rate": {}
+  }
+}

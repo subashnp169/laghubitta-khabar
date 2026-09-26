@@ -1,0 +1,195 @@
+{
+  "$schema": "nrb-sources/v1",
+  "note": "Phase 1.5 NRB intelligence registry (M1.5.1 intake). Eight crawlable NRB sources: seven master NRB sources (nrb-bfi-mid-may-2026 is handled by master refresh, never crawled) plus the additive MFD Quarterly Interest Rate source. Each source declares NO institution_id (regulator-scoped; sources.source_scope='NRB', source_type='NRB'). known_url is evidence-backed: every URL below was fetched live 2026-09-26 (HTTP 200) and the category pages expose the arrowed-list structure the nrb-listing-v1 parser reads. page/2 known_urls are explicit because walkLinks/hint rules never classify /category/.../page/N/ (pagination is config, not code). No SITEMAP capability is declared: NRB is WordPress and a sitemap deref classifies arbitrary posts (bidding documents, office notices) as DOCUMENT_ARCHIVE via generic word hints — i.e. full-archive reach, which M1.5.1 explicitly forbids. The explicit DOCUMENT_ARCHIVE known_urls are the authoritative budget-bounded surface; full archive is a future operator knob (config_json.budget).",
+  "sources": [
+    {
+      "id": "nrb-quarterly-situation",
+      "source_type": "NRB",
+      "source_scope": "NRB",
+      "source_grade": "A",
+      "url": "https://www.nrb.org.np/category/quarterly-situation-of-mfis/",
+      "domain": "www.nrb.org.np",
+      "title": "NRB Quarterly Situation of MFIs",
+      "publisher": "Nepal Rastra Bank",
+      "is_active": 1,
+      "doc_type": "REPORT",
+      "capabilities": [
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "VERIFIED",
+          "known_url": "https://www.nrb.org.np/category/quarterly-situation-of-mfis/",
+          "link_type": "REPORT_PAGE",
+          "note": "M1.5.1 intake: live 2026-09-26 (HTTP 200), 10 arrowed-list entries"
+        },
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "VERIFIED",
+          "known_url": "https://www.nrb.org.np/category/quarterly-situation-of-mfis/page/2/",
+          "link_type": "REPORT_PAGE",
+          "note": "M1.5.1 intake: page/2 live (HTTP 200), 10 arrowed-list entries (budget-bounded pagination)"
+        }
+      ]
+    },
+    {
+      "id": "nrb-kfi",
+      "source_type": "NRB",
+      "source_scope": "NRB",
+      "source_grade": "A",
+      "url": "https://www.nrb.org.np/category/key-financial-indicators/?department=mfd",
+      "domain": "www.nrb.org.np",
+      "title": "NRB Key Financial Indicators of Microfinance Institutions",
+      "publisher": "Nepal Rastra Bank",
+      "is_active": 1,
+      "doc_type": "KFI",
+      "capabilities": [
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "VERIFIED",
+          "known_url": "https://www.nrb.org.np/category/key-financial-indicators/?department=mfd",
+          "link_type": "REPORT_PAGE",
+          "note": "M1.5.1 intake: live 2026-09-26 (HTTP 200), ~10 arrowed-list entries; ?department=mfd excludes BSD/bank posts at the source"
+        },
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "VERIFIED",
+          "known_url": "https://www.nrb.org.np/category/key-financial-indicators/page/2/?department=mfd",
+          "link_type": "REPORT_PAGE",
+          "note": "M1.5.1 intake: page/2 live (HTTP 200), 9 arrowed-list entries (budget-bounded pagination)"
+        }
+      ]
+    },
+    {
+      "id": "nrb-mfi-supervision",
+      "source_type": "NRB",
+      "source_scope": "NRB",
+      "source_grade": "A",
+      "url": "https://www.nrb.org.np/category/annual-supervision-report/?department=mfd",
+      "domain": "www.nrb.org.np",
+      "title": "NRB Annual Supervision Reports for MFIs",
+      "publisher": "Nepal Rastra Bank",
+      "is_active": 1,
+      "doc_type": "REPORT",
+      "capabilities": [
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "VERIFIED",
+          "known_url": "https://www.nrb.org.np/category/annual-supervision-report/?department=mfd",
+          "link_type": "REPORT_PAGE",
+          "note": "M1.5.1 intake: live 2026-09-26 (HTTP 200), 8 arrowed-list entries, no pagination"
+        }
+      ]
+    },
+    {
+      "id": "nrb-mfd-home",
+      "source_type": "NRB",
+      "source_scope": "NRB",
+      "source_grade": "A",
+      "url": "https://www.nrb.org.np/departments/mfd/",
+      "domain": "www.nrb.org.np",
+      "title": "NRB Microfinance Institutions Supervision Department",
+      "publisher": "Nepal Rastra Bank",
+      "is_active": 1,
+      "doc_type": null,
+      "capabilities": [
+        {
+          "capability": "WEBSITE",
+          "status": "VERIFIED",
+          "known_url": "https://www.nrb.org.np/departments/mfd/",
+          "link_type": "WEBSITE",
+          "note": "discovery intent only: routes to MFD categories; not a document listing"
+        }
+      ]
+    },
+    {
+      "id": "nrb-mfd-archive",
+      "source_type": "NRB",
+      "source_scope": "NRB",
+      "source_grade": "A",
+      "url": "https://www.nrb.org.np/mfd/",
+      "domain": "www.nrb.org.np",
+      "title": "NRB Microfinance Institutions Supervision Department Archive",
+      "publisher": "Nepal Rastra Bank",
+      "is_active": 1,
+      "doc_type": "DIRECTIVE",
+      "capabilities": [
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "VERIFIED",
+          "known_url": "https://www.nrb.org.np/mfd/",
+          "link_type": "REPORT_PAGE",
+          "note": "M1.5.1 intake: live 2026-09-26 (HTTP 200); broad MFD archive; listing parser fires if arrowed-list present"
+        }
+      ]
+    },
+    {
+      "id": "nrb-annual-reports",
+      "source_type": "NRB",
+      "source_scope": "NRB",
+      "source_grade": "A",
+      "url": "https://www.nrb.org.np/category/annual-reports/",
+      "domain": "www.nrb.org.np",
+      "title": "NRB Annual Reports",
+      "publisher": "Nepal Rastra Bank",
+      "is_active": 1,
+      "doc_type": "REPORT",
+      "capabilities": [
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "VERIFIED",
+          "known_url": "https://www.nrb.org.np/category/annual-reports/",
+          "link_type": "REPORT_PAGE",
+          "note": "M1.5.1 intake: live 2026-09-26 (HTTP 200), 10 arrowed-list entries"
+        }
+      ]
+    },
+    {
+      "id": "nrb-bfi-archive",
+      "source_type": "NRB",
+      "source_scope": "NRB",
+      "source_grade": "A",
+      "url": "https://www.nrb.org.np/category/list-of-bfis/",
+      "domain": "www.nrb.org.np",
+      "title": "NRB List of BFIs archive",
+      "publisher": "Nepal Rastra Bank",
+      "is_active": 1,
+      "doc_type": null,
+      "capabilities": [
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "VERIFIED",
+          "known_url": "https://www.nrb.org.np/category/list-of-bfis/",
+          "link_type": "REPORT_PAGE",
+          "note": "M1.5.1 intake: live 2026-09-26 (HTTP 200), 10 arrowed-list entries; BFI universe/monitoring surface"
+        }
+      ]
+    },
+    {
+      "id": "nrb-quarterly-interest-rate",
+      "source_type": "NRB",
+      "source_scope": "NRB",
+      "source_grade": "A",
+      "url": "https://www.nrb.org.np/category/quarterly-interest-rate/?department=mfd",
+      "domain": "www.nrb.org.np",
+      "title": "NRB Quarterly Interest Rate of Microfinance (additive)",
+      "publisher": "Nepal Rastra Bank",
+      "is_active": 1,
+      "doc_type": "KFI",
+      "capabilities": [
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "VERIFIED",
+          "known_url": "https://www.nrb.org.np/category/quarterly-interest-rate/?department=mfd",
+          "link_type": "REPORT_PAGE",
+          "note": "M1.5.1 intake: additive source (out of master), live 2026-09-26 (HTTP 200), 10 arrowed-list entries; ?department=mfd at the source"
+        },
+        {
+          "capability": "DOCUMENT_ARCHIVE",
+          "status": "VERIFIED",
+          "known_url": "https://www.nrb.org.np/category/quarterly-interest-rate/page/2/?department=mfd",
+          "link_type": "REPORT_PAGE",
+          "note": "M1.5.1 intake: additive source, page/2 (budget-bounded pagination)"
+        }
+      ]
+    }
+  ]
+}

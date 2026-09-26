@@ -182,7 +182,10 @@ export class BrowserDiscovery {
       if (cap.knownUrl) {
         targets.push({
           capability: cap.kind,
-          url: normalize(cap.knownUrl),
+          // A KNOWN capability URL is an evidence-backed official page; its
+          // query string is part of that page (e.g. NRB's `?department=mfd`
+          // filter), so it is preserved — never stripped like walk/sitemap hrefs.
+          url: normalizeKeepSearch(cap.knownUrl),
           method: "KNOWN",
           parentUrl: source.url,
           sourceId: source.id,
@@ -363,6 +366,18 @@ function normalize(url: string): string {
   const u = new URL(url);
   u.hash = "";
   u.search = "";
+  return u.href.replace(/\/$/, "");
+}
+
+/**
+ * Like `normalize` but PRESERVES the query string. Used for KNOWN capability
+ * URLs where the search params are part of the evidence-backed official page
+ * (e.g. NRB `?department=mfd`). Fragment is still dropped; the trailing slash
+ * is still normalized.
+ */
+function normalizeKeepSearch(url: string): string {
+  const u = new URL(url);
+  u.hash = "";
   return u.href.replace(/\/$/, "");
 }
 

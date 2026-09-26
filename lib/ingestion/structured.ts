@@ -315,6 +315,12 @@ export const financialMetadataExtractor: HtmlExtractor = {
   parserId: FINMETADATA_PARSER_ID,
   async extract(ctx): Promise<ExtractedEvidence[]> {
     if (ctx.capability !== "REPORTS" && ctx.capability !== "DOCUMENT_ARCHIVE") return [];
+    // NRB category pages: the sidebar/footer repeat category links ("Financial
+    // Statements", "Archives (Quarterly Financial Highlights)") that carry the
+    // same word hints as the real archive rows — the hint-window would assert
+    // them as documents. NRB archive rows are nrb-listing-v1's job (title +
+    // date + size per entry); finmeta adds nothing but noise there.
+    if (ctx.sourceType === "NRB") return [];
     const cap = ctx.capability as ExtractedEvidence["capability"];
     const out: ExtractedEvidence[] = [];
     const now = new Date().toISOString();
@@ -365,4 +371,177 @@ export const structuredValidators: ReadonlyArray<Validator> = [
   branchDirectoryValidator,
   vacancyValidator,
   financialMetadataValidator,
+];
+
+// ---------------------------------------------------------------------------
+// Phase M1.5 — NRB listing parser (nrb-listing-v1). Regulator-scoped, fully
+// institution-agnostic: fires ONLY for sourceType "NRB" on DOCUMENT_ARCHIVE /
+// REPORTS pages that carry NRB's arrowed-list entry structure. Every anchored
+// entry becomes an outbound document link (LINK evidence → outbound_links row)
+// plus a DOCUMENT_TITLE assertion; date/size stay evidence-only at 0.45 until
+// a later phase verifies the target documents.
+// ---------------------------------------------------------------------------
+
+export const NRB_LISTING_RULE_ID = "r-nrb-listing";
+export const NRB_LISTING_PARSER_ID = "nrb-listing-v1";
+
+const NRB_MONTH_INDEX: Record<string, string> = {
+  january: "01", february: "02", march: "03", april: "04", may: "05",
+  june: "06", july: "07", august: "08", september: "09", october: "10",
+  november: "11", december: "12",
+};
+
+const NRB_LISTING_CONTAINER_CLASSES = /class\s*=\s*"[^"]*\b(?:arrowed-list|listing)[^"]*"/i;
+const NRB_MONTH_DATE_RE =
+  /\b(January|February|March|April|May|June|July|August|September|October|November|December)\s+(\d{1,2}),\s+(20\d{2})\b/i;
+const NRB_ISO_DATE_RE = /\b(20\d{2})-(\d{1,2})-(\d{1,2})\b/;
+const NRB_SIZE_RE = /\b(\d+(?:[.,]\d+)?)\s*(kb|mb|gb|b)\b/i;
+// NRB pointer-anchor clutter ("pdf / real" links, incl. an empty-href first
+// one) that nests inside some title elements — never part of the title.
+const pointerPdfRe = /<a\b[^>]*\bhref\s*=\s*["'][^"']*["'][^>]*>\s*(?:pdf|real)\s*<\/a>/gi;
+const pointerEmptyRe = /<a\b(?![^>]*\bhref)[^>]*>\s*(?:pdf|real)\s*<\/a>/gi;
+
+interface NrbListingEntry {
+  title: string;
+  href: string;
+  date: string | null; // ISO yyyy-mm-dd when the entry carried a date
+  size: string | null; // e.g. "416.86 kb"
+}
+
+/**
+ * Pick the real titled anchor of an NRB listing row. NRB nests pointer anchors
+ * (an empty-href "pdf", a real ".pdf" "pdf") inside some title elements and
+ * appends them as siblings in others — so pointer anchors are removed BEFORE
+ * scanning, and the first remaining qualifying anchor (= the .text-primary
+ * title link, which precedes any leftovers in document order) is chosen.
+ */
+function nrbListingAnchor(liRaw: string): { href: string; text: string } | null {
+  const liHtml = liRaw
+    .replace(pointerPdfRe, "")
+    .replace(pointerEmptyRe, "");
+  const aRe = /<a\b([^>]*)>([\s\S]*?)<\/a>/gi;
+  let am: RegExpExecArray | null;
+  while ((am = aRe.exec(liHtml)) !== null) {
+    const attrs = am[1];
+    const hrefMatch = /\bhref\s*=\s*(?:"([^"]*)"|'([^']*)')/i.exec(attrs);
+    const href = hrefMatch ? (hrefMatch[1] ?? hrefMatch[2]) : "";
+    if (!href || href.startsWith("#") || href.startsWith("javascript:")) continue;
+    // Pointer removal can leave an empty "( )" / "( / )" pair where the pdf
+    // anchors were — never part of the title.
+    const text = cleanCell(am[2]).replace(/\s*\(\s*\s*(?:\/\s*)*\)\s*$/, "").trim();
+    if (text.length < 4 || text.length > 160) continue;
+    return { href, text };
+  }
+  return null;
+}
+
+function pad2(n: string): string {
+  return n.length === 1 ? `0${n}` : n;
+}
+
+function parseNrbListing(html: string): NrbListingEntry[] {
+  const out: NrbListingEntry[] = [];
+  const seen = new Set<string>();
+  const ulRe = /<ul\b([^>]*)>([\s\S]*?)<\/ul>/gi;
+  let um: RegExpExecArray | null;
+  while ((um = ulRe.exec(html)) !== null) {
+    if (!NRB_LISTING_CONTAINER_CLASSES.test(`<ul ${um[1]}>`)) continue;
+    const liRe = /<li\b[^>]*>([\s\S]*?)<\/li>/gi;
+    let lm: RegExpExecArray | null;
+    while ((lm = liRe.exec(um[2])) !== null) {
+      const liHtml = lm[1];
+      const anchor = nrbListingAnchor(liHtml);
+      if (!anchor) continue;
+      const key = anchor.text.trim().toLowerCase();
+      if (seen.has(key)) continue;
+      seen.add(key);
+      let date: string | null = null;
+      let isoMatch: RegExpExecArray | null = null;
+      const monthMatch = NRB_MONTH_DATE_RE.exec(liHtml);
+      if (monthMatch) {
+        const month = NRB_MONTH_INDEX[monthMatch[1].toLowerCase()];
+        date = `${monthMatch[3]}-${month}-${pad2(monthMatch[2])}`;
+      } else {
+        isoMatch = NRB_ISO_DATE_RE.exec(liHtml);
+        if (isoMatch) date = `${isoMatch[1]}-${pad2(isoMatch[2])}-${pad2(isoMatch[3])}`;
+      }
+      let size: string | null = null;
+      const sizeMatch = NRB_SIZE_RE.exec(liHtml);
+      if (sizeMatch) size = `${sizeMatch[1].replace(",", ".")} ${sizeMatch[2].toLowerCase()}`;
+      // Authoritative entry vs sidebar/nav/footer clutter: every real NRB
+      // listing row carries a date or a filesize (the `.font-size-xs` block).
+      // Sidebar widget links ("Archives", "NRB Quarterly news", category
+      // headings) have neither — they must not become documents.
+      const documentLike = monthMatch !== null || isoMatch !== null || sizeMatch !== null;
+      if (!documentLike) continue;
+      out.push({ title: anchor.text.trim(), href: anchor.href, date, size });
+    }
+  }
+  return out;
+}
+
+export const nrbListingExtractor: HtmlExtractor = {
+  parserId: NRB_LISTING_PARSER_ID,
+  async extract(ctx): Promise<ExtractedEvidence[]> {
+    if (ctx.sourceType !== "NRB") return [];
+    if (ctx.capability !== "DOCUMENT_ARCHIVE" && ctx.capability !== "REPORTS") return [];
+    const cap = ctx.capability as ExtractedEvidence["capability"];
+    const out: ExtractedEvidence[] = [];
+    const now = new Date().toISOString();
+    for (const entry of parseNrbListing(new TextDecoder().decode(ctx.body))) {
+      out.push({
+        kind: "LINK",
+        capability: cap,
+        sourceUrl: ctx.url,
+        href: entry.href,
+        text: entry.title,
+        documentType: "DOCUMENT",
+        confidence: 0.6,
+        parserId: NRB_LISTING_PARSER_ID,
+        extractedAt: now,
+      });
+      out.push({
+        kind: "FIELD",
+        capability: cap,
+        field: "DOCUMENT_TITLE",
+        sourceUrl: ctx.url,
+        text: entry.title,
+        confidence: 0.6,
+        parserId: NRB_LISTING_PARSER_ID,
+        extractedAt: now,
+      });
+      if (entry.date) {
+        out.push({
+          kind: "FIELD",
+          capability: cap,
+          field: "DOCUMENT_DATE",
+          sourceUrl: ctx.url,
+          text: entry.date,
+          confidence: 0.45,
+          parserId: NRB_LISTING_PARSER_ID,
+          extractedAt: now,
+        });
+      }
+      if (entry.size) {
+        out.push({
+          kind: "FIELD",
+          capability: cap,
+          field: "DOCUMENT_SIZE",
+          sourceUrl: ctx.url,
+          text: entry.size,
+          confidence: 0.45,
+          parserId: NRB_LISTING_PARSER_ID,
+          extractedAt: now,
+        });
+      }
+    }
+    return out;
+  },
+};
+
+export const nrbListingValidator: Validator = directoryValidatorFor(NRB_LISTING_RULE_ID, "DOCUMENT_TITLE");
+
+export const nrbStructuredValidators: ReadonlyArray<Validator> = [
+  ...structuredValidators,
+  nrbListingValidator,
 ];
