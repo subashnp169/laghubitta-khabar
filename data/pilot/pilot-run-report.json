@@ -1,31 +1,31 @@
 {
   "phase": "O — Controlled Evidence Ingestion Pilot",
   "mode": "idempotency (repeat)",
-  "dbPath": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\lk-pilot-Az2umP\\pilot.db",
+  "dbPath": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\lk-pilot-Iq2nti\\pilot.db",
   "totals": {
     "runs": 102,
-    "items": 733,
-    "snapshots": 403,
-    "assertions": 1768,
-    "errors": 27,
-    "fetch_failures": 21
+    "items": 1203,
+    "snapshots": 682,
+    "assertions": 2359,
+    "errors": 71,
+    "fetch_failures": 47
   },
   "perSource": [
     {
       "institution": "mfi-001",
       "source": "nirdhan-website",
-      "snapshots": 12,
+      "snapshots": 21,
       "unchangedItems": 8,
       "repeatedOk": true,
-      "discoveryUrls": 11
+      "discoveryUrls": 15
     },
     {
       "institution": "mfi-003",
       "source": "chhimek-website",
-      "snapshots": 0,
-      "unchangedItems": 0,
+      "snapshots": 18,
+      "unchangedItems": 13,
       "repeatedOk": true,
-      "discoveryUrls": 1
+      "discoveryUrls": 13
     },
     {
       "institution": "mfi-020",
@@ -33,7 +33,7 @@
       "snapshots": 4,
       "unchangedItems": 4,
       "repeatedOk": true,
-      "discoveryUrls": 4
+      "discoveryUrls": 5
     },
     {
       "institution": "mfi-047",
@@ -41,7 +41,7 @@
       "snapshots": 9,
       "unchangedItems": 9,
       "repeatedOk": true,
-      "discoveryUrls": 14
+      "discoveryUrls": 19
     },
     {
       "institution": "mfi-034",
@@ -54,74 +54,74 @@
     {
       "institution": "mfi-030",
       "source": "aarambha-website",
-      "snapshots": 10,
-      "unchangedItems": 10,
-      "repeatedOk": true,
-      "discoveryUrls": 13
-    },
-    {
-      "institution": "mfi-049",
-      "source": "aatmanirbhar-website",
-      "snapshots": 20,
-      "unchangedItems": 0,
-      "repeatedOk": true,
-      "discoveryUrls": 16
-    },
-    {
-      "institution": "mfi-031",
-      "source": "asha-website",
-      "snapshots": 10,
-      "unchangedItems": 10,
+      "snapshots": 18,
+      "unchangedItems": 13,
       "repeatedOk": true,
       "discoveryUrls": 18
     },
     {
+      "institution": "mfi-049",
+      "source": "aatmanirbhar-website",
+      "snapshots": 36,
+      "unchangedItems": 0,
+      "repeatedOk": true,
+      "discoveryUrls": 20
+    },
+    {
+      "institution": "mfi-031",
+      "source": "asha-website",
+      "snapshots": 16,
+      "unchangedItems": 16,
+      "repeatedOk": true,
+      "discoveryUrls": 22
+    },
+    {
       "institution": "mfi-051",
       "source": "aviyan-website",
-      "snapshots": 0,
-      "unchangedItems": 0,
+      "snapshots": 1,
+      "unchangedItems": 1,
       "repeatedOk": true,
       "discoveryUrls": 1
     },
     {
       "institution": "mfi-043",
       "source": "cyc-website",
-      "snapshots": 10,
-      "unchangedItems": 10,
+      "snapshots": 18,
+      "unchangedItems": 18,
       "repeatedOk": true,
-      "discoveryUrls": 16
+      "discoveryUrls": 40
     },
     {
       "institution": "mfi-002",
       "source": "deproscbank-website",
-      "snapshots": 10,
-      "unchangedItems": 10,
-      "repeatedOk": true,
-      "discoveryUrls": 16
-    },
-    {
-      "institution": "mfi-004",
-      "source": "swbbl-website",
-      "snapshots": 9,
-      "unchangedItems": 9,
+      "snapshots": 18,
+      "unchangedItems": 15,
       "repeatedOk": true,
       "discoveryUrls": 20
     },
     {
+      "institution": "mfi-004",
+      "source": "swbbl-website",
+      "snapshots": 17,
+      "unchangedItems": 17,
+      "repeatedOk": true,
+      "discoveryUrls": 27
+    },
+    {
       "institution": "mfi-005",
       "source": "skbbl-website",
-      "snapshots": 10,
-      "unchangedItems": 10,
+      "snapshots": 18,
+      "unchangedItems": 16,
       "repeatedOk": true,
-      "discoveryUrls": 16
+      "discoveryUrls": 21
     },
     {
       "institution": "mfi-006",
       "source": "nerudemirmire-website",
-      "snapshots": 10,
-      "unchangedItems": 10,
+      "snapshots": 14,
+      "unchangedItems": 14,
       "repeatedOk": true,
-      "discoveryUrls": 14
+      "discoveryUrls": 19
     },
     {
       "institution": "mfi-007",
@@ -134,58 +134,58 @@
     {
       "institution": "mfi-008",
       "source": "slbbl-website",
-      "snapshots": 10,
-      "unchangedItems": 10,
+      "snapshots": 18,
+      "unchangedItems": 18,
       "repeatedOk": true,
-      "discoveryUrls": 20
+      "discoveryUrls": 40
     },
     {
       "institution": "mfi-009",
       "source": "fmdb-website",
-      "snapshots": 10,
-      "unchangedItems": 10,
+      "snapshots": 16,
+      "unchangedItems": 16,
       "repeatedOk": true,
-      "discoveryUrls": 17
+      "discoveryUrls": 20
     },
     {
       "institution": "mfi-010",
       "source": "kalikabank-website",
-      "snapshots": 10,
-      "unchangedItems": 10,
+      "snapshots": 18,
+      "unchangedItems": 13,
       "repeatedOk": true,
-      "discoveryUrls": 14
+      "discoveryUrls": 19
     },
     {
       "institution": "mfi-011",
       "source": "jucbank-website",
-      "snapshots": 10,
-      "unchangedItems": 10,
+      "snapshots": 16,
+      "unchangedItems": 16,
       "repeatedOk": true,
-      "discoveryUrls": 17
+      "discoveryUrls": 22
     },
     {
       "institution": "mfi-012",
       "source": "swmfi-website",
-      "snapshots": 10,
-      "unchangedItems": 10,
+      "snapshots": 18,
+      "unchangedItems": 15,
       "repeatedOk": true,
-      "discoveryUrls": 15
+      "discoveryUrls": 20
     },
     {
       "institution": "mfi-013",
       "source": "laxmilaghu-website",
-      "snapshots": 11,
-      "unchangedItems": 8,
+      "snapshots": 15,
+      "unchangedItems": 11,
       "repeatedOk": true,
-      "discoveryUrls": 12
+      "discoveryUrls": 17
     },
     {
       "institution": "mfi-014",
       "source": "himalayanlaghubitta-website",
-      "snapshots": 10,
-      "unchangedItems": 10,
+      "snapshots": 16,
+      "unchangedItems": 16,
       "repeatedOk": true,
-      "discoveryUrls": 18
+      "discoveryUrls": 22
     },
     {
       "institution": "mfi-015",
@@ -193,71 +193,71 @@
       "snapshots": 3,
       "unchangedItems": 3,
       "repeatedOk": true,
-      "discoveryUrls": 4
+      "discoveryUrls": 5
     },
     {
       "institution": "mfi-016",
       "source": "nmbmicrofinance-website",
-      "snapshots": 10,
-      "unchangedItems": 10,
+      "snapshots": 18,
+      "unchangedItems": 14,
       "repeatedOk": true,
-      "discoveryUrls": 14
+      "discoveryUrls": 19
     },
     {
       "institution": "mfi-017",
       "source": "forwardmfbank-website",
-      "snapshots": 10,
-      "unchangedItems": 10,
+      "snapshots": 16,
+      "unchangedItems": 16,
       "repeatedOk": true,
-      "discoveryUrls": 16
+      "discoveryUrls": 21
     },
     {
       "institution": "mfi-018",
       "source": "gilb-website",
-      "snapshots": 13,
-      "unchangedItems": 7,
+      "snapshots": 18,
+      "unchangedItems": 18,
       "repeatedOk": true,
-      "discoveryUrls": 18
+      "discoveryUrls": 40
     },
     {
       "institution": "mfi-019",
       "source": "mslbsl-website",
-      "snapshots": 9,
-      "unchangedItems": 9,
+      "snapshots": 17,
+      "unchangedItems": 17,
       "repeatedOk": true,
-      "discoveryUrls": 20
+      "discoveryUrls": 34
     },
     {
       "institution": "mfi-021",
       "source": "samata-website",
-      "snapshots": 7,
+      "snapshots": 14,
       "unchangedItems": 7,
       "repeatedOk": true,
-      "discoveryUrls": 8
+      "discoveryUrls": 12
     },
     {
       "institution": "mfi-022",
       "source": "rsdcmf-website",
-      "snapshots": 10,
-      "unchangedItems": 10,
+      "snapshots": 12,
+      "unchangedItems": 12,
       "repeatedOk": true,
-      "discoveryUrls": 13
+      "discoveryUrls": 18
     },
     {
       "institution": "mfi-023",
       "source": "slbsl-website",
-      "snapshots": 10,
-      "unchangedItems": 10,
+      "snapshots": 17,
+      "unchangedItems": 17,
       "repeatedOk": true,
-      "discoveryUrls": 20
+      "discoveryUrls": 40
     },
     {
       "institution": "mfi-024",
       "source": "nationalmicrofinance-website",
-      "snapshots": 7,
+      "snapshots": 12,
       "unchangedItems": 7,
       "repeatedOk": true,
-      "discoveryUrls": 7
+      "discoveryUrls": 10
     },
     {
       "institution": "mfi-025",
@@ -265,15 +265,15 @@
       "snapshots": 6,
       "unchangedItems": 6,
       "repeatedOk": true,
-      "discoveryUrls": 6
+      "discoveryUrls": 10
     },
     {
       "institution": "mfi-026",
       "source": "weannepal-website",
-      "snapshots": 10,
-      "unchangedItems": 10,
+      "snapshots": 18,
+      "unchangedItems": 18,
       "repeatedOk": true,
-      "discoveryUrls": 20
+      "discoveryUrls": 40
     },
     {
       "institution": "mfi-027",
@@ -281,23 +281,23 @@
       "snapshots": 3,
       "unchangedItems": 3,
       "repeatedOk": true,
-      "discoveryUrls": 4
+      "discoveryUrls": 5
     },
     {
       "institution": "mfi-028",
       "source": "nadeplaghubitta-website",
-      "snapshots": 9,
-      "unchangedItems": 9,
+      "snapshots": 18,
+      "unchangedItems": 18,
       "repeatedOk": true,
-      "discoveryUrls": 10
+      "discoveryUrls": 35
     },
     {
       "institution": "mfi-029",
       "source": "supportmicrofinance-website",
-      "snapshots": 7,
-      "unchangedItems": 7,
+      "snapshots": 10,
+      "unchangedItems": 10,
       "repeatedOk": true,
-      "discoveryUrls": 20
+      "discoveryUrls": 24
     },
     {
       "institution": "mfi-032",
@@ -318,18 +318,18 @@
     {
       "institution": "mfi-035",
       "source": "swabhimaanlaghubitta-website",
-      "snapshots": 8,
-      "unchangedItems": 8,
+      "snapshots": 17,
+      "unchangedItems": 17,
       "repeatedOk": true,
-      "discoveryUrls": 9
+      "discoveryUrls": 40
     },
     {
       "institution": "mfi-036",
       "source": "sampadalaghubitta-website",
-      "snapshots": 9,
-      "unchangedItems": 9,
+      "snapshots": 15,
+      "unchangedItems": 11,
       "repeatedOk": true,
-      "discoveryUrls": 11
+      "discoveryUrls": 15
     },
     {
       "institution": "mfi-037",
@@ -342,10 +342,10 @@
     {
       "institution": "mfi-038",
       "source": "mlbsl-website",
-      "snapshots": 20,
+      "snapshots": 36,
       "unchangedItems": 0,
       "repeatedOk": true,
-      "discoveryUrls": 20
+      "discoveryUrls": 39
     },
     {
       "institution": "mfi-039",
@@ -358,26 +358,26 @@
     {
       "institution": "mfi-040",
       "source": "uniquenepalmicrofinance-website",
-      "snapshots": 20,
+      "snapshots": 30,
       "unchangedItems": 0,
       "repeatedOk": true,
-      "discoveryUrls": 20
+      "discoveryUrls": 29
     },
     {
       "institution": "mfi-041",
       "source": "ulbsl-website",
-      "snapshots": 13,
+      "snapshots": 22,
       "unchangedItems": 7,
       "repeatedOk": true,
-      "discoveryUrls": 12
+      "discoveryUrls": 16
     },
     {
       "institution": "mfi-042",
       "source": "dhaulagiribank-website",
-      "snapshots": 10,
-      "unchangedItems": 10,
+      "snapshots": 15,
+      "unchangedItems": 14,
       "repeatedOk": true,
-      "discoveryUrls": 15
+      "discoveryUrls": 19
     },
     {
       "institution": "mfi-044",
@@ -390,10 +390,10 @@
     {
       "institution": "mfi-045",
       "source": "swastiklbs-website",
-      "snapshots": 10,
-      "unchangedItems": 10,
+      "snapshots": 18,
+      "unchangedItems": 18,
       "repeatedOk": true,
-      "discoveryUrls": 16
+      "discoveryUrls": 40
     },
     {
       "institution": "mfi-046",
@@ -406,10 +406,10 @@
     {
       "institution": "mfi-048",
       "source": "jeevanbikasmf-website",
-      "snapshots": 9,
-      "unchangedItems": 9,
+      "snapshots": 17,
+      "unchangedItems": 10,
       "repeatedOk": true,
-      "discoveryUrls": 11
+      "discoveryUrls": 16
     },
     {
       "institution": "mfi-050",
@@ -422,18 +422,39 @@
   ],
   "errorsBySource": [
     {
-      "source": "aviyan-website",
-      "type": "HTTP_ERROR",
-      "message": "HTTP 520",
-      "url": "https://www.aviyanlaghubitta.com",
+      "source": "asha-website",
+      "type": "FETCH_FAILED",
+      "message": "FetcherPolicyError: [hop 0] non-HTTPS protocol http: is blocked",
+      "url": "http://vacancy.ashamicrofinance.com.np:70/careers/main_careers_index",
       "count": 2
     },
     {
-      "source": "chhimek-website",
+      "source": "dhaulagiribank-website",
       "type": "FETCH_FAILED",
-      "message": "{\"type\":\"TIMEOUT\",\"message\":\"timed out after 15000ms\"}",
-      "url": "https://www.chhimekbank.org",
-      "count": 2
+      "message": "{\"type\":\"BODY_TOO_LARGE\",\"message\":\"body exceeded 5242880 bytes\"}",
+      "url": "https://dhaulagiribank.com/wp-content/uploads/2023/05/Dhaulagiri-Microfinace-Report-2079.pdf",
+      "count": 1
+    },
+    {
+      "source": "dhaulagiribank-website",
+      "type": "FETCH_FAILED",
+      "message": "{\"type\":\"BODY_TOO_LARGE\",\"message\":\"body exceeded 5242880 bytes\"}",
+      "url": "https://dhaulagiribank.com/wp-content/uploads/2026/05/7AGM-Annual-Book.pdf",
+      "count": 1
+    },
+    {
+      "source": "dhaulagiribank-website",
+      "type": "HTTP_ERROR",
+      "message": "HTTP 400",
+      "url": "https://dhaulagiribank.com/wp-json/oembed/1.0/embed",
+      "count": 1
+    },
+    {
+      "source": "forwardmfbank-website",
+      "type": "HTTP_ERROR",
+      "message": "HTTP 404",
+      "url": "https://forwardmfbank.com.np/index.php/notice/photo-gallery",
+      "count": 1
     },
     {
       "source": "guranslaghubitta-website",
@@ -443,10 +464,38 @@
       "count": 2
     },
     {
+      "source": "himalayanlaghubitta-website",
+      "type": "HTTP_ERROR",
+      "message": "HTTP 404",
+      "url": "https://himalayanlaghubitta.com/static/mainapp/images/contact.jfif",
+      "count": 2
+    },
+    {
+      "source": "jeevanbikasmf-website",
+      "type": "HTTP_ERROR",
+      "message": "HTTP 400",
+      "url": "https://jeevanbikasmf.com/wp-json/oembed/1.0/embed",
+      "count": 1
+    },
+    {
+      "source": "jucbank-website",
+      "type": "HTTP_ERROR",
+      "message": "HTTP 404",
+      "url": "https://www.jucbank.com.np/news/review&amp;training",
+      "count": 1
+    },
+    {
+      "source": "jucbank-website",
+      "type": "HTTP_ERROR",
+      "message": "HTTP 404",
+      "url": "https://www.jucbank.com.np/news/vacancy-2083",
+      "count": 2
+    },
+    {
       "source": "laxmilaghu-website",
-      "type": "FETCH_FAILED",
-      "message": "{\"type\":\"TIMEOUT\",\"message\":\"timed out after 15000ms\"}",
-      "url": "https://laxmilaghu.com.np/downloads",
+      "type": "HTTP_ERROR",
+      "message": "HTTP 400",
+      "url": "https://laxmilaghu.com.np/wp-json/oembed/1.0/embed",
       "count": 1
     },
     {
@@ -471,6 +520,76 @@
       "count": 2
     },
     {
+      "source": "nationalmicrofinance-website",
+      "type": "FETCH_FAILED",
+      "message": "{\"type\":\"BODY_TOO_LARGE\",\"message\":\"body exceeded 5242880 bytes\"}",
+      "url": "https://nationalmicrofinance.com.np/assets/uploads/files/listingcontent/Annual-Report-2074-75.pdf",
+      "count": 1
+    },
+    {
+      "source": "nationalmicrofinance-website",
+      "type": "FETCH_FAILED",
+      "message": "{\"type\":\"BODY_TOO_LARGE\",\"message\":\"body exceeded 5242880 bytes\"}",
+      "url": "https://nationalmicrofinance.com.np/assets/uploads/files/listingcontent/National%20Microfinance%20Annual%20Report%209th_Final%20Book.pdf",
+      "count": 1
+    },
+    {
+      "source": "nationalmicrofinance-website",
+      "type": "FETCH_FAILED",
+      "message": "{\"type\":\"BODY_TOO_LARGE\",\"message\":\"body exceeded 5242880 bytes\"}",
+      "url": "https://nationalmicrofinance.com.np/assets/uploads/files/listingcontent/national%20Microfinance%20Annual%20Report%20FY%202077-78.pdf",
+      "count": 1
+    },
+    {
+      "source": "nerudemirmire-website",
+      "type": "FETCH_FAILED",
+      "message": "{\"type\":\"BODY_TOO_LARGE\",\"message\":\"body exceeded 5242880 bytes\"}",
+      "url": "https://www.nerudemirmire.com.np/uploads/report/1746349096_pdf.pdf",
+      "count": 1
+    },
+    {
+      "source": "nerudemirmire-website",
+      "type": "FETCH_FAILED",
+      "message": "{\"type\":\"BODY_TOO_LARGE\",\"message\":\"body exceeded 5242880 bytes\"}",
+      "url": "https://www.nerudemirmire.com.np/uploads/report/1783396487_pdf.pdf",
+      "count": 1
+    },
+    {
+      "source": "nirdhan-website",
+      "type": "HTTP_ERROR",
+      "message": "HTTP 400",
+      "url": "https://www.nirdhan.com.np/wp-json/oembed/1.0/embed",
+      "count": 2
+    },
+    {
+      "source": "rsdcmf-website",
+      "type": "HTTP_ERROR",
+      "message": "HTTP 500",
+      "url": "https://www.rsdcmf.com/required-document",
+      "count": 2
+    },
+    {
+      "source": "samata-website",
+      "type": "FETCH_FAILED",
+      "message": "{\"type\":\"BODY_TOO_LARGE\",\"message\":\"body exceeded 5242880 bytes\"}",
+      "url": "https://www.samata.org.np/wp-content/uploads/2017/12/NRB-Reporting-Mangshir-2074.pdf",
+      "count": 1
+    },
+    {
+      "source": "samata-website",
+      "type": "HTTP_ERROR",
+      "message": "HTTP 400",
+      "url": "https://www.samata.org.np/wp-json/oembed/1.0/embed",
+      "count": 1
+    },
+    {
+      "source": "sampadalaghubitta-website",
+      "type": "FETCH_FAILED",
+      "message": "{\"type\":\"BODY_TOO_LARGE\",\"message\":\"body exceeded 5242880 bytes\"}",
+      "url": "https://www.sampadalaghubitta.com.np/upload/document/1779812856-sampada%209th%20AGM%20book.pdf",
+      "count": 1
+    },
+    {
       "source": "sanjeevanilaghubitta-website",
       "type": "FETCH_FAILED",
       "message": "{\"type\":\"CONNECT_FAILED\",\"message\":\"fetch failed\"}",
@@ -485,38 +604,101 @@
       "count": 2
     },
     {
+      "source": "slbsl-website",
+      "type": "HTTP_ERROR",
+      "message": "HTTP 404",
+      "url": "https://www.slbsl.com.np/uploads/career/slbsl_shortlist_2081_01_1.pdf",
+      "count": 2
+    },
+    {
+      "source": "supportmicrofinance-website",
+      "type": "FETCH_FAILED",
+      "message": "{\"type\":\"BODY_TOO_LARGE\",\"message\":\"body exceeded 5242880 bytes\"}",
+      "url": "https://www.supportmicrofinance.com.np/images/gallery/annual-6aaJn6rvknV2aJyxRZuv.PDF",
+      "count": 1
+    },
+    {
+      "source": "supportmicrofinance-website",
+      "type": "FETCH_FAILED",
+      "message": "{\"type\":\"BODY_TOO_LARGE\",\"message\":\"body exceeded 5242880 bytes\"}",
+      "url": "https://www.supportmicrofinance.com.np/images/gallery/annual-TGWCoJfbDI2JIxq47JT8.pdf",
+      "count": 1
+    },
+    {
+      "source": "supportmicrofinance-website",
+      "type": "FETCH_FAILED",
+      "message": "{\"type\":\"BODY_TOO_LARGE\",\"message\":\"body exceeded 5242880 bytes\"}",
+      "url": "https://www.supportmicrofinance.com.np/images/gallery/annual-WjxDghP9yRSlykWRsU7O.pdf",
+      "count": 2
+    },
+    {
+      "source": "supportmicrofinance-website",
+      "type": "FETCH_FAILED",
+      "message": "{\"type\":\"BODY_TOO_LARGE\",\"message\":\"body exceeded 5242880 bytes\"}",
+      "url": "https://www.supportmicrofinance.com.np/images/gallery/annual-gTYZhOnpXnRwQAgv41i9.pdf",
+      "count": 2
+    },
+    {
+      "source": "supportmicrofinance-website",
+      "type": "FETCH_FAILED",
+      "message": "{\"type\":\"BODY_TOO_LARGE\",\"message\":\"body exceeded 5242880 bytes\"}",
+      "url": "https://www.supportmicrofinance.com.np/images/gallery/annual-irIcXYFJnFCikLBqIz8w.pdf",
+      "count": 1
+    },
+    {
+      "source": "supportmicrofinance-website",
+      "type": "FETCH_FAILED",
+      "message": "{\"type\":\"BODY_TOO_LARGE\",\"message\":\"body exceeded 5242880 bytes\"}",
+      "url": "https://www.supportmicrofinance.com.np/images/gallery/annual-uFeI8rLHrntwgSDjikvk.pdf",
+      "count": 1
+    },
+    {
+      "source": "supportmicrofinance-website",
+      "type": "FETCH_FAILED",
+      "message": "{\"type\":\"BODY_TOO_LARGE\",\"message\":\"body exceeded 5242880 bytes\"}",
+      "url": "https://www.supportmicrofinance.com.np/images/gallery/annual-uisALLWzaRQtEFVNJbQo.pdf",
+      "count": 2
+    },
+    {
       "source": "supportmicrofinance-website",
       "type": "FETCH_FAILED",
       "message": "{\"type\":\"TIMEOUT\",\"message\":\"timed out after 15000ms\"}",
-      "url": "https://www.supportmicrofinance.com.np/images/gallery/annual-6u6rO4SvJay828rsyvha.pdf",
-      "count": 2
+      "url": "https://www.supportmicrofinance.com.np/images/gallery/annual-6aaJn6rvknV2aJyxRZuv.PDF",
+      "count": 1
     },
     {
       "source": "supportmicrofinance-website",
       "type": "FETCH_FAILED",
       "message": "{\"type\":\"TIMEOUT\",\"message\":\"timed out after 15000ms\"}",
       "url": "https://www.supportmicrofinance.com.np/images/gallery/annual-TGWCoJfbDI2JIxq47JT8.pdf",
+      "count": 1
+    },
+    {
+      "source": "supportmicrofinance-website",
+      "type": "FETCH_FAILED",
+      "message": "{\"type\":\"TIMEOUT\",\"message\":\"timed out after 15000ms\"}",
+      "url": "https://www.supportmicrofinance.com.np/images/gallery/annual-irIcXYFJnFCikLBqIz8w.pdf",
+      "count": 1
+    },
+    {
+      "source": "supportmicrofinance-website",
+      "type": "FETCH_FAILED",
+      "message": "{\"type\":\"TIMEOUT\",\"message\":\"timed out after 15000ms\"}",
+      "url": "https://www.supportmicrofinance.com.np/images/gallery/annual-locpnwp6XSkC0hJaw9Qa.pdf",
       "count": 2
     },
     {
       "source": "supportmicrofinance-website",
       "type": "FETCH_FAILED",
       "message": "{\"type\":\"TIMEOUT\",\"message\":\"timed out after 15000ms\"}",
-      "url": "https://www.supportmicrofinance.com.np/images/gallery/annual-gTYZhOnpXnRwQAgv41i9.pdf",
-      "count": 2
+      "url": "https://www.supportmicrofinance.com.np/images/gallery/annual-uFeI8rLHrntwgSDjikvk.pdf",
+      "count": 1
     },
     {
       "source": "swabhimaanlaghubitta-website",
       "type": "FETCH_FAILED",
       "message": "{\"type\":\"CONNECT_FAILED\",\"message\":\"fetch failed\"}",
       "url": "https://swabhimaanlaghubitta.com.np",
-      "count": 2
-    },
-    {
-      "source": "swbbl-website",
-      "type": "FETCH_FAILED",
-      "message": "{\"type\":\"BODY_TOO_LARGE\",\"message\":\"body exceeded 5242880 bytes\"}",
-      "url": "https://www.swbbl.com.np/storage/notices/2026/08/573-List%20of%20Unissue%20dividend%20.pdf",
       "count": 2
     }
   ],

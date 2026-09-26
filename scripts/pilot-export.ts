@@ -153,7 +153,7 @@ function main(): void {
       errors: z(c.errs),
       changedItems: z(changedFor.n),
       discoveredUrls: discBySource.get(sid) ?? 0,
-      status: z(c.runs) === 0 ? "NEVER-RUN" : (c.last_status as string) === "FAILED" && z(c.consec_fails) >= 2 ? "UNHEALTHY" : (c.last_status as string) === "FAILED" || (c.last_status as string) === "PARTIAL" || z(c.errs) > 0 ? "DEGRADED" : "HEALTHY",
+      status: z(c.runs) === 0 ? "NEVER-RUN" : (c.last_status as string) === "FAILED" && z(c.consec_fails) >= 2 ? "UNHEALTHY" : (c.last_status as string) === "FAILED" || ((c.last_status as string) === "PARTIAL" && z(snapsFor.n) === 0) ? "DEGRADED" : "HEALTHY",
       lastStatus: c.last_status ? String(c.last_status) : null,
       lastRun: c.last_run ? String(c.last_run) : null,
       branchCount: countFor(db, sid, "branch_name"),

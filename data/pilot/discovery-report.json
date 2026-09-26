@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-09-25T12:13:51.903Z",
-  "dbPath": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\lk-pilot-Az2umP\\pilot.db",
+  "generatedAt": "2026-09-26T11:13:17.094Z",
+  "dbPath": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\lk-pilot-Iq2nti\\pilot.db",
   "sources": 51,
-  "locatedUrls": 158,
-  "locatedSlotsPerSource": 209,
+  "locatedUrls": 166,
+  "locatedSlotsPerSource": 217,
   "perCapability": {
     "REPORTS": 35,
-    "NEWS": 31,
-    "BRANCH_DIRECTORY": 33,
-    "CAREER_PAGE": 26,
+    "NEWS": 34,
+    "BRANCH_DIRECTORY": 35,
+    "CAREER_PAGE": 29,
     "DOCUMENT_ARCHIVE": 26,
     "SITEMAP": 7
   },
@@ -24,13 +24,13 @@
           "anchor": "config"
         },
         "REPORTS": {
-          "url": "https://www.nirdhan.com.np/quaterly-report",
-          "http_status": null,
+          "url": "https://www.nirdhan.com.np/wp-content/uploads/2016/12/Chaitra-2080-Quaterly-Report.pdf",
+          "http_status": 200,
           "anchor": "link"
         },
         "NEWS": {
-          "url": "https://www.nirdhan.com.np/news",
-          "http_status": null,
+          "url": "https://www.nirdhan.com.np/wp-content/uploads/2016/08/Notice-Kendra-Sanchalak-Shortlist.pdf",
+          "http_status": 200,
           "anchor": "link"
         },
         "BRANCH_DIRECTORY": {
@@ -54,7 +54,7 @@
           "anchor": "none"
         }
       },
-      "lastRunSnapshots": 2
+      "lastRunSnapshots": 4
     },
     {
       "institution": "mfi-003",
@@ -67,29 +67,29 @@
           "anchor": "config"
         },
         "REPORTS": {
-          "url": "",
-          "http_status": null,
-          "anchor": "none"
+          "url": "https://www.chhimekbank.org",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
         },
         "NEWS": {
-          "url": "",
-          "http_status": null,
-          "anchor": "none"
+          "url": "https://www.chhimekbank.org/assets/backend/uploads/Notice%20&%20News/Notice/INTEREST%20RATE%202083.3.9.pdf",
+          "http_status": 200,
+          "anchor": "link"
         },
         "BRANCH_DIRECTORY": {
-          "url": "",
+          "url": "https://www.chhimekbank.org/branches",
           "http_status": null,
-          "anchor": "none"
+          "anchor": "link"
         },
         "CAREER_PAGE": {
-          "url": "",
-          "http_status": null,
-          "anchor": "none"
+          "url": "https://www.chhimekbank.org",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
         },
         "DOCUMENT_ARCHIVE": {
-          "url": "",
-          "http_status": null,
-          "anchor": "none"
+          "url": "https://www.chhimekbank.org",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
         },
         "SITEMAP": {
           "url": "",
@@ -292,9 +292,9 @@
           "anchor": "link"
         },
         "BRANCH_DIRECTORY": {
-          "url": "https://aatmanirbhar.com.np/contact",
-          "http_status": null,
-          "anchor": "link"
+          "url": "https://aatmanirbhar.com.np",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
         },
         "CAREER_PAGE": {
           "url": "https://aatmanirbhar.com.np/career",
@@ -312,7 +312,7 @@
           "anchor": "none"
         }
       },
-      "lastRunSnapshots": 10
+      "lastRunSnapshots": 18
     },
     {
       "institution": "mfi-031",
@@ -325,13 +325,13 @@
           "anchor": "config"
         },
         "REPORTS": {
-          "url": "https://ashamicrofinance.com.np/financial-reports/interest-rate",
-          "http_status": null,
-          "anchor": "link"
+          "url": "https://ashamicrofinance.com.np",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
         },
         "NEWS": {
-          "url": "https://ashamicrofinance.com.np/news",
-          "http_status": null,
+          "url": "https://ashamicrofinance.com.np/wp-content/uploads/2026/07/Notice-Suchidarta-2083.084.pdf",
+          "http_status": 200,
           "anchor": "link"
         },
         "BRANCH_DIRECTORY": {
@@ -345,9 +345,9 @@
           "anchor": "link"
         },
         "DOCUMENT_ARCHIVE": {
-          "url": "",
-          "http_status": null,
-          "anchor": "none"
+          "url": "https://ashamicrofinance.com.np",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
         },
         "SITEMAP": {
           "url": "",
@@ -411,32 +411,32 @@
           "anchor": "config"
         },
         "REPORTS": {
-          "url": "https://cycnlbsl.org.np",
-          "http_status": 200,
-          "anchor": "evidence-homepage"
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
         },
         "NEWS": {
-          "url": "https://cycnlbsl.org.np/wp-sitemap-posts-notice-1.xml",
-          "http_status": 200,
-          "anchor": "link"
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
         },
         "BRANCH_DIRECTORY": {
-          "url": "https://cycnlbsl.org.np/wp-sitemap-posts-branch-1.xml",
-          "http_status": 200,
-          "anchor": "link"
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
         },
         "CAREER_PAGE": {
-          "url": "https://cycnlbsl.org.np/wp-sitemap-posts-career-1.xml",
-          "http_status": 200,
-          "anchor": "link"
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
         },
         "DOCUMENT_ARCHIVE": {
-          "url": "https://cycnlbsl.org.np",
-          "http_status": 200,
-          "anchor": "evidence-homepage"
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
         },
         "SITEMAP": {
-          "url": "https://cycnlbsl.org.np/wp-sitemap-posts-page-1.xml",
+          "url": "https://cycnlbsl.org.np/wp-sitemap-posts-branch-1.xml",
           "http_status": 200,
           "anchor": "link"
         }
@@ -459,8 +459,8 @@
           "anchor": "evidence-homepage"
         },
         "NEWS": {
-          "url": "https://www.deproscbank.com.np/en/main/pages/notice",
-          "http_status": null,
+          "url": "https://www.deproscbank.com.np/assets/uploads/files/media/1a0f0-dceo-appointment-notice.pdf",
+          "http_status": 200,
           "anchor": "link"
         },
         "BRANCH_DIRECTORY": {
@@ -507,9 +507,9 @@
           "anchor": "link"
         },
         "BRANCH_DIRECTORY": {
-          "url": "",
+          "url": "https://www.swbbl.com.np/branches",
           "http_status": null,
-          "anchor": "none"
+          "anchor": "link"
         },
         "CAREER_PAGE": {
           "url": "https://www.swbbl.com.np",
@@ -545,12 +545,12 @@
           "anchor": "evidence-homepage"
         },
         "NEWS": {
-          "url": "https://www.skbbl.com.np/download/notices",
-          "http_status": null,
+          "url": "https://www.skbbl.com.np/storage/download/2026/07/8964-Notice_%E0%A4%B8%E0%A5%8D%E0%A4%95%E0%A5%8D%E0%A4%B0%E0%A4%AF%E0%A4%BE%E0%A4%AA%E0%A4%AE%E0%A4%BE%20%E0%A4%AE%E0%A5%8B%E0%A4%9F%E0%A4%B0%E0%A4%B8%E0%A4%BE%E0%A4%88%E0%A4%95%E0%A4%B2%20%E0%A4%B5%E0%A4%BF%E0%A4%95%E0%A5%8D%E0%A4%B0%E0%A5%80%20%E0%A4%97%E0%A4%B0%E0%A5%8D%E0%A4%A8%20%E0%A4%A6%E0%A4%B0%E0%A4%AD%E0%A4%BE%E0%A4%89%E0%A4%AA%E0%A4%A4%E0%A5%8D%E0%A4%B0%C3%B7%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%B8%E0%A5%8D%E0%A4%A4%E0%A4%BE%E0%A4%B5%20%E0%A4%AA%E0%A5%87%E0%A4%B6%20%E0%A4%97%E0%A4%B0%E0%A5%8D%E0%A4%A8%E0%A5%87%20%E0%A4%B8%E0%A4%AE%E0%A5%8D.pdf",
+          "http_status": 200,
           "anchor": "link"
         },
         "BRANCH_DIRECTORY": {
-          "url": "https://www.skbbl.com.np/contact-us",
+          "url": "https://www.skbbl.com.np/branch",
           "http_status": null,
           "anchor": "link"
         },
@@ -674,14 +674,14 @@
           "anchor": "none"
         },
         "NEWS": {
+          "url": "https://www.slbbl.com.np/12th-annual-general-meeting-notice",
+          "http_status": null,
+          "anchor": "link"
+        },
+        "BRANCH_DIRECTORY": {
           "url": "",
           "http_status": null,
           "anchor": "none"
-        },
-        "BRANCH_DIRECTORY": {
-          "url": "https://www.slbbl.com.np/wp-sitemap-posts-branches-1.xml",
-          "http_status": 200,
-          "anchor": "link"
         },
         "CAREER_PAGE": {
           "url": "",
@@ -694,7 +694,7 @@
           "anchor": "none"
         },
         "SITEMAP": {
-          "url": "https://www.slbbl.com.np/wp-sitemap-posts-financials-1.xml",
+          "url": "https://www.slbbl.com.np/wp-sitemap-posts-branches-1.xml",
           "http_status": 200,
           "anchor": "link"
         }
@@ -717,14 +717,14 @@
           "anchor": "evidence-homepage"
         },
         "NEWS": {
-          "url": "https://fmdb.com.np/notices/AGM-Notice",
+          "url": "https://fmdb.com.np/news-events",
           "http_status": null,
           "anchor": "link"
         },
         "BRANCH_DIRECTORY": {
-          "url": "",
+          "url": "https://fmdb.com.np/contact-us",
           "http_status": null,
-          "anchor": "none"
+          "anchor": "link"
         },
         "CAREER_PAGE": {
           "url": "",
@@ -846,8 +846,8 @@
           "anchor": "evidence-homepage"
         },
         "NEWS": {
-          "url": "https://swmfi.com.np/notices",
-          "http_status": null,
+          "url": "https://swmfi.com.np/storage/website/notice/branch_open_notice-2026-09-08-774886.pdf",
+          "http_status": 200,
           "anchor": "link"
         },
         "BRANCH_DIRECTORY": {
@@ -884,7 +884,7 @@
           "anchor": "config"
         },
         "REPORTS": {
-          "url": "https://laxmilaghu.com.np/quartely-reports",
+          "url": "https://laxmilaghu.com.np/wp-content/uploads/2025/02/2nd-Quarterly-Report-Laxmi-Laghubitta-Unaudited.pdf",
           "http_status": 200,
           "anchor": "link"
         },
@@ -914,7 +914,7 @@
           "anchor": "none"
         }
       },
-      "lastRunSnapshots": 1
+      "lastRunSnapshots": 0
     },
     {
       "institution": "mfi-014",
@@ -932,9 +932,9 @@
           "anchor": "evidence-homepage"
         },
         "NEWS": {
-          "url": "",
+          "url": "https://himalayanlaghubitta.com/page/newsandupdates/8",
           "http_status": null,
-          "anchor": "none"
+          "anchor": "link"
         },
         "BRANCH_DIRECTORY": {
           "url": "https://himalayanlaghubitta.com/page/contactus/9",
@@ -1018,7 +1018,7 @@
           "anchor": "evidence-homepage"
         },
         "NEWS": {
-          "url": "https://nmbmicrofinance.com/Reports/2026/7/Finance,%20Audit,%20IT,%20Agricultural%20Technician%20Shortlisted%20Notice-202607271032315200.pdf",
+          "url": "https://nmbmicrofinance.com/Careers/2026/7/Finance,%20Audit,%20IT,%20Agricultural%20Technician%20Shortlisted%20Notice-202607271527111767.pdf",
           "http_status": 200,
           "anchor": "link"
         },
@@ -1129,7 +1129,7 @@
           "anchor": "link"
         }
       },
-      "lastRunSnapshots": 3
+      "lastRunSnapshots": 0
     },
     {
       "institution": "mfi-019",
@@ -1147,7 +1147,7 @@
           "anchor": "evidence-homepage"
         },
         "NEWS": {
-          "url": "https://www.mslbsl.com.np/noticeboard",
+          "url": "https://www.mslbsl.com.np/news-and-events/2025-10-19-07-01-45",
           "http_status": null,
           "anchor": "link"
         },
@@ -1185,13 +1185,13 @@
           "anchor": "config"
         },
         "REPORTS": {
-          "url": "https://www.samata.org.np/reports",
-          "http_status": null,
+          "url": "https://www.samata.org.np/wp-content/uploads/2025/05/Quarterly-Report-Samata-Gharelu-.pdf",
+          "http_status": 200,
           "anchor": "link"
         },
         "NEWS": {
-          "url": "https://www.samata.org.np/bod-election-notice-2078",
-          "http_status": null,
+          "url": "https://www.samata.org.np/wp-content/uploads/2023/03/Karobar-079-11-19-AGM-Notice-Samata-Gharelu.pdf",
+          "http_status": 200,
           "anchor": "link"
         },
         "BRANCH_DIRECTORY": {
@@ -1248,7 +1248,7 @@
           "anchor": "evidence-homepage"
         },
         "DOCUMENT_ARCHIVE": {
-          "url": "https://www.rsdcmf.com/downloads",
+          "url": "https://www.rsdcmf.com/download-form",
           "http_status": null,
           "anchor": "link"
         },
@@ -1276,8 +1276,8 @@
           "anchor": "link"
         },
         "NEWS": {
-          "url": "https://www.slbsl.com.np/notices.html",
-          "http_status": null,
+          "url": "https://www.slbsl.com.np/uploads/notices/slbs_award.pdf",
+          "http_status": 200,
           "anchor": "link"
         },
         "BRANCH_DIRECTORY": {
@@ -1286,13 +1286,13 @@
           "anchor": "link"
         },
         "CAREER_PAGE": {
-          "url": "https://www.slbsl.com.np/career.html",
-          "http_status": null,
+          "url": "https://www.slbsl.com.np/uploads/career/slbs_finalresultlist.pdf",
+          "http_status": 200,
           "anchor": "link"
         },
         "DOCUMENT_ARCHIVE": {
-          "url": "https://www.slbsl.com.np/downloads.html",
-          "http_status": null,
+          "url": "https://www.slbsl.com.np/uploads/downloads/BaseRates-slbs.pdf",
+          "http_status": 200,
           "anchor": "link"
         },
         "SITEMAP": {
@@ -1314,8 +1314,8 @@
           "anchor": "config"
         },
         "REPORTS": {
-          "url": "https://nationalmicrofinance.com.np/annual-report",
-          "http_status": null,
+          "url": "https://nationalmicrofinance.com.np/assets/uploads/files/listingcontent/NMBSL_Annual_Report(_2076-077)1.pdf",
+          "http_status": 200,
           "anchor": "link"
         },
         "NEWS": {
@@ -1329,8 +1329,8 @@
           "anchor": "link"
         },
         "CAREER_PAGE": {
-          "url": "https://nationalmicrofinance.com.np/career",
-          "http_status": null,
+          "url": "https://nationalmicrofinance.com.np/assets/uploads/files/career/Vaccancy3.pdf",
+          "http_status": 200,
           "anchor": "link"
         },
         "DOCUMENT_ARCHIVE": {
@@ -1400,13 +1400,13 @@
           "anchor": "config"
         },
         "REPORTS": {
-          "url": "https://weannepal.com/wean-nepal-reports-sitemap.xml",
-          "http_status": 200,
+          "url": "https://weannepal.com/reports",
+          "http_status": null,
           "anchor": "link"
         },
         "NEWS": {
-          "url": "https://weannepal.com/wean-nepal-notices-sitemap.xml",
-          "http_status": 200,
+          "url": "https://weannepal.com/notices",
+          "http_status": null,
           "anchor": "link"
         },
         "BRANCH_DIRECTORY": {
@@ -1420,9 +1420,9 @@
           "anchor": "none"
         },
         "DOCUMENT_ARCHIVE": {
-          "url": "https://weannepal.com/wean-nepal-downloads-sitemap.xml",
-          "http_status": 200,
-          "anchor": "link"
+          "url": "",
+          "http_status": null,
+          "anchor": "none"
         },
         "SITEMAP": {
           "url": "https://weannepal.com/author-sitemap.xml",
@@ -1529,13 +1529,13 @@
           "anchor": "config"
         },
         "REPORTS": {
-          "url": "https://www.supportmicrofinance.com.np/annual-report",
-          "http_status": null,
+          "url": "https://www.supportmicrofinance.com.np/images/gallery/annual-6u6rO4SvJay828rsyvha.pdf",
+          "http_status": 200,
           "anchor": "link"
         },
         "NEWS": {
-          "url": "https://www.supportmicrofinance.com.np/notice",
-          "http_status": null,
+          "url": "https://www.supportmicrofinance.com.np/images/gallery/notice-jlQymkWvOwcPHQfMsl3T.PDF",
+          "http_status": 200,
           "anchor": "link"
         },
         "BRANCH_DIRECTORY": {
@@ -1673,9 +1673,9 @@
           "anchor": "none"
         },
         "CAREER_PAGE": {
-          "url": "",
+          "url": "https://swabhimaanlaghubitta.com.np/careers",
           "http_status": null,
-          "anchor": "none"
+          "anchor": "link"
         },
         "DOCUMENT_ARCHIVE": {
           "url": "",
@@ -1706,7 +1706,7 @@
           "anchor": "link"
         },
         "NEWS": {
-          "url": "https://www.sampadalaghubitta.com.np/notices",
+          "url": "https://www.sampadalaghubitta.com.np/notice/notices/39",
           "http_status": null,
           "anchor": "link"
         },
@@ -1792,9 +1792,9 @@
           "anchor": "link"
         },
         "NEWS": {
-          "url": "",
+          "url": "https://www.mlbsl.com.np/notices",
           "http_status": null,
-          "anchor": "none"
+          "anchor": "link"
         },
         "BRANCH_DIRECTORY": {
           "url": "https://www.mlbsl.com.np/branches/category/branch-office",
@@ -1802,9 +1802,9 @@
           "anchor": "link"
         },
         "CAREER_PAGE": {
-          "url": "",
-          "http_status": null,
-          "anchor": "none"
+          "url": "https://www.mlbsl.com.np",
+          "http_status": 200,
+          "anchor": "evidence-homepage"
         },
         "DOCUMENT_ARCHIVE": {
           "url": "https://www.mlbsl.com.np/downloads/financial-literacymember-training",
@@ -1817,7 +1817,7 @@
           "anchor": "none"
         }
       },
-      "lastRunSnapshots": 10
+      "lastRunSnapshots": 18
     },
     {
       "institution": "mfi-039",
@@ -1903,7 +1903,7 @@
           "anchor": "none"
         }
       },
-      "lastRunSnapshots": 10
+      "lastRunSnapshots": 15
     },
     {
       "institution": "mfi-041",
@@ -1946,7 +1946,7 @@
           "anchor": "none"
         }
       },
-      "lastRunSnapshots": 3
+      "lastRunSnapshots": 7
     },
     {
       "institution": "mfi-042",
@@ -1959,13 +1959,13 @@
           "anchor": "config"
         },
         "REPORTS": {
-          "url": "https://dhaulagiribank.com/annual-report",
-          "http_status": null,
+          "url": "https://dhaulagiribank.com/wp-content/uploads/2024/05/Annual-report-publish-5th-AGM.pdf",
+          "http_status": 200,
           "anchor": "link"
         },
         "NEWS": {
-          "url": "https://dhaulagiribank.com/news-events",
-          "http_status": null,
+          "url": "https://dhaulagiribank.com/wp-content/uploads/2024/06/Dhito-35-days-publish-notice.pdf.pdf",
+          "http_status": 200,
           "anchor": "link"
         },
         "BRANCH_DIRECTORY": {
@@ -2055,14 +2055,14 @@
           "anchor": "link"
         },
         "BRANCH_DIRECTORY": {
-          "url": "",
+          "url": "https://swastiklbs.com.np/contact-us",
           "http_status": null,
-          "anchor": "none"
+          "anchor": "link"
         },
         "CAREER_PAGE": {
-          "url": "",
+          "url": "https://swastiklbs.com.np/vacancy",
           "http_status": null,
-          "anchor": "none"
+          "anchor": "link"
         },
         "DOCUMENT_ARCHIVE": {
           "url": "",
@@ -2136,8 +2136,8 @@
           "anchor": "evidence-homepage"
         },
         "NEWS": {
-          "url": "https://jeevanbikasmf.com/notice",
-          "http_status": null,
+          "url": "https://jeevanbikasmf.com/wp-content/uploads/2025/09/Notice-Promoter-Share-Jeevan-bikas.pdf",
+          "http_status": 200,
           "anchor": "link"
         },
         "BRANCH_DIRECTORY": {

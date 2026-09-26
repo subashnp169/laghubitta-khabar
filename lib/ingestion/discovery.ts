@@ -67,16 +67,23 @@ export const DISCOVERY_HINT_RULES: DiscoveryRule[] = [
 /**
  * Deterministic classification of a discovered URL into a specific (non
  * catch-all) capability. Used by the Phase F backfill to persist located
- * capability pages; skips the WEBSITE catch-all and SITEMAP rule (no hint).
+ * capability pages; skips the WEBSITE catch-all. Sitemap files are discovery
+ * CARRIERS (never pages to extract), so sitemap detection outranks href hints:
+ * a WordPress wp-sitemap-posts-branch-1.xml must classify SITEMAP, not BRANCH.
  */
+export function isSitemapUrl(raw: string): boolean {
+  const u = raw.toLowerCase();
+  return u.includes("sitemap") || /\.xml$/.test(u);
+}
+
 export function locateCapabilityForUrl(raw: string): CapabilityKind | null {
   const u = raw.toLowerCase();
+  if (isSitemapUrl(raw)) return "SITEMAP";
   for (const rule of DISCOVERY_HINT_RULES) {
     const hint = rule.hrefHint;
     if (!hint || hint === "") continue;
     if (u.includes(hint.toLowerCase())) return rule.capability;
   }
-  if (u.includes("sitemap") || /\.xml$/i.test(u)) return "SITEMAP";
   return null;
 }
 
@@ -222,16 +229,23 @@ export class BrowserDiscovery {
       for (const raw of extractSameHostLinks(page, host)) {
         const rule = this.matchRule(raw, capabilities);
         if (!rule) continue;
-        targets.push({
-          capability: rule.capability,
-          url: normalize(raw),
-          method: "LINK",
-          parentUrl: source.url,
-          sourceId: source.id,
-          institutionId: source.institutionId,
-          discoveredAt: now,
-          status: "CANDIDATE",
-        });
+        // A sitemap link is a discovery CARRIER, not a page to extract: resolve
+        // its <loc> pages here (recursively) so the pipeline never fetches the
+        // xml itself (engine deref stays as a safety net for KNOWN/CONFIG).
+        if (rule.capability === "SITEMAP") {
+          await this.addSitemapTargets(raw, source, targets, now, max, host, capabilities);
+        } else {
+          targets.push({
+            capability: rule.capability,
+            url: normalize(raw),
+            method: "LINK",
+            parentUrl: source.url,
+            sourceId: source.id,
+            institutionId: source.institutionId,
+            discoveredAt: now,
+            status: "CANDIDATE",
+          });
+        }
         if (targets.length >= max) return targets.slice(0, max);
       }
     }
@@ -258,6 +272,13 @@ export class BrowserDiscovery {
 
   private matchRule(raw: string, caps: CapabilitySpec[]): DiscoveryRule | null {
     const u = raw.toLowerCase();
+    // Sitemap files are discovery carriers: classify them SITEMAP when the
+    // capability is declared (engine then derefs their <loc> pages); when not
+    // declared, fall through to href hints so coverage is still preserved.
+    if (isSitemapUrl(raw) && caps.some((c) => c.kind === "SITEMAP")) {
+      const sm = this.config.rules.find((r) => r.capability === "SITEMAP");
+      if (sm) return sm;
+    }
     for (const rule of this.config.rules) {
       if (!caps.some((c) => c.kind === rule.capability)) continue;
       const hint = rule.hrefHint;
@@ -276,14 +297,24 @@ export class BrowserDiscovery {
     max: number,
     host: string,
     caps: CapabilitySpec[],
+    depth = 0,
   ): Promise<void> {
+    if (depth > 2) return; // index → sub → posts; never deeper
     const sm = await this.fetchText(sitemapUrl, { timeoutMs: 10000 });
     if (!sm) return;
     for (const loc of parseSitemapLocs(sm)) {
+      if (targets.length >= max) return;
       try {
         const u = new URL(loc);
         if (u.hostname.toLowerCase() !== host) continue; // foreign sitemap → skip
       } catch {
+        continue;
+      }
+      // Nested sitemap (WordPress wp-sitemap index/roll-up): dereference it in
+      // discovery so the real pages — not the xml file — become targets.
+      if (isSitemapUrl(loc)) {
+        if (!caps.some((c) => c.kind === "SITEMAP")) continue; // gated
+        await this.addSitemapTargets(loc, source, targets, now, max, host, caps, depth + 1);
         continue;
       }
       const rule = (this.matchRule(loc, caps) ?? this.config.rules[0]) ?? undefined;
@@ -298,7 +329,6 @@ export class BrowserDiscovery {
         discoveredAt: now,
         status: "CANDIDATE",
       });
-      if (targets.length >= max) return;
     }
   }
 

@@ -27,6 +27,29 @@ function safeStringify(value: unknown): string {
   }
 }
 
+function hostnameOf(url: string): string | null {
+  try {
+    return new URL(url).hostname.toLowerCase();
+  } catch {
+    return null;
+  }
+}
+
+/** Capabilities whose fetched pages are walked one level deeper (Phase F). */
+const SECTION_CAPS = new Set<string>([
+  "REPORTS",
+  "DOCUMENT_ARCHIVE",
+  "CAREER_PAGE",
+  "BRANCH_DIRECTORY",
+  "NEWS",
+]);
+
+/** A processed target plus the sub-targets it yielded (sitemap deref / walk). */
+interface ProcessedTarget {
+  item: EngineResult["items"][number];
+  subs: DiscoveredTarget[];
+}
+
 /**
  * Deterministic link slug from an official document URL (scope-unique so the
  * outbound_links UNIQUE(scope_key, slug) row identifies one logical document).
@@ -56,6 +79,12 @@ import type {
 import {
   CapabilityConfigError,
 } from "./config";
+import {
+  extractSameHostLinks,
+  isSitemapUrl,
+  locateCapabilityForUrl,
+  parseSitemapLocs,
+} from "./discovery";
 import type {
   AssertionInput,
   ErrorInput,
@@ -139,7 +168,18 @@ export class GenericIngestionEngine {
     // capability) must not double-fetch or double-snapshot the same evidence.
     const seenUrls = new Set<string>();
 
-    for (const target of targets.slice(0, maxTargets)) {
+    // Phase F (deeper): the crawl is a bounded work queue, so targets discovered
+    // mid-run are still processed under the SAME budget. Two carriers extend the
+    // original list: SITEMAP dereference (a fetched sitemap file yields its
+    // <loc> entries as real pages) and the one-level LINK walk (a fetched
+    // capability page yields its own same-host pages). Every sub-target passes
+    // through the normal idempotent processTarget path.
+    const queue = targets.slice(0, maxTargets);
+    let processed = 0;
+
+    while (queue.length > 0) {
+      if (processed >= maxTargets) break;
+      const target = queue.shift()!;
       if (deadline !== null && Date.now() > deadline) {
         await this.deps.writer.appendAudit({ action: "BUDGET_TIME_EXHAUSTED", targetType: "ingestion_source", targetId: sourceId, afterJson: JSON.stringify({ runId }) });
         break;
@@ -150,17 +190,23 @@ export class GenericIngestionEngine {
       }
       if (maxDocuments !== undefined && docKinds.has(target.capability) && documents >= maxDocuments) {
         await this.deps.writer.appendAudit({ action: "BUDGET_DOCUMENTS_EXHAUSTED", targetType: "ingestion_source", targetId: sourceId, afterJson: JSON.stringify({ runId, documents }) });
+        processed += 1;
         continue;
       }
+      processed += 1;
       if (seenUrls.has(target.url)) continue; // same URL already ingested this run
       seenUrls.add(target.url);
 
-      const item = await this.processTarget(source, target, runId, now, opts, budget);
+      const { item, subs } = await this.processTarget(source, target, runId, now, opts, budget);
       items.push(item);
       fetches += 1;
       if (docKinds.has(target.capability) && item.lifecycle !== "FAILED") documents += 1;
       if (item.lifecycle === "FAILED") {
         errors.push({ runId, sourceId, url: target.url, errorType: "ITEM_FAILED", errorMessage: item.lifecycle === "FAILED" ? `processing failed for ${target.url}` : "", retryCount: 0 });
+      }
+      const remaining = maxTargets - processed;
+      if (subs.length > 0) {
+        for (const sub of subs.slice(0, remaining)) queue.push(sub);
       }
     }
 
@@ -193,11 +239,11 @@ export class GenericIngestionEngine {
     now: string,
     opts: EngineOptions,
     budget: CrawlBudget = {},
-  ): Promise<EngineResult["items"][number]> {
+  ): Promise<ProcessedTarget> {
     const fetcher: Fetcher = this.deps.fetcher;
 
     if (opts.dryRun) {
-      return { url: target.url, capability: target.capability, lifecycle: "DISCOVERED", persisted: false };
+      return { item: { url: target.url, capability: target.capability, lifecycle: "DISCOVERED", persisted: false }, subs: [] };
     }
 
     await this.deps.writer.appendAudit({ action: "FETCH_STARTED", targetType: "ingestion_item", targetId: runId, afterJson: JSON.stringify({ url: target.url }) });
@@ -212,7 +258,7 @@ export class GenericIngestionEngine {
     };
     const fetched = await this.fetchAndAudit(source, target, runId, fetchOpts);
     if (!fetched) {
-      return { url: target.url, capability: target.capability, lifecycle: "FAILED", persisted: false };
+      return { item: { url: target.url, capability: target.capability, lifecycle: "FAILED", persisted: false }, subs: [] };
     }
 
     await this.deps.writer.appendAudit({ action: "FETCH_COMPLETED", targetType: "ingestion_item", targetId: runId, afterJson: JSON.stringify({ contentHash: fetched.contentHash, status: fetched.httpStatus, mimeType: fetched.contentType }) });
@@ -222,7 +268,7 @@ export class GenericIngestionEngine {
         runId, url: target.url, itemType: target.capability, status: "FAILED", contentHash: fetched.contentHash || undefined,
       } satisfies ItemInput);
       await this.deps.writer.saveError({ runId, sourceId: source.id, url: target.url, errorType: "HTTP_ERROR", errorMessage: `HTTP ${fetched.httpStatus ?? "none"}`, retryCount: 0 });
-      return { url: target.url, capability: target.capability, lifecycle: "FAILED", persisted: true, contentHash: fetched.contentHash || undefined };
+      return { item: { url: target.url, capability: target.capability, lifecycle: "FAILED", persisted: true, contentHash: fetched.contentHash || undefined }, subs: [] };
     }
 
     // Phase H: idempotency — same source+url+canonical hash → UNCHANGED
@@ -241,7 +287,7 @@ export class GenericIngestionEngine {
 
     if (unchanged) {
       await this.deps.writer.appendAudit({ action: "INGESTION_ITEM_UNCHANGED", targetType: "ingestion_item", targetId: runId, afterJson: JSON.stringify({ contentHash: comparisonHash }) });
-      return { url: target.url, capability: target.capability, lifecycle: "UNCHANGED", persisted: true, contentHash: fetched.contentHash };
+      return { item: { url: target.url, capability: target.capability, lifecycle: "UNCHANGED", persisted: true, contentHash: fetched.contentHash }, subs: [] };
     }
 
     const mime = fetched.contentType ?? "";
@@ -265,22 +311,29 @@ export class GenericIngestionEngine {
       // DOCUMENT EVIDENCE PATH (Phase Q): no OCR, no AI, no fabricated title/
       // date. The durable link-first record carries provenance + raw hash;
       // source_snapshots holds every version (old ones are never touched).
-      await this.deps.writer.saveOutboundLink({
-        scopeKey: source.institutionId ?? source.id,
-        institutionId: source.institutionId,
-        slug: documentSlug(target.url),
-        targetType: "DOCUMENT",
-        label: target.title ?? `document at ${target.url}`,
-        targetUrl: target.url,
-        canonicalUrl: fetched.finalUrl,
-        contentHash: fetched.contentHash,
-        availabilityStatus: "AVAILABLE",
-        sourceId: source.id,
-        firstSeenAt: fetched.fetchedAt,
-        lastCheckedAt: fetched.fetchedAt,
-      });
+      // A sitemap CARRIER is discovery infrastructure — never an outbound
+      // document link (its <loc> pages are scheduled instead, see below).
+      if (target.capability !== "SITEMAP") {
+        await this.deps.writer.saveOutboundLink({
+          scopeKey: source.institutionId ?? source.id,
+          institutionId: source.institutionId,
+          slug: documentSlug(target.url),
+          targetType: "DOCUMENT",
+          label: target.title ?? `document at ${target.url}`,
+          targetUrl: target.url,
+          canonicalUrl: fetched.finalUrl,
+          contentHash: fetched.contentHash,
+          availabilityStatus: "AVAILABLE",
+          sourceId: source.id,
+          firstSeenAt: fetched.fetchedAt,
+          lastCheckedAt: fetched.fetchedAt,
+        });
+      }
       await this.deps.writer.appendAudit({ action: "DOCUMENT_EVIDENCE_PERSISTED", targetType: "ingestion_item", targetId: runId, afterJson: JSON.stringify({ url: target.url, contentHash: fetched.contentHash, mimeType: fetched.contentType }) });
-      return { url: target.url, capability: target.capability, lifecycle: "CHANGED", persisted: true, contentHash: fetched.contentHash };
+      return {
+        item: { url: target.url, capability: target.capability, lifecycle: "CHANGED", persisted: true, contentHash: fetched.contentHash },
+        subs: this.derefSitemapCarrier(source, target, fetched),
+      };
     }
 
     // Phase G: EXTRACT — deterministic; failure must NOT lose the snapshot.
@@ -294,7 +347,7 @@ export class GenericIngestionEngine {
       await this.deps.writer.updateExtractionStatus(snapshotId, "FAILED");
       await this.deps.writer.saveError({ runId, sourceId: source.id, url: target.url, errorType: "EXTRACTION_FAILED", errorMessage: "extractor threw", retryCount: 0 });
       await this.deps.writer.appendAudit({ action: "EXTRACTION_FAILED", targetType: "ingestion_item", targetId: runId });
-      return { url: target.url, capability: target.capability, lifecycle: "FAILED", persisted: true, contentHash: fetched.contentHash };
+      return { item: { url: target.url, capability: target.capability, lifecycle: "FAILED", persisted: true, contentHash: fetched.contentHash }, subs: [] };
     }
 
     await this.deps.writer.appendAudit({ action: "EXTRACTION_COMPLETED", targetType: "ingestion_item", targetId: runId, afterJson: JSON.stringify({ evidenceCount: extracted.length }) });
@@ -352,7 +405,117 @@ export class GenericIngestionEngine {
     }
 
     const lifecycle: IngestionLifecycle = "EXTRACTED";
-    return { url: target.url, capability: target.capability, lifecycle: lifecycle as string, persisted: true, contentHash: fetched.contentHash };
+    return {
+      item: { url: target.url, capability: target.capability, lifecycle: lifecycle as string, persisted: true, contentHash: fetched.contentHash },
+      subs: this.walkLinks(source, target, fetched),
+    };
+  }
+
+  /**
+   * SITEMAP dereference (Phase F, deeper): when a fetched target is actually a
+   * sitemap carrier (WordPress wp-sitemap index/sub-sitemap, custom sitemaps),
+   * its <loc> entries are scheduled as real capability pages instead of the
+   * XML file being treated as an extractable page. Recursion is handled by the
+   * work queue: sub-sitemap targets deref again in-process to their posts.
+   */
+  private derefSitemapCarrier(
+    source: IngestionSourceSpec,
+    target: DiscoveredTarget,
+    fetched: FetchResult,
+  ): DiscoveredTarget[] {
+    if (target.capability !== "SITEMAP" && !isSitemapUrl(target.url)) return [];
+    if (fetched.bodyBytes > 4 * 1024 * 1024) return [];
+    let text: string;
+    try {
+      text = new TextDecoder("utf-8").decode(fetched.body);
+    } catch {
+      return [];
+    }
+    if (!/<loc/i.test(text)) return [];
+
+    const host = hostnameOf(source.url);
+    if (!host) return [];
+    const now = new Date().toISOString();
+    const subs: DiscoveredTarget[] = [];
+    for (const loc of parseSitemapLocs(text)) {
+      if (subs.length >= 64) break; // hard cap per carrier
+      let href: string;
+      try {
+        const u = new URL(loc);
+        if (u.hostname.toLowerCase() !== host) continue; // foreign → skip
+        u.hash = "";
+        u.search = "";
+        href = u.href.replace(/\/$/, "") || u.href;
+      } catch {
+        continue;
+      }
+      const cap = locateCapabilityForUrl(loc);
+      if (!cap) continue; // no hint, not a sitemap tool → not a capability page
+      if (!source.capabilities.some((c) => c.kind === cap)) continue; // gated
+      subs.push({
+        capability: cap,
+        url: href,
+        method: "SITEMAP",
+        parentUrl: target.url,
+        sourceId: source.id,
+        institutionId: source.institutionId,
+        discoveredAt: now,
+        status: "CANDIDATE",
+      });
+    }
+    return subs;
+  }
+
+  /**
+   * One-level deeper LINK walk (Phase F, deeper): a fetched capability page
+   * yields its own same-host links, classified by the same hint rules (so a
+   * /reports/ index surfaces its report pages). Bounded: only walked for the
+   * five section capabilities, never for asset/media/foreign URLs.
+   */
+  private walkLinks(
+    source: IngestionSourceSpec,
+    target: DiscoveredTarget,
+    fetched: FetchResult,
+  ): DiscoveredTarget[] {
+    if (!SECTION_CAPS.has(target.capability)) return [];
+    if (fetched.bodyBytes > 4 * 1024 * 1024) return [];
+
+    const host = hostnameOf(source.url);
+    if (!host) return [];
+    let text: string;
+    try {
+      text = new TextDecoder("utf-8").decode(fetched.body);
+    } catch {
+      return [];
+    }
+    const now = new Date().toISOString();
+    const subs: DiscoveredTarget[] = [];
+    for (const raw of extractSameHostLinks(text, host)) {
+      if (subs.length >= 64) break; // hard cap per walked page
+      const cap = locateCapabilityForUrl(raw);
+      if (!cap || cap === "WEBSITE" || cap === "SITEMAP") continue;
+      if (!source.capabilities.some((c) => c.kind === cap)) continue; // gated
+      let href: string;
+      try {
+        const u = new URL(raw);
+        u.hash = "";
+        u.search = "";
+        href = u.href.replace(/\/$/, "") || u.href;
+      } catch {
+        continue;
+      }
+      subs.push({
+        capability: cap,
+        url: href,
+        method: "LINK",
+        parentUrl: target.url,
+        sourceId: source.id,
+        institutionId: source.institutionId,
+        discoveredAt: now,
+        status: "CANDIDATE",
+      });
+    }
+    return subs;
   }
 
   private async fetchAndAudit(source: IngestionSourceSpec, target: DiscoveredTarget, runId: string, fetchOpts?: FetchOptions): Promise<FetchResult | null> {
