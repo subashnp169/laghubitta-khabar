@@ -18,6 +18,7 @@ export default function Header() {
             <Link href="/reports" className="text-slate-600 hover:text-mfi-600 transition">Reports</Link>
             <Link href="/jobs" className="text-slate-600 hover:text-mfi-600 transition">Jobs</Link>
             <Link href="/nrb" className="text-slate-600 hover:text-mfi-600 transition">NRB</Link>
+            <Link href="/alerts" className="text-slate-600 hover:text-mfi-600 transition">Alerts</Link>
             <Link href="/research" className="text-slate-600 hover:text-mfi-600 transition">Research</Link>
           </nav>
           <div className="flex items-center gap-3">
