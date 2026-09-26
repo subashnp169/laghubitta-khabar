@@ -1,0 +1,1244 @@
+{
+  "phase": "M1.6 - ingestion schedule manifest",
+  "dbPath": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\lk-pilot-Iq2nti\\pilot.db",
+  "computedAt": "2026-09-26T15:33:37.843Z",
+  "totals": {
+    "sources": 51,
+    "activeSources": 51,
+    "pausedSources": 0,
+    "dueNow": 51,
+    "cadenceBuckets": {
+      "frequent": 51,
+      "periodic": 0,
+      "slow": 0
+    },
+    "defaultCadenceMinutes": 1440
+  },
+  "perSource": [
+    {
+      "source": "aarambha-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T10:37:16.870Z",
+      "nextDueAt": "2026-09-26T11:37:16.870Z",
+      "isDue": true
+    },
+    {
+      "source": "aatmanirbhar-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T10:37:37.865Z",
+      "nextDueAt": "2026-09-26T11:37:37.865Z",
+      "isDue": true
+    },
+    {
+      "source": "asha-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T10:38:10.290Z",
+      "nextDueAt": "2026-09-26T11:38:10.290Z",
+      "isDue": true
+    },
+    {
+      "source": "aviyan-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T10:38:24.769Z",
+      "nextDueAt": "2026-09-26T11:38:24.769Z",
+      "isDue": true
+    },
+    {
+      "source": "chhimek-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T10:36:19.227Z",
+      "nextDueAt": "2026-09-26T11:36:19.227Z",
+      "isDue": true
+    },
+    {
+      "source": "cyc-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T10:39:03.883Z",
+      "nextDueAt": "2026-09-26T11:39:03.883Z",
+      "isDue": true
+    },
+    {
+      "source": "deproscbank-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T10:40:00.582Z",
+      "nextDueAt": "2026-09-26T11:40:00.582Z",
+      "isDue": true
+    },
+    {
+      "source": "dhaulagiribank-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T11:07:38.725Z",
+      "nextDueAt": "2026-09-26T12:07:38.725Z",
+      "isDue": true
+    },
+    {
+      "source": "fmdb-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T10:42:29.378Z",
+      "nextDueAt": "2026-09-26T11:42:29.378Z",
+      "isDue": true
+    },
+    {
+      "source": "forwardmfbank-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T10:45:51.014Z",
+      "nextDueAt": "2026-09-26T11:45:51.014Z",
+      "isDue": true
+    },
+    {
+      "source": "ganapatimicro-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T11:02:21.310Z",
+      "nextDueAt": "2026-09-26T12:02:21.310Z",
+      "isDue": true
+    },
+    {
+      "source": "gblbs-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T10:49:47.131Z",
+      "nextDueAt": "2026-09-26T11:49:47.131Z",
+      "isDue": true
+    },
+    {
+      "source": "gilb-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T10:46:40.256Z",
+      "nextDueAt": "2026-09-26T11:46:40.256Z",
+      "isDue": true
+    },
+    {
+      "source": "guranslaghubitta-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T11:02:16.850Z",
+      "nextDueAt": "2026-09-26T12:02:16.850Z",
+      "isDue": true
+    },
+    {
+      "source": "himalayanlaghubitta-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T10:44:55.839Z",
+      "nextDueAt": "2026-09-26T11:44:55.839Z",
+      "isDue": true
+    },
+    {
+      "source": "infinity-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T10:36:56.189Z",
+      "nextDueAt": "2026-09-26T11:36:56.189Z",
+      "isDue": true
+    },
+    {
+      "source": "jeevanbikasmf-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T11:10:19.877Z",
+      "nextDueAt": "2026-09-26T12:10:19.877Z",
+      "isDue": true
+    },
+    {
+      "source": "jucbank-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T10:43:05.641Z",
+      "nextDueAt": "2026-09-26T11:43:05.641Z",
+      "isDue": true
+    },
+    {
+      "source": "kalikabank-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T10:42:44.759Z",
+      "nextDueAt": "2026-09-26T11:42:44.759Z",
+      "isDue": true
+    },
+    {
+      "source": "laxmilaghu-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T10:44:28.623Z",
+      "nextDueAt": "2026-09-26T11:44:28.623Z",
+      "isDue": true
+    },
+    {
+      "source": "manushilbs-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T11:04:49.805Z",
+      "nextDueAt": "2026-09-26T12:04:49.805Z",
+      "isDue": true
+    },
+    {
+      "source": "matribhumi-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T10:36:50.865Z",
+      "nextDueAt": "2026-09-26T11:36:50.865Z",
+      "isDue": true
+    },
+    {
+      "source": "mero-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T10:36:28.891Z",
+      "nextDueAt": "2026-09-26T11:36:28.891Z",
+      "isDue": true
+    },
+    {
+      "source": "mlbbank-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T10:41:32.003Z",
+      "nextDueAt": "2026-09-26T11:41:32.003Z",
+      "isDue": true
+    },
+    {
+      "source": "mlbsl-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T11:04:18.387Z",
+      "nextDueAt": "2026-09-26T12:04:18.387Z",
+      "isDue": true
+    },
+    {
+      "source": "mslbsl-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T10:47:40.469Z",
+      "nextDueAt": "2026-09-26T11:47:40.469Z",
+      "isDue": true
+    },
+    {
+      "source": "nadeplaghubitta-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T10:53:29.177Z",
+      "nextDueAt": "2026-09-26T11:53:29.177Z",
+      "isDue": true
+    },
+    {
+      "source": "nationalmicrofinance-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T10:49:22.531Z",
+      "nextDueAt": "2026-09-26T11:49:22.531Z",
+      "isDue": true
+    },
+    {
+      "source": "nerudemirmire-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T10:41:23.626Z",
+      "nextDueAt": "2026-09-26T11:41:23.626Z",
+      "isDue": true
+    },
+    {
+      "source": "nicasialaghubitta-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T11:03:50.704Z",
+      "nextDueAt": "2026-09-26T12:03:50.704Z",
+      "isDue": true
+    },
+    {
+      "source": "nirdhan-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T10:35:54.016Z",
+      "nextDueAt": "2026-09-26T11:35:54.016Z",
+      "isDue": true
+    },
+    {
+      "source": "nmbmicrofinance-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T10:45:20.937Z",
+      "nextDueAt": "2026-09-26T11:45:20.937Z",
+      "isDue": true
+    },
+    {
+      "source": "rsdcmf-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T10:48:34.376Z",
+      "nextDueAt": "2026-09-26T11:48:34.376Z",
+      "isDue": true
+    },
+    {
+      "source": "samata-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T10:48:22.264Z",
+      "nextDueAt": "2026-09-26T11:48:22.264Z",
+      "isDue": true
+    },
+    {
+      "source": "sampadalaghubitta-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T11:03:44.087Z",
+      "nextDueAt": "2026-09-26T12:03:44.087Z",
+      "isDue": true
+    },
+    {
+      "source": "sanjeevanilaghubitta-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T11:12:14.088Z",
+      "nextDueAt": "2026-09-26T12:12:14.088Z",
+      "isDue": true
+    },
+    {
+      "source": "shrijanshil-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T11:08:36.831Z",
+      "nextDueAt": "2026-09-26T12:08:36.831Z",
+      "isDue": true
+    },
+    {
+      "source": "skbbl-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T10:40:42.766Z",
+      "nextDueAt": "2026-09-26T11:40:42.766Z",
+      "isDue": true
+    },
+    {
+      "source": "slbbl-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T10:41:58.153Z",
+      "nextDueAt": "2026-09-26T11:41:58.153Z",
+      "isDue": true
+    },
+    {
+      "source": "slbs-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T11:07:51.250Z",
+      "nextDueAt": "2026-09-26T12:07:51.250Z",
+      "isDue": true
+    },
+    {
+      "source": "slbsl-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T10:48:47.906Z",
+      "nextDueAt": "2026-09-26T11:48:47.906Z",
+      "isDue": true
+    },
+    {
+      "source": "supportmicrofinance-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T10:58:53.862Z",
+      "nextDueAt": "2026-09-26T11:58:53.862Z",
+      "isDue": true
+    },
+    {
+      "source": "swabhimaanlaghubitta-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T11:02:52.412Z",
+      "nextDueAt": "2026-09-26T12:02:52.412Z",
+      "isDue": true
+    },
+    {
+      "source": "swastiklbs-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T11:08:21.640Z",
+      "nextDueAt": "2026-09-26T12:08:21.640Z",
+      "isDue": true
+    },
+    {
+      "source": "swbbl-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T10:40:20.629Z",
+      "nextDueAt": "2026-09-26T11:40:20.629Z",
+      "isDue": true
+    },
+    {
+      "source": "swmfi-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T10:43:42.439Z",
+      "nextDueAt": "2026-09-26T11:43:42.439Z",
+      "isDue": true
+    },
+    {
+      "source": "ulbsl-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T11:06:46.052Z",
+      "nextDueAt": "2026-09-26T12:06:46.052Z",
+      "isDue": true
+    },
+    {
+      "source": "uniquenepalmicrofinance-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T11:05:25.010Z",
+      "nextDueAt": "2026-09-26T12:05:25.010Z",
+      "isDue": true
+    },
+    {
+      "source": "unnatislbs-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T10:50:45.884Z",
+      "nextDueAt": "2026-09-26T11:50:45.884Z",
+      "isDue": true
+    },
+    {
+      "source": "vlbs-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T10:45:06.794Z",
+      "nextDueAt": "2026-09-26T11:45:06.794Z",
+      "isDue": true
+    },
+    {
+      "source": "weannepal-website",
+      "sourceType": "MFB_WEBSITE",
+      "enabled": true,
+      "capabilities": [
+        "WEBSITE",
+        "REPORTS",
+        "NEWS",
+        "BRANCH_DIRECTORY",
+        "CAREER_PAGE",
+        "DOCUMENT_ARCHIVE",
+        "SITEMAP"
+      ],
+      "cadenceMinutes": 60,
+      "cadenceBuckets": [
+        60,
+        1440,
+        10080
+      ],
+      "bucket": "frequent",
+      "lastRunAt": "2026-09-26T10:50:19.858Z",
+      "nextDueAt": "2026-09-26T11:50:19.858Z",
+      "isDue": true
+    }
+  ],
+  "note": "read-only manifest; schedule runs write via `npm run ops -- run`; no schema change; no publish"
+}

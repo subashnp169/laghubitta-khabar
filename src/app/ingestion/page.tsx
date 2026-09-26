@@ -21,6 +21,12 @@ const lastStatusClasses: Record<string, string> = {
   FAILED: "bg-red-50 text-red-700",
 };
 
+const bucketClasses: Record<string, string> = {
+  frequent: "bg-sky-50 text-sky-700",
+  periodic: "bg-indigo-50 text-indigo-700",
+  slow: "bg-violet-50 text-violet-700",
+};
+
 function Stat({ label, value, tone }: { label: string; value: string | number; tone?: string }) {
   return (
     <div className="bg-white rounded-xl border border-slate-200 p-3">
@@ -67,6 +73,20 @@ export default function IngestionPage() {
         <span className="text-xs text-slate-400 ml-auto">{crawlSummary.pdfSnapshots} PDF snapshot (evidence only, no OCR)</span>
       </div>
 
+      <div className="flex items-center gap-2 mb-4 flex-wrap">
+        <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Schedule (capability-driven):</span>
+        <span className="text-xs font-semibold px-2 py-1 rounded-full bg-sky-50 text-sky-700">{crawlSummary.schedule.frequent} frequent</span>
+        <span className="text-xs font-semibold px-2 py-1 rounded-full bg-indigo-50 text-indigo-700">{crawlSummary.schedule.periodic} periodic</span>
+        <span className="text-xs font-semibold px-2 py-1 rounded-full bg-violet-50 text-violet-700">{crawlSummary.schedule.slow} slow</span>
+        {crawlSummary.schedule.dueNow > 0 && (
+          <span className="text-xs font-semibold px-2 py-1 rounded-full bg-amber-50 text-amber-700">{crawlSummary.schedule.dueNow} due now</span>
+        )}
+        {crawlSummary.schedule.paused > 0 && (
+          <span className="text-xs font-semibold px-2 py-1 rounded-full bg-slate-100 text-slate-500">{crawlSummary.schedule.paused} paused</span>
+        )}
+        <span className="text-xs text-slate-400 ml-auto">next run = last run + cadence (min of the source&apos;s capability intervals)</span>
+      </div>
+
       <div className="bg-white rounded-xl border border-slate-200 overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
@@ -83,6 +103,8 @@ export default function IngestionPage() {
               <th className="px-3 py-2 text-right">Fin. Docs</th>
               <th className="px-3 py-2 text-right">Errors</th>
               <th className="px-3 py-2">Last Run</th>
+              <th className="px-3 py-2">Cadence</th>
+              <th className="px-3 py-2">Next run</th>
               <th className="px-3 py-2">Health</th>
             </tr>
           </thead>
@@ -135,6 +157,21 @@ export default function IngestionPage() {
                   <td className="px-3 py-2 text-xs text-slate-400">{c.lastRun ? c.lastRun.slice(0, 16).replace("T", " ") : "-"}</td>
                   <td className="px-3 py-2">
                     <div className="flex flex-col gap-1">
+                      <span className="text-xs text-slate-600">{c.cadenceMinutes} min</span>
+                      <span className={`text-[9px] font-semibold px-2 py-0.5 rounded-full w-fit ${bucketClasses[c.cadenceBucket] ?? "bg-slate-100 text-slate-500"}`}>{c.cadenceBucket}</span>
+                    </div>
+                  </td>
+                  <td className="px-3 py-2">
+                    {c.paused ? (
+                      <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-slate-100 text-slate-500">PAUSED</span>
+                    ) : c.isDue ? (
+                      <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-50 text-amber-700">DUE · {(c.nextDueAt ?? "").slice(0, 16).replace("T", " ")}</span>
+                    ) : (
+                      <span className="text-xs text-slate-400">{c.nextDueAt ? c.nextDueAt.slice(0, 16).replace("T", " ") : "-"}</span>
+                    )}
+                  </td>
+                  <td className="px-3 py-2">
+                    <div className="flex flex-col gap-1">
                       <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full w-fit ${statusClasses[c.status] ?? "bg-slate-100 text-slate-500"}`}>
                         {c.status}
                       </span>
@@ -153,7 +190,7 @@ export default function IngestionPage() {
       </div>
 
       <p className="text-[10px] text-slate-400 mt-3">
-        Snapshot file: src/data/pilot.ts (regenerated via <code className="bg-slate-100 px-1 rounded">npm run pilot:export -- &lt;db-path&gt;</code>). Extracted metadata is evidence-only and UNVERIFIED until human review.
+        Snapshot file: src/data/pilot.ts (regenerated via <code className="bg-slate-100 px-1 rounded">npm run pilot:export -- &lt;db-path&gt;</code>). Extracted metadata is evidence-only and UNVERIFIED until human review. Schedules are advisory: operational verbs (run/retry/pause/resume) run via <code className="bg-slate-100 px-1 rounded">npm run ops -- &lt;verb&gt; --db=&lt;path&gt;</code>.
       </p>
     </div>
   );

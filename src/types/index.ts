@@ -169,6 +169,12 @@ export interface CrawlSource {
   branchNames: string[];
   vacancyTitles: string[];
   documentTitles: string[];
+  cadenceMinutes: number;
+  cadenceBuckets: number[];
+  cadenceBucket: "frequent" | "periodic" | "slow";
+  nextDueAt: string | null;
+  isDue: boolean;
+  paused: boolean;
 }
 
 export interface CrawlSummary {
@@ -193,4 +199,11 @@ export interface CrawlSummary {
   pdfSnapshots: number;
   healthy: number;
   degraded: number;
+  schedule: {
+    frequent: number;
+    periodic: number;
+    slow: number;
+    dueNow: number;
+    paused: number;
+  };
 }

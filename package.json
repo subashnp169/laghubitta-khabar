@@ -25,6 +25,8 @@
     "nrb:ledger": "tsx scripts/nrb-ledger.ts",
     "nrb:data": "tsx scripts/generate-nrb-data.ts",
     "control": "tsx scripts/control-panel.ts",
+    "ops": "tsx scripts/ops-cli.ts",
+    "smoke:schedule": "tsx scripts/smoke-schedule.ts",
     "check:discipline": "node scripts/check-discipline.cjs"
   },
   "dependencies": {
