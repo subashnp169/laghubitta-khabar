@@ -161,7 +161,14 @@ function main(): void {
     ) as { n: number };
     const dupSnaps = q(
       db,
-      `SELECT COUNT(*) n FROM (SELECT content_hash, COUNT(*) c FROM source_snapshots WHERE source_id=? GROUP BY content_hash HAVING c>1)`,
+      `SELECT COUNT(*) n FROM source_snapshots ss
+        WHERE ss.source_id = ?
+          AND EXISTS (SELECT 1 FROM source_snapshots ss2
+                       WHERE ss2.source_id = ss.source_id AND ss2.content_hash = ss.content_hash
+                         AND ss2.id <> ss.id)
+          AND (SELECT COUNT(DISTINCT i.url)
+                 FROM ingestion_items i JOIN ingestion_runs r ON r.id = i.run_id
+                WHERE r.ingestion_source_id = ss.source_id AND i.content_hash = ss.content_hash) = 1`,
       s.id,
     ) as { n: number };
     const okRuns = q(
