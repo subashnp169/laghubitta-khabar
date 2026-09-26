@@ -326,7 +326,17 @@
           "link_type": "OTHER",
           "note": "phase F backfill 2026-09-26: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
         }
-      ]
+      ],
+      "data_api": {
+        "provenance": "bundle-discovered 2026-09-26: vite shell assets/index-*.js (inert bytes) -> axios baseURL https://vyccudevice.exploretonepal.com/api; endpoints probed live read-only: /branch JSON array, /news JSON array, /career JSON object",
+        "baseUrl": "https://vyccudevice.exploretonepal.com/api",
+        "hosts": ["vyccudevice.exploretonepal.com"],
+        "routes": [
+          { "capability": "BRANCH_DIRECTORY", "path": "/branch" },
+          { "capability": "NEWS", "path": "/news" },
+          { "capability": "CAREER_PAGE", "path": "/career" }
+        ]
+      }
     },
     {
       "id": "aarambha-website",
@@ -647,9 +657,9 @@
         {
           "capability": "SITEMAP",
           "status": "CANDIDATE",
-          "known_url": "https://cycnlbsl.org.np/wp-sitemap-posts-branch-1.xml",
+          "known_url": null,
           "link_type": "OTHER",
-          "note": "phase F backfill 2026-09-26: anchor=link (http 200, application/xml; charset=UTF-8)"
+          "note": "phase F backfill 2026-09-26: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
         }
       ]
     },

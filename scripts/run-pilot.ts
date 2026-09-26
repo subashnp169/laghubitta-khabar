@@ -34,6 +34,9 @@ import {
   branchDirectoryExtractor,
   structuredValidators,
   vacancyExtractor,
+  DataApiConfigError,
+  parseDataApiConfig,
+  runDataApiPass,
 } from "../lib/ingestion";
 import type { ExtractedEvidence, HtmlExtractor } from "../lib/ingestion";
 
@@ -55,6 +58,12 @@ interface PilotRecord {
   url: string;
   domain: string;
   capabilities: Array<{ capability: string; status: string; known_url: string | null; link_type: string; note?: string }>;
+  data_api?: {
+    provenance?: string;
+    baseUrl: string;
+    hosts: string[];
+    routes: Array<{ capability: string; path: string }>;
+  };
 }
 
 const PILOT_JSON = join(process.cwd(), "data", "pilot", "pilot-sources.json");
@@ -145,7 +154,7 @@ async function main(): Promise<void> {
     db2.prepare(
       `INSERT OR IGNORE INTO ingestion_sources (id, url, domain, source_type, institution_id, config_json, enabled, fetch_interval_minutes)
        VALUES (?, ?, ?, 'MFB_WEBSITE', ?, ?, 1, 1440)`,
-    ).run(s.id, s.url, s.domain, s.institution_id, JSON.stringify({ capabilities: s.capabilities }));
+    ).run(s.id, s.url, s.domain, s.institution_id, JSON.stringify({ capabilities: s.capabilities, ...(s.data_api ? { data_api: s.data_api } : {}) }));
     // seed validation rules so the report can show validation plumbing
     db2.prepare(
       `INSERT OR IGNORE INTO validation_rules (id, rule_code, name, category, severity, active, params_json)
@@ -215,10 +224,61 @@ async function main(): Promise<void> {
         validators: pilotAllValidators,
       };
       const engine = buildEngine(deps);
-      const out = await engine.runSource(s.id, { budget, now: new Date().toISOString() });
+      const nowIso = new Date().toISOString();
+      const out = await engine.runSource(s.id, { budget, now: nowIso });
       const fetched = out.items.filter((i) => i.lifecycle !== "DISCOVERED").length;
-      makes.push({ runId, status: out.ok ? "SUCCESS" : "PARTIAL", items: out.items.length, fetched, errors: out.errors.length, lifecycle: out.items.map((i) => i.lifecycle) });
-      console.log(` [run] ${s.id.padEnd(18)} ${runId} status=${out.ok ? "SUCCESS" : "PARTIAL"} items=${out.items.length} fetched=${fetched} errors=${out.errors.length}`);
+      let status = out.ok ? "SUCCESS" : "PARTIAL";
+      let errorCount = out.errors.length;
+      let itemCount = out.items.length;
+      console.log(` [run] ${s.id.padEnd(18)} ${runId} status=${status} items=${out.items.length} fetched=${fetched} errors=${out.errors.length}`);
+
+      // M3.2 — data-API pass for JS-backed sources (config_json.data_api).
+      if (s.data_api) {
+        const spec = await deps.registry.get(s.id);
+        let dataConfig;
+        try {
+          dataConfig = parseDataApiConfig({ data_api: s.data_api });
+        } catch (e) {
+          const msg = e instanceof DataApiConfigError ? e.message : String(e);
+          console.error(` [api] ${s.id}: data_api config error: ${msg}`);
+          await deps.registry.recordRun({
+            sourceId: s.id, startedAt: nowIso, completedAt: nowIso, status: "FAILED",
+            itemsFound: 0, itemsChanged: 0, itemsNew: 0, itemsFailed: 0, errorCount: 1,
+          });
+          status = "PARTIAL";
+          errorCount += 1;
+          dataConfig = null;
+        }
+        if (dataConfig && spec) {
+          const pass = await runDataApiPass({
+            source: spec,
+            config: dataConfig,
+            budget,
+            now: nowIso,
+            deps: {
+              registry: deps.registry,
+              fetcher: new ControlledFetcher({
+                allowedHosts: dataConfig.hosts,
+                maxBytes: budget.maxBytes,
+                maxRedirects: budget.maxRedirects,
+                maxRetries: budget.maxRetries,
+                timeoutMs: 15000,
+                minIntervalMs: 250,
+                resolveHost: nodeResolveHost,
+              }),
+              writer: deps.writer,
+              canonicalizer: deterministicHtmlCanonicalizer,
+              validators: pilotAllValidators,
+            },
+          });
+          console.log(` [api] ${s.id.padEnd(18)} ${pass.runId} processed=${pass.processed} errors=${pass.errors.length}`);
+          itemCount += pass.processed;
+          errorCount += pass.errors.length;
+          if (pass.errors.length > 0) status = "PARTIAL";
+        }
+      }
+
+      makes.push({ runId, status, items: itemCount, fetched, errors: errorCount, lifecycle: out.items.map((i) => i.lifecycle) });
       return out;
     };
 

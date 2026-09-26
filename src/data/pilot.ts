@@ -3,24 +3,24 @@
 import type { CrawlSource, CrawlSummary } from "@/types";
 
 export const crawlSummary: CrawlSummary = {
-  "generatedAt": "2026-09-26T15:31:03.231Z",
+  "generatedAt": "2026-09-26T16:37:40.725Z",
   "mode": "idempotency (repeat)",
   "institutions": 51,
   "sources": 51,
   "withEvidence": 47,
-  "capabilitiesLocated": 217,
+  "capabilitiesLocated": 216,
   "sourcesWithLocatedPages": 51,
-  "runs": 102,
-  "items": 1203,
-  "snapshots": 682,
-  "documents": 77,
-  "errors": 71,
+  "runs": 106,
+  "items": 1211,
+  "snapshots": 688,
+  "documents": 96,
+  "errors": 74,
   "fetchFailures": 24,
-  "passCount": 1283,
-  "failCount": 10,
-  "pendingCount": 2295,
+  "passCount": 1290,
+  "failCount": 11,
+  "pendingCount": 2305,
   "conflictsOpen": 0,
-  "duplicateSnapshotGroups": 1,
+  "duplicateSnapshotGroups": 2,
   "pdfSnapshots": 69,
   "healthy": 47,
   "degraded": 4,
@@ -28,7 +28,7 @@ export const crawlSummary: CrawlSummary = {
     "frequent": 51,
     "periodic": 0,
     "slow": 0,
-    "dueNow": 51,
+    "dueNow": 50,
     "paused": 0
   }
 };
@@ -502,8 +502,8 @@ export const crawlSources: CrawlSource[] = [
       },
       {
         "capability": "SITEMAP",
-        "knownUrl": "https://cycnlbsl.org.np/wp-sitemap-posts-branch-1.xml",
-        "note": "phase F backfill 2026-09-26: anchor=link (http 200, application/xml; charset=UTF-8)"
+        "knownUrl": null,
+        "note": "phase F backfill 2026-09-26: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
       }
     ],
     "runs": 2,
@@ -1326,16 +1326,16 @@ export const crawlSources: CrawlSource[] = [
         "note": "phase F backfill 2026-09-26: no SITEMAP page located (0 hint pages fetched, 0 evidence-producing URLs)"
       }
     ],
-    "runs": 2,
-    "snapshots": 1,
-    "items": 2,
-    "documents": 0,
-    "errors": 0,
-    "changedItems": 1,
+    "runs": 6,
+    "snapshots": 7,
+    "items": 10,
+    "documents": 19,
+    "errors": 3,
+    "changedItems": 7,
     "discoveredUrls": 1,
     "status": "HEALTHY",
     "lastStatus": "SUCCESS",
-    "lastRun": "2026-09-26T10:36:56.189Z",
+    "lastRun": "2026-09-26T16:37:15.981Z",
     "cadenceMinutes": 60,
     "cadenceBuckets": [
       60,
@@ -1343,15 +1343,27 @@ export const crawlSources: CrawlSource[] = [
       10080
     ],
     "cadenceBucket": "frequent",
-    "nextDueAt": "2026-09-26T11:36:56.189Z",
-    "isDue": true,
+    "nextDueAt": "2026-09-26T17:37:15.981Z",
+    "isDue": false,
     "paused": false,
-    "branchCount": 0,
+    "branchCount": 102,
     "vacancyCount": 0,
-    "documentCount": 0,
-    "branchNames": [],
+    "documentCount": 19,
+    "branchNames": [
+      "Amuwa, Rupendehi",
+      "Attariya, Kailali",
+      "Baddichaur, Surkhet",
+      "Baghmara, Rolpa",
+      "Baglung, Baglung"
+    ],
     "vacancyTitles": [],
-    "documentTitles": []
+    "documentTitles": [
+      "Annual Report",
+      "Auction form Computers and Laptops",
+      "E-Calender",
+      "Infinity Dividend Notice",
+      "Interest Rate Update Notice"
+    ]
   },
   {
     "sourceId": "jeevanbikasmf-website",

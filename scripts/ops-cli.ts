@@ -39,6 +39,9 @@ import {
   vacancyExtractor,
   nrbListingExtractor,
   nrbStructuredValidators,
+  DataApiConfigError,
+  parseDataApiConfig,
+  runDataApiPass,
 } from "../lib/ingestion";
 import type { ExtractedEvidence, HtmlExtractor, Validator } from "../lib/ingestion";
 import {
@@ -322,16 +325,81 @@ async function runSource(dbPath: string, s: SourceRow, now: string): Promise<Run
   const runId = `run-${Date.now()}-${s.id}`;
   const out = await engine.runSource(s.id, { budget, now });
   const fetched = out.items.filter((i) => i.lifecycle !== "DISCOVERED").length;
+
+  let status = out.ok ? "SUCCESS" : "PARTIAL";
+  let errors = out.errors.length;
+  let items = out.items.length;
+
+  // M3.2 — data-API pass for JS-backed sources: config_json.data_api declares
+  // backing JSON routes; matched by strict parse (null → no pass). A malformed
+  // data_api block must fail LOUDLY like any bad capability config — recorded
+  // as a FAILED run, never silently skipped.
+  let cfg: unknown = {};
+  try {
+    cfg = JSON.parse(s.config_json);
+  } catch {
+    cfg = {};
+  }
+  let dataApi: ReturnType<typeof parseDataApiConfig> = null;
+  try {
+    dataApi = parseDataApiConfig(cfg);
+  } catch (e) {
+    const msg = e instanceof DataApiConfigError ? e.message : String(e);
+    console.error(` [api] ${s.id}: data_api config error: ${msg}`);
+    await deps.registry.recordRun({
+      sourceId: s.id, startedAt: now, completedAt: now, status: "FAILED",
+      itemsFound: 0, itemsChanged: 0, itemsNew: 0, itemsFailed: 0, errorCount: 1,
+    });
+    status = "PARTIAL";
+    errors += 1;
+  }
+  if (dataApi) {
+    const spec = await deps.registry.get(s.id);
+    if (!spec) {
+      console.error(` [api] ${s.id}: source not found in registry`);
+      status = "PARTIAL";
+      errors += 1;
+    } else {
+      const pass = await runDataApiPass({
+        source: spec,
+        config: dataApi,
+        budget,
+        now,
+        deps: {
+          registry: deps.registry,
+          fetcher: new ControlledFetcher({
+            allowedHosts: dataApi.hosts,
+            maxBytes: budget.maxBytes,
+            maxRedirects: budget.maxRedirects,
+            maxRetries: budget.maxRetries,
+            timeoutMs: 15000,
+            minIntervalMs: 250,
+            resolveHost: nodeResolveHost,
+          }),
+          writer: deps.writer,
+          canonicalizer: deterministicHtmlCanonicalizer,
+          validators: validatorsFor(s.source_type),
+        },
+      });
+      console.log(
+        ` [api] ${s.id.padEnd(18)} ${pass.runId} processed=${pass.processed} errors=${pass.errors.length}`,
+      );
+      items += pass.processed;
+      errors += pass.errors.length;
+      if (pass.errors.length > 0) status = "PARTIAL";
+    }
+  }
+
   console.log(
     ` [run] ${s.id.padEnd(18)} ${runId} status=${out.ok ? "SUCCESS" : "PARTIAL"} items=${out.items.length} fetched=${fetched} errors=${out.errors.length}`,
   );
   return {
     source: s.id,
     runId,
-    status: out.ok ? "SUCCESS" : "PARTIAL",
-    items: out.items.length,
+    status,
+    items,
     fetched,
-    errors: out.errors.length,
+    errors,
   };
 }
 

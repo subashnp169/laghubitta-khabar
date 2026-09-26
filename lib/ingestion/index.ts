@@ -73,3 +73,18 @@ export {
   vacancyValidator,
 } from "./structured";
 export { LocalSqliteEvidenceWriter, LocalSourceRegistry } from "./adapters/local";
+export {
+  DATA_API_PARSER_ID,
+  DataApiConfigError,
+  dataApiDocumentSlug,
+  extractDataApiPayload,
+  parseDataApiConfig,
+  runDataApiPass,
+  type DataApiConfig,
+  type DataApiExtraction,
+  type DataApiPassDeps,
+  type DataApiPassOptions,
+  type DataApiPassOutcome,
+  type DataApiPassResult,
+  type DataApiRoute,
+} from "./dataapi";
