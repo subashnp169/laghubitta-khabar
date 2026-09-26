@@ -117,6 +117,29 @@ to genuine NRB-hosted documents, e.g.
 - `nrb-mfd-home` (WEBSITE) produces no document signals — it is a discovery
   stance for the MFD department page, not an archive.
 
+## M1.5.2 — Ledger (delivered)
+
+`scripts/nrb-ledger.ts` projects the intake evidence + the master universe into
+the frozen NRB tables in a scratch review DB (`lk-nrb-ledger-*`). Every id is a
+hash of the backed evidence; everything is `INSERT OR IGNORE`; re-running is a
+no-op (verified `--repeat` and across two fresh ledger DBs on the same intake:
+identical counts).
+
+Ledger totals on the M1.5.1 intake (97 listing documents):
+
+| table | count | notes |
+|---|---|---|
+| `nrb_documents` | 97 | == distinct listing hrefs (design §6.3) |
+| `nrb_institution_links` | 76 | CLASS 51 + MERGED_BY_NRB 24 + ACTION 1 (timeline collapsed per institution/link_type; UNIQUE backstop) |
+| `regulatory_events` | 62 | one row per master timeline event |
+| name-matched REPORT/KFI links | 0 | aggregate documents match no institution name — honest, reported by design §4.2 |
+
+- `published_at` populated on **97/97** documents from the listing row metadata — which the intake now persists durably via a generic `description` field on LINK evidence → `outbound_links.description` (`{publishedAt, size}` JSON), no schema change.
+- Ancestry: all 7 document-producing sources have intake snapshots (7/7).
+- Zero orphan rows in both linked tables (`source_id` + institution FKs intact).
+- Honest gaps counted, not hidden: all 62 master timeline rows carry no `occurred_at`, so `regulatory_events.occurred_at` falls back to the universe `observed_at` (2026-06-20) and the fallback count is in the report.
+- Nor is content read: per-document depth-check (title inside the PDF, `availability_status` flip) remains M1.5.2-next / M1.5.3 territory by design (`UNKNOWN`).
+
 ## Next
 
 Proceed to M1.5.2 (document depth-check + `nrb_documents` projection +

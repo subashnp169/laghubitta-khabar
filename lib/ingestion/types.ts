@@ -159,6 +159,10 @@ export interface ExtractedEvidence {
   href?: string;
   text?: string;
   documentType?: string;
+  /** Optional structured metadata attached to a LINK (e.g. the date and
+   * filesize an archive listing row carries) — persisted verbatim onto the
+   * outbound_links row so the ledger can project it deterministically. */
+  description?: string;
   confidence: number; // 0..1 — low confidence must NOT become an assertion
   parserId: string;
   extractedAt: string;

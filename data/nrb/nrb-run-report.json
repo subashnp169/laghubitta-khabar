@@ -1,10 +1,10 @@
 {
   "phase": "M1.5.1 — NRB intake (eight crawlable NRB sources)",
-  "mode": "idempotency (repeat)",
-  "dbPath": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\lk-nrb-EzQrr5\\nrb.db",
+  "mode": "single run",
+  "dbPath": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\lk-nrb-uOM0mm\\nrb.db",
   "totals": {
-    "runs": 16,
-    "items": 22,
+    "runs": 8,
+    "items": 11,
     "snapshots": 11,
     "assertions": 109,
     "outbound_links": 97,

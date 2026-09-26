@@ -445,6 +445,7 @@ export class GenericIngestionEngine {
           sourceId: source.id,
           firstSeenAt: now,
           lastCheckedAt: now,
+          description: ev.description,
         });
         await this.deps.writer.appendAudit({ action: "OUTBOUND_LINK_PERSISTED", targetType: "outbound_link", targetId: runId, afterJson: JSON.stringify({ url: targetUrl, slug: documentSlug(targetUrl) }) });
       } catch (e) {

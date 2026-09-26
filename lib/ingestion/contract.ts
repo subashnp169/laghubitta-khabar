@@ -192,6 +192,7 @@ export interface OutboundLinkInput {
   sourceId: string;
   firstSeenAt: string;
   lastCheckedAt?: string;
+  description?: string;
 }
 
 export interface SnapshotInput {

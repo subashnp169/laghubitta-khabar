@@ -1,0 +1,44 @@
+{
+  "phase": "M1.5.2 — NRB ledger (nrb_documents / nrb_institution_links / regulatory_events)",
+  "intakeDbPath": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\lk-nrb-uOM0mm\\nrb.db",
+  "ledgerDbPath": "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\lk-nrb-ledger-fOZZkt\\nrb.db",
+  "observedAt": "2026-06-20",
+  "counts": {
+    "nrb_documents": 97,
+    "distinct_listing_hrefs": 97,
+    "nrb_institution_links": 76,
+    "regulatory_events": 62,
+    "docs_published_at": 97,
+    "orphan_links": 0,
+    "orphan_events": 0,
+    "events_occurred_at_fallback": 62,
+    "name_matched_links": 0,
+    "linkTypes": {
+      "ACTION": 1,
+      "CLASS": 51,
+      "MERGED_BY_NRB": 24
+    },
+    "docTypes": {
+      "ENFORCEMENT": 2,
+      "KFI": 40,
+      "REPORT": 55
+    }
+  },
+  "ancestry": {
+    "docs_sources": 7,
+    "sources_with_snapshot_ancestry": 7
+  },
+  "checks": {
+    "documentsEqualDistinctHrefs": true,
+    "zeroOrphans": true,
+    "everyDocumentSourceHasSnapshotAncestry": true,
+    "publisherDateCarried": true,
+    "noNameMatchedLinksInvented": true
+  },
+  "determinism": {
+    "rerunIsNoop": false
+  },
+  "aiUsed": false,
+  "publishedToPublicSite": false,
+  "note": "scratch review DB only; deterministic ids; INSERT OR IGNORE; nothing fabricated; no schema change; no publish"
+}

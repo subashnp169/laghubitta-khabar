@@ -570,11 +570,13 @@ async function main(): Promise<void> {
   check("N1 per-entry assertions UNVERIFIED + confidence>=0.5", asserts.every((a) => a.verification_status === "UNVERIFIED" && Number(a.confidence) >= 0.5));
   check("N1 assertions attach to the source (no institution)", asserts.every((a) => a.entity_type === "source" && a.entity_id === "r4-n1"));
   check("N1 date/size never asserted", (q(dbPath, "SELECT COUNT(*) c FROM data_assertions WHERE field_name IN ('document_date','document_size')") as { c: number }).c === 0);
-  const links = qa(dbPath, "SELECT target_type, availability_status, target_url, label FROM outbound_links");
+  const links = qa(dbPath, "SELECT target_type, availability_status, target_url, label, description FROM outbound_links");
   check("N1 exactly 3 outbound document links", links.length === 3 && links.every((l) => l.target_type === "DOCUMENT"));
   check("N1 outbound links UNKNOWN (not yet depth-checked)", links.every((l) => l.availability_status === "UNKNOWN"));
   check("N1 outbound target_urls are the /mfd/ entries", links.every((l) => String(l.target_url).startsWith("https://www.nrb.org.np/mfd/")));
   check("N1 outbound labels are the entry titles", links.some((l) => l.label === "Quarterly Situation of Microfinance Institutions 2026"));
+  check("N1 link metadata carries publishedAt + size for the ledger", links.some((l) => l.description === JSON.stringify({ publishedAt: "2026-09-22", size: "416.86 kb" })));
+  check("N1 every listing row's link carries metadata", links.every((l) => { try { const m = JSON.parse(String(l.description)); return m.publishedAt && m.size; } catch { return false; } }));
   const val = qa(dbPath, `SELECT status, evidence_json FROM validation_results WHERE rule_id='${NRB_LISTING_RULE_ID}'`);
   check("N1 nrb-listing validator PASS", val.length === 1 && val[0].status === "PASS");
   const ev = JSON.parse(String(val[0].evidence_json)) as { count: number; attrs: Array<{ field: string; text: string }> };

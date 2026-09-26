@@ -298,14 +298,15 @@ export class LocalSqliteEvidenceWriter implements EvidenceWriter {
         `INSERT OR IGNORE INTO outbound_links
            (id, scope_key, institution_id, slug, target_type, label, target_url,
             canonical_url, content_hash, availability_status, source_id,
-            first_seen_at, last_checked_at, is_active, created_at, updated_at)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?, ?)`,
+            first_seen_at, last_checked_at, description, is_active, created_at, updated_at)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?, ?)`,
       )
       .run(
         id, input.scopeKey, input.institutionId ?? null, input.slug,
         input.targetType, input.label, input.targetUrl,
         input.canonicalUrl ?? null, input.contentHash ?? null, availability,
-        input.sourceId, input.firstSeenAt, input.lastCheckedAt ?? null, now, now,
+        input.sourceId, input.firstSeenAt, input.lastCheckedAt ?? null,
+        input.description ?? null, now, now,
       );
     // New version sighted → refresh hash/availability/check time on the SAME
     // link row (old versions are the retained snapshot rows, never overwritten).
@@ -315,12 +316,13 @@ export class LocalSqliteEvidenceWriter implements EvidenceWriter {
             SET content_hash = ?,
                 availability_status = ?,
                 last_checked_at = ?,
+                description = ?,
                 updated_at = ?
           WHERE scope_key = ? AND slug = ?`,
       )
       .run(
         input.contentHash ?? null, availability, input.lastCheckedAt ?? null,
-        now, input.scopeKey, input.slug,
+        input.description ?? null, now, input.scopeKey, input.slug,
       );
   }
 

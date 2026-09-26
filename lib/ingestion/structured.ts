@@ -489,6 +489,9 @@ export const nrbListingExtractor: HtmlExtractor = {
     const out: ExtractedEvidence[] = [];
     const now = new Date().toISOString();
     for (const entry of parseNrbListing(new TextDecoder().decode(ctx.body))) {
+      const meta: Record<string, string> = {};
+      if (entry.date) meta.publishedAt = entry.date;
+      if (entry.size) meta.size = entry.size;
       out.push({
         kind: "LINK",
         capability: cap,
@@ -496,6 +499,7 @@ export const nrbListingExtractor: HtmlExtractor = {
         href: entry.href,
         text: entry.title,
         documentType: "DOCUMENT",
+        description: Object.keys(meta).length > 0 ? JSON.stringify(meta) : undefined,
         confidence: 0.6,
         parserId: NRB_LISTING_PARSER_ID,
         extractedAt: now,
