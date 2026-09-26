@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { institutions, getInstitutionBySlug } from "@/data/institutions";
 import { crawlSources, crawlSummary } from "@/data/pilot";
+import { nrbInstitutionLinks, nrbRegulatoryEvents } from "@/data/nrb";
 import Link from "next/link";
 
 export async function generateStaticParams() {
@@ -23,6 +24,10 @@ export default async function InstitutionPage({ params }: { params: Promise<{ sl
   const evidenceEntries = Object.entries(inst.evidence);
   const crawl = crawlSources.find((c) => c.institutionId === inst.id);
   const website = crawl?.website ?? inst.officialWebsite;
+  const nrbLinksFor = nrbInstitutionLinks.filter((l) => l.institutionId === inst.id);
+  const nrbClassLinks = nrbLinksFor.filter((l) => l.linkType === "CLASS" || l.linkType === "LICENSE");
+  const nrbMatchedDocs = nrbLinksFor.filter((l) => l.nrbDocumentId);
+  const nrbEvents = nrbRegulatoryEvents.filter((e) => e.institutionId === inst.id);
 
   return (
     <div className="max-w-[1000px] mx-auto px-4 py-8">
@@ -119,6 +124,50 @@ export default async function InstitutionPage({ params }: { params: Promise<{ sl
           )}
         </div>
       </div>
+
+      {nrbClassLinks.length > 0 && (
+        <div className="bg-white rounded-xl border border-slate-200 p-4 mb-6">
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="font-bold text-sm text-slate-700">NRB Registry</h2>
+            <Link href="/nrb" className="text-[10px] text-mfi-600 hover:underline">NRB Center →</Link>
+          </div>
+
+          <div className="flex flex-wrap gap-2 mb-3">
+            {nrbClassLinks.map((l) => (
+              <span key={l.id} className="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-nrb-50 text-nrb-700">
+                NRB {l.linkType} {l.linkType === "CLASS" ? inst.licenseClass : ""} · verified {l.linkDate ?? "—"}
+              </span>
+            ))}
+          </div>
+
+          {nrbMatchedDocs.length > 0 ? (
+            <div className="space-y-1">
+              {nrbMatchedDocs.map((l) => (
+                <div key={l.id} className="text-xs text-slate-600">{l.nrbDocumentId}</div>
+              ))}
+            </div>
+          ) : (
+            <p className="text-xs text-slate-400">No institution-specific NRB documents — NRB publishes aggregate regulator documents for this slice (no per-institution values).</p>
+          )}
+
+          {nrbEvents.length > 0 && (
+            <div className="mt-3 border-t border-slate-100 pt-3">
+              <div className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold mb-2">Regulatory events</div>
+              <div className="space-y-1">
+                {nrbEvents.map((evt) => (
+                  <div key={evt.id} className="flex items-center justify-between gap-3 py-1 border-b border-slate-100 last:border-0">
+                    <div className="flex items-center gap-2">
+                      <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded ${evt.eventType === "MERGED" ? "bg-blue-50 text-blue-700" : evt.eventType === "ACQUIRED" ? "bg-purple-50 text-purple-700" : "bg-amber-50 text-amber-700"}`}>{evt.eventType}</span>
+                      <span className="text-xs text-slate-600">{evt.title}</span>
+                    </div>
+                    <span className="text-[10px] text-slate-400 whitespace-nowrap">{evt.occurredAt ?? "—"}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
 
       {crawl && (
         <div className="bg-white rounded-xl border border-slate-200 p-4">

@@ -21,6 +21,9 @@
     "pilot:repeat": "tsx scripts/run-pilot.ts --repeat",
     "pilot:report": "tsx scripts/pilot-evidence-report.ts",
     "pilot:export": "tsx scripts/pilot-export.ts",
+    "nrb:ingest": "tsx scripts/nrb-ingest.ts",
+    "nrb:ledger": "tsx scripts/nrb-ledger.ts",
+    "nrb:data": "tsx scripts/generate-nrb-data.ts",
     "control": "tsx scripts/control-panel.ts",
     "check:discipline": "node scripts/check-discipline.cjs"
   },

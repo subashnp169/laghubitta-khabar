@@ -52,13 +52,56 @@ export interface Video {
   publishedAt: string;
 }
 
-export interface NrbCircular {
+export interface NrbSourceRef {
   id: string;
   title: string;
-  date: string;
-  category: string;
-  summary: string;
-  url: string;
+  publisher: string;
+}
+
+export interface NrbDocument {
+  id: string;
+  title: string;
+  docType: string;
+  topic: string | null;
+  officialUrl: string;
+  publishedAt: string | null;
+  size: string | null;
+  sourceId: string;
+  sourceTitle: string;
+}
+
+export interface NrbInstitutionLink {
+  id: string;
+  institutionId: string;
+  institutionSlug: string;
+  institutionName: string;
+  linkType: string;
+  linkDate: string | null;
+  nrbDocumentId: string | null;
+}
+
+export interface NrbRegulatoryEvent {
+  id: string;
+  institutionId: string;
+  institutionSlug: string;
+  institutionName: string;
+  eventType: string;
+  title: string;
+  occurredAt: string | null;
+  description: string;
+}
+
+export interface NrbSummary {
+  generatedAt: string;
+  observedAt: string;
+  documents: number;
+  documentsByType: Record<string, number>;
+  institutions: number;
+  institutionLinks: number;
+  institutionLinksByType: Record<string, number>;
+  regulatoryEvents: number;
+  eventsByType: Record<string, number>;
+  sources: NrbSourceRef[];
 }
 
 export interface Document {
