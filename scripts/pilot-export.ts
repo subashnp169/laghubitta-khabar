@@ -74,6 +74,31 @@ const countFor = (db: DB, sourceId: string, fieldName: string): number => {
   return z(r?.n);
 };
 
+// People evidence spans the people_* role families: distinct people, not
+// assertion rows, so a chair who is also a director counts once.
+const peopleCountFor = (db: DB, sourceId: string): number => {
+  const r = q(
+    db,
+    `SELECT COUNT(DISTINCT a.value) n
+       FROM data_assertions a JOIN source_snapshots ss ON ss.id = a.source_snapshot_id
+      WHERE ss.source_id = ? AND a.field_name LIKE 'people_%'`,
+    sourceId,
+  );
+  return z(r?.n);
+};
+
+const peopleSamplesFor = (db: DB, sourceId: string, limit: number): string[] => {
+  const rows = qa(
+    db,
+    `SELECT a.value value, COUNT(*) c
+       FROM data_assertions a JOIN source_snapshots ss ON ss.id = a.source_snapshot_id
+      WHERE ss.source_id = ? AND a.field_name LIKE 'people_%'
+      GROUP BY a.value ORDER BY c DESC, a.value ASC LIMIT ?`,
+    sourceId, limit,
+  );
+  return rows.map((r) => String(r.value));
+};
+
 function main(): void {
   const fallbackRaw = existsSync(join(process.cwd(), "data", "pilot", "pilot-run-report.json"))
     ? (JSON.parse(readFileSync(join(process.cwd(), "data", "pilot", "pilot-run-report.json"), "utf8")) as ReportJson)
@@ -180,9 +205,11 @@ function main(): void {
       branchCount: countFor(db, sid, "branch_name"),
       vacancyCount: countFor(db, sid, "vacancy_title"),
       documentCount: countFor(db, sid, "document_title"),
+      peopleCount: peopleCountFor(db, sid),
       branchNames: samplesFor(db, sid, "branch_name", 5),
       vacancyTitles: samplesFor(db, sid, "vacancy_title", 5),
       documentTitles: samplesFor(db, sid, "document_title", 5),
+      peopleNames: peopleSamplesFor(db, sid, 5),
     };
   });
 

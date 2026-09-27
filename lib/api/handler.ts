@@ -6,9 +6,11 @@
 
 import {
   getInstitution,
+  getPerson,
   institutionDocuments,
   institutionEvents,
   institutionJobs,
+  institutionLeadership,
   emptyPhaseEnvelope,
   listInstitutions,
   search,
@@ -33,7 +35,7 @@ function readQuery(url: string): URLSearchParams {
   return new URLSearchParams(idx >= 0 ? url.slice(idx + 1) : "");
 }
 
-const PHASE_EMPTY_ROUTES = ["branches", "leadership", "financials"] as const;
+const PHASE_EMPTY_ROUTES = ["branches", "financials"] as const;
 
 export function handleApiRequest(req: ApiRequest): ApiResponse {
   const method = (req.method ?? "GET").toUpperCase();
@@ -78,6 +80,8 @@ export function handleApiRequest(req: ApiRequest): ApiResponse {
           return respond(institutionEvents(slug, requested));
         case "jobs":
           return respond(institutionJobs(slug, requested));
+        case "leadership":
+          return respond(institutionLeadership(slug, requested));
         case "interest-rates":
           return respond({ status: 200, body: emptyPhaseEnvelope(requested.page, requested.limit) });
         default: {
@@ -87,6 +91,10 @@ export function handleApiRequest(req: ApiRequest): ApiResponse {
           return respond(errorEnvelope("NOT_FOUND", `No such endpoint '/api/institutions/${slug}/${leaf ?? ""}'`));
         }
       }
+    }
+    case "people": {
+      if (segs.length === 2) return respond(errorEnvelope("NOT_FOUND", "No such endpoint '/api/people'"));
+      return respond(getPerson(segs[2]));
     }
     case "search":
       return respond(search({ q: query.get("q") }));

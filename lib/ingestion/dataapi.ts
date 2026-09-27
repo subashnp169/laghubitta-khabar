@@ -17,7 +17,7 @@ import type {
   SourceRegistry,
   Validator,
 } from "./contract";
-import { cleanCell } from "./people";
+import { cleanCell, extractPeopleJson } from "./people";
 
 export const DATA_API_PARSER_ID = "json-api-v1";
 
@@ -280,6 +280,10 @@ export function extractDataApiPayload(
       if (target) docs.push({ targetUrl: target, label: "career portal", targetType: "JOB" });
     }
     return { evidence: ev, docs };
+  }
+
+  if (capability === "PEOPLE") {
+    return { evidence: extractPeopleJson(payload, ctx.sourceUrl, ctx.extractedAt), docs };
   }
 
   return { evidence: ev, docs };

@@ -45,12 +45,17 @@ export {
 export {
   PEOPLE_CAPABILITIES,
   PEOPLE_DIRECTORY_RULE_ID,
+  PEOPLE_JSON_PARSER_ID,
+  PEOPLE_PARSER_ID,
   composeExtractors,
+  extractPeopleJson,
   nameLike,
   peopleDirectoryValidator,
   peopleExtractor,
+  peopleRoleFamily,
   peopleValidators,
   type HtmlExtractor,
+  type PeopleCapability,
 } from "./people";
 export {
   BRANCH_DIRECTORY_RULE_ID,
@@ -88,3 +93,15 @@ export {
   type DataApiPassResult,
   type DataApiRoute,
 } from "./dataapi";
+export {
+  flagPeopleConflicts,
+  listOpenConflicts,
+  resolveConflict,
+  reviewAssertion,
+  type FlagConflictsInput,
+  type OpenConflictRow,
+  type ResolveConflictInput,
+  type ReviewAssertionInput,
+  type ReviewAssertionResult,
+  type ReviewVerdict,
+} from "./review";

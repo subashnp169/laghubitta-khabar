@@ -27,6 +27,7 @@ import type {
   TimelineEventDto,
 } from "./types";
 import type { InstitutionRepository, NotFoundError } from "./contract";
+import { peopleFromAssertionRows, type PersonAssertionRecord } from "./projection";
 
 export interface D1ResultRow {
   [column: string]: unknown;
@@ -147,6 +148,42 @@ export class D1InstitutionRepository implements InstitutionRepository {
     return row ? this.detailFromRow(row) : null;
   }
 
+  /**
+   * Raw people evidence rows (+ open conflict keys) for one institution or the
+   * whole corpus. Shared by listLeadership / getPersonBySlug / search.people —
+   * the projection does all shaping; SQL here only carries provenance columns.
+   */
+  private async peopleEvidence(institutionId: string | null): Promise<{ results: PersonAssertionRecord[]; openKeys: Set<string> }> {
+    const where = institutionId ? `AND i.id = ?` : "";
+    const args = institutionId ? [institutionId] : [];
+    const all = await this.db
+      .prepare(`
+        SELECT i.id AS institution_id, i.slug AS institution_slug, i.name_en AS institution_name,
+               a.field_name, a.value, a.source_id, a.observed_at, a.verification_status, a.confidence
+        FROM data_assertions a
+        JOIN institutions i ON i.id = a.entity_id
+        WHERE a.entity_type = 'institution' AND a.field_name LIKE 'people_%' ${where}
+        ORDER BY i.id, a.value, a.field_name`)
+      .bind(...args)
+      .all();
+    const conflicts = await this.db
+      .prepare(`SELECT entity_id, field_name FROM data_conflicts WHERE resolution_status = 'OPEN' AND entity_type = 'institution' AND field_name LIKE 'people_%'`)
+      .all();
+    // A role-disagreement conflict is labelled `people_a|people_b`, so one open
+    // row yields one key per role family involved.
+    const openKeys = new Set(
+      conflicts.results.flatMap((c) =>
+        String(c.field_name)
+          .split("|")
+          .map((field) => `${String(c.entity_id)}|${field}`),
+      ),
+    );
+    return {
+      results: all.results as unknown as PersonAssertionRecord[],
+      openKeys,
+    };
+  }
+
   private async detailFromRow(row: D1ResultRow): Promise<InstitutionDetail> {
     const id = String(row.id);
     const base = mapInstitutionRow(row);
@@ -201,8 +238,14 @@ export class D1InstitutionRepository implements InstitutionRepository {
     };
   }
 
-  async listLeadership(_institutionId: string): Promise<Paged<PersonDto>> {
-    return { data: [], pagination: { page: 1, limit: 20, total: 0 } };
+  async listLeadership(institutionId: string): Promise<Paged<PersonDto>> {
+    const { results, openKeys } = await this.peopleEvidence(institutionId);
+    const data = peopleFromAssertionRows(results, { openConflictKeys: openKeys });
+    const total = data.length;
+    return {
+      data: data.slice(0, 100),
+      pagination: { page: 1, limit: Math.max(1, Math.min(100, total || 20)), total },
+    };
   }
   async listBranches(_institutionId: string): Promise<Paged<BranchDto>> {
     return { data: [], pagination: { page: 1, limit: 20, total: 0 } };
@@ -217,8 +260,10 @@ export class D1InstitutionRepository implements InstitutionRepository {
     return { data: [], pagination: { page: 1, limit: 20, total: 0 } };
   }
 
-  async getPersonBySlug(_slug: string): Promise<PersonDto | null> {
-    return null;
+  async getPersonBySlug(slug: string): Promise<PersonDto | null> {
+    const { results, openKeys } = await this.peopleEvidence(null);
+    const person = peopleFromAssertionRows(results, { openConflictKeys: openKeys }).find((p) => p.slug === slug);
+    return person ?? null;
   }
 
   async listNews(_opts: ListNewsOptions): Promise<Paged<NewsItemDto>> {
@@ -231,9 +276,13 @@ export class D1InstitutionRepository implements InstitutionRepository {
       .prepare(`SELECT * FROM institutions WHERE name_en LIKE ? OR short_name LIKE ? LIMIT 10`)
       .bind(wild, wild)
       .all();
+    const { results, openKeys } = await this.peopleEvidence(null);
+    const people = peopleFromAssertionRows(results, { openConflictKeys: openKeys })
+      .filter((p) => p.name.toLowerCase().includes(query.toLowerCase()))
+      .slice(0, 10);
     return {
       institutions: inst.results.map(mapInstitutionRow),
-      people: [],
+      people,
       documents: [],
     };
   }

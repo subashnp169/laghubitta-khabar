@@ -76,20 +76,53 @@ ok(evts.status === 200 && evts.body.data.every((e: any) => e.institutionSlug ===
 const jobbed = request("GET", `/api/institutions/${slug}/jobs`);
 ok(jobbed.status === 200 && Array.isArray(jobbed.body.data), "jobs collection");
 
-// 05 empty Phase B/C
+// 05 honest empties
 console.log("smoke:api — honest empties");
-for (const leaf of ["branches", "leadership", "financials"]) {
+for (const leaf of ["branches", "financials"]) {
   const r = request("GET", `/api/institutions/${slug}/${leaf}`);
   ok(r.status === 200 && r.body.data.length === 0 && r.body.pagination.total === 0, `${leaf} empty until phase populated`);
 }
 const rates = request("GET", "/api/interest-rates");
 ok(rates.status === 200 && rates.body.pagination.total === 0, "interest-rates empty until Phase C");
 
+// 05b Phase M3.3 leadership is served from the same evidence read model
+console.log("smoke:api — M3.3 leadership + person routes");
+const leadership = request("GET", `/api/institutions/${slug}/leadership`);
+ok(leadership.status === 200 && Array.isArray(leadership.body.data), "leadership is a real collection (not an empty-phase stub)");
+ok(
+  leadership.body.pagination.total === leadership.body.data.length &&
+    leadership.body.data.every((p: any) => p.institutionSlug === slug && p.id.startsWith("person-") && typeof p.slug === "string" && Array.isArray(p.positions)),
+  "leadership items are PersonDto with institution scoping + deterministic id/slug",
+);
+ok(
+  leadership.body.data.every((p: any) => ["UNVERIFIED", "HUMAN_VERIFIED", "AUTO_VERIFIED", "CONFLICT"].includes(p.meta.verification_status) && typeof p.meta.source_id === "string"),
+  "every person carries an honest verification status + source",
+);
+const paginated = request("GET", `/api/institutions/${slug}/leadership?limit=1`);
+ok(
+  paginated.status === 200 && paginated.body.data.length <= 1 && paginated.body.pagination.limit === 1,
+  "leadership honours pagination",
+);
+const knownSlug = leadership.body.data[0]?.slug;
+if (knownSlug) {
+  const person = request("GET", `/api/people/${knownSlug}`);
+  ok(person.status === 200 && person.body.data.slug === knownSlug, "person detail resolves by slug");
+  ok(person.body.meta?.resource === `people:${knownSlug}`, "person detail carries resource meta");
+} else {
+  const person = request("GET", "/api/people/nobody-here");
+  ok(person.status === 404 && person.body.error.code === "NOT_FOUND", "unknown person → 404");
+}
+const missingPerson = request("GET", "/api/people/definitely-not-a-person");
+ok(missingPerson.status === 404 && missingPerson.body.error.code === "NOT_FOUND", "unknown person → 404");
+
 // 06 search + guard
 console.log("smoke:api — search + guard");
 const found = request("GET", "/api/search?q=nirdhan");
 ok(found.status === 200 && found.body.data.groups?.institutions.length >= 1, "search groups institutions");
 ok(found.body.data.query === "nirdhan", "search echoes query");
+ok(Array.isArray(found.body.data.groups?.people), "search exposes a people group");
+const peopleQ = request("GET", "/api/search?q=zzzz-no-such-person");
+ok(peopleQ.status === 200 && peopleQ.body.data.groups.people.length === 0, "people search miss → empty group, never an error");
 const noQ = request("GET", "/api/search");
 ok(noQ.status === 422 && noQ.body.error.code === "VALIDATION", "search without q → 422");
 const post = request("POST", "/api/institutions");

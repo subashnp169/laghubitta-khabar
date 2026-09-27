@@ -30,6 +30,7 @@ export const CAPABILITY_CADENCE_MINUTES: Record<CapabilityKind, number> = {
   SOCIAL: 1440,
   API: 1440,
   RSS: 60,
+  PEOPLE: 10080,
 };
 
 export type CadenceBucket = "frequent" | "periodic" | "slow";

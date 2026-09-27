@@ -2245,6 +2245,13 @@
           "link_type": "WEBSITE"
         },
         {
+          "capability": "PEOPLE",
+          "status": "CANDIDATE",
+          "known_url": "https://www.nadeplaghubitta.com/board-of-directors",
+          "link_type": "OTHER",
+          "note": "M3.3-PILOT: not invented - already discovered by the existing generic discovery in the Phase O pilot run and already fetched http 200 (ingestion_items url, item CHANGED then UNCHANGED). link_type=OTHER per CAPABILITY_TO_LINK_TYPE.PEOPLE (no schema change)."
+        },
+        {
           "capability": "REPORTS",
           "status": "CANDIDATE",
           "known_url": "https://www.nadeplaghubitta.com",
@@ -3088,6 +3095,13 @@
           "status": "CANDIDATE",
           "known_url": "https://swastiklbs.com.np",
           "link_type": "WEBSITE"
+        },
+        {
+          "capability": "PEOPLE",
+          "status": "CANDIDATE",
+          "known_url": "https://swastiklbs.com.np/board-of-directors",
+          "link_type": "OTHER",
+          "note": "M3.3-PILOT: not invented - already discovered by the existing generic discovery in the Phase O pilot run and already fetched http 200 (ingestion_items url, item CHANGED then UNCHANGED). link_type=OTHER per CAPABILITY_TO_LINK_TYPE.PEOPLE (no schema change)."
         },
         {
           "capability": "REPORTS",

@@ -59,14 +59,14 @@ const crawl: CrawlSource[] = [
     sourceId: "a-website", institutionId: "mfi-a", website: "https://a.test", capabilities: ["WEBSITE", "NEWS"],
     capabilityPages: [], runs: 2, snapshots: 10, items: 12, documents: 3, errors: 0, changedItems: 1, discoveredUrls: 4,
     status: "HEALTHY", lastStatus: "SUCCESS", lastRun: "2026-09-26T00:00:00Z", branchCount: 5, vacancyCount: 2,
-    documentCount: 3, branchNames: [], vacancyTitles: [], documentTitles: [], cadenceMinutes: 60,
+    documentCount: 3, peopleCount: 0, branchNames: [], vacancyTitles: [], documentTitles: [], peopleNames: [], cadenceMinutes: 60,
     cadenceBuckets: [60], cadenceBucket: "frequent", nextDueAt: "2026-09-26T01:00:00Z", isDue: true, paused: false,
   },
   {
     sourceId: "c-website", institutionId: "mfi-c", website: "https://c.test", capabilities: ["WEBSITE"],
     capabilityPages: [], runs: 1, snapshots: 3, items: 5, documents: 0, errors: 1, changedItems: 0, discoveredUrls: 2,
     status: "DEGRADED", lastStatus: "PARTIAL", lastRun: "2026-09-25T00:00:00Z", branchCount: 2, vacancyCount: 0,
-    documentCount: 0, branchNames: [], vacancyTitles: [], documentTitles: [], cadenceMinutes: 1440,
+    documentCount: 0, peopleCount: 0, branchNames: [], vacancyTitles: [], documentTitles: [], peopleNames: [], cadenceMinutes: 1440,
     cadenceBuckets: [1440], cadenceBucket: "periodic", nextDueAt: "2026-09-26T00:00:00Z", isDue: false, paused: false,
   },
 ];

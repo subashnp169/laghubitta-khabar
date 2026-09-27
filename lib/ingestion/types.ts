@@ -6,7 +6,7 @@
 // (lib/ingestion/contract.ts), never inside the domain types.
 // ============================================================================
 
-/** The ten capability types an ingestion source can expose. */
+/** The capability types an ingestion source can expose. */
 export const CAPABILITY_KINDS = [
   "WEBSITE",
   "SITEMAP",
@@ -18,6 +18,7 @@ export const CAPABILITY_KINDS = [
   "SOCIAL",
   "API",
   "RSS",
+  "PEOPLE",
 ] as const;
 
 export type CapabilityKind = (typeof CAPABILITY_KINDS)[number];
@@ -37,6 +38,7 @@ export const CAPABILITY_TO_LINK_TYPE: Record<CapabilityKind, string> = {
   SOCIAL: "OTHER",
   API: "PORTAL",
   RSS: "OTHER",
+  PEOPLE: "OTHER",
 };
 
 /**

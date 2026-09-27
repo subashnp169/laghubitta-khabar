@@ -3,7 +3,7 @@
 import type { CrawlSource, CrawlSummary } from "@/types";
 
 export const crawlSummary: CrawlSummary = {
-  "generatedAt": "2026-09-26T16:37:40.725Z",
+  "generatedAt": "2026-09-26T17:15:31.328Z",
   "mode": "idempotency (repeat)",
   "institutions": 51,
   "sources": 51,
@@ -107,6 +107,7 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 132,
     "vacancyCount": 1,
     "documentCount": 10,
+    "peopleCount": 0,
     "branchNames": [
       "Agaiya Branch",
       "Argali Branch",
@@ -123,7 +124,8 @@ export const crawlSources: CrawlSource[] = [
       "Fourth Annual Report-2075/076",
       "Ninth Annual Report 2080/81",
       "Second Annual Report-2073/074"
-    ]
+    ],
+    "peopleNames": []
   },
   {
     "sourceId": "aatmanirbhar-website",
@@ -198,12 +200,14 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 34,
     "vacancyCount": 0,
     "documentCount": 0,
+    "peopleCount": 0,
     "branchNames": [
       "Branch Manager",
       "Branch Branch Manager"
     ],
     "vacancyTitles": [],
-    "documentTitles": []
+    "documentTitles": [],
+    "peopleNames": []
   },
   {
     "sourceId": "asha-website",
@@ -278,6 +282,7 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 132,
     "vacancyCount": 0,
     "documentCount": 57,
+    "peopleCount": 0,
     "branchNames": [
       "Aanbukhaireni Branch (AKI)",
       "Adarsha Branch (ADR)",
@@ -292,7 +297,8 @@ export const crawlSources: CrawlSource[] = [
       "Annual Report 2075-76(ALBSL)",
       "Annual Report 2075-76(RULBSL)",
       "Annual Report 2076-77 (RULBSL)"
-    ]
+    ],
+    "peopleNames": []
   },
   {
     "sourceId": "aviyan-website",
@@ -367,9 +373,11 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 0,
     "vacancyCount": 0,
     "documentCount": 0,
+    "peopleCount": 0,
     "branchNames": [],
     "vacancyTitles": [],
-    "documentTitles": []
+    "documentTitles": [],
+    "peopleNames": []
   },
   {
     "sourceId": "chhimek-website",
@@ -444,6 +452,7 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 0,
     "vacancyCount": 1,
     "documentCount": 55,
+    "peopleCount": 0,
     "branchNames": [],
     "vacancyTitles": [
       "Province Managers"
@@ -454,7 +463,8 @@ export const crawlSources: CrawlSource[] = [
       "13th Annual Report 2070-71 7.3 MB",
       "14th Annual Report 2071-72 8.7 MB",
       "15th Annual Report 2072-73 6.5 MB"
-    ]
+    ],
+    "peopleNames": []
   },
   {
     "sourceId": "cyc-website",
@@ -529,9 +539,11 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 0,
     "vacancyCount": 0,
     "documentCount": 0,
+    "peopleCount": 0,
     "branchNames": [],
     "vacancyTitles": [],
-    "documentTitles": []
+    "documentTitles": [],
+    "peopleNames": []
   },
   {
     "sourceId": "deproscbank-website",
@@ -606,6 +618,7 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 0,
     "vacancyCount": 4,
     "documentCount": 8,
+    "peopleCount": 0,
     "branchNames": [],
     "vacancyTitles": [
       "PDF Application Form for Trainee",
@@ -613,7 +626,8 @@ export const crawlSources: CrawlSource[] = [
     ],
     "documentTitles": [
       "Interim Financial Statement"
-    ]
+    ],
+    "peopleNames": []
   },
   {
     "sourceId": "dhaulagiribank-website",
@@ -688,6 +702,7 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 58,
     "vacancyCount": 5,
     "documentCount": 0,
+    "peopleCount": 0,
     "branchNames": [
       "Attaria Kailali Branch",
       "Bhansi Kanchanpur Branch",
@@ -702,7 +717,8 @@ export const crawlSources: CrawlSource[] = [
       "Assistant/Jr.Assistant",
       "Senior Computer Assistant"
     ],
-    "documentTitles": []
+    "documentTitles": [],
+    "peopleNames": []
   },
   {
     "sourceId": "fmdb-website",
@@ -777,6 +793,7 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 0,
     "vacancyCount": 0,
     "documentCount": 17,
+    "peopleCount": 0,
     "branchNames": [],
     "vacancyTitles": [],
     "documentTitles": [
@@ -785,7 +802,8 @@ export const crawlSources: CrawlSource[] = [
       "11th Annual Report (FY 2076/77)",
       "12th Annual Report (FY 2077/78)",
       "13th Annual Report (FY 2078/79)"
-    ]
+    ],
+    "peopleNames": []
   },
   {
     "sourceId": "forwardmfbank-website",
@@ -860,6 +878,7 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 50,
     "vacancyCount": 0,
     "documentCount": 12,
+    "peopleCount": 0,
     "branchNames": [
       "Morang",
       "Kailali",
@@ -874,7 +893,8 @@ export const crawlSources: CrawlSource[] = [
       "Annual Report for the fiscal year 2076/7 7",
       "Annual Report for the fiscal year 2077/78",
       "Annual Report for the fiscal year 2078/79"
-    ]
+    ],
+    "peopleNames": []
   },
   {
     "sourceId": "ganapatimicro-website",
@@ -949,9 +969,11 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 0,
     "vacancyCount": 0,
     "documentCount": 0,
+    "peopleCount": 0,
     "branchNames": [],
     "vacancyTitles": [],
-    "documentTitles": []
+    "documentTitles": [],
+    "peopleNames": []
   },
   {
     "sourceId": "gblbs-website",
@@ -1026,6 +1048,7 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 191,
     "vacancyCount": 0,
     "documentCount": 2,
+    "peopleCount": 0,
     "branchNames": [
       "Branch Office Bansgadi",
       "Branch Office Mahendranagar",
@@ -1037,7 +1060,8 @@ export const crawlSources: CrawlSource[] = [
     "documentTitles": [
       "Quarterly Financial Highlights",
       "Quarterly Highlights"
-    ]
+    ],
+    "peopleNames": []
   },
   {
     "sourceId": "gilb-website",
@@ -1112,9 +1136,11 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 0,
     "vacancyCount": 0,
     "documentCount": 0,
+    "peopleCount": 0,
     "branchNames": [],
     "vacancyTitles": [],
-    "documentTitles": []
+    "documentTitles": [],
+    "peopleNames": []
   },
   {
     "sourceId": "guranslaghubitta-website",
@@ -1189,9 +1215,11 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 0,
     "vacancyCount": 0,
     "documentCount": 0,
+    "peopleCount": 0,
     "branchNames": [],
     "vacancyTitles": [],
-    "documentTitles": []
+    "documentTitles": [],
+    "peopleNames": []
   },
   {
     "sourceId": "himalayanlaghubitta-website",
@@ -1266,6 +1294,7 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 0,
     "vacancyCount": 0,
     "documentCount": 19,
+    "peopleCount": 0,
     "branchNames": [],
     "vacancyTitles": [],
     "documentTitles": [
@@ -1274,7 +1303,8 @@ export const crawlSources: CrawlSource[] = [
       "Annual Report FY 2074-75",
       "Annual Report FY 2075-76",
       "Annual Report FY 2076-77"
-    ]
+    ],
+    "peopleNames": []
   },
   {
     "sourceId": "infinity-website",
@@ -1349,6 +1379,7 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 102,
     "vacancyCount": 0,
     "documentCount": 19,
+    "peopleCount": 0,
     "branchNames": [
       "Amuwa, Rupendehi",
       "Attariya, Kailali",
@@ -1363,7 +1394,8 @@ export const crawlSources: CrawlSource[] = [
       "E-Calender",
       "Infinity Dividend Notice",
       "Interest Rate Update Notice"
-    ]
+    ],
+    "peopleNames": []
   },
   {
     "sourceId": "jeevanbikasmf-website",
@@ -1438,6 +1470,7 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 0,
     "vacancyCount": 0,
     "documentCount": 7,
+    "peopleCount": 0,
     "branchNames": [],
     "vacancyTitles": [],
     "documentTitles": [
@@ -1446,7 +1479,8 @@ export const crawlSources: CrawlSource[] = [
       "वार्षिक प्रतिवेदन आ.ब. २०७७/७८",
       "वार्षिक प्रतिवेदन आ.ब. २०७८/७९",
       "वार्षिक प्रतिवेदन आ.ब.२०७९/८०"
-    ]
+    ],
+    "peopleNames": []
   },
   {
     "sourceId": "jucbank-website",
@@ -1521,6 +1555,7 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 39,
     "vacancyCount": 0,
     "documentCount": 2,
+    "peopleCount": 0,
     "branchNames": [
       "Badaiyatal Branch",
       "Baddada Branch",
@@ -1531,7 +1566,8 @@ export const crawlSources: CrawlSource[] = [
     "vacancyTitles": [],
     "documentTitles": [
       "Financial Statement"
-    ]
+    ],
+    "peopleNames": []
   },
   {
     "sourceId": "kalikabank-website",
@@ -1606,6 +1642,7 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 0,
     "vacancyCount": 0,
     "documentCount": 9,
+    "peopleCount": 0,
     "branchNames": [],
     "vacancyTitles": [],
     "documentTitles": [
@@ -1614,7 +1651,8 @@ export const crawlSources: CrawlSource[] = [
       "14th Annual Reports",
       "15th Annual Reports",
       "16th Annual Reports"
-    ]
+    ],
+    "peopleNames": []
   },
   {
     "sourceId": "laxmilaghu-website",
@@ -1689,6 +1727,7 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 0,
     "vacancyCount": 20,
     "documentCount": 0,
+    "peopleCount": 0,
     "branchNames": [],
     "vacancyTitles": [
       "INTERVIEW RESULT for Trainee Jr. Assistant",
@@ -1697,7 +1736,8 @@ export const crawlSources: CrawlSource[] = [
       "Jr. Officer (BM) shortlisting",
       "Junior assistant shortlisting"
     ],
-    "documentTitles": []
+    "documentTitles": [],
+    "peopleNames": []
   },
   {
     "sourceId": "manushilbs-website",
@@ -1772,9 +1812,11 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 0,
     "vacancyCount": 0,
     "documentCount": 0,
+    "peopleCount": 0,
     "branchNames": [],
     "vacancyTitles": [],
-    "documentTitles": []
+    "documentTitles": [],
+    "peopleNames": []
   },
   {
     "sourceId": "matribhumi-website",
@@ -1849,6 +1891,7 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 209,
     "vacancyCount": 0,
     "documentCount": 4,
+    "peopleCount": 0,
     "branchNames": [
       "Aiselukharka Branch Khotang",
       "Alital Branch Dadeldhura",
@@ -1862,7 +1905,8 @@ export const crawlSources: CrawlSource[] = [
       "Annual Report 2081/082 Sep 18",
       "Annual Reports 2078/079 Sep 18",
       "Annual Reports 2079/080 Sep 18"
-    ]
+    ],
+    "peopleNames": []
   },
   {
     "sourceId": "mero-website",
@@ -1937,9 +1981,11 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 0,
     "vacancyCount": 0,
     "documentCount": 0,
+    "peopleCount": 0,
     "branchNames": [],
     "vacancyTitles": [],
-    "documentTitles": []
+    "documentTitles": [],
+    "peopleNames": []
   },
   {
     "sourceId": "mlbbank-website",
@@ -2014,9 +2060,11 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 0,
     "vacancyCount": 0,
     "documentCount": 0,
+    "peopleCount": 0,
     "branchNames": [],
     "vacancyTitles": [],
-    "documentTitles": []
+    "documentTitles": [],
+    "peopleNames": []
   },
   {
     "sourceId": "mlbsl-website",
@@ -2091,6 +2139,7 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 0,
     "vacancyCount": 8,
     "documentCount": 0,
+    "peopleCount": 0,
     "branchNames": [],
     "vacancyTitles": [
       "Branch Managers",
@@ -2098,7 +2147,8 @@ export const crawlSources: CrawlSource[] = [
       "Information Officer",
       "Province Officer"
     ],
-    "documentTitles": []
+    "documentTitles": [],
+    "peopleNames": []
   },
   {
     "sourceId": "mslbsl-website",
@@ -2173,6 +2223,7 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 0,
     "vacancyCount": 0,
     "documentCount": 16,
+    "peopleCount": 0,
     "branchNames": [],
     "vacancyTitles": [],
     "documentTitles": [
@@ -2181,7 +2232,8 @@ export const crawlSources: CrawlSource[] = [
       "12th Annual Report FY 2080/081",
       "13th Annual Report FY 2081/082",
       "5th Annual Report"
-    ]
+    ],
+    "peopleNames": []
   },
   {
     "sourceId": "nadeplaghubitta-website",
@@ -2256,6 +2308,7 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 0,
     "vacancyCount": 0,
     "documentCount": 27,
+    "peopleCount": 0,
     "branchNames": [],
     "vacancyTitles": [],
     "documentTitles": [
@@ -2264,7 +2317,8 @@ export const crawlSources: CrawlSource[] = [
       "1st – Quarterly – Report – 2080-81",
       "1st-Quarterly-Report-2078-79",
       "1st-Quarterly-Report-2079-80"
-    ]
+    ],
+    "peopleNames": []
   },
   {
     "sourceId": "nationalmicrofinance-website",
@@ -2339,9 +2393,11 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 0,
     "vacancyCount": 0,
     "documentCount": 0,
+    "peopleCount": 0,
     "branchNames": [],
     "vacancyTitles": [],
-    "documentTitles": []
+    "documentTitles": [],
+    "peopleNames": []
   },
   {
     "sourceId": "nerudemirmire-website",
@@ -2416,9 +2472,11 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 0,
     "vacancyCount": 0,
     "documentCount": 0,
+    "peopleCount": 0,
     "branchNames": [],
     "vacancyTitles": [],
-    "documentTitles": []
+    "documentTitles": [],
+    "peopleNames": []
   },
   {
     "sourceId": "nicasialaghubitta-website",
@@ -2493,9 +2551,11 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 0,
     "vacancyCount": 0,
     "documentCount": 0,
+    "peopleCount": 0,
     "branchNames": [],
     "vacancyTitles": [],
-    "documentTitles": []
+    "documentTitles": [],
+    "peopleNames": []
   },
   {
     "sourceId": "nirdhan-website",
@@ -2570,6 +2630,7 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 180,
     "vacancyCount": 2,
     "documentCount": 0,
+    "peopleCount": 0,
     "branchNames": [
       "Regional Office",
       "Amargadhi Branch, Dadeldhura",
@@ -2580,7 +2641,8 @@ export const crawlSources: CrawlSource[] = [
     "vacancyTitles": [
       "Grievance Officer"
     ],
-    "documentTitles": []
+    "documentTitles": [],
+    "peopleNames": []
   },
   {
     "sourceId": "nmbmicrofinance-website",
@@ -2655,6 +2717,7 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 0,
     "vacancyCount": 14,
     "documentCount": 26,
+    "peopleCount": 0,
     "branchNames": [],
     "vacancyTitles": [
       "Exam Center Notice For Trainee Assistant",
@@ -2669,7 +2732,8 @@ export const crawlSources: CrawlSource[] = [
       "Annual Report 2071-72",
       "Annual Report 2072-73",
       "Annual Report 2073-74"
-    ]
+    ],
+    "peopleNames": []
   },
   {
     "sourceId": "rsdcmf-website",
@@ -2744,11 +2808,13 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 0,
     "vacancyCount": 1,
     "documentCount": 0,
+    "peopleCount": 0,
     "branchNames": [],
     "vacancyTitles": [
       "Compliance Officer"
     ],
-    "documentTitles": []
+    "documentTitles": [],
+    "peopleNames": []
   },
   {
     "sourceId": "samata-website",
@@ -2823,9 +2889,11 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 0,
     "vacancyCount": 0,
     "documentCount": 0,
+    "peopleCount": 0,
     "branchNames": [],
     "vacancyTitles": [],
-    "documentTitles": []
+    "documentTitles": [],
+    "peopleNames": []
   },
   {
     "sourceId": "sampadalaghubitta-website",
@@ -2900,9 +2968,11 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 0,
     "vacancyCount": 0,
     "documentCount": 0,
+    "peopleCount": 0,
     "branchNames": [],
     "vacancyTitles": [],
-    "documentTitles": []
+    "documentTitles": [],
+    "peopleNames": []
   },
   {
     "sourceId": "sanjeevanilaghubitta-website",
@@ -2977,9 +3047,11 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 0,
     "vacancyCount": 0,
     "documentCount": 0,
+    "peopleCount": 0,
     "branchNames": [],
     "vacancyTitles": [],
-    "documentTitles": []
+    "documentTitles": [],
+    "peopleNames": []
   },
   {
     "sourceId": "shrijanshil-website",
@@ -3054,9 +3126,11 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 0,
     "vacancyCount": 0,
     "documentCount": 0,
+    "peopleCount": 0,
     "branchNames": [],
     "vacancyTitles": [],
-    "documentTitles": []
+    "documentTitles": [],
+    "peopleNames": []
   },
   {
     "sourceId": "skbbl-website",
@@ -3131,6 +3205,7 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 0,
     "vacancyCount": 4,
     "documentCount": 12,
+    "peopleCount": 0,
     "branchNames": [],
     "vacancyTitles": [
       "Alternate Candidate Senior Field Supervisor Jun 17",
@@ -3144,7 +3219,8 @@ export const crawlSources: CrawlSource[] = [
       "19th Annual Report (SKBBL)",
       "20th Annual Report (RMDC)",
       "20th Annual Report (SKBBL)"
-    ]
+    ],
+    "peopleNames": []
   },
   {
     "sourceId": "slbbl-website",
@@ -3219,9 +3295,11 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 0,
     "vacancyCount": 0,
     "documentCount": 0,
+    "peopleCount": 0,
     "branchNames": [],
     "vacancyTitles": [],
-    "documentTitles": []
+    "documentTitles": [],
+    "peopleNames": []
   },
   {
     "sourceId": "slbs-website",
@@ -3296,9 +3374,11 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 0,
     "vacancyCount": 0,
     "documentCount": 0,
+    "peopleCount": 0,
     "branchNames": [],
     "vacancyTitles": [],
-    "documentTitles": []
+    "documentTitles": [],
+    "peopleNames": []
   },
   {
     "sourceId": "slbsl-website",
@@ -3373,9 +3453,11 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 0,
     "vacancyCount": 0,
     "documentCount": 0,
+    "peopleCount": 0,
     "branchNames": [],
     "vacancyTitles": [],
-    "documentTitles": []
+    "documentTitles": [],
+    "peopleNames": []
   },
   {
     "sourceId": "supportmicrofinance-website",
@@ -3450,9 +3532,11 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 0,
     "vacancyCount": 0,
     "documentCount": 0,
+    "peopleCount": 0,
     "branchNames": [],
     "vacancyTitles": [],
-    "documentTitles": []
+    "documentTitles": [],
+    "peopleNames": []
   },
   {
     "sourceId": "swabhimaanlaghubitta-website",
@@ -3527,13 +3611,15 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 0,
     "vacancyCount": 6,
     "documentCount": 0,
+    "peopleCount": 0,
     "branchNames": [],
     "vacancyTitles": [
       "Asst. General Manager",
       "Chief Executive Officer",
       "Manager"
     ],
-    "documentTitles": []
+    "documentTitles": [],
+    "peopleNames": []
   },
   {
     "sourceId": "swastiklbs-website",
@@ -3608,9 +3694,11 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 0,
     "vacancyCount": 0,
     "documentCount": 0,
+    "peopleCount": 0,
     "branchNames": [],
     "vacancyTitles": [],
-    "documentTitles": []
+    "documentTitles": [],
+    "peopleNames": []
   },
   {
     "sourceId": "swbbl-website",
@@ -3685,6 +3773,7 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 0,
     "vacancyCount": 3,
     "documentCount": 23,
+    "peopleCount": 0,
     "branchNames": [],
     "vacancyTitles": [
       "Compliance Officer",
@@ -3697,7 +3786,8 @@ export const crawlSources: CrawlSource[] = [
       "Swabalamban Laghubitta Bikas Bank Ltd. -Annual Report 2070-71",
       "Swabalamban Laghubitta Bikas Bank Ltd. -Annual Report 2071-72",
       "Swabalamban Laghubitta Bikas Bank Ltd. -Annual Report 2072-73"
-    ]
+    ],
+    "peopleNames": []
   },
   {
     "sourceId": "swmfi-website",
@@ -3772,6 +3862,7 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 0,
     "vacancyCount": 4,
     "documentCount": 30,
+    "peopleCount": 0,
     "branchNames": [],
     "vacancyTitles": [
       "Grievance Handling Officer"
@@ -3782,7 +3873,8 @@ export const crawlSources: CrawlSource[] = [
       "4th Quarterly Report",
       "Annual Report (15)",
       "Quarterly Report (40)"
-    ]
+    ],
+    "peopleNames": []
   },
   {
     "sourceId": "ulbsl-website",
@@ -3857,12 +3949,14 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 0,
     "vacancyCount": 2,
     "documentCount": 0,
+    "peopleCount": 0,
     "branchNames": [],
     "vacancyTitles": [
       "4 | Short List - प्रशिक्षार्थी कनिष्ठ सहायक पद (बिज्ञापन नं ०५/०८२/०८३) र लिखित परीक्षा (",
       "8 | Short List - सुपरभाईजर/ वरिष्ठ सहायक (बिज्ञापन नं ०२/०८२/०८३) र अन्तर्वार्ता ("
     ],
-    "documentTitles": []
+    "documentTitles": [],
+    "peopleNames": []
   },
   {
     "sourceId": "uniquenepalmicrofinance-website",
@@ -3937,6 +4031,7 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 30,
     "vacancyCount": 0,
     "documentCount": 88,
+    "peopleCount": 0,
     "branchNames": [
       "Bansgadhi Branch",
       "Bauniya Branch",
@@ -3951,7 +4046,8 @@ export const crawlSources: CrawlSource[] = [
       "2nd annual report -2076/077 Jan 12, 2021 | Downlaod",
       "3rd Annual Report &#8211; 2077/078 Dec 28, 2021 | Downlaod",
       "4rth Annual Report &#8211; 2078/079 Mar 18, 2023 | Downlaod"
-    ]
+    ],
+    "peopleNames": []
   },
   {
     "sourceId": "unnatislbs-website",
@@ -4026,9 +4122,11 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 0,
     "vacancyCount": 0,
     "documentCount": 0,
+    "peopleCount": 0,
     "branchNames": [],
     "vacancyTitles": [],
-    "documentTitles": []
+    "documentTitles": [],
+    "peopleNames": []
   },
   {
     "sourceId": "vlbs-website",
@@ -4103,9 +4201,11 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 0,
     "vacancyCount": 0,
     "documentCount": 0,
+    "peopleCount": 0,
     "branchNames": [],
     "vacancyTitles": [],
-    "documentTitles": []
+    "documentTitles": [],
+    "peopleNames": []
   },
   {
     "sourceId": "weannepal-website",
@@ -4180,8 +4280,10 @@ export const crawlSources: CrawlSource[] = [
     "branchCount": 0,
     "vacancyCount": 0,
     "documentCount": 0,
+    "peopleCount": 0,
     "branchNames": [],
     "vacancyTitles": [],
-    "documentTitles": []
+    "documentTitles": [],
+    "peopleNames": []
   }
 ];

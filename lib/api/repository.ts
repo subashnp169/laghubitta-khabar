@@ -12,6 +12,9 @@ import { crawlSources } from "@/data/pilot";
 import { nrbDocuments, nrbInstitutionLinks, nrbRegulatoryEvents } from "@/data/nrb";
 import { jobs } from "@/data/jobs";
 import { documents } from "@/data/documents";
+import { openPeopleConflicts, peopleAssertions } from "@/data/people";
+import { peopleFromAssertionRows, type PersonAssertionRecord } from "../repository/projection";
+import type { PersonDto } from "../repository/types";
 import { slicePage, parsePagination, errorEnvelope, type ApiMeta, type CollectionEnvelope, type ResourceEnvelope, type ErrorEnvelope } from "./contract";
 
 export interface InstitutionSummary {
@@ -160,7 +163,7 @@ function detailFor(l: InstLookup): InstitutionDetail {
 
 export interface SearchGroups {
   institutions: InstitutionSummary[];
-  people: never[];
+  people: PersonDto[];
   documents: Document[];
 }
 
@@ -251,6 +254,57 @@ export function emptyPhaseEnvelope(page?: string | null, limit?: string | null):
   return { data: [], pagination: { page: p.page, limit: p.limit, total: 0 } };
 }
 
+// ---------------------------------------------------------------------------
+// People / leadership read models (M3.3) — pure projection over the generated
+// src/data/people.ts evidence module. Same PersonDto shape the repository
+// adapters produce (lib/repository/projection.ts), so the B2B API, the local
+// adapter, and the D1 adapter all mean the same thing.
+// ---------------------------------------------------------------------------
+
+const peopleOpenConflictKeys = () =>
+  new Set(
+    openPeopleConflicts.flatMap((c) =>
+      String(c.field_name)
+        .split("|")
+        .map((field) => `${c.institution_id}|${field}`),
+    ),
+  );
+
+function allPeople(): PersonDto[] {
+  return peopleFromAssertionRows(peopleAssertions as unknown as PersonAssertionRecord[], {
+    openConflictKeys: peopleOpenConflictKeys(),
+  });
+}
+
+export function institutionLeadership(
+  slug: string,
+  requested: { page?: string | null; limit?: string | null },
+): { status: number; body: CollectionEnvelope<PersonDto> | ErrorEnvelope } {
+  const inst = institutions.find((i) => i.slug === slug);
+  if (!inst) return errorEnvelope("NOT_FOUND", `No institution with slug '${slug}'`);
+  const p = parsePagination(new URLSearchParams(`${requested.page != null ? `page=${encodeURIComponent(requested.page)}` : ""}&${requested.limit != null ? `limit=${encodeURIComponent(requested.limit)}` : ""}`));
+  const people = allPeople().filter((person) => person.institution_slug === slug);
+  return { status: 200, body: slicePage(people, p) };
+}
+
+export function getPerson(
+  slug: string,
+): { status: number; body: ResourceEnvelope<PersonDto> | ErrorEnvelope } {
+  const person = allPeople().find((p) => p.slug === slug);
+  if (!person) return errorEnvelope("NOT_FOUND", `No person with slug '${slug}'`);
+  return {
+    status: 200,
+    body: {
+      data: person,
+      meta: {
+        source: person.meta.source,
+        last_verified_at: person.meta.last_verified_at,
+        verification_status: person.meta.verification_status,
+      },
+    },
+  };
+}
+
 export function search(query: { q?: string | null }): { status: number; body: ResourceEnvelope<SearchResult> | ErrorEnvelope } {
   const q = (query.q ?? "").trim();
   if (!q) return errorEnvelope("VALIDATION", "Query parameter 'q' is required and must be non-empty");
@@ -266,7 +320,9 @@ export function search(query: { q?: string | null }): { status: number; body: Re
       )
       .slice(0, 20)
       .map(summaryFor),
-    people: [],
+    people: allPeople()
+      .filter((p) => p.name.toLowerCase().includes(needle))
+      .slice(0, 20),
     documents: [...documents, ...nrbDocuments.map((d) => ({ id: `nrb-${d.id}`, title: d.title, type: d.docType, institution: d.sourceTitle, date: d.publishedAt ?? "", size: d.size ?? "", url: d.officialUrl }))]
       .filter((d) => d.title.toLowerCase().includes(needle))
       .slice(0, 20),

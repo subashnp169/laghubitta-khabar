@@ -1,0 +1,1110 @@
+{
+    "$schema":  "pilot-people-evidence/v1",
+    "generated_at":  "2026-09-26T18:28:39.866Z",
+    "db_path":  "C:\\Users\\Lenovo\\Documents\\Default Project\\laghubitta-khabar\\data\\pilot\\evidence\\pilot-people-2026-09-27-post-ext-a.db",
+    "pilot_universe":  51,
+    "people_declared":  2,
+    "people_not_discovered":  49,
+    "repeat":  false,
+    "diagnose":  false,
+    "results":  [
+                    {
+                        "institution":  "mfi-028",
+                        "source":  "nadeplaghubitta-website",
+                        "peopleUrl":  "https://www.nadeplaghubitta.com/board-of-directors",
+                        "capability":  "PEOPLE",
+                        "http":  200,
+                        "evidence":  "EXTRACTED",
+                        "extracted":  1,
+                        "assertions":  0,
+                        "status":  "HEALTHY",
+                        "detail":  "UNCHANGED:https://www.nadeplaghubitta.com/board-of-directors"
+                    },
+                    {
+                        "institution":  "mfi-045",
+                        "source":  "swastiklbs-website",
+                        "peopleUrl":  "https://swastiklbs.com.np/board-of-directors",
+                        "capability":  "PEOPLE",
+                        "http":  200,
+                        "evidence":  "EXTRACTED",
+                        "extracted":  1,
+                        "assertions":  5,
+                        "status":  "HEALTHY",
+                        "detail":  "UNCHANGED:https://swastiklbs.com.np/board-of-directors"
+                    },
+                    {
+                        "institution":  "mfi-001",
+                        "source":  "nirdhan-website",
+                        "peopleUrl":  null,
+                        "capability":  "PEOPLE = NOT_DISCOVERED",
+                        "http":  null,
+                        "evidence":  "none",
+                        "extracted":  0,
+                        "assertions":  0,
+                        "status":  "NOT_DISCOVERED",
+                        "detail":  "no official people url in existing config/links; nothing invented, nothing fetched"
+                    },
+                    {
+                        "institution":  "mfi-003",
+                        "source":  "chhimek-website",
+                        "peopleUrl":  null,
+                        "capability":  "PEOPLE = NOT_DISCOVERED",
+                        "http":  null,
+                        "evidence":  "none",
+                        "extracted":  0,
+                        "assertions":  0,
+                        "status":  "NOT_DISCOVERED",
+                        "detail":  "no official people url in existing config/links; nothing invented, nothing fetched"
+                    },
+                    {
+                        "institution":  "mfi-020",
+                        "source":  "mero-website",
+                        "peopleUrl":  null,
+                        "capability":  "PEOPLE = NOT_DISCOVERED",
+                        "http":  null,
+                        "evidence":  "none",
+                        "extracted":  0,
+                        "assertions":  0,
+                        "status":  "NOT_DISCOVERED",
+                        "detail":  "no official people url in existing config/links; nothing invented, nothing fetched"
+                    },
+                    {
+                        "institution":  "mfi-047",
+                        "source":  "matribhumi-website",
+                        "peopleUrl":  null,
+                        "capability":  "PEOPLE = NOT_DISCOVERED",
+                        "http":  null,
+                        "evidence":  "none",
+                        "extracted":  0,
+                        "assertions":  0,
+                        "status":  "NOT_DISCOVERED",
+                        "detail":  "no official people url in existing config/links; nothing invented, nothing fetched"
+                    },
+                    {
+                        "institution":  "mfi-034",
+                        "source":  "infinity-website",
+                        "peopleUrl":  null,
+                        "capability":  "PEOPLE = NOT_DISCOVERED",
+                        "http":  null,
+                        "evidence":  "none",
+                        "extracted":  0,
+                        "assertions":  0,
+                        "status":  "NOT_DISCOVERED",
+                        "detail":  "no official people url in existing config/links; nothing invented, nothing fetched"
+                    },
+                    {
+                        "institution":  "mfi-030",
+                        "source":  "aarambha-website",
+                        "peopleUrl":  null,
+                        "capability":  "PEOPLE = NOT_DISCOVERED",
+                        "http":  null,
+                        "evidence":  "none",
+                        "extracted":  0,
+                        "assertions":  0,
+                        "status":  "NOT_DISCOVERED",
+                        "detail":  "no official people url in existing config/links; nothing invented, nothing fetched"
+                    },
+                    {
+                        "institution":  "mfi-049",
+                        "source":  "aatmanirbhar-website",
+                        "peopleUrl":  null,
+                        "capability":  "PEOPLE = NOT_DISCOVERED",
+                        "http":  null,
+                        "evidence":  "none",
+                        "extracted":  0,
+                        "assertions":  0,
+                        "status":  "NOT_DISCOVERED",
+                        "detail":  "no official people url in existing config/links; nothing invented, nothing fetched"
+                    },
+                    {
+                        "institution":  "mfi-031",
+                        "source":  "asha-website",
+                        "peopleUrl":  null,
+                        "capability":  "PEOPLE = NOT_DISCOVERED",
+                        "http":  null,
+                        "evidence":  "none",
+                        "extracted":  0,
+                        "assertions":  0,
+                        "status":  "NOT_DISCOVERED",
+                        "detail":  "no official people url in existing config/links; nothing invented, nothing fetched"
+                    },
+                    {
+                        "institution":  "mfi-051",
+                        "source":  "aviyan-website",
+                        "peopleUrl":  null,
+                        "capability":  "PEOPLE = NOT_DISCOVERED",
+                        "http":  null,
+                        "evidence":  "none",
+                        "extracted":  0,
+                        "assertions":  0,
+                        "status":  "NOT_DISCOVERED",
+                        "detail":  "no official people url in existing config/links; nothing invented, nothing fetched"
+                    },
+                    {
+                        "institution":  "mfi-043",
+                        "source":  "cyc-website",
+                        "peopleUrl":  null,
+                        "capability":  "PEOPLE = NOT_DISCOVERED",
+                        "http":  null,
+                        "evidence":  "none",
+                        "extracted":  0,
+                        "assertions":  0,
+                        "status":  "NOT_DISCOVERED",
+                        "detail":  "no official people url in existing config/links; nothing invented, nothing fetched"
+                    },
+                    {
+                        "institution":  "mfi-002",
+                        "source":  "deproscbank-website",
+                        "peopleUrl":  null,
+                        "capability":  "PEOPLE = NOT_DISCOVERED",
+                        "http":  null,
+                        "evidence":  "none",
+                        "extracted":  0,
+                        "assertions":  0,
+                        "status":  "NOT_DISCOVERED",
+                        "detail":  "no official people url in existing config/links; nothing invented, nothing fetched"
+                    },
+                    {
+                        "institution":  "mfi-004",
+                        "source":  "swbbl-website",
+                        "peopleUrl":  null,
+                        "capability":  "PEOPLE = NOT_DISCOVERED",
+                        "http":  null,
+                        "evidence":  "none",
+                        "extracted":  0,
+                        "assertions":  0,
+                        "status":  "NOT_DISCOVERED",
+                        "detail":  "no official people url in existing config/links; nothing invented, nothing fetched"
+                    },
+                    {
+                        "institution":  "mfi-005",
+                        "source":  "skbbl-website",
+                        "peopleUrl":  null,
+                        "capability":  "PEOPLE = NOT_DISCOVERED",
+                        "http":  null,
+                        "evidence":  "none",
+                        "extracted":  0,
+                        "assertions":  0,
+                        "status":  "NOT_DISCOVERED",
+                        "detail":  "no official people url in existing config/links; nothing invented, nothing fetched"
+                    },
+                    {
+                        "institution":  "mfi-006",
+                        "source":  "nerudemirmire-website",
+                        "peopleUrl":  null,
+                        "capability":  "PEOPLE = NOT_DISCOVERED",
+                        "http":  null,
+                        "evidence":  "none",
+                        "extracted":  0,
+                        "assertions":  0,
+                        "status":  "NOT_DISCOVERED",
+                        "detail":  "no official people url in existing config/links; nothing invented, nothing fetched"
+                    },
+                    {
+                        "institution":  "mfi-007",
+                        "source":  "mlbbank-website",
+                        "peopleUrl":  null,
+                        "capability":  "PEOPLE = NOT_DISCOVERED",
+                        "http":  null,
+                        "evidence":  "none",
+                        "extracted":  0,
+                        "assertions":  0,
+                        "status":  "NOT_DISCOVERED",
+                        "detail":  "no official people url in existing config/links; nothing invented, nothing fetched"
+                    },
+                    {
+                        "institution":  "mfi-008",
+                        "source":  "slbbl-website",
+                        "peopleUrl":  null,
+                        "capability":  "PEOPLE = NOT_DISCOVERED",
+                        "http":  null,
+                        "evidence":  "none",
+                        "extracted":  0,
+                        "assertions":  0,
+                        "status":  "NOT_DISCOVERED",
+                        "detail":  "no official people url in existing config/links; nothing invented, nothing fetched"
+                    },
+                    {
+                        "institution":  "mfi-009",
+                        "source":  "fmdb-website",
+                        "peopleUrl":  null,
+                        "capability":  "PEOPLE = NOT_DISCOVERED",
+                        "http":  null,
+                        "evidence":  "none",
+                        "extracted":  0,
+                        "assertions":  0,
+                        "status":  "NOT_DISCOVERED",
+                        "detail":  "no official people url in existing config/links; nothing invented, nothing fetched"
+                    },
+                    {
+                        "institution":  "mfi-010",
+                        "source":  "kalikabank-website",
+                        "peopleUrl":  null,
+                        "capability":  "PEOPLE = NOT_DISCOVERED",
+                        "http":  null,
+                        "evidence":  "none",
+                        "extracted":  0,
+                        "assertions":  0,
+                        "status":  "NOT_DISCOVERED",
+                        "detail":  "no official people url in existing config/links; nothing invented, nothing fetched"
+                    },
+                    {
+                        "institution":  "mfi-011",
+                        "source":  "jucbank-website",
+                        "peopleUrl":  null,
+                        "capability":  "PEOPLE = NOT_DISCOVERED",
+                        "http":  null,
+                        "evidence":  "none",
+                        "extracted":  0,
+                        "assertions":  0,
+                        "status":  "NOT_DISCOVERED",
+                        "detail":  "no official people url in existing config/links; nothing invented, nothing fetched"
+                    },
+                    {
+                        "institution":  "mfi-012",
+                        "source":  "swmfi-website",
+                        "peopleUrl":  null,
+                        "capability":  "PEOPLE = NOT_DISCOVERED",
+                        "http":  null,
+                        "evidence":  "none",
+                        "extracted":  0,
+                        "assertions":  0,
+                        "status":  "NOT_DISCOVERED",
+                        "detail":  "no official people url in existing config/links; nothing invented, nothing fetched"
+                    },
+                    {
+                        "institution":  "mfi-013",
+                        "source":  "laxmilaghu-website",
+                        "peopleUrl":  null,
+                        "capability":  "PEOPLE = NOT_DISCOVERED",
+                        "http":  null,
+                        "evidence":  "none",
+                        "extracted":  0,
+                        "assertions":  0,
+                        "status":  "NOT_DISCOVERED",
+                        "detail":  "no official people url in existing config/links; nothing invented, nothing fetched"
+                    },
+                    {
+                        "institution":  "mfi-014",
+                        "source":  "himalayanlaghubitta-website",
+                        "peopleUrl":  null,
+                        "capability":  "PEOPLE = NOT_DISCOVERED",
+                        "http":  null,
+                        "evidence":  "none",
+                        "extracted":  0,
+                        "assertions":  0,
+                        "status":  "NOT_DISCOVERED",
+                        "detail":  "no official people url in existing config/links; nothing invented, nothing fetched"
+                    },
+                    {
+                        "institution":  "mfi-015",
+                        "source":  "vlbs-website",
+                        "peopleUrl":  null,
+                        "capability":  "PEOPLE = NOT_DISCOVERED",
+                        "http":  null,
+                        "evidence":  "none",
+                        "extracted":  0,
+                        "assertions":  0,
+                        "status":  "NOT_DISCOVERED",
+                        "detail":  "no official people url in existing config/links; nothing invented, nothing fetched"
+                    },
+                    {
+                        "institution":  "mfi-016",
+                        "source":  "nmbmicrofinance-website",
+                        "peopleUrl":  null,
+                        "capability":  "PEOPLE = NOT_DISCOVERED",
+                        "http":  null,
+                        "evidence":  "none",
+                        "extracted":  0,
+                        "assertions":  0,
+                        "status":  "NOT_DISCOVERED",
+                        "detail":  "no official people url in existing config/links; nothing invented, nothing fetched"
+                    },
+                    {
+                        "institution":  "mfi-017",
+                        "source":  "forwardmfbank-website",
+                        "peopleUrl":  null,
+                        "capability":  "PEOPLE = NOT_DISCOVERED",
+                        "http":  null,
+                        "evidence":  "none",
+                        "extracted":  0,
+                        "assertions":  0,
+                        "status":  "NOT_DISCOVERED",
+                        "detail":  "no official people url in existing config/links; nothing invented, nothing fetched"
+                    },
+                    {
+                        "institution":  "mfi-018",
+                        "source":  "gilb-website",
+                        "peopleUrl":  null,
+                        "capability":  "PEOPLE = NOT_DISCOVERED",
+                        "http":  null,
+                        "evidence":  "none",
+                        "extracted":  0,
+                        "assertions":  0,
+                        "status":  "NOT_DISCOVERED",
+                        "detail":  "no official people url in existing config/links; nothing invented, nothing fetched"
+                    },
+                    {
+                        "institution":  "mfi-019",
+                        "source":  "mslbsl-website",
+                        "peopleUrl":  null,
+                        "capability":  "PEOPLE = NOT_DISCOVERED",
+                        "http":  null,
+                        "evidence":  "none",
+                        "extracted":  0,
+                        "assertions":  0,
+                        "status":  "NOT_DISCOVERED",
+                        "detail":  "no official people url in existing config/links; nothing invented, nothing fetched"
+                    },
+                    {
+                        "institution":  "mfi-021",
+                        "source":  "samata-website",
+                        "peopleUrl":  null,
+                        "capability":  "PEOPLE = NOT_DISCOVERED",
+                        "http":  null,
+                        "evidence":  "none",
+                        "extracted":  0,
+                        "assertions":  0,
+                        "status":  "NOT_DISCOVERED",
+                        "detail":  "no official people url in existing config/links; nothing invented, nothing fetched"
+                    },
+                    {
+                        "institution":  "mfi-022",
+                        "source":  "rsdcmf-website",
+                        "peopleUrl":  null,
+                        "capability":  "PEOPLE = NOT_DISCOVERED",
+                        "http":  null,
+                        "evidence":  "none",
+                        "extracted":  0,
+                        "assertions":  0,
+                        "status":  "NOT_DISCOVERED",
+                        "detail":  "no official people url in existing config/links; nothing invented, nothing fetched"
+                    },
+                    {
+                        "institution":  "mfi-023",
+                        "source":  "slbsl-website",
+                        "peopleUrl":  null,
+                        "capability":  "PEOPLE = NOT_DISCOVERED",
+                        "http":  null,
+                        "evidence":  "none",
+                        "extracted":  0,
+                        "assertions":  0,
+                        "status":  "NOT_DISCOVERED",
+                        "detail":  "no official people url in existing config/links; nothing invented, nothing fetched"
+                    },
+                    {
+                        "institution":  "mfi-024",
+                        "source":  "nationalmicrofinance-website",
+                        "peopleUrl":  null,
+                        "capability":  "PEOPLE = NOT_DISCOVERED",
+                        "http":  null,
+                        "evidence":  "none",
+                        "extracted":  0,
+                        "assertions":  0,
+                        "status":  "NOT_DISCOVERED",
+                        "detail":  "no official people url in existing config/links; nothing invented, nothing fetched"
+                    },
+                    {
+                        "institution":  "mfi-025",
+                        "source":  "gblbs-website",
+                        "peopleUrl":  null,
+                        "capability":  "PEOPLE = NOT_DISCOVERED",
+                        "http":  null,
+                        "evidence":  "none",
+                        "extracted":  0,
+                        "assertions":  0,
+                        "status":  "NOT_DISCOVERED",
+                        "detail":  "no official people url in existing config/links; nothing invented, nothing fetched"
+                    },
+                    {
+                        "institution":  "mfi-026",
+                        "source":  "weannepal-website",
+                        "peopleUrl":  null,
+                        "capability":  "PEOPLE = NOT_DISCOVERED",
+                        "http":  null,
+                        "evidence":  "none",
+                        "extracted":  0,
+                        "assertions":  0,
+                        "status":  "NOT_DISCOVERED",
+                        "detail":  "no official people url in existing config/links; nothing invented, nothing fetched"
+                    },
+                    {
+                        "institution":  "mfi-027",
+                        "source":  "unnatislbs-website",
+                        "peopleUrl":  null,
+                        "capability":  "PEOPLE = NOT_DISCOVERED",
+                        "http":  null,
+                        "evidence":  "none",
+                        "extracted":  0,
+                        "assertions":  0,
+                        "status":  "NOT_DISCOVERED",
+                        "detail":  "no official people url in existing config/links; nothing invented, nothing fetched"
+                    },
+                    {
+                        "institution":  "mfi-029",
+                        "source":  "supportmicrofinance-website",
+                        "peopleUrl":  null,
+                        "capability":  "PEOPLE = NOT_DISCOVERED",
+                        "http":  null,
+                        "evidence":  "none",
+                        "extracted":  0,
+                        "assertions":  0,
+                        "status":  "NOT_DISCOVERED",
+                        "detail":  "no official people url in existing config/links; nothing invented, nothing fetched"
+                    },
+                    {
+                        "institution":  "mfi-032",
+                        "source":  "guranslaghubitta-website",
+                        "peopleUrl":  null,
+                        "capability":  "PEOPLE = NOT_DISCOVERED",
+                        "http":  null,
+                        "evidence":  "none",
+                        "extracted":  0,
+                        "assertions":  0,
+                        "status":  "NOT_DISCOVERED",
+                        "detail":  "no official people url in existing config/links; nothing invented, nothing fetched"
+                    },
+                    {
+                        "institution":  "mfi-033",
+                        "source":  "ganapatimicro-website",
+                        "peopleUrl":  null,
+                        "capability":  "PEOPLE = NOT_DISCOVERED",
+                        "http":  null,
+                        "evidence":  "none",
+                        "extracted":  0,
+                        "assertions":  0,
+                        "status":  "NOT_DISCOVERED",
+                        "detail":  "no official people url in existing config/links; nothing invented, nothing fetched"
+                    },
+                    {
+                        "institution":  "mfi-035",
+                        "source":  "swabhimaanlaghubitta-website",
+                        "peopleUrl":  null,
+                        "capability":  "PEOPLE = NOT_DISCOVERED",
+                        "http":  null,
+                        "evidence":  "none",
+                        "extracted":  0,
+                        "assertions":  0,
+                        "status":  "NOT_DISCOVERED",
+                        "detail":  "no official people url in existing config/links; nothing invented, nothing fetched"
+                    },
+                    {
+                        "institution":  "mfi-036",
+                        "source":  "sampadalaghubitta-website",
+                        "peopleUrl":  null,
+                        "capability":  "PEOPLE = NOT_DISCOVERED",
+                        "http":  null,
+                        "evidence":  "none",
+                        "extracted":  0,
+                        "assertions":  0,
+                        "status":  "NOT_DISCOVERED",
+                        "detail":  "no official people url in existing config/links; nothing invented, nothing fetched"
+                    },
+                    {
+                        "institution":  "mfi-037",
+                        "source":  "nicasialaghubitta-website",
+                        "peopleUrl":  null,
+                        "capability":  "PEOPLE = NOT_DISCOVERED",
+                        "http":  null,
+                        "evidence":  "none",
+                        "extracted":  0,
+                        "assertions":  0,
+                        "status":  "NOT_DISCOVERED",
+                        "detail":  "no official people url in existing config/links; nothing invented, nothing fetched"
+                    },
+                    {
+                        "institution":  "mfi-038",
+                        "source":  "mlbsl-website",
+                        "peopleUrl":  null,
+                        "capability":  "PEOPLE = NOT_DISCOVERED",
+                        "http":  null,
+                        "evidence":  "none",
+                        "extracted":  0,
+                        "assertions":  0,
+                        "status":  "NOT_DISCOVERED",
+                        "detail":  "no official people url in existing config/links; nothing invented, nothing fetched"
+                    },
+                    {
+                        "institution":  "mfi-039",
+                        "source":  "manushilbs-website",
+                        "peopleUrl":  null,
+                        "capability":  "PEOPLE = NOT_DISCOVERED",
+                        "http":  null,
+                        "evidence":  "none",
+                        "extracted":  0,
+                        "assertions":  0,
+                        "status":  "NOT_DISCOVERED",
+                        "detail":  "no official people url in existing config/links; nothing invented, nothing fetched"
+                    },
+                    {
+                        "institution":  "mfi-040",
+                        "source":  "uniquenepalmicrofinance-website",
+                        "peopleUrl":  null,
+                        "capability":  "PEOPLE = NOT_DISCOVERED",
+                        "http":  null,
+                        "evidence":  "none",
+                        "extracted":  0,
+                        "assertions":  0,
+                        "status":  "NOT_DISCOVERED",
+                        "detail":  "no official people url in existing config/links; nothing invented, nothing fetched"
+                    },
+                    {
+                        "institution":  "mfi-041",
+                        "source":  "ulbsl-website",
+                        "peopleUrl":  null,
+                        "capability":  "PEOPLE = NOT_DISCOVERED",
+                        "http":  null,
+                        "evidence":  "none",
+                        "extracted":  0,
+                        "assertions":  0,
+                        "status":  "NOT_DISCOVERED",
+                        "detail":  "no official people url in existing config/links; nothing invented, nothing fetched"
+                    },
+                    {
+                        "institution":  "mfi-042",
+                        "source":  "dhaulagiribank-website",
+                        "peopleUrl":  null,
+                        "capability":  "PEOPLE = NOT_DISCOVERED",
+                        "http":  null,
+                        "evidence":  "none",
+                        "extracted":  0,
+                        "assertions":  0,
+                        "status":  "NOT_DISCOVERED",
+                        "detail":  "no official people url in existing config/links; nothing invented, nothing fetched"
+                    },
+                    {
+                        "institution":  "mfi-044",
+                        "source":  "slbs-website",
+                        "peopleUrl":  null,
+                        "capability":  "PEOPLE = NOT_DISCOVERED",
+                        "http":  null,
+                        "evidence":  "none",
+                        "extracted":  0,
+                        "assertions":  0,
+                        "status":  "NOT_DISCOVERED",
+                        "detail":  "no official people url in existing config/links; nothing invented, nothing fetched"
+                    },
+                    {
+                        "institution":  "mfi-046",
+                        "source":  "shrijanshil-website",
+                        "peopleUrl":  null,
+                        "capability":  "PEOPLE = NOT_DISCOVERED",
+                        "http":  null,
+                        "evidence":  "none",
+                        "extracted":  0,
+                        "assertions":  0,
+                        "status":  "NOT_DISCOVERED",
+                        "detail":  "no official people url in existing config/links; nothing invented, nothing fetched"
+                    },
+                    {
+                        "institution":  "mfi-048",
+                        "source":  "jeevanbikasmf-website",
+                        "peopleUrl":  null,
+                        "capability":  "PEOPLE = NOT_DISCOVERED",
+                        "http":  null,
+                        "evidence":  "none",
+                        "extracted":  0,
+                        "assertions":  0,
+                        "status":  "NOT_DISCOVERED",
+                        "detail":  "no official people url in existing config/links; nothing invented, nothing fetched"
+                    },
+                    {
+                        "institution":  "mfi-050",
+                        "source":  "sanjeevanilaghubitta-website",
+                        "peopleUrl":  null,
+                        "capability":  "PEOPLE = NOT_DISCOVERED",
+                        "http":  null,
+                        "evidence":  "none",
+                        "extracted":  0,
+                        "assertions":  0,
+                        "status":  "NOT_DISCOVERED",
+                        "detail":  "no official people url in existing config/links; nothing invented, nothing fetched"
+                    }
+                ],
+    "shapes":  [
+
+               ],
+    "audit":  {
+                  "assertionsTotal":  5,
+                  "assertionsUnverified":  5,
+                  "distinctPeople":  5,
+                  "byField":  [
+                                  {
+                                      "field_name":  "people_director",
+                                      "n":  4,
+                                      "people":  4
+                                  },
+                                  {
+                                      "field_name":  "people_chair",
+                                      "n":  1,
+                                      "people":  1
+                                  }
+                              ],
+                  "byStatus":  [
+                                   {
+                                       "verification_status":  "UNVERIFIED",
+                                       "n":  5
+                                   }
+                               ],
+                  "byConfidence":  [
+                                       {
+                                           "confidence":  0.55,
+                                           "n":  5
+                                       }
+                                   ],
+                  "provenanceOrphans":  [
+
+                                        ],
+                  "snapshotFieldsMissing":  [
+
+                                            ],
+                  "snapshots":  [
+                                    {
+                                        "source_id":  "swastiklbs-website",
+                                        "http_status":  200,
+                                        "mime_type":  "text/html; charset=UTF-8",
+                                        "extraction_status":  "EXTRACTED",
+                                        "parser_version":  "people-html-v1",
+                                        "fetched_at":  "2026-09-26T18:27:23.318Z",
+                                        "hash_len":  64
+                                    }
+                                ],
+                  "assertions":  [
+                                     {
+                                         "source_id":  "swastiklbs-website",
+                                         "field_name":  "people_chair",
+                                         "value":  "Satya Narayan Jha",
+                                         "verification_status":  "UNVERIFIED",
+                                         "confidence":  0.55,
+                                         "observed_at":  "2026-09-26T18:27:21.495Z",
+                                         "source_snapshot_id":  "snap-muiq26o4-13",
+                                         "content_hash":  "5dedd21df9c9a3a8b3c8078fdbeba842d2b325a56db41818e9ab05476c5a39ba",
+                                         "mime_type":  "text/html; charset=UTF-8",
+                                         "source_grade":  "A"
+                                     },
+                                     {
+                                         "source_id":  "swastiklbs-website",
+                                         "field_name":  "people_director",
+                                         "value":  "Binodanand Jha",
+                                         "verification_status":  "UNVERIFIED",
+                                         "confidence":  0.55,
+                                         "observed_at":  "2026-09-26T18:27:21.495Z",
+                                         "source_snapshot_id":  "snap-muiq26o4-13",
+                                         "content_hash":  "5dedd21df9c9a3a8b3c8078fdbeba842d2b325a56db41818e9ab05476c5a39ba",
+                                         "mime_type":  "text/html; charset=UTF-8",
+                                         "source_grade":  "A"
+                                     },
+                                     {
+                                         "source_id":  "swastiklbs-website",
+                                         "field_name":  "people_director",
+                                         "value":  "Dr. Pramod Kumar Jha",
+                                         "verification_status":  "UNVERIFIED",
+                                         "confidence":  0.55,
+                                         "observed_at":  "2026-09-26T18:27:21.495Z",
+                                         "source_snapshot_id":  "snap-muiq26o4-13",
+                                         "content_hash":  "5dedd21df9c9a3a8b3c8078fdbeba842d2b325a56db41818e9ab05476c5a39ba",
+                                         "mime_type":  "text/html; charset=UTF-8",
+                                         "source_grade":  "A"
+                                     },
+                                     {
+                                         "source_id":  "swastiklbs-website",
+                                         "field_name":  "people_director",
+                                         "value":  "Jeetendra Jha",
+                                         "verification_status":  "UNVERIFIED",
+                                         "confidence":  0.55,
+                                         "observed_at":  "2026-09-26T18:27:21.495Z",
+                                         "source_snapshot_id":  "snap-muiq26o4-13",
+                                         "content_hash":  "5dedd21df9c9a3a8b3c8078fdbeba842d2b325a56db41818e9ab05476c5a39ba",
+                                         "mime_type":  "text/html; charset=UTF-8",
+                                         "source_grade":  "A"
+                                     },
+                                     {
+                                         "source_id":  "swastiklbs-website",
+                                         "field_name":  "people_director",
+                                         "value":  "Sudhansu Shekhar Jha",
+                                         "verification_status":  "UNVERIFIED",
+                                         "confidence":  0.55,
+                                         "observed_at":  "2026-09-26T18:27:21.495Z",
+                                         "source_snapshot_id":  "snap-muiq26o4-13",
+                                         "content_hash":  "5dedd21df9c9a3a8b3c8078fdbeba842d2b325a56db41818e9ab05476c5a39ba",
+                                         "mime_type":  "text/html; charset=UTF-8",
+                                         "source_grade":  "A"
+                                     }
+                                 ],
+                  "validationResults":  [
+                                            {
+                                                "target_id":  "snap-muiq1xm0-5",
+                                                "rule_id":  "r-people-directory",
+                                                "status":  "PENDING",
+                                                "message":  "no people evidence on this snapshot",
+                                                "n":  1
+                                            },
+                                            {
+                                                "target_id":  "snap-muiq26o4-13",
+                                                "rule_id":  "r-people-directory",
+                                                "status":  "PASS",
+                                                "message":  "5 people name(s) extracted (UNVERIFIED)",
+                                                "n":  1
+                                            }
+                                        ],
+                  "runs":  [
+                               {
+                                   "ingestion_source_id":  "nadeplaghubitta-website",
+                                   "status":  "SUCCESS",
+                                   "items_found":  1,
+                                   "items_changed":  0,
+                                   "items_new":  1,
+                                   "items_failed":  0,
+                                   "error_count":  0,
+                                   "parser_version":  "people-html-v1"
+                               },
+                               {
+                                   "ingestion_source_id":  "swastiklbs-website",
+                                   "status":  "SUCCESS",
+                                   "items_found":  1,
+                                   "items_changed":  0,
+                                   "items_new":  1,
+                                   "items_failed":  0,
+                                   "error_count":  0,
+                                   "parser_version":  "people-html-v1"
+                               },
+                               {
+                                   "ingestion_source_id":  "nadeplaghubitta-website",
+                                   "status":  "SUCCESS",
+                                   "items_found":  1,
+                                   "items_changed":  0,
+                                   "items_new":  0,
+                                   "items_failed":  0,
+                                   "error_count":  0,
+                                   "parser_version":  "people-html-v1"
+                               },
+                               {
+                                   "ingestion_source_id":  "swastiklbs-website",
+                                   "status":  "SUCCESS",
+                                   "items_found":  1,
+                                   "items_changed":  0,
+                                   "items_new":  0,
+                                   "items_failed":  0,
+                                   "error_count":  0,
+                                   "parser_version":  "people-html-v1"
+                               }
+                           ],
+                  "errors":  [
+
+                             ],
+                  "budget":  [
+                                 {
+                                     "id":  "aarambha-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 },
+                                 {
+                                     "id":  "aatmanirbhar-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 },
+                                 {
+                                     "id":  "asha-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 },
+                                 {
+                                     "id":  "aviyan-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 },
+                                 {
+                                     "id":  "chhimek-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 },
+                                 {
+                                     "id":  "cyc-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 },
+                                 {
+                                     "id":  "deproscbank-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 },
+                                 {
+                                     "id":  "dhaulagiribank-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 },
+                                 {
+                                     "id":  "fmdb-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 },
+                                 {
+                                     "id":  "forwardmfbank-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 },
+                                 {
+                                     "id":  "ganapatimicro-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 },
+                                 {
+                                     "id":  "gblbs-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 },
+                                 {
+                                     "id":  "gilb-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 },
+                                 {
+                                     "id":  "guranslaghubitta-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 },
+                                 {
+                                     "id":  "himalayanlaghubitta-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 },
+                                 {
+                                     "id":  "infinity-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 },
+                                 {
+                                     "id":  "jeevanbikasmf-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 },
+                                 {
+                                     "id":  "jucbank-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 },
+                                 {
+                                     "id":  "kalikabank-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 },
+                                 {
+                                     "id":  "laxmilaghu-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 },
+                                 {
+                                     "id":  "manushilbs-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 },
+                                 {
+                                     "id":  "matribhumi-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 },
+                                 {
+                                     "id":  "mero-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 },
+                                 {
+                                     "id":  "mlbbank-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 },
+                                 {
+                                     "id":  "mlbsl-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 },
+                                 {
+                                     "id":  "mslbsl-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 },
+                                 {
+                                     "id":  "nadeplaghubitta-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 },
+                                 {
+                                     "id":  "nationalmicrofinance-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 },
+                                 {
+                                     "id":  "nerudemirmire-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 },
+                                 {
+                                     "id":  "nicasialaghubitta-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 },
+                                 {
+                                     "id":  "nirdhan-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 },
+                                 {
+                                     "id":  "nmbmicrofinance-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 },
+                                 {
+                                     "id":  "rsdcmf-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 },
+                                 {
+                                     "id":  "samata-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 },
+                                 {
+                                     "id":  "sampadalaghubitta-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 },
+                                 {
+                                     "id":  "sanjeevanilaghubitta-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 },
+                                 {
+                                     "id":  "shrijanshil-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 },
+                                 {
+                                     "id":  "skbbl-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 },
+                                 {
+                                     "id":  "slbbl-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 },
+                                 {
+                                     "id":  "slbs-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 },
+                                 {
+                                     "id":  "slbsl-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 },
+                                 {
+                                     "id":  "supportmicrofinance-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 },
+                                 {
+                                     "id":  "swabhimaanlaghubitta-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 },
+                                 {
+                                     "id":  "swastiklbs-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 },
+                                 {
+                                     "id":  "swbbl-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 },
+                                 {
+                                     "id":  "swmfi-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 },
+                                 {
+                                     "id":  "ulbsl-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 },
+                                 {
+                                     "id":  "uniquenepalmicrofinance-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 },
+                                 {
+                                     "id":  "unnatislbs-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 },
+                                 {
+                                     "id":  "vlbs-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 },
+                                 {
+                                     "id":  "weannepal-website",
+                                     "fetch_interval_minutes":  1440,
+                                     "enabled":  1,
+                                     "error_count":  0
+                                 }
+                             ]
+              },
+    "preserved_evidence":  {
+                               "previous_temp_path":  "C:\\Users\\Lenovo\\AppData\\Local\\Temp\\lk-pilot-people-cxojAT\\pilot-people.db",
+                               "db_path_phase_o":  "C:\\Users\\Lenovo\\Documents\\Default Project\\laghubitta-khabar\\data\\pilot\\evidence\\phase-o-2026-09-26-base-51-source.db",
+                               "note":  "Durable copies of the pilot evidence DBs (gitignored via *.db). db_path above points at the post-EXT-A run.",
+                               "db_path_pre_ext_a":  "C:\\Users\\Lenovo\\Documents\\Default Project\\laghubitta-khabar\\data\\pilot\\evidence\\pilot-people-2026-09-26-pre-ext-a-rejected.db"
+                           }
+}

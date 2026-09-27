@@ -166,9 +166,11 @@ export interface CrawlSource {
   branchCount: number;
   vacancyCount: number;
   documentCount: number;
+  peopleCount: number;
   branchNames: string[];
   vacancyTitles: string[];
   documentTitles: string[];
+  peopleNames: string[];
   cadenceMinutes: number;
   cadenceBuckets: number[];
   cadenceBucket: "frequent" | "periodic" | "slow";

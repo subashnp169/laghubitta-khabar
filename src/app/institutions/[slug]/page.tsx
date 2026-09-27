@@ -205,7 +205,16 @@ export default async function InstitutionPage({ params }: { params: Promise<{ sl
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div>
+              <div className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold mb-2">Leadership <span className="normal-case text-slate-400">({crawl.peopleCount} extracted)</span></div>
+              <ul className="space-y-1">
+                {crawl.peopleNames.map((p) => (
+                  <li key={p} className="text-xs text-slate-600">{p}</li>
+                ))}
+                {crawl.peopleNames.length === 0 && <li className="text-xs text-slate-400">None extracted</li>}
+              </ul>
+            </div>
             <div>
               <div className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold mb-2">Branches <span className="normal-case text-slate-400">({crawl.branchCount} extracted)</span></div>
               <ul className="space-y-1">
