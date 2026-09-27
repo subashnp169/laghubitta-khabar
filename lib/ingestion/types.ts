@@ -132,6 +132,8 @@ export type DiscoveryMethod =
   | "SITEMAP" //      entry in a sitemap
   | "ROBOTS" //       robots.txt sitemap directive
   | "LINK" //         hyperlink on a fetched page
+  | "LINK_PEOPLE" //  hyperlink that cleared the People leadership-context gate
+  | "SEED" //         verified People URL from the seed manifest (primary tier)
   | "CONFIG"; //      declared in an ingestion_sources config
 
 export interface DiscoveredTarget {
@@ -144,6 +146,12 @@ export interface DiscoveredTarget {
   institutionId?: string;
   discoveredAt: string;
   title?: string;
+  /**
+   * Why this candidate was accepted (scored discovery passes only). Recorded in
+   * the audit log by the engine so a discovered target is always explainable
+   * after the fact — discovery is never a silent promotion.
+   */
+  reason?: string;
   status: EvidenceStatus;
 }
 

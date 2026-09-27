@@ -27,15 +27,24 @@ export {
 } from "./fetcher";
 export { nodeResolveHost } from "./fetcher.node";
 export {
-  BrowserDiscovery,
-  DISCOVERY_HINT_RULES,
-  locateCapabilityForUrl,
-  extractSameHostLinks,
-  parseRobotsSitemap,
-  parseSitemapLocs,
-  type DiscoveryConfig,
-  type DiscoveryRule,
+BrowserDiscovery,
+DISCOVERY_HINT_RULES,
+locateCapabilityForUrl,
+extractSameHostLinks,
+normalizeDiscoveredUrl,
+parseRobotsSitemap,
+parseSitemapLocs,
+type DiscoveryConfig,
+type DiscoveryRule,
 } from "./discovery";
+export {
+extractPeopleCandidates,
+scorePeopleLink,
+MAX_PEOPLE_CANDIDATES,
+type PeopleCandidate,
+type PeopleLinkInput,
+type PeopleLinkScore,
+} from "./people-discovery";
 export { buildEngine, GenericIngestionEngine } from "./engine";
 export {
   emailFormatValidator,

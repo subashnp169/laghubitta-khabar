@@ -22,6 +22,7 @@ import type {
 } from "../contract";
 import type { CapabilitySpec, IngestionSourceSpec } from "../types";
 import { buildIngestionSourceSpec, parseCapabilities } from "../config";
+import { createSha256Hex } from "../canonical";
 
 type Row = Record<string, unknown>;
 
@@ -49,6 +50,28 @@ function genId(prefix: string): string {
 }
 
 const nowIso = () => new Date().toISOString();
+
+/**
+ * EXT-C2 - deterministic identity for one semantic assertion.
+ *
+ * Derived only from the fields the schema already stores for a claim
+ * (entity_type, entity_id, field_name) plus a normalised value, so the id is a
+ * pure function of the claim. Normalisation is deliberately minimal - Unicode
+ * NFKC, collapsed whitespace, case-folded - so "Satya Narayan  Jha" and
+ * "satya narayan jha" are recognised as the same claim while a genuinely
+ * different value is never folded into it. The stored `value` column keeps the
+ * exact first-observed text; only identity is normalised.
+ */
+async function semanticAssertionId(
+  entityType: string,
+  entityId: string,
+  fieldName: string,
+  value: string,
+): Promise<string> {
+  const material = [entityType, entityId, fieldName, value.normalize("NFKC").replace(/\s+/gu, " ").trim().toLocaleLowerCase()].join("");
+  const hex = await createSha256Hex(new TextEncoder().encode(material));
+  return `as-${hex.slice(0, 32)}`;
+}
 
 // ---------------------------------------------------------------------------
 // SourceRegistry (read + run bookkeeping)
@@ -232,7 +255,25 @@ export class LocalSqliteEvidenceWriter implements EvidenceWriter {
   }
 
   async saveAssertion(input: AssertionInput): Promise<void> {
-    this.db
+    // EXT-C2 - semantic identity of an assertion.
+    //
+    // A semantic claim is (entity, field, value). It is NOT
+    // (entity, field, value, snapshot). A live page that mutates produces a new
+    // snapshot, and that new snapshot is stored in full and stays auditable;
+    // re-reading the SAME claim from it must not manufacture a second active
+    // assertion, which is what happened when a carousel banner changed the
+    // bytes of a board page between two runs.
+    //
+    // The deterministic id makes the existing `INSERT OR IGNORE` de-duplicate
+    // on the EXISTING primary key: no schema change, no new index, no new
+    // column - the same insert-on-first-sighting pattern saveOutboundLink below
+    // already uses for documents. Genuine changes are unaffected because a
+    // different value (or a different field, e.g. a role transition) hashes to
+    // a different id and is therefore inserted as a new assertion, leaving both
+    // the old and the new claim, both snapshots and the conflict lifecycle
+    // intact.
+    const id = await semanticAssertionId(input.entityType, input.entityId, input.fieldName, input.value);
+    const res = this.db
       .prepare(
         `INSERT OR IGNORE INTO data_assertions
            (id, entity_type, entity_id, field_name, value, source_id,
@@ -240,10 +281,31 @@ export class LocalSqliteEvidenceWriter implements EvidenceWriter {
          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       )
       .run(
-        genId("as"), input.entityType, input.entityId, input.fieldName, input.value,
+        id, input.entityType, input.entityId, input.fieldName, input.value,
         input.sourceId, input.sourceSnapshotId, input.observedAt,
         input.confidence, input.verificationStatus,
       );
+    if (res.changes === 0) {
+      // The identical claim is already stored. The existing assertion and its
+      // original evidence pointer are left exactly as they are - nothing is
+      // overwritten, closed out or suppressed - and the re-sighting is recorded
+      // through the existing audit mechanism so the new snapshot stays
+      // attributable to the claim it re-observed.
+      await this.appendAudit({
+        action: "ASSERTION_RESEEN",
+        targetType: input.entityType,
+        targetId: id,
+        afterJson: JSON.stringify({
+          field_name: input.fieldName,
+          value: input.value,
+          source_id: input.sourceId,
+          source_snapshot_id: input.sourceSnapshotId,
+          observed_at: input.observedAt,
+          confidence: input.confidence,
+          verification_status: input.verificationStatus,
+        }),
+      });
+    }
   }
 
   async saveConflict(input: ConflictInput): Promise<void> {

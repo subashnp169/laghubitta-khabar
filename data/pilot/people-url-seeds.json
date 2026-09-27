@@ -1,0 +1,1331 @@
+{
+  "$schema": "people-url-seeds/v1",
+  "generated_at": "2026-09-27T04:33:09.871Z",
+  "milestone": "M3.3-GENERIC-EXT-B",
+  "universe": 51,
+  "covered": 24,
+  "uncovered": 27,
+  "total_seeds": 41,
+  "research_fetches": 33,
+  "note": "Seeds are discovery provenance, not verified people data. Every seed was verified by controlled fetch + the existing generic extractor; a URL alone was never accepted. Generic discovery remains the fallback for institutions with no seed.",
+  "institutions": [
+    {
+      "institution_slug": "aarambha-website",
+      "institution_id": "mfi-030",
+      "official_homepage": "https://www.aarambhachautari.com",
+      "future_candidates": [
+        {
+          "url": "https://aarambhachautari.com/news/newly-elected-board-of-directors",
+          "reason": "news/announcement item, not a durable People page",
+          "observed_at": "2026-09-27T04:32:45.327Z"
+        }
+      ],
+      "people_urls": []
+    },
+    {
+      "institution_slug": "aatmanirbhar-website",
+      "institution_id": "mfi-049",
+      "official_homepage": "https://aatmanirbhar.com.np",
+      "future_candidates": [],
+      "people_urls": [
+        {
+          "url": "https://aatmanirbhar.com.np/board-of-directors",
+          "kind": "BOARD",
+          "confidence": 1,
+          "source": "HOMEPAGE_LINK",
+          "discovery_method": "LINK_DISCOVERY",
+          "observed_at": "2026-09-27T04:03:16.116Z",
+          "priority": 1,
+          "http_status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "leadership_role_signals": [
+            "board of directors",
+            "chairperson",
+            "director",
+            "management team",
+            "ceo"
+          ],
+          "people_found": 5,
+          "roles": [
+            "PEOPLE_DIRECTOR"
+          ],
+          "verified_by": "CONTROLLED_FETCH+LEADERSHIP_CONTEXT"
+        }
+      ]
+    },
+    {
+      "institution_slug": "asha-website",
+      "institution_id": "mfi-031",
+      "official_homepage": "https://ashamicrofinance.com.np",
+      "future_candidates": [],
+      "people_urls": [
+        {
+          "url": "https://ashamicrofinance.com.np/board-of-directors",
+          "kind": "BOARD",
+          "confidence": 1,
+          "source": "GENERIC_PATH_VOCABULARY",
+          "discovery_method": "PATH_PROBE",
+          "observed_at": "2026-09-27T04:03:23.336Z",
+          "priority": 1,
+          "http_status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "leadership_role_signals": [
+            "board of directors",
+            "independent director",
+            "chairman",
+            "director"
+          ],
+          "people_found": 1,
+          "roles": [
+            "PEOPLE_DIRECTOR"
+          ],
+          "verified_by": "CONTROLLED_FETCH+LEADERSHIP_CONTEXT"
+        }
+      ]
+    },
+    {
+      "institution_slug": "aviyan-website",
+      "institution_id": "mfi-051",
+      "official_homepage": "https://www.aviyanlaghubitta.com",
+      "future_candidates": [],
+      "people_urls": []
+    },
+    {
+      "institution_slug": "chhimek-website",
+      "institution_id": "mfi-003",
+      "official_homepage": "https://www.chhimekbank.org",
+      "future_candidates": [],
+      "people_urls": []
+    },
+    {
+      "institution_slug": "cyc-website",
+      "institution_id": "mfi-043",
+      "official_homepage": "https://cycnlbsl.org.np",
+      "future_candidates": [],
+      "people_urls": [
+        {
+          "url": "https://cycnlbsl.org.np/board-of-directors/",
+          "kind": "BOARD",
+          "confidence": 1,
+          "source": "RESEARCH_LEAD",
+          "discovery_method": "RESEARCH_LEAD",
+          "observed_at": "2026-09-27T04:03:34.064Z",
+          "priority": 1,
+          "http_status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "leadership_role_signals": [
+            "board of directors",
+            "independent director",
+            "chairman",
+            "director",
+            "company secretary"
+          ],
+          "people_found": 0,
+          "roles": [],
+          "verified_by": "CONTROLLED_FETCH+LEADERSHIP_CONTEXT",
+          "note": "People page confirmed by leadership context; generic extractor found no people yet (extraction gap for EXT-C)"
+        },
+        {
+          "url": "https://cycnlbsl.org.np/management-team",
+          "kind": "MANAGEMENT",
+          "confidence": 1,
+          "source": "GENERIC_PATH_VOCABULARY",
+          "discovery_method": "PATH_PROBE",
+          "observed_at": "2026-09-27T04:03:49.794Z",
+          "priority": 2,
+          "http_status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "leadership_role_signals": [
+            "chief executive officer",
+            "deputy chief executive",
+            "management team",
+            "chief executive",
+            "ceo"
+          ],
+          "people_found": 0,
+          "roles": [],
+          "verified_by": "CONTROLLED_FETCH+LEADERSHIP_CONTEXT",
+          "note": "People page confirmed by leadership context; generic extractor found no people yet (extraction gap for EXT-C)"
+        }
+      ]
+    },
+    {
+      "institution_slug": "deproscbank-website",
+      "institution_id": "mfi-002",
+      "official_homepage": "https://www.deproscbank.com.np",
+      "future_candidates": [],
+      "people_urls": []
+    },
+    {
+      "institution_slug": "dhaulagiribank-website",
+      "institution_id": "mfi-042",
+      "official_homepage": "https://dhaulagiribank.com",
+      "future_candidates": [],
+      "people_urls": [
+        {
+          "url": "https://dhaulagiribank.com/management-team",
+          "kind": "MANAGEMENT",
+          "confidence": 1,
+          "source": "GENERIC_PATH_VOCABULARY",
+          "discovery_method": "PATH_PROBE",
+          "observed_at": "2026-09-27T04:06:41.534Z",
+          "priority": 2,
+          "http_status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "leadership_role_signals": [
+            "management team",
+            "ceo"
+          ],
+          "people_found": 4,
+          "roles": [
+            "PEOPLE_BOARD"
+          ],
+          "verified_by": "CONTROLLED_FETCH+LEADERSHIP_CONTEXT"
+        }
+      ]
+    },
+    {
+      "institution_slug": "fmdb-website",
+      "institution_id": "mfi-009",
+      "official_homepage": "https://fmdb.com.np",
+      "future_candidates": [],
+      "people_urls": []
+    },
+    {
+      "institution_slug": "forwardmfbank-website",
+      "institution_id": "mfi-017",
+      "official_homepage": "https://forwardmfbank.com.np",
+      "future_candidates": [],
+      "people_urls": []
+    },
+    {
+      "institution_slug": "ganapatimicro-website",
+      "institution_id": "mfi-033",
+      "official_homepage": "https://ganapatimicro.com.np",
+      "future_candidates": [],
+      "people_urls": []
+    },
+    {
+      "institution_slug": "gblbs-website",
+      "institution_id": "mfi-025",
+      "official_homepage": "https://www.gblbs.com.np",
+      "future_candidates": [],
+      "people_urls": []
+    },
+    {
+      "institution_slug": "gilb-website",
+      "institution_id": "mfi-018",
+      "official_homepage": "https://gilb.com.np",
+      "future_candidates": [],
+      "people_urls": [
+        {
+          "url": "https://gilb.com.np/board",
+          "kind": "BOARD",
+          "confidence": 1,
+          "source": "GENERIC_PATH_VOCABULARY",
+          "discovery_method": "PATH_PROBE",
+          "observed_at": "2026-09-27T04:04:36.561Z",
+          "priority": 1,
+          "http_status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "leadership_role_signals": [
+            "board member",
+            "chairman",
+            "director",
+            "company secretary"
+          ],
+          "people_found": 8,
+          "roles": [
+            "PEOPLE_CHAIR",
+            "PEOPLE_DIRECTOR"
+          ],
+          "verified_by": "CONTROLLED_FETCH+LEADERSHIP_CONTEXT"
+        },
+        {
+          "url": "https://gilb.com.np/management-team",
+          "kind": "MANAGEMENT",
+          "confidence": 1,
+          "source": "GENERIC_PATH_VOCABULARY",
+          "discovery_method": "PATH_PROBE",
+          "observed_at": "2026-09-27T04:04:48.818Z",
+          "priority": 2,
+          "http_status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "leadership_role_signals": [
+            "chief executive officer",
+            "deputy chief executive",
+            "management team",
+            "chief executive",
+            "ceo"
+          ],
+          "people_found": 11,
+          "roles": [
+            "PEOPLE_BOARD",
+            "PEOPLE_CEO"
+          ],
+          "verified_by": "CONTROLLED_FETCH+LEADERSHIP_CONTEXT"
+        },
+        {
+          "url": "https://gilb.com.np/about-us",
+          "kind": "CORPORATE_TEAM",
+          "confidence": 0.7,
+          "source": "GENERIC_PATH_VOCABULARY",
+          "discovery_method": "PATH_PROBE",
+          "observed_at": "2026-09-27T04:29:16.305Z",
+          "priority": 3,
+          "http_status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "leadership_role_signals": [
+            "board member",
+            "chairman",
+            "director",
+            "ceo",
+            "company secretary"
+          ],
+          "people_found": 0,
+          "roles": [],
+          "verified_by": "CONTROLLED_FETCH+LEADERSHIP_CONTEXT",
+          "note": "/about* page accepted only because the page itself carried leadership context; People page confirmed by leadership context; generic extractor found no people yet (extraction gap for EXT-C)"
+        }
+      ]
+    },
+    {
+      "institution_slug": "guranslaghubitta-website",
+      "institution_id": "mfi-032",
+      "official_homepage": "https://guranslaghubitta.com.np",
+      "future_candidates": [],
+      "people_urls": []
+    },
+    {
+      "institution_slug": "himalayanlaghubitta-website",
+      "institution_id": "mfi-014",
+      "official_homepage": "https://himalayanlaghubitta.com",
+      "future_candidates": [],
+      "people_urls": [
+        {
+          "url": "https://himalayanlaghubitta.com/page/aboutus/2/boardofdirectors/5",
+          "kind": "BOARD",
+          "confidence": 1,
+          "source": "HOMEPAGE_LINK",
+          "discovery_method": "LINK_DISCOVERY",
+          "observed_at": "2026-09-27T04:04:19.381Z",
+          "priority": 1,
+          "http_status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "leadership_role_signals": [
+            "board of directors",
+            "chairman",
+            "director",
+            "management team",
+            "ceo"
+          ],
+          "people_found": 2,
+          "roles": [
+            "PEOPLE_DIRECTOR"
+          ],
+          "verified_by": "CONTROLLED_FETCH+LEADERSHIP_CONTEXT"
+        }
+      ]
+    },
+    {
+      "institution_slug": "infinity-website",
+      "institution_id": "mfi-034",
+      "official_homepage": "https://infinitylbsl.com.np",
+      "future_candidates": [],
+      "people_urls": []
+    },
+    {
+      "institution_slug": "jeevanbikasmf-website",
+      "institution_id": "mfi-048",
+      "official_homepage": "https://jeevanbikasmf.com",
+      "future_candidates": [],
+      "people_urls": []
+    },
+    {
+      "institution_slug": "jucbank-website",
+      "institution_id": "mfi-011",
+      "official_homepage": "https://www.jucbank.com.np",
+      "future_candidates": [
+        {
+          "url": "https://www.jucbank.com.np/jucnews/new-chairman",
+          "reason": "news/announcement item, not a durable People page",
+          "observed_at": "2026-09-27T04:32:47.892Z"
+        }
+      ],
+      "people_urls": []
+    },
+    {
+      "institution_slug": "kalikabank-website",
+      "institution_id": "mfi-010",
+      "official_homepage": "https://www.kalikabank.com.np",
+      "future_candidates": [],
+      "people_urls": [
+        {
+          "url": "https://www.kalikabank.com.np/board",
+          "kind": "BOARD",
+          "confidence": 1,
+          "source": "GENERIC_PATH_VOCABULARY",
+          "discovery_method": "PATH_PROBE",
+          "observed_at": "2026-09-27T04:04:06.225Z",
+          "priority": 1,
+          "http_status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "leadership_role_signals": [
+            "board of directors",
+            "chairman",
+            "director",
+            "leadership team",
+            "leadership",
+            "company secretary"
+          ],
+          "people_found": 0,
+          "roles": [],
+          "verified_by": "CONTROLLED_FETCH+LEADERSHIP_CONTEXT",
+          "note": "People page confirmed by leadership context; generic extractor found no people yet (extraction gap for EXT-C)"
+        },
+        {
+          "url": "https://www.kalikabank.com.np/management",
+          "kind": "MANAGEMENT",
+          "confidence": 1,
+          "source": "GENERIC_PATH_VOCABULARY",
+          "discovery_method": "PATH_PROBE",
+          "observed_at": "2026-09-27T04:04:09.495Z",
+          "priority": 2,
+          "http_status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "leadership_role_signals": [
+            "chief executive officer",
+            "deputy chief executive",
+            "management team",
+            "chief executive"
+          ],
+          "people_found": 0,
+          "roles": [],
+          "verified_by": "CONTROLLED_FETCH+LEADERSHIP_CONTEXT",
+          "note": "People page confirmed by leadership context; generic extractor found no people yet (extraction gap for EXT-C)"
+        }
+      ]
+    },
+    {
+      "institution_slug": "laxmilaghu-website",
+      "institution_id": "mfi-013",
+      "official_homepage": "https://laxmilaghu.com.np",
+      "future_candidates": [],
+      "people_urls": [
+        {
+          "url": "https://laxmilaghu.com.np/about-us/board-of-directors",
+          "kind": "BOARD",
+          "confidence": 1,
+          "source": "GENERIC_PATH_VOCABULARY",
+          "discovery_method": "PATH_PROBE",
+          "observed_at": "2026-09-27T04:04:25.689Z",
+          "priority": 1,
+          "http_status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "leadership_role_signals": [
+            "board of directors",
+            "independent director",
+            "board member",
+            "chairman",
+            "director",
+            "chief executive officer"
+          ],
+          "people_found": 0,
+          "roles": [],
+          "verified_by": "CONTROLLED_FETCH+LEADERSHIP_CONTEXT",
+          "note": "People page confirmed by leadership context; generic extractor found no people yet (extraction gap for EXT-C)"
+        },
+        {
+          "url": "https://laxmilaghu.com.np/board-management/board-of-directors",
+          "kind": "BOARD",
+          "confidence": 1,
+          "source": "GENERIC_PATH_VOCABULARY",
+          "discovery_method": "PATH_PROBE",
+          "observed_at": "2026-09-27T04:04:24.473Z",
+          "priority": 1,
+          "http_status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "leadership_role_signals": [
+            "board of directors",
+            "independent director",
+            "board member",
+            "chairman",
+            "director",
+            "chief executive officer"
+          ],
+          "people_found": 0,
+          "roles": [],
+          "verified_by": "CONTROLLED_FETCH+LEADERSHIP_CONTEXT",
+          "note": "People page confirmed by leadership context; generic extractor found no people yet (extraction gap for EXT-C)"
+        },
+        {
+          "url": "https://laxmilaghu.com.np/board-of-directors",
+          "kind": "BOARD",
+          "confidence": 1,
+          "source": "GENERIC_PATH_VOCABULARY",
+          "discovery_method": "PATH_PROBE",
+          "observed_at": "2026-09-27T04:04:22.133Z",
+          "priority": 1,
+          "http_status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "leadership_role_signals": [
+            "board of directors",
+            "independent director",
+            "board member",
+            "chairman",
+            "director",
+            "chief executive officer"
+          ],
+          "people_found": 0,
+          "roles": [],
+          "verified_by": "CONTROLLED_FETCH+LEADERSHIP_CONTEXT",
+          "note": "People page confirmed by leadership context; generic extractor found no people yet (extraction gap for EXT-C)"
+        }
+      ]
+    },
+    {
+      "institution_slug": "manushilbs-website",
+      "institution_id": "mfi-039",
+      "official_homepage": "https://www.manushilbs.com",
+      "future_candidates": [],
+      "people_urls": []
+    },
+    {
+      "institution_slug": "matribhumi-website",
+      "institution_id": "mfi-047",
+      "official_homepage": "https://matribhumimf.com.np",
+      "future_candidates": [],
+      "people_urls": [
+        {
+          "url": "https://www.matribhumimf.com.np/team/board",
+          "kind": "BOARD",
+          "confidence": 1,
+          "source": "RESEARCH_LEAD",
+          "discovery_method": "RESEARCH_LEAD",
+          "observed_at": "2026-09-27T04:03:08.589Z",
+          "priority": 1,
+          "http_status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "leadership_role_signals": [
+            "board of directors",
+            "independent director",
+            "chairman",
+            "director",
+            "management team",
+            "leadership"
+          ],
+          "people_found": 0,
+          "roles": [],
+          "verified_by": "CONTROLLED_FETCH+LEADERSHIP_CONTEXT",
+          "note": "People page confirmed by leadership context; generic extractor found no people yet (extraction gap for EXT-C)"
+        }
+      ]
+    },
+    {
+      "institution_slug": "mero-website",
+      "institution_id": "mfi-020",
+      "official_homepage": "https://www.meromicrofinance.com",
+      "future_candidates": [],
+      "people_urls": []
+    },
+    {
+      "institution_slug": "mlbbank-website",
+      "institution_id": "mfi-007",
+      "official_homepage": "https://mlbbank.com.np",
+      "future_candidates": [],
+      "people_urls": []
+    },
+    {
+      "institution_slug": "mlbsl-website",
+      "institution_id": "mfi-038",
+      "official_homepage": "https://www.mlbsl.com.np",
+      "future_candidates": [],
+      "people_urls": []
+    },
+    {
+      "institution_slug": "mslbsl-website",
+      "institution_id": "mfi-019",
+      "official_homepage": "https://www.mslbsl.com.np",
+      "future_candidates": [],
+      "people_urls": [
+        {
+          "url": "https://www.mslbsl.com.np/about-us/board-of-directors",
+          "kind": "BOARD",
+          "confidence": 1,
+          "source": "GENERIC_PATH_VOCABULARY",
+          "discovery_method": "PATH_PROBE",
+          "observed_at": "2026-09-27T04:04:37.759Z",
+          "priority": 1,
+          "http_status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "leadership_role_signals": [
+            "board of directors",
+            "independent director",
+            "chairman",
+            "director"
+          ],
+          "people_found": 6,
+          "roles": [
+            "PEOPLE_CHAIR",
+            "PEOPLE_DIRECTOR"
+          ],
+          "verified_by": "CONTROLLED_FETCH+LEADERSHIP_CONTEXT"
+        }
+      ]
+    },
+    {
+      "institution_slug": "nadeplaghubitta-website",
+      "institution_id": "mfi-028",
+      "official_homepage": "https://www.nadeplaghubitta.com",
+      "future_candidates": [],
+      "people_urls": []
+    },
+    {
+      "institution_slug": "nationalmicrofinance-website",
+      "institution_id": "mfi-024",
+      "official_homepage": "https://nationalmicrofinance.com.np",
+      "future_candidates": [],
+      "people_urls": [
+        {
+          "url": "https://nationalmicrofinance.com.np/board-of-directors",
+          "kind": "BOARD",
+          "confidence": 1,
+          "source": "GENERIC_PATH_VOCABULARY",
+          "discovery_method": "PATH_PROBE",
+          "observed_at": "2026-09-27T04:04:58.020Z",
+          "priority": 1,
+          "http_status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "leadership_role_signals": [
+            "board of directors",
+            "chairman",
+            "director",
+            "management team"
+          ],
+          "people_found": 4,
+          "roles": [
+            "PEOPLE_CHAIR",
+            "PEOPLE_DIRECTOR"
+          ],
+          "verified_by": "CONTROLLED_FETCH+LEADERSHIP_CONTEXT"
+        },
+        {
+          "url": "https://nationalmicrofinance.com.np/management-team",
+          "kind": "MANAGEMENT",
+          "confidence": 1,
+          "source": "RESEARCH_LEAD",
+          "discovery_method": "RESEARCH_LEAD",
+          "observed_at": "2026-09-27T04:04:56.438Z",
+          "priority": 2,
+          "http_status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "leadership_role_signals": [
+            "board of directors",
+            "director",
+            "chief executive officer",
+            "deputy chief executive",
+            "general manager",
+            "management team"
+          ],
+          "people_found": 205,
+          "roles": [
+            "PEOPLE_BOARD",
+            "PEOPLE_CEO"
+          ],
+          "verified_by": "CONTROLLED_FETCH+LEADERSHIP_CONTEXT"
+        }
+      ]
+    },
+    {
+      "institution_slug": "nerudemirmire-website",
+      "institution_id": "mfi-006",
+      "official_homepage": "https://www.nerudemirmire.com.np",
+      "future_candidates": [],
+      "people_urls": [
+        {
+          "url": "https://www.nerudemirmire.com.np/board",
+          "kind": "BOARD",
+          "confidence": 1,
+          "source": "GENERIC_PATH_VOCABULARY",
+          "discovery_method": "PATH_PROBE",
+          "observed_at": "2026-09-27T04:03:47.723Z",
+          "priority": 1,
+          "http_status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "leadership_role_signals": [
+            "board of directors",
+            "chairman",
+            "director",
+            "company secretary"
+          ],
+          "people_found": 0,
+          "roles": [],
+          "verified_by": "CONTROLLED_FETCH+LEADERSHIP_CONTEXT",
+          "note": "People page confirmed by leadership context; generic extractor found no people yet (extraction gap for EXT-C)"
+        },
+        {
+          "url": "https://www.nerudemirmire.com.np/management",
+          "kind": "MANAGEMENT",
+          "confidence": 1,
+          "source": "GENERIC_PATH_VOCABULARY",
+          "discovery_method": "PATH_PROBE",
+          "observed_at": "2026-09-27T04:03:50.990Z",
+          "priority": 2,
+          "http_status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "leadership_role_signals": [
+            "chief executive officer",
+            "management team",
+            "chief executive"
+          ],
+          "people_found": 0,
+          "roles": [],
+          "verified_by": "CONTROLLED_FETCH+LEADERSHIP_CONTEXT",
+          "note": "People page confirmed by leadership context; generic extractor found no people yet (extraction gap for EXT-C)"
+        }
+      ]
+    },
+    {
+      "institution_slug": "nicasialaghubitta-website",
+      "institution_id": "mfi-037",
+      "official_homepage": "https://www.nicasialaghubitta.com",
+      "future_candidates": [],
+      "people_urls": []
+    },
+    {
+      "institution_slug": "nirdhan-website",
+      "institution_id": "mfi-001",
+      "official_homepage": "https://www.nirdhan.com.np",
+      "future_candidates": [],
+      "people_urls": [
+        {
+          "url": "https://www.nirdhan.com.np/about-us/board-of-directors/",
+          "kind": "BOARD",
+          "confidence": 1,
+          "source": "RESEARCH_LEAD",
+          "discovery_method": "RESEARCH_LEAD",
+          "observed_at": "2026-09-27T04:03:02.987Z",
+          "priority": 1,
+          "http_status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "leadership_role_signals": [
+            "board of directors",
+            "independent director",
+            "board member",
+            "chairperson",
+            "director"
+          ],
+          "people_found": 10,
+          "roles": [
+            "PEOPLE_DIRECTOR"
+          ],
+          "verified_by": "CONTROLLED_FETCH+LEADERSHIP_CONTEXT"
+        },
+        {
+          "url": "https://www.nirdhan.com.np/about",
+          "kind": "CORPORATE_TEAM",
+          "confidence": 0.7,
+          "source": "GENERIC_PATH_VOCABULARY",
+          "discovery_method": "PATH_PROBE",
+          "observed_at": "2026-09-27T04:27:49.016Z",
+          "priority": 3,
+          "http_status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "leadership_role_signals": [
+            "board of directors",
+            "independent director",
+            "board member",
+            "chairperson",
+            "chairman",
+            "director"
+          ],
+          "people_found": 0,
+          "roles": [],
+          "verified_by": "CONTROLLED_FETCH+LEADERSHIP_CONTEXT",
+          "note": "/about* page accepted only because the page itself carried leadership context; People page confirmed by leadership context; generic extractor found no people yet (extraction gap for EXT-C)"
+        },
+        {
+          "url": "https://www.nirdhan.com.np/about-us",
+          "kind": "CORPORATE_TEAM",
+          "confidence": 0.7,
+          "source": "GENERIC_PATH_VOCABULARY",
+          "discovery_method": "PATH_PROBE",
+          "observed_at": "2026-09-27T04:27:47.930Z",
+          "priority": 3,
+          "http_status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "leadership_role_signals": [
+            "board of directors",
+            "independent director",
+            "board member",
+            "chairperson",
+            "chairman",
+            "director"
+          ],
+          "people_found": 0,
+          "roles": [],
+          "verified_by": "CONTROLLED_FETCH+LEADERSHIP_CONTEXT",
+          "note": "/about* page accepted only because the page itself carried leadership context; People page confirmed by leadership context; generic extractor found no people yet (extraction gap for EXT-C)"
+        }
+      ]
+    },
+    {
+      "institution_slug": "nmbmicrofinance-website",
+      "institution_id": "mfi-016",
+      "official_homepage": "https://nmbmicrofinance.com",
+      "future_candidates": [],
+      "people_urls": []
+    },
+    {
+      "institution_slug": "rsdcmf-website",
+      "institution_id": "mfi-022",
+      "official_homepage": "https://www.rsdcmf.com",
+      "future_candidates": [],
+      "people_urls": []
+    },
+    {
+      "institution_slug": "samata-website",
+      "institution_id": "mfi-021",
+      "official_homepage": "https://www.samata.org.np",
+      "future_candidates": [],
+      "people_urls": [
+        {
+          "url": "https://www.samata.org.np/about-us/board-director",
+          "kind": "BOARD",
+          "confidence": 1,
+          "source": "HOMEPAGE_LINK",
+          "discovery_method": "LINK_DISCOVERY",
+          "observed_at": "2026-09-27T04:04:41.811Z",
+          "priority": 1,
+          "http_status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "leadership_role_signals": [
+            "board of directors",
+            "chairman",
+            "director",
+            "management team",
+            "ceo",
+            "company secretary"
+          ],
+          "people_found": 11,
+          "roles": [
+            "PEOPLE_BOARD",
+            "PEOPLE_CHAIR",
+            "PEOPLE_DIRECTOR"
+          ],
+          "verified_by": "CONTROLLED_FETCH+LEADERSHIP_CONTEXT"
+        },
+        {
+          "url": "https://www.samata.org.np/about-us/management-team",
+          "kind": "MANAGEMENT",
+          "confidence": 1,
+          "source": "HOMEPAGE_LINK",
+          "discovery_method": "LINK_DISCOVERY",
+          "observed_at": "2026-09-27T04:04:40.993Z",
+          "priority": 2,
+          "http_status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "leadership_role_signals": [
+            "director",
+            "chief executive officer",
+            "management team",
+            "chief executive",
+            "ceo",
+            "company secretary"
+          ],
+          "people_found": 2,
+          "roles": [
+            "PEOPLE_CEO"
+          ],
+          "verified_by": "CONTROLLED_FETCH+LEADERSHIP_CONTEXT"
+        }
+      ]
+    },
+    {
+      "institution_slug": "sampadalaghubitta-website",
+      "institution_id": "mfi-036",
+      "official_homepage": "https://www.sampadalaghubitta.com.np",
+      "future_candidates": [],
+      "people_urls": []
+    },
+    {
+      "institution_slug": "sanjeevanilaghubitta-website",
+      "institution_id": "mfi-050",
+      "official_homepage": "https://sanjeevanilaghubitta.com.np",
+      "future_candidates": [],
+      "people_urls": []
+    },
+    {
+      "institution_slug": "shrijanshil-website",
+      "institution_id": "mfi-046",
+      "official_homepage": "https://shrijanshil.org",
+      "future_candidates": [],
+      "people_urls": []
+    },
+    {
+      "institution_slug": "skbbl-website",
+      "institution_id": "mfi-005",
+      "official_homepage": "https://www.skbbl.com.np",
+      "future_candidates": [],
+      "people_urls": [
+        {
+          "url": "https://www.skbbl.com.np/board-of-directors",
+          "kind": "BOARD",
+          "confidence": 1,
+          "source": "GENERIC_PATH_VOCABULARY",
+          "discovery_method": "PATH_PROBE",
+          "observed_at": "2026-09-27T04:03:41.383Z",
+          "priority": 1,
+          "http_status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "leadership_role_signals": [
+            "board of directors",
+            "independent director",
+            "chairman",
+            "director",
+            "company secretary"
+          ],
+          "people_found": 0,
+          "roles": [],
+          "verified_by": "CONTROLLED_FETCH+LEADERSHIP_CONTEXT",
+          "note": "People page confirmed by leadership context; generic extractor found no people yet (extraction gap for EXT-C)"
+        },
+        {
+          "url": "https://www.skbbl.com.np/team",
+          "kind": "CORPORATE_TEAM",
+          "confidence": 1,
+          "source": "GENERIC_PATH_VOCABULARY",
+          "discovery_method": "PATH_PROBE",
+          "observed_at": "2026-09-27T04:28:18.889Z",
+          "priority": 3,
+          "http_status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "leadership_role_signals": [
+            "chief executive officer",
+            "deputy chief executive",
+            "management team",
+            "chief executive"
+          ],
+          "people_found": 0,
+          "roles": [],
+          "verified_by": "CONTROLLED_FETCH+LEADERSHIP_CONTEXT",
+          "note": "People page confirmed by leadership context; generic extractor found no people yet (extraction gap for EXT-C)"
+        }
+      ]
+    },
+    {
+      "institution_slug": "slbbl-website",
+      "institution_id": "mfi-008",
+      "official_homepage": "https://www.slbbl.com.np",
+      "future_candidates": [],
+      "people_urls": []
+    },
+    {
+      "institution_slug": "slbs-website",
+      "institution_id": "mfi-044",
+      "official_homepage": "https://slbs.nesdonepal.org",
+      "future_candidates": [],
+      "people_urls": []
+    },
+    {
+      "institution_slug": "slbsl-website",
+      "institution_id": "mfi-023",
+      "official_homepage": "https://www.slbsl.com.np",
+      "future_candidates": [],
+      "people_urls": []
+    },
+    {
+      "institution_slug": "supportmicrofinance-website",
+      "institution_id": "mfi-029",
+      "official_homepage": "https://www.supportmicrofinance.com.np",
+      "future_candidates": [],
+      "people_urls": [
+        {
+          "url": "https://www.supportmicrofinance.com.np/board",
+          "kind": "BOARD",
+          "confidence": 1,
+          "source": "GENERIC_PATH_VOCABULARY",
+          "discovery_method": "PATH_PROBE",
+          "observed_at": "2026-09-27T04:05:22.775Z",
+          "priority": 1,
+          "http_status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "leadership_role_signals": [
+            "independent director",
+            "chairman",
+            "director"
+          ],
+          "people_found": 6,
+          "roles": [
+            "PEOPLE_CHAIR",
+            "PEOPLE_DIRECTOR"
+          ],
+          "verified_by": "CONTROLLED_FETCH+LEADERSHIP_CONTEXT"
+        },
+        {
+          "url": "https://www.supportmicrofinance.com.np/team",
+          "kind": "CORPORATE_TEAM",
+          "confidence": 1,
+          "source": "GENERIC_PATH_VOCABULARY",
+          "discovery_method": "PATH_PROBE",
+          "observed_at": "2026-09-27T04:29:41.383Z",
+          "priority": 3,
+          "http_status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "leadership_role_signals": [
+            "chief executive officer",
+            "deputy chief executive",
+            "management team",
+            "chief executive"
+          ],
+          "people_found": 6,
+          "roles": [
+            "PEOPLE_BOARD",
+            "PEOPLE_CEO"
+          ],
+          "verified_by": "CONTROLLED_FETCH+LEADERSHIP_CONTEXT"
+        }
+      ]
+    },
+    {
+      "institution_slug": "swabhimaanlaghubitta-website",
+      "institution_id": "mfi-035",
+      "official_homepage": "https://swabhimaanlaghubitta.com.np",
+      "future_candidates": [],
+      "people_urls": [
+        {
+          "url": "https://swabhimaanlaghubitta.com.np/board",
+          "kind": "BOARD",
+          "confidence": 1,
+          "source": "GENERIC_PATH_VOCABULARY",
+          "discovery_method": "PATH_PROBE",
+          "observed_at": "2026-09-27T04:05:42.777Z",
+          "priority": 1,
+          "http_status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "leadership_role_signals": [
+            "board of directors",
+            "board member",
+            "chairman",
+            "director"
+          ],
+          "people_found": 0,
+          "roles": [],
+          "verified_by": "CONTROLLED_FETCH+LEADERSHIP_CONTEXT",
+          "note": "People page confirmed by leadership context; generic extractor found no people yet (extraction gap for EXT-C)"
+        },
+        {
+          "url": "https://swabhimaanlaghubitta.com.np/board-management/board-of-directors",
+          "kind": "BOARD",
+          "confidence": 1,
+          "source": "GENERIC_PATH_VOCABULARY",
+          "discovery_method": "PATH_PROBE",
+          "observed_at": "2026-09-27T04:05:44.356Z",
+          "priority": 1,
+          "http_status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "leadership_role_signals": [
+            "board of directors",
+            "board member",
+            "chairman",
+            "director"
+          ],
+          "people_found": 0,
+          "roles": [],
+          "verified_by": "CONTROLLED_FETCH+LEADERSHIP_CONTEXT",
+          "note": "People page confirmed by leadership context; generic extractor found no people yet (extraction gap for EXT-C)"
+        },
+        {
+          "url": "https://swabhimaanlaghubitta.com.np/board-of-directors",
+          "kind": "BOARD",
+          "confidence": 1,
+          "source": "GENERIC_PATH_VOCABULARY",
+          "discovery_method": "PATH_PROBE",
+          "observed_at": "2026-09-27T04:05:41.283Z",
+          "priority": 1,
+          "http_status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "leadership_role_signals": [
+            "board of directors",
+            "board member",
+            "chairman",
+            "director"
+          ],
+          "people_found": 0,
+          "roles": [],
+          "verified_by": "CONTROLLED_FETCH+LEADERSHIP_CONTEXT",
+          "note": "People page confirmed by leadership context; generic extractor found no people yet (extraction gap for EXT-C)"
+        }
+      ]
+    },
+    {
+      "institution_slug": "swastiklbs-website",
+      "institution_id": "mfi-045",
+      "official_homepage": "https://swastiklbs.com.np",
+      "future_candidates": [],
+      "people_urls": [
+        {
+          "url": "https://swastiklbs.com.np/board-of-directors",
+          "kind": "BOARD",
+          "confidence": 1,
+          "source": "PILOT_REGISTRY",
+          "discovery_method": "CONFIG_KNOWN_URL",
+          "observed_at": "2026-09-27T04:06:57.005Z",
+          "priority": 1,
+          "http_status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "leadership_role_signals": [
+            "board of directors",
+            "independent director",
+            "chairman",
+            "director"
+          ],
+          "people_found": 5,
+          "roles": [
+            "PEOPLE_CHAIR",
+            "PEOPLE_DIRECTOR"
+          ],
+          "verified_by": "CONTROLLED_FETCH+LEADERSHIP_CONTEXT"
+        },
+        {
+          "url": "https://swastiklbs.com.np/management-team",
+          "kind": "MANAGEMENT",
+          "confidence": 1,
+          "source": "GENERIC_PATH_VOCABULARY",
+          "discovery_method": "PATH_PROBE",
+          "observed_at": "2026-09-27T04:07:14.220Z",
+          "priority": 2,
+          "http_status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "leadership_role_signals": [
+            "chief executive officer",
+            "management team",
+            "chief executive"
+          ],
+          "people_found": 17,
+          "roles": [
+            "PEOPLE_CEO"
+          ],
+          "verified_by": "CONTROLLED_FETCH+LEADERSHIP_CONTEXT"
+        }
+      ]
+    },
+    {
+      "institution_slug": "swbbl-website",
+      "institution_id": "mfi-004",
+      "official_homepage": "https://www.swbbl.com.np",
+      "future_candidates": [],
+      "people_urls": [
+        {
+          "url": "https://www.swbbl.com.np/board-management/board-of-directors",
+          "kind": "BOARD",
+          "confidence": 1,
+          "source": "RESEARCH_LEAD",
+          "discovery_method": "RESEARCH_LEAD",
+          "observed_at": "2026-09-27T04:03:34.470Z",
+          "priority": 1,
+          "http_status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "leadership_role_signals": [
+            "board of directors",
+            "chairperson",
+            "chairman",
+            "director",
+            "management team",
+            "information officer"
+          ],
+          "people_found": 16,
+          "roles": [
+            "PEOPLE_CHAIR",
+            "PEOPLE_DIRECTOR"
+          ],
+          "verified_by": "CONTROLLED_FETCH+LEADERSHIP_CONTEXT"
+        },
+        {
+          "url": "https://www.swbbl.com.np/board-management/management-teams",
+          "kind": "BOARD",
+          "confidence": 1,
+          "source": "HOMEPAGE_LINK",
+          "discovery_method": "LINK_DISCOVERY",
+          "observed_at": "2026-09-27T04:03:35.583Z",
+          "priority": 1,
+          "http_status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "leadership_role_signals": [
+            "chairman",
+            "chief executive officer",
+            "general manager",
+            "management team",
+            "chief executive",
+            "ceo"
+          ],
+          "people_found": 25,
+          "roles": [
+            "PEOPLE_BOARD",
+            "PEOPLE_CEO"
+          ],
+          "verified_by": "CONTROLLED_FETCH+LEADERSHIP_CONTEXT"
+        }
+      ]
+    },
+    {
+      "institution_slug": "swmfi-website",
+      "institution_id": "mfi-012",
+      "official_homepage": "https://swmfi.com.np",
+      "future_candidates": [],
+      "people_urls": [
+        {
+          "url": "https://swmfi.com.np/board-of-directors",
+          "kind": "BOARD",
+          "confidence": 1,
+          "source": "GENERIC_PATH_VOCABULARY",
+          "discovery_method": "PATH_PROBE",
+          "observed_at": "2026-09-27T04:04:12.359Z",
+          "priority": 1,
+          "http_status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "leadership_role_signals": [
+            "board of directors",
+            "independent director",
+            "chairperson",
+            "director",
+            "leadership"
+          ],
+          "people_found": 6,
+          "roles": [
+            "PEOPLE_CHAIR",
+            "PEOPLE_DIRECTOR"
+          ],
+          "verified_by": "CONTROLLED_FETCH+LEADERSHIP_CONTEXT"
+        }
+      ]
+    },
+    {
+      "institution_slug": "ulbsl-website",
+      "institution_id": "mfi-041",
+      "official_homepage": "https://www.ulbsl.com.np",
+      "future_candidates": [],
+      "people_urls": [
+        {
+          "url": "https://www.ulbsl.com.np/board",
+          "kind": "BOARD",
+          "confidence": 1,
+          "source": "GENERIC_PATH_VOCABULARY",
+          "discovery_method": "PATH_PROBE",
+          "observed_at": "2026-09-27T04:06:32.817Z",
+          "priority": 1,
+          "http_status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "leadership_role_signals": [
+            "board of directors",
+            "board member",
+            "chairman",
+            "director",
+            "information officer"
+          ],
+          "people_found": 0,
+          "roles": [],
+          "verified_by": "CONTROLLED_FETCH+LEADERSHIP_CONTEXT",
+          "note": "People page confirmed by leadership context; generic extractor found no people yet (extraction gap for EXT-C)"
+        }
+      ]
+    },
+    {
+      "institution_slug": "uniquenepalmicrofinance-website",
+      "institution_id": "mfi-040",
+      "official_homepage": "https://uniquenepalmicrofinance.com.np",
+      "future_candidates": [],
+      "people_urls": [
+        {
+          "url": "https://uniquenepalmicrofinance.com.np/board-of-directors",
+          "kind": "BOARD",
+          "confidence": 1,
+          "source": "HOMEPAGE_LINK",
+          "discovery_method": "LINK_DISCOVERY",
+          "observed_at": "2026-09-27T04:06:21.312Z",
+          "priority": 1,
+          "http_status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "leadership_role_signals": [
+            "board of directors",
+            "independent director",
+            "chairperson",
+            "director",
+            "executive director",
+            "management team"
+          ],
+          "people_found": 5,
+          "roles": [
+            "PEOPLE_DIRECTOR"
+          ],
+          "verified_by": "CONTROLLED_FETCH+LEADERSHIP_CONTEXT"
+        }
+      ]
+    },
+    {
+      "institution_slug": "unnatislbs-website",
+      "institution_id": "mfi-027",
+      "official_homepage": "https://unnatislbs.com.np",
+      "future_candidates": [],
+      "people_urls": [
+        {
+          "url": "https://unnatislbs.com.np/board-of-directors",
+          "kind": "BOARD",
+          "confidence": 0.9,
+          "source": "GENERIC_PATH_VOCABULARY",
+          "discovery_method": "PATH_PROBE",
+          "observed_at": "2026-09-27T04:05:15.118Z",
+          "priority": 1,
+          "http_status": 200,
+          "content_type": "text/html; charset=utf-8",
+          "leadership_role_signals": [
+            "board of directors",
+            "director"
+          ],
+          "people_found": 1,
+          "roles": [
+            "PEOPLE_DIRECTOR"
+          ],
+          "verified_by": "CONTROLLED_FETCH+LEADERSHIP_CONTEXT"
+        }
+      ]
+    },
+    {
+      "institution_slug": "vlbs-website",
+      "institution_id": "mfi-015",
+      "official_homepage": "https://vlbs.com.np",
+      "future_candidates": [],
+      "people_urls": []
+    },
+    {
+      "institution_slug": "weannepal-website",
+      "institution_id": "mfi-026",
+      "official_homepage": "https://weannepal.com",
+      "future_candidates": [],
+      "people_urls": [
+        {
+          "url": "https://weannepal.com/board-of-directors",
+          "kind": "BOARD",
+          "confidence": 0.9,
+          "source": "GENERIC_PATH_VOCABULARY",
+          "discovery_method": "PATH_PROBE",
+          "observed_at": "2026-09-27T04:05:06.193Z",
+          "priority": 1,
+          "http_status": 200,
+          "content_type": "text/html; charset=UTF-8",
+          "leadership_role_signals": [
+            "board of directors",
+            "independent director",
+            "chairman",
+            "director"
+          ],
+          "people_found": 1,
+          "roles": [
+            "PEOPLE_DIRECTOR"
+          ],
+          "verified_by": "CONTROLLED_FETCH+LEADERSHIP_CONTEXT"
+        }
+      ]
+    }
+  ]
+}

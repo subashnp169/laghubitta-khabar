@@ -154,6 +154,19 @@ export class GenericIngestionEngine {
       return { sourceId, runId, startedAt: now, completedAt: now, targetsDiscovered: 0, items: [], ok: false, errors };
     }
 
+    // Discovery is never a silent promotion: a target produced by a scored
+    // discovery pass records the reason it was accepted, so "why is this page a
+    // candidate?" is answerable from the audit log months later.
+    for (const t of targets) {
+      if (!t.reason) continue;
+      await this.deps.writer.appendAudit({
+        action: "DISCOVERY_CANDIDATE_ACCEPTED",
+        targetType: "ingestion_source",
+        targetId: sourceId,
+        afterJson: JSON.stringify({ runId, capability: t.capability, method: t.method, url: t.url, reason: t.reason }),
+      });
+    }
+
     // Crawl budget (Phase O): config-driven limits, never per-institution logic.
     const budget: CrawlBudget = { ...source.budget, ...opts.budget };
     const maxTargets = opts.maxTargets ?? budget.maxTargets ?? targets.length;

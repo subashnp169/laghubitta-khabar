@@ -1,5 +1,5 @@
-// ============================================================================
-// BrowserDiscovery (Phase F) — traceable, bounded target discovery.
+﻿// ============================================================================
+// BrowserDiscovery (Phase F) â€” traceable, bounded target discovery.
 // Never a whole-site crawl. Produces DiscoveredTarget[] where every URL carries
 // method + parent + source + institution + timestamp provenance. Discovers from:
 //   - KNOWN     configured capability URLs (capability.knownUrl)
@@ -24,6 +24,7 @@ import type {
   DiscoveryMethod,
   IngestionSourceSpec,
 } from "./types";
+import { extractPeopleCandidates } from "./people-discovery";
 
 export interface DiscoveryRule {
   capability: CapabilityKind;
@@ -41,6 +42,23 @@ export interface DiscoveryConfig {
   maxTargets?: number;
   /** Only these capability kinds (default = the source's declared ones). */
   only?: ReadonlyArray<string>;
+  /**
+   * Enable the generic People/leadership link probe (M3.3-GENERIC-EXT-B).
+   * Off by default: a source must opt in by declaring the PEOPLE capability as
+   * a DISCOVERY INTENT (knownUrl === null). The probe then scores same-host
+   * links found on the page discovery already fetched and only emits targets
+   * that clear the leadership-context gate in ./people-discovery. It costs no
+   * extra fetch and never widens the fetcher's host policy.
+   */
+  peopleProbe?: boolean;
+  /** Max People candidates per source (default 3). */
+  maxPeopleCandidates?: number;
+  /**
+   * Verified People URLs from data/pilot/people-url-seeds.json, in seed-priority
+   * order. Emitted as SEED targets before any discovery pass, so a known official
+   * People page is fetched first instead of being rediscovered from the homepage.
+   */
+  peopleSeeds?: ReadonlyArray<{ url: string; kind: string; confidence: number; discoveryMethod?: string; observedAt?: string }>;
 }
 
 const MAX_TARGETS_DEFAULT = 50;
@@ -90,7 +108,7 @@ export function locateCapabilityForUrl(raw: string): CapabilityKind | null {
 /**
  * Asset URLs that are never link-discovery targets: styles, scripts, images,
  * fonts, media. Generic (not per-site): keeps bounded discovery from burning
- * budget on static assets during LINK/CONFIG/SITEMAP walks. PDF is NOT here —
+ * budget on static assets during LINK/CONFIG/SITEMAP walks. PDF is NOT here â€”
  * documents are legitimate REPORT/DOCUMENT_ARCHIVE targets.
  */
 const IGNORED_ASSET_RE =
@@ -114,16 +132,16 @@ export function extractSameHostLinks(html: string, baseHost: string): string[] {
   while ((m = hrefRe.exec(html)) !== null) {
     const raw = m[1].trim();
     if (!raw || raw.startsWith("#") || raw.startsWith("javascript:") || raw.startsWith("mailto:") || raw.startsWith("tel:")) continue;
-    if (raw.includes("${")) continue; // JS template literal — not a URL
+    if (raw.includes("${")) continue; // JS template literal â€” not a URL
     try {
       const u = new URL(raw, `https://${baseHost}/`);
       if (!(u.protocol === "https:" || u.protocol === "http:")) continue;
-      if (!hostRe.test(u.hostname)) continue; // foreign host → skip
-      if (isIgnoredAsset(u.href)) continue; // css/js/img/font/media → skip
+      if (!hostRe.test(u.hostname)) continue; // foreign host â†’ skip
+      if (isIgnoredAsset(u.href)) continue; // css/js/img/font/media â†’ skip
       u.hash = "";
       out.add(u.href.replace(/\/$/, "") || u.href);
     } catch {
-      /* malformed href — skip */
+      /* malformed href â€” skip */
     }
   }
   return [...out];
@@ -171,7 +189,7 @@ export class BrowserDiscovery {
     const targets: DiscoveredTarget[] = [];
 
     // Capability set to consider: config.only, else the declared ones.
-    // Zero declared capabilities ⇒ zero discovery targets (deterministic).
+    // Zero declared capabilities â‡’ zero discovery targets (deterministic).
     const capabilities = this.config.only
       ? source.capabilities.filter((c) => this.config.only!.includes(c.kind))
       : source.capabilities;
@@ -184,7 +202,7 @@ export class BrowserDiscovery {
           capability: cap.kind,
           // A KNOWN capability URL is an evidence-backed official page; its
           // query string is part of that page (e.g. NRB's `?department=mfd`
-          // filter), so it is preserved — never stripped like walk/sitemap hrefs.
+          // filter), so it is preserved â€” never stripped like walk/sitemap hrefs.
           url: normalizeKeepSearch(cap.knownUrl),
           method: "KNOWN",
           parentUrl: source.url,
@@ -192,6 +210,29 @@ export class BrowserDiscovery {
           institutionId: source.institutionId,
           discoveredAt: now,
           status: cap.status,
+        });
+      }
+    }
+    if (targets.length >= max) return targets.slice(0, max);
+
+    // --- SEED: verified People URL seed manifest (M3.3-GENERIC-EXT-B).
+    // "Seed first, discover second": a seed is an already-verified official page,
+    // so it is fetched before anything is discovered, and it shares this single
+    // per-source budget with the discovery passes below rather than costing a
+    // separate run. Each seed carries its own provenance into the audit log.
+    if (declared("PEOPLE")) {
+      for (const seed of this.config.peopleSeeds ?? []) {
+        if (targets.length >= max) return targets.slice(0, max);
+        targets.push({
+          capability: "PEOPLE",
+          url: normalizeKeepSearch(seed.url),
+          method: "SEED",
+          parentUrl: source.url,
+          sourceId: source.id,
+          institutionId: source.institutionId,
+          discoveredAt: now,
+          status: "CANDIDATE",
+          reason: `seed manifest: kind=${seed.kind} confidence=${seed.confidence} method=${seed.discoveryMethod ?? "SEED"} observed=${seed.observedAt ?? "unknown"}`,
         });
       }
     }
@@ -253,6 +294,33 @@ export class BrowserDiscovery {
       }
     }
 
+    // --- LINK_PEOPLE: generic scored People probe (M3.3-GENERIC-EXT-B).
+    // Opt-in, capability-driven: the source must declare PEOPLE as a
+    // DISCOVERY INTENT (knownUrl === null) and the config must enable the
+    // probe. It reuses the page already fetched above, so it costs no extra
+    // fetch, and only links that clear the leadership-context gate become
+    // targets. Every accepted target carries its reason for the audit log.
+    if (page && this.config.peopleProbe === true) {
+      const intent = capabilities.find((c) => c.kind === "PEOPLE");
+      if (intent && intent.knownUrl === null) {
+        for (const cand of extractPeopleCandidates(page, source.url, this.config.maxPeopleCandidates)) {
+          if (targets.length >= max) return targets.slice(0, max);
+          targets.push({
+            capability: "PEOPLE",
+            url: cand.url,
+            method: "LINK_PEOPLE",
+            parentUrl: source.url,
+            sourceId: source.id,
+            institutionId: source.institutionId,
+            discoveredAt: now,
+            title: cand.anchorText || undefined,
+            reason: `${cand.score.tier}/${cand.score.score}: ${cand.score.reason} [signals=${cand.score.signals.join(",")}] anchor="${cand.anchorText}" section="${cand.sectionHeading}"`,
+            status: "CANDIDATE",
+          });
+        }
+      }
+    }
+
     // --- REL canonical: single authoritative URL for the source root ---
     if (page && declared("WEBSITE")) {
       const canonical = pickCanonical(page, host);
@@ -302,19 +370,19 @@ export class BrowserDiscovery {
     caps: CapabilitySpec[],
     depth = 0,
   ): Promise<void> {
-    if (depth > 2) return; // index → sub → posts; never deeper
+    if (depth > 2) return; // index â†’ sub â†’ posts; never deeper
     const sm = await this.fetchText(sitemapUrl, { timeoutMs: 10000 });
     if (!sm) return;
     for (const loc of parseSitemapLocs(sm)) {
       if (targets.length >= max) return;
       try {
         const u = new URL(loc);
-        if (u.hostname.toLowerCase() !== host) continue; // foreign sitemap → skip
+        if (u.hostname.toLowerCase() !== host) continue; // foreign sitemap â†’ skip
       } catch {
         continue;
       }
       // Nested sitemap (WordPress wp-sitemap index/roll-up): dereference it in
-      // discovery so the real pages — not the xml file — become targets.
+      // discovery so the real pages â€” not the xml file â€” become targets.
       if (isSitemapUrl(loc)) {
         if (!caps.some((c) => c.kind === "SITEMAP")) continue; // gated
         await this.addSitemapTargets(loc, source, targets, now, max, host, caps, depth + 1);
@@ -362,12 +430,19 @@ function hostOf(url: string): string | null {
   }
 }
 
-function normalize(url: string): string {
+/**
+ * The single walk-URL normalizer: drop fragment + query, drop a trailing slash.
+ * Exported so the People discovery pass deduplicates with exactly the same rule
+ * the LINK/SITEMAP passes already use (one normalizer, one behaviour).
+ */
+export function normalizeDiscoveredUrl(url: string): string {
   const u = new URL(url);
   u.hash = "";
   u.search = "";
   return u.href.replace(/\/$/, "");
 }
+
+const normalize = normalizeDiscoveredUrl;
 
 /**
  * Like `normalize` but PRESERVES the query string. Used for KNOWN capability

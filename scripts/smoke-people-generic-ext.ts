@@ -322,7 +322,13 @@ async function main(): Promise<void> {
     check("C1 list person 2 kept", got.includes("Kiran Thapa Magar"), got.join("|"));
     check("C1 both keep a people_* role", picks.every((p) => p.role.startsWith("PEOPLE_")), JSON.stringify(picks.map((p) => `${p.name}=${p.role}`)));
     check("C2 explicit list role kept", picks.find((p) => p.name === "Bimala Rai Paudel")?.role === "PEOPLE_CEO", JSON.stringify(picks.map((p) => `${p.name}=${p.role}`)));
-    check("C2 non-vocabulary role falls back to the block role", picks.find((p) => p.name === "Kiran Thapa Magar")?.role === "PEOPLE_CEO", JSON.stringify(picks.map((p) => `${p.name}=${p.role}`)));
+    // EXT-C1: a designation the page states but our vocabulary does not cover
+    // keeps the person in the generic field. Borrowing the block's role would
+    // publish "Kiran Thapa Magar is the CEO", a specific claim the page never
+    // made, which is the error EXT-C1 exists to remove.
+    const kiran = picks.find((p) => p.name === "Kiran Thapa Magar");
+    check("C2 non-vocabulary role does NOT borrow the block role", kiran?.role === "PEOPLE_BOARD", JSON.stringify(picks.map((p) => `${p.name}=${p.role}`)));
+    check("C2 the stated designation text is preserved", kiran?.roleText?.includes("Head of Operations") === true, String(kiran?.roleText));
   }
 
   // ---------------------------------------------------------------- D

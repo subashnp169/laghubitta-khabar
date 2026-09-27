@@ -22,7 +22,7 @@
 // ============================================================================
 
 import { createRequire } from "node:module";
-import { mkdtempSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
@@ -85,6 +85,25 @@ interface Budget {
 const PILOT_JSON = join(process.cwd(), "data", "pilot", "pilot-sources.json");
 const BUDGET_JSON = join(process.cwd(), "data", "pilot", "pilot-budget.json");
 const REPORT_JSON = join(process.cwd(), "data", "pilot", "pilot-people-report.json");
+const SEEDS_JSON = join(process.cwd(), "data", "pilot", "people-url-seeds.json");
+
+interface SeedEntry {
+  url: string;
+  kind: string;
+  confidence: number;
+  discovery_method?: string;
+  observed_at?: string;
+  people_found?: number;
+}
+interface SeedManifestInstitution {
+  institution_slug: string;
+  /** Spec key. `seeds` is accepted for backward compatibility with older manifests. */
+  people_urls?: SeedEntry[];
+  seeds?: SeedEntry[];
+}
+interface SeedManifest {
+  institutions: SeedManifestInstitution[];
+}
 
 const argv = process.argv.slice(2);
 const flag = (name: string): string | undefined => {
@@ -141,7 +160,7 @@ function policyFor(url: string, budget: Budget) {
 }
 
 /** Same scratch-DB seed as scripts/run-pilot.ts (scratch only, never lk.db). */
-function seedDb(dbPath: string, sources: PilotRecord[]): void {
+function seedDb(dbPath: string, sources: PilotRecord[], seedsFor: (id: string) => SeedEntry[]): void {
   const schema = readFileSync(join(process.cwd(), "schema", "schema.sql"), "utf8");
   const db = new Database(dbPath);
   db.prepare("PRAGMA foreign_keys = ON").run();
@@ -155,14 +174,50 @@ function seedDb(dbPath: string, sources: PilotRecord[]): void {
       `INSERT OR IGNORE INTO institutions (id, slug, name_en, institution_type, status, source_id)
        VALUES (?, ?, ?, 'NATIONAL', 'ACTIVE', ?)`,
     ).run(s.institution_id, s.institution_id, `${s.institution_id} (pilot stub)`, s.id);
+
+    // M3.3-GENERIC-EXT-B: the seed manifest feeds the People capability.
+    //   * config url present        -> unchanged (registry stays authoritative)
+    //   * verified seed present     -> PEOPLE known_url = highest-confidence seed
+    //   * neither                   -> PEOPLE known_url = null, i.e. a uniform
+    //                                  DISCOVERY INTENT so the generic fallback
+    //                                  has something to be gated on
+    const caps = s.capabilities.slice();
+    const peopleIdx = caps.findIndex((c) => c.capability === "PEOPLE");
+    const seeds = seedsFor(s.id);
+    if (peopleIdx >= 0) {
+      if (!caps[peopleIdx].known_url && seeds.length > 0) {
+        caps[peopleIdx] = {
+          ...caps[peopleIdx],
+          known_url: seeds[0].url,
+          link_type: "PEOPLE_PAGE",
+          note: `M3.3-GENERIC-EXT-B seed manifest: kind=${seeds[0].kind} confidence=${seeds[0].confidence} method=${seeds[0].discovery_method ?? "SEED"} observed=${seeds[0].observed_at ?? "unknown"}`,
+        };
+      }
+    } else {
+      caps.push({
+        capability: "PEOPLE",
+        status: "CANDIDATE",
+        known_url: seeds.length > 0 ? seeds[0].url : null,
+        link_type: "PEOPLE_PAGE",
+        note:
+          seeds.length > 0
+            ? `M3.3-GENERIC-EXT-B seed manifest: kind=${seeds[0].kind} confidence=${seeds[0].confidence}`
+            : "M3.3-GENERIC-EXT-B: no verified People seed; DISCOVERY INTENT (generic discovery fallback)",
+      });
+    }
+
     db.prepare(
       `INSERT OR IGNORE INTO ingestion_sources (id, url, domain, source_type, institution_id, config_json, enabled, fetch_interval_minutes)
        VALUES (?, ?, ?, 'MFB_WEBSITE', ?, ?, 1, 1440)`,
-    ).run(s.id, s.url, s.domain, s.institution_id, JSON.stringify({ capabilities: s.capabilities }));
+    ).run(s.id, s.url, s.domain, s.institution_id, JSON.stringify({ capabilities: caps }));
   }
   db.prepare(
     `INSERT OR IGNORE INTO validation_rules (id, rule_code, name, category, severity, active, params_json)
      VALUES ('r-people-directory', 'PEOPLE_DIRECTORY', 'people directory extraction', 'SANITY', 'WARN', 1, '{}')`,
+  ).run();
+  db.prepare(
+    `INSERT OR IGNORE INTO validation_rules (id, rule_code, name, category, severity, active, params_json)
+     VALUES ('r-people-staff-directory', 'PEOPLE_STAFF_DIRECTORY', 'staff directory suppressed as a non-person listing', 'SANITY', 'INFO', 1, '{}')`,
   ).run();
   db.close();
 }
@@ -220,12 +275,18 @@ function classifyShape(text: string): Record<string, unknown> {
 interface SourceResult {
   institution: string;
   source: string;
+  tier: "SEED" | "CONFIG_KNOWN_URL" | "GENERIC_DISCOVERY_FALLBACK";
+  seedUrlCount: number;
   peopleUrl: string | null;
+  peopleUrls: string[];
   capability: string;
   http: number | null;
   evidence: string;
   extracted: number;
   assertions: number;
+  distinctPeople: number;
+  statuses: Record<string, number>;
+  jsRendered: boolean;
   status: string;
   detail: string;
 }
@@ -234,27 +295,54 @@ async function main(): Promise<void> {
   const pilot = JSON.parse(readFileSync(PILOT_JSON, "utf8")) as { sources: PilotRecord[] };
   const budgetCfg = JSON.parse(readFileSync(BUDGET_JSON, "utf8")) as { defaults: Budget; perSource: Record<string, Budget> };
 
+  // M3.3-GENERIC-EXT-B: "seed first, discover second". The seed manifest is the
+  // primary tier; generic discovery is the fallback for institutions with no
+  // seed. Both tiers share ONE per-source budget, unchanged.
+  const seedManifest = existsSync(SEEDS_JSON)
+    ? (JSON.parse(readFileSync(SEEDS_JSON, "utf8")) as SeedManifest)
+    : { institutions: [] };
+  const seedsFor = (id: string): SeedEntry[] =>
+    (seedManifest.institutions.find((i) => i.institution_slug === id)?.people_urls ??
+      seedManifest.institutions.find((i) => i.institution_slug === id)?.seeds ??
+      [])
+      .slice()
+      .sort((a, b) => (b.confidence ?? 0) - (a.confidence ?? 0));
+
   const withPeople = pilot.sources.filter((s) => s.capabilities.some((c) => c.capability === "PEOPLE" && c.known_url));
   const withoutPeople = pilot.sources.filter((s) => !s.capabilities.some((c) => c.capability === "PEOPLE" && c.known_url));
 
+  // A source is in scope when it has a config People URL *or* at least one
+  // verified seed. Nothing else is fetched and nothing is invented.
+  const seeded = pilot.sources.filter((s) => seedsFor(s.id).length > 0);
+  const inScope = pilot.sources.filter((s) => withPeople.includes(s) || seeded.includes(s));
+
   console.log(`pilot universe: ${pilot.sources.length} sources`);
   console.log(`PEOPLE capability declared with a known official url: ${withPeople.length}`);
-  console.log(`PEOPLE = NOT_DISCOVERED (no known url in config, nothing invented): ${withoutPeople.length}`);
+  console.log(`PEOPLE = NOT_DISCOVERED in config: ${withoutPeople.length}`);
+  console.log(`seed manifest: ${seedManifest.institutions.length} institutions, ${seeded.length} with >=1 verified seed`);
+  console.log(`in scope for this run (config url or seed): ${inScope.length}`);
 
   const argDb = flag("db");
   const auditOnly = has("audit-only");
   const dbPath = argDb ?? join(mkdtempSync(join(tmpdir(), "lk-pilot-people-")), "pilot-people.db");
-  if (!auditOnly && !argDb) {
-    seedDb(dbPath, pilot.sources);
-    console.log(`people pilot scratch db: ${dbPath}`);
+  // A --db path that does not exist yet must still be seeded, otherwise the engine
+  // writes into a table-less file (scratch only, never lk.db).
+  const needsSeed = !auditOnly && (!argDb || !existsSync(dbPath));
+  if (needsSeed) {
+    seedDb(dbPath, pilot.sources, seedsFor);
+    console.log(`people pilot db seeded: ${dbPath}`);
   }
 
   const results: SourceResult[] = [];
   const shapes: Record<string, unknown>[] = [];
 
   if (!auditOnly) {
-    for (const s of withPeople) {
-      const cap = s.capabilities.find((c) => c.capability === "PEOPLE") as PilotCapability;
+    for (const s of inScope) {
+      const seeds = seedsFor(s.id);
+      const cap = s.capabilities.find((c) => c.capability === "PEOPLE") as PilotCapability | undefined;
+      // The URL the engine will actually fetch first: the registry's known url if
+      // it has one, otherwise the highest-confidence verified seed.
+      const primaryPeopleUrl = cap?.known_url ?? seeds[0]?.url ?? null;
       const budget = { ...budgetCfg.defaults, ...(budgetCfg.perSource[s.id] ?? {}) };
       const policy = policyFor(s.url, budget);
 
@@ -264,7 +352,20 @@ async function main(): Promise<void> {
       const engine = buildEngine({
         registry: scoped,
         fetcher,
-        discovery: new BrowserDiscovery(scoped, new ControlledFetcher(policy), { rules: DISCOVERY_HINT_RULES, maxTargets: budget.maxTargets }),
+        discovery: new BrowserDiscovery(scoped, new ControlledFetcher(policy), {
+          rules: DISCOVERY_HINT_RULES,
+          maxTargets: budget.maxTargets,
+          // Seed first, discover second: with seeds we do not spend budget
+          // probing the homepage; without seeds the generic probe is the fallback.
+          peopleSeeds: seeds.slice(1).map((x) => ({
+            url: x.url,
+            kind: x.kind,
+            confidence: x.confidence,
+            discoveryMethod: x.discovery_method,
+            observedAt: x.observed_at,
+          })),
+          peopleProbe: seeds.length === 0,
+        }),
         extractor: peopleExtractor,
         writer: new LocalSqliteEvidenceWriter(dbPath),
         canonicalizer: deterministicHtmlCanonicalizer,
@@ -293,6 +394,12 @@ async function main(): Promise<void> {
       const errors = db
         .prepare("SELECT url, error_type, error_message FROM ingestion_errors WHERE ingestion_source_id=? ORDER BY created_at DESC LIMIT 5")
         .all(s.id) as Array<Record<string, unknown>>;
+      const distinct = db
+        .prepare("SELECT COUNT(DISTINCT value) c FROM data_assertions WHERE source_id=? AND field_name LIKE 'people%'")
+        .get(s.id) as { c: number };
+      const statuses = db
+        .prepare("SELECT status, COUNT(*) n FROM ingestion_items WHERE run_id=? GROUP BY 1")
+        .all(String(runRows[0]?.id ?? "")) as Array<{ status: string; n: number }>;
       db.close();
 
       const http = snapRows.length ? (snapRows[snapRows.length - 1].http_status as number) : null;
@@ -300,48 +407,60 @@ async function main(): Promise<void> {
       const result: SourceResult = {
         institution: s.institution_id,
         source: s.id,
-        peopleUrl: cap.known_url,
+        tier: cap?.known_url ? "CONFIG_KNOWN_URL" : seeds.length > 0 ? "SEED" : "GENERIC_DISCOVERY_FALLBACK",
+        seedUrlCount: seeds.length,
+        peopleUrl: cap?.known_url ?? seeds[0]?.url ?? null,
+        peopleUrls: seeds.map((x) => x.url),
         capability: "PEOPLE",
         http: http ?? null,
         evidence,
         extracted: peopleEvidence.c,
         assertions: assertionRows.c,
+        distinctPeople: distinct.c,
+        statuses: Object.fromEntries(statuses.map((x) => [x.status, x.n])),
+        jsRendered: evidence === "EMPTY" && (snapRows[snapRows.length - 1]?.mime_type ?? "") === "text/html",
         status: out.ok ? "HEALTHY" : "PARTIAL",
         detail: itemRows.map((i) => `${i.status}:${i.url}`).join(" ; "),
       };
       results.push(result);
       console.log(
-        ` [people] ${s.id.padEnd(26)} http=${String(result.http).padEnd(4)} evidence=${String(result.evidence).padEnd(10)} assertions=${String(result.assertions).padEnd(3)} status=${result.status}`,
+        ` [people] ${s.id.padEnd(26)} ${result.tier.padEnd(26)} seeds=${String(result.seedUrlCount).padEnd(2)} http=${String(result.http).padEnd(4)} evidence=${String(result.evidence).padEnd(8)} assertions=${String(result.assertions).padEnd(4)} distinct=${String(result.distinctPeople).padEnd(4)} ${result.status}`,
       );
       for (const e of errors) console.log(`      err: ${e.error_type} :: ${String(e.error_message).slice(0, 120)}`);
 
       // Shape diagnosis: same controlled fetch policy, no evidence written.
-      if (has("diagnose") && cap.known_url) {
+      if (has("diagnose") && primaryPeopleUrl) {
         try {
-          const f = await fetcher.fetch(cap.known_url);
+          const f = await fetcher.fetch(primaryPeopleUrl);
           const text = new TextDecoder().decode(f.body);
           const shape = classifyShape(text);
-          shapes.push({ source: s.id, url: cap.known_url, http: f.httpStatus, ...shape });
+          shapes.push({ source: s.id, url: primaryPeopleUrl, http: f.httpStatus, ...shape });
           console.log(`      shape: ${JSON.stringify(shape)}`);
         } catch (e) {
-          shapes.push({ source: s.id, url: cap.known_url, error: e instanceof Error ? e.message : String(e) });
+          shapes.push({ source: s.id, url: primaryPeopleUrl, error: e instanceof Error ? e.message : String(e) });
           console.log(`      shape: fetch failed - ${e instanceof Error ? e.message : String(e)}`);
         }
       }
     }
 
-    for (const s of withoutPeople) {
+    for (const s of pilot.sources.filter((x) => !inScope.includes(x))) {
       results.push({
         institution: s.institution_id,
         source: s.id,
+        tier: "GENERIC_DISCOVERY_FALLBACK",
+        seedUrlCount: 0,
         peopleUrl: null,
+        peopleUrls: [],
         capability: "PEOPLE = NOT_DISCOVERED",
         http: null,
         evidence: "none",
         extracted: 0,
         assertions: 0,
+        distinctPeople: 0,
+        statuses: {},
+        jsRendered: false,
         status: "NOT_DISCOVERED",
-        detail: "no official people url in existing config/links; nothing invented, nothing fetched",
+        detail: "no verified seed and no config people url; nothing invented, nothing fetched",
       });
     }
   }

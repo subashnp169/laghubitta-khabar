@@ -1,11 +1,11 @@
 {
   "$schema": "pilot-people-evidence/v1",
-  "generated_at": "2026-09-27T06:25:23.946Z",
+  "generated_at": "2026-09-27T06:23:42.747Z",
   "db_path": "data/pilot/evidence/pilot-people-2026-09-27-ext-c-pass1.db",
   "pilot_universe": 51,
   "people_declared": 2,
   "people_not_discovered": 49,
-  "repeat": true,
+  "repeat": false,
   "diagnose": false,
   "results": [
     {
@@ -22,15 +22,15 @@
       "capability": "PEOPLE",
       "http": 200,
       "evidence": "EXTRACTED",
-      "extracted": 57,
+      "extracted": 6,
       "assertions": 3,
       "distinctPeople": 3,
       "statuses": {
-        "UNCHANGED": 3
+        "CHANGED": 3
       },
       "jsRendered": false,
       "status": "HEALTHY",
-      "detail": "UNCHANGED:https://www.nirdhan.com.np/about ; UNCHANGED:https://www.nirdhan.com.np/about-us ; UNCHANGED:https://www.nirdhan.com.np/about-us/board-of-directors"
+      "detail": "CHANGED:https://www.nirdhan.com.np/about ; CHANGED:https://www.nirdhan.com.np/about-us ; CHANGED:https://www.nirdhan.com.np/about-us/board-of-directors"
     },
     {
       "institution": "mfi-047",
@@ -44,15 +44,15 @@
       "capability": "PEOPLE",
       "http": 200,
       "evidence": "EXTRACTED",
-      "extracted": 57,
+      "extracted": 7,
       "assertions": 0,
       "distinctPeople": 0,
       "statuses": {
-        "UNCHANGED": 1
+        "CHANGED": 1
       },
       "jsRendered": false,
       "status": "HEALTHY",
-      "detail": "UNCHANGED:https://www.matribhumimf.com.np/team/board"
+      "detail": "CHANGED:https://www.matribhumimf.com.np/team/board"
     },
     {
       "institution": "mfi-049",
@@ -66,7 +66,7 @@
       "capability": "PEOPLE",
       "http": 200,
       "evidence": "EXTRACTED",
-      "extracted": 58,
+      "extracted": 8,
       "assertions": 0,
       "distinctPeople": 0,
       "statuses": {
@@ -88,15 +88,15 @@
       "capability": "PEOPLE",
       "http": 200,
       "evidence": "EXTRACTED",
-      "extracted": 58,
+      "extracted": 9,
       "assertions": 0,
       "distinctPeople": 0,
       "statuses": {
-        "UNCHANGED": 1
+        "CHANGED": 1
       },
       "jsRendered": false,
       "status": "HEALTHY",
-      "detail": "UNCHANGED:https://ashamicrofinance.com.np/board-of-directors"
+      "detail": "CHANGED:https://ashamicrofinance.com.np/board-of-directors"
     },
     {
       "institution": "mfi-043",
@@ -111,15 +111,15 @@
       "capability": "PEOPLE",
       "http": 200,
       "evidence": "EXTRACTED",
-      "extracted": 58,
+      "extracted": 11,
       "assertions": 0,
       "distinctPeople": 0,
       "statuses": {
-        "UNCHANGED": 2
+        "CHANGED": 2
       },
       "jsRendered": false,
       "status": "HEALTHY",
-      "detail": "UNCHANGED:https://cycnlbsl.org.np/board-of-directors ; UNCHANGED:https://cycnlbsl.org.np/management-team"
+      "detail": "CHANGED:https://cycnlbsl.org.np/board-of-directors ; CHANGED:https://cycnlbsl.org.np/management-team"
     },
     {
       "institution": "mfi-004",
@@ -134,15 +134,15 @@
       "capability": "PEOPLE",
       "http": 200,
       "evidence": "EXTRACTED",
-      "extracted": 58,
+      "extracted": 15,
       "assertions": 18,
       "distinctPeople": 17,
       "statuses": {
-        "UNCHANGED": 2
+        "CHANGED": 2
       },
       "jsRendered": false,
       "status": "HEALTHY",
-      "detail": "UNCHANGED:https://www.swbbl.com.np/board-management/board-of-directors ; UNCHANGED:https://www.swbbl.com.np/board-management/management-teams"
+      "detail": "CHANGED:https://www.swbbl.com.np/board-management/board-of-directors ; CHANGED:https://www.swbbl.com.np/board-management/management-teams"
     },
     {
       "institution": "mfi-005",
@@ -157,15 +157,15 @@
       "capability": "PEOPLE",
       "http": 200,
       "evidence": "EXTRACTED",
-      "extracted": 58,
+      "extracted": 17,
       "assertions": 0,
       "distinctPeople": 0,
       "statuses": {
-        "UNCHANGED": 2
+        "CHANGED": 2
       },
       "jsRendered": false,
       "status": "HEALTHY",
-      "detail": "UNCHANGED:https://www.skbbl.com.np/board-of-directors ; UNCHANGED:https://www.skbbl.com.np/team"
+      "detail": "CHANGED:https://www.skbbl.com.np/board-of-directors ; CHANGED:https://www.skbbl.com.np/team"
     },
     {
       "institution": "mfi-006",
@@ -180,15 +180,15 @@
       "capability": "PEOPLE",
       "http": 200,
       "evidence": "EXTRACTED",
-      "extracted": 58,
+      "extracted": 19,
       "assertions": 0,
       "distinctPeople": 0,
       "statuses": {
-        "UNCHANGED": 2
+        "CHANGED": 2
       },
       "jsRendered": false,
       "status": "HEALTHY",
-      "detail": "UNCHANGED:https://www.nerudemirmire.com.np/board ; UNCHANGED:https://www.nerudemirmire.com.np/management"
+      "detail": "CHANGED:https://www.nerudemirmire.com.np/board ; CHANGED:https://www.nerudemirmire.com.np/management"
     },
     {
       "institution": "mfi-010",
@@ -203,15 +203,15 @@
       "capability": "PEOPLE",
       "http": 200,
       "evidence": "EXTRACTED",
-      "extracted": 58,
+      "extracted": 21,
       "assertions": 0,
       "distinctPeople": 0,
       "statuses": {
-        "UNCHANGED": 2
+        "CHANGED": 2
       },
       "jsRendered": false,
       "status": "HEALTHY",
-      "detail": "UNCHANGED:https://www.kalikabank.com.np/board ; UNCHANGED:https://www.kalikabank.com.np/management"
+      "detail": "CHANGED:https://www.kalikabank.com.np/board ; CHANGED:https://www.kalikabank.com.np/management"
     },
     {
       "institution": "mfi-012",
@@ -225,15 +225,15 @@
       "capability": "PEOPLE",
       "http": 200,
       "evidence": "EXTRACTED",
-      "extracted": 58,
+      "extracted": 23,
       "assertions": 6,
       "distinctPeople": 6,
       "statuses": {
-        "UNCHANGED": 1
+        "CHANGED": 1
       },
       "jsRendered": false,
       "status": "HEALTHY",
-      "detail": "UNCHANGED:https://swmfi.com.np/board-of-directors"
+      "detail": "CHANGED:https://swmfi.com.np/board-of-directors"
     },
     {
       "institution": "mfi-013",
@@ -249,15 +249,15 @@
       "capability": "PEOPLE",
       "http": 200,
       "evidence": "EXTRACTED",
-      "extracted": 58,
+      "extracted": 26,
       "assertions": 0,
       "distinctPeople": 0,
       "statuses": {
-        "UNCHANGED": 3
+        "CHANGED": 3
       },
       "jsRendered": false,
       "status": "HEALTHY",
-      "detail": "UNCHANGED:https://laxmilaghu.com.np/about-us/board-of-directors ; UNCHANGED:https://laxmilaghu.com.np/board-management/board-of-directors ; UNCHANGED:https://laxmilaghu.com.np/board-of-directors"
+      "detail": "CHANGED:https://laxmilaghu.com.np/about-us/board-of-directors ; CHANGED:https://laxmilaghu.com.np/board-management/board-of-directors ; CHANGED:https://laxmilaghu.com.np/board-of-directors"
     },
     {
       "institution": "mfi-014",
@@ -271,15 +271,15 @@
       "capability": "PEOPLE",
       "http": 200,
       "evidence": "EXTRACTED",
-      "extracted": 58,
+      "extracted": 27,
       "assertions": 0,
       "distinctPeople": 0,
       "statuses": {
-        "UNCHANGED": 1
+        "CHANGED": 1
       },
       "jsRendered": false,
       "status": "HEALTHY",
-      "detail": "UNCHANGED:https://himalayanlaghubitta.com/page/aboutus/2/boardofdirectors/5"
+      "detail": "CHANGED:https://himalayanlaghubitta.com/page/aboutus/2/boardofdirectors/5"
     },
     {
       "institution": "mfi-018",
@@ -295,15 +295,15 @@
       "capability": "PEOPLE",
       "http": 200,
       "evidence": "EXTRACTED",
-      "extracted": 58,
+      "extracted": 32,
       "assertions": 18,
       "distinctPeople": 17,
       "statuses": {
-        "UNCHANGED": 3
+        "CHANGED": 3
       },
       "jsRendered": false,
       "status": "HEALTHY",
-      "detail": "UNCHANGED:https://gilb.com.np/about-us ; UNCHANGED:https://gilb.com.np/board ; UNCHANGED:https://gilb.com.np/management-team"
+      "detail": "CHANGED:https://gilb.com.np/about-us ; CHANGED:https://gilb.com.np/board ; CHANGED:https://gilb.com.np/management-team"
     },
     {
       "institution": "mfi-019",
@@ -317,15 +317,15 @@
       "capability": "PEOPLE",
       "http": 200,
       "evidence": "EXTRACTED",
-      "extracted": 58,
+      "extracted": 34,
       "assertions": 6,
       "distinctPeople": 6,
       "statuses": {
-        "UNCHANGED": 1
+        "CHANGED": 1
       },
       "jsRendered": false,
       "status": "HEALTHY",
-      "detail": "UNCHANGED:https://www.mslbsl.com.np/about-us/board-of-directors"
+      "detail": "CHANGED:https://www.mslbsl.com.np/about-us/board-of-directors"
     },
     {
       "institution": "mfi-021",
@@ -340,15 +340,15 @@
       "capability": "PEOPLE",
       "http": 200,
       "evidence": "EXTRACTED",
-      "extracted": 58,
+      "extracted": 38,
       "assertions": 9,
       "distinctPeople": 9,
       "statuses": {
-        "UNCHANGED": 2
+        "CHANGED": 2
       },
       "jsRendered": false,
       "status": "HEALTHY",
-      "detail": "UNCHANGED:https://www.samata.org.np/about-us/board-director ; UNCHANGED:https://www.samata.org.np/about-us/management-team"
+      "detail": "CHANGED:https://www.samata.org.np/about-us/board-director ; CHANGED:https://www.samata.org.np/about-us/management-team"
     },
     {
       "institution": "mfi-024",
@@ -363,15 +363,15 @@
       "capability": "PEOPLE",
       "http": 200,
       "evidence": "EXTRACTED",
-      "extracted": 58,
+      "extracted": 40,
       "assertions": 4,
       "distinctPeople": 4,
       "statuses": {
-        "UNCHANGED": 2
+        "CHANGED": 2
       },
       "jsRendered": false,
       "status": "HEALTHY",
-      "detail": "UNCHANGED:https://nationalmicrofinance.com.np/board-of-directors ; UNCHANGED:https://nationalmicrofinance.com.np/management-team"
+      "detail": "CHANGED:https://nationalmicrofinance.com.np/board-of-directors ; CHANGED:https://nationalmicrofinance.com.np/management-team"
     },
     {
       "institution": "mfi-026",
@@ -385,15 +385,15 @@
       "capability": "PEOPLE",
       "http": 200,
       "evidence": "EXTRACTED",
-      "extracted": 58,
+      "extracted": 41,
       "assertions": 0,
       "distinctPeople": 0,
       "statuses": {
-        "UNCHANGED": 1
+        "CHANGED": 1
       },
       "jsRendered": false,
       "status": "HEALTHY",
-      "detail": "UNCHANGED:https://weannepal.com/board-of-directors"
+      "detail": "CHANGED:https://weannepal.com/board-of-directors"
     },
     {
       "institution": "mfi-027",
@@ -407,15 +407,15 @@
       "capability": "PEOPLE",
       "http": 200,
       "evidence": "EXTRACTED",
-      "extracted": 58,
+      "extracted": 42,
       "assertions": 0,
       "distinctPeople": 0,
       "statuses": {
-        "UNCHANGED": 1
+        "CHANGED": 1
       },
       "jsRendered": false,
       "status": "HEALTHY",
-      "detail": "UNCHANGED:https://unnatislbs.com.np/board-of-directors"
+      "detail": "CHANGED:https://unnatislbs.com.np/board-of-directors"
     },
     {
       "institution": "mfi-028",
@@ -427,15 +427,15 @@
       "capability": "PEOPLE",
       "http": 200,
       "evidence": "EXTRACTED",
-      "extracted": 58,
+      "extracted": 43,
       "assertions": 0,
       "distinctPeople": 0,
       "statuses": {
-        "UNCHANGED": 1
+        "CHANGED": 1
       },
       "jsRendered": false,
       "status": "HEALTHY",
-      "detail": "UNCHANGED:https://www.nadeplaghubitta.com/board-of-directors"
+      "detail": "CHANGED:https://www.nadeplaghubitta.com/board-of-directors"
     },
     {
       "institution": "mfi-029",
@@ -450,15 +450,15 @@
       "capability": "PEOPLE",
       "http": 200,
       "evidence": "EXTRACTED",
-      "extracted": 58,
+      "extracted": 47,
       "assertions": 11,
       "distinctPeople": 11,
       "statuses": {
-        "UNCHANGED": 2
+        "CHANGED": 2
       },
       "jsRendered": false,
       "status": "HEALTHY",
-      "detail": "UNCHANGED:https://www.supportmicrofinance.com.np/board ; UNCHANGED:https://www.supportmicrofinance.com.np/team"
+      "detail": "CHANGED:https://www.supportmicrofinance.com.np/board ; CHANGED:https://www.supportmicrofinance.com.np/team"
     },
     {
       "institution": "mfi-035",
@@ -474,15 +474,15 @@
       "capability": "PEOPLE",
       "http": 200,
       "evidence": "EXTRACTED",
-      "extracted": 58,
+      "extracted": 50,
       "assertions": 0,
       "distinctPeople": 0,
       "statuses": {
-        "UNCHANGED": 3
+        "CHANGED": 3
       },
       "jsRendered": false,
       "status": "HEALTHY",
-      "detail": "UNCHANGED:https://swabhimaanlaghubitta.com.np/board ; UNCHANGED:https://swabhimaanlaghubitta.com.np/board-management/board-of-directors ; UNCHANGED:https://swabhimaanlaghubitta.com.np/board-of-directors"
+      "detail": "CHANGED:https://swabhimaanlaghubitta.com.np/board ; CHANGED:https://swabhimaanlaghubitta.com.np/board-management/board-of-directors ; CHANGED:https://swabhimaanlaghubitta.com.np/board-of-directors"
     },
     {
       "institution": "mfi-040",
@@ -496,7 +496,7 @@
       "capability": "PEOPLE",
       "http": 200,
       "evidence": "EXTRACTED",
-      "extracted": 59,
+      "extracted": 51,
       "assertions": 0,
       "distinctPeople": 0,
       "statuses": {
@@ -518,15 +518,15 @@
       "capability": "PEOPLE",
       "http": 200,
       "evidence": "EXTRACTED",
-      "extracted": 59,
+      "extracted": 52,
       "assertions": 0,
       "distinctPeople": 0,
       "statuses": {
-        "UNCHANGED": 1
+        "CHANGED": 1
       },
       "jsRendered": false,
       "status": "HEALTHY",
-      "detail": "UNCHANGED:https://www.ulbsl.com.np/board"
+      "detail": "CHANGED:https://www.ulbsl.com.np/board"
     },
     {
       "institution": "mfi-042",
@@ -540,15 +540,15 @@
       "capability": "PEOPLE",
       "http": 200,
       "evidence": "EXTRACTED",
-      "extracted": 59,
+      "extracted": 53,
       "assertions": 0,
       "distinctPeople": 0,
       "statuses": {
-        "UNCHANGED": 1
+        "CHANGED": 1
       },
       "jsRendered": false,
       "status": "HEALTHY",
-      "detail": "UNCHANGED:https://dhaulagiribank.com/management-team"
+      "detail": "CHANGED:https://dhaulagiribank.com/management-team"
     },
     {
       "institution": "mfi-045",
@@ -563,15 +563,15 @@
       "capability": "PEOPLE",
       "http": 200,
       "evidence": "EXTRACTED",
-      "extracted": 59,
+      "extracted": 57,
       "assertions": 16,
       "distinctPeople": 16,
       "statuses": {
-        "UNCHANGED": 2
+        "CHANGED": 2
       },
       "jsRendered": false,
       "status": "HEALTHY",
-      "detail": "UNCHANGED:https://swastiklbs.com.np/board-of-directors ; UNCHANGED:https://swastiklbs.com.np/management-team"
+      "detail": "CHANGED:https://swastiklbs.com.np/board-of-directors ; CHANGED:https://swastiklbs.com.np/management-team"
     },
     {
       "institution": "mfi-003",
@@ -2937,34 +2937,6 @@
         "status": "PASS",
         "message": "not a staff directory",
         "n": 1
-      },
-      {
-        "target_id": "snap-mujfnpn3-27",
-        "rule_id": "r-people-directory",
-        "status": "PENDING",
-        "message": "no people evidence on this snapshot",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfnpn3-27",
-        "rule_id": "r-people-staff-directory",
-        "status": "PASS",
-        "message": "not a staff directory",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfpec4-214",
-        "rule_id": "r-people-directory",
-        "status": "PENDING",
-        "message": "no people evidence on this snapshot",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfpec4-214",
-        "rule_id": "r-people-staff-directory",
-        "status": "PASS",
-        "message": "not a staff directory",
-        "n": 1
       }
     ],
     "runs": [
@@ -3214,256 +3186,6 @@
         "items_found": 2,
         "items_changed": 0,
         "items_new": 2,
-        "items_failed": 0,
-        "error_count": 0,
-        "parser_version": "people-html-v2"
-      },
-      {
-        "ingestion_source_id": "nirdhan-website",
-        "status": "SUCCESS",
-        "items_found": 3,
-        "items_changed": 0,
-        "items_new": 0,
-        "items_failed": 0,
-        "error_count": 0,
-        "parser_version": "people-html-v2"
-      },
-      {
-        "ingestion_source_id": "matribhumi-website",
-        "status": "SUCCESS",
-        "items_found": 1,
-        "items_changed": 0,
-        "items_new": 0,
-        "items_failed": 0,
-        "error_count": 0,
-        "parser_version": "people-html-v2"
-      },
-      {
-        "ingestion_source_id": "aatmanirbhar-website",
-        "status": "SUCCESS",
-        "items_found": 1,
-        "items_changed": 0,
-        "items_new": 1,
-        "items_failed": 0,
-        "error_count": 0,
-        "parser_version": "people-html-v2"
-      },
-      {
-        "ingestion_source_id": "asha-website",
-        "status": "SUCCESS",
-        "items_found": 1,
-        "items_changed": 0,
-        "items_new": 0,
-        "items_failed": 0,
-        "error_count": 0,
-        "parser_version": "people-html-v2"
-      },
-      {
-        "ingestion_source_id": "cyc-website",
-        "status": "SUCCESS",
-        "items_found": 2,
-        "items_changed": 0,
-        "items_new": 0,
-        "items_failed": 0,
-        "error_count": 0,
-        "parser_version": "people-html-v2"
-      },
-      {
-        "ingestion_source_id": "swbbl-website",
-        "status": "SUCCESS",
-        "items_found": 2,
-        "items_changed": 0,
-        "items_new": 0,
-        "items_failed": 0,
-        "error_count": 0,
-        "parser_version": "people-html-v2"
-      },
-      {
-        "ingestion_source_id": "skbbl-website",
-        "status": "SUCCESS",
-        "items_found": 2,
-        "items_changed": 0,
-        "items_new": 0,
-        "items_failed": 0,
-        "error_count": 0,
-        "parser_version": "people-html-v2"
-      },
-      {
-        "ingestion_source_id": "nerudemirmire-website",
-        "status": "SUCCESS",
-        "items_found": 2,
-        "items_changed": 0,
-        "items_new": 0,
-        "items_failed": 0,
-        "error_count": 0,
-        "parser_version": "people-html-v2"
-      },
-      {
-        "ingestion_source_id": "kalikabank-website",
-        "status": "SUCCESS",
-        "items_found": 2,
-        "items_changed": 0,
-        "items_new": 0,
-        "items_failed": 0,
-        "error_count": 0,
-        "parser_version": "people-html-v2"
-      },
-      {
-        "ingestion_source_id": "swmfi-website",
-        "status": "SUCCESS",
-        "items_found": 1,
-        "items_changed": 0,
-        "items_new": 0,
-        "items_failed": 0,
-        "error_count": 0,
-        "parser_version": "people-html-v2"
-      },
-      {
-        "ingestion_source_id": "laxmilaghu-website",
-        "status": "SUCCESS",
-        "items_found": 3,
-        "items_changed": 0,
-        "items_new": 0,
-        "items_failed": 0,
-        "error_count": 0,
-        "parser_version": "people-html-v2"
-      },
-      {
-        "ingestion_source_id": "himalayanlaghubitta-website",
-        "status": "SUCCESS",
-        "items_found": 1,
-        "items_changed": 0,
-        "items_new": 0,
-        "items_failed": 0,
-        "error_count": 0,
-        "parser_version": "people-html-v2"
-      },
-      {
-        "ingestion_source_id": "gilb-website",
-        "status": "SUCCESS",
-        "items_found": 3,
-        "items_changed": 0,
-        "items_new": 0,
-        "items_failed": 0,
-        "error_count": 0,
-        "parser_version": "people-html-v2"
-      },
-      {
-        "ingestion_source_id": "mslbsl-website",
-        "status": "SUCCESS",
-        "items_found": 1,
-        "items_changed": 0,
-        "items_new": 0,
-        "items_failed": 0,
-        "error_count": 0,
-        "parser_version": "people-html-v2"
-      },
-      {
-        "ingestion_source_id": "samata-website",
-        "status": "SUCCESS",
-        "items_found": 2,
-        "items_changed": 0,
-        "items_new": 0,
-        "items_failed": 0,
-        "error_count": 0,
-        "parser_version": "people-html-v2"
-      },
-      {
-        "ingestion_source_id": "nationalmicrofinance-website",
-        "status": "SUCCESS",
-        "items_found": 2,
-        "items_changed": 0,
-        "items_new": 0,
-        "items_failed": 0,
-        "error_count": 0,
-        "parser_version": "people-html-v2"
-      },
-      {
-        "ingestion_source_id": "weannepal-website",
-        "status": "SUCCESS",
-        "items_found": 1,
-        "items_changed": 0,
-        "items_new": 0,
-        "items_failed": 0,
-        "error_count": 0,
-        "parser_version": "people-html-v2"
-      },
-      {
-        "ingestion_source_id": "unnatislbs-website",
-        "status": "SUCCESS",
-        "items_found": 1,
-        "items_changed": 0,
-        "items_new": 0,
-        "items_failed": 0,
-        "error_count": 0,
-        "parser_version": "people-html-v2"
-      },
-      {
-        "ingestion_source_id": "nadeplaghubitta-website",
-        "status": "SUCCESS",
-        "items_found": 1,
-        "items_changed": 0,
-        "items_new": 0,
-        "items_failed": 0,
-        "error_count": 0,
-        "parser_version": "people-html-v2"
-      },
-      {
-        "ingestion_source_id": "supportmicrofinance-website",
-        "status": "SUCCESS",
-        "items_found": 2,
-        "items_changed": 0,
-        "items_new": 0,
-        "items_failed": 0,
-        "error_count": 0,
-        "parser_version": "people-html-v2"
-      },
-      {
-        "ingestion_source_id": "swabhimaanlaghubitta-website",
-        "status": "SUCCESS",
-        "items_found": 3,
-        "items_changed": 0,
-        "items_new": 0,
-        "items_failed": 0,
-        "error_count": 0,
-        "parser_version": "people-html-v2"
-      },
-      {
-        "ingestion_source_id": "uniquenepalmicrofinance-website",
-        "status": "SUCCESS",
-        "items_found": 1,
-        "items_changed": 0,
-        "items_new": 1,
-        "items_failed": 0,
-        "error_count": 0,
-        "parser_version": "people-html-v2"
-      },
-      {
-        "ingestion_source_id": "ulbsl-website",
-        "status": "SUCCESS",
-        "items_found": 1,
-        "items_changed": 0,
-        "items_new": 0,
-        "items_failed": 0,
-        "error_count": 0,
-        "parser_version": "people-html-v2"
-      },
-      {
-        "ingestion_source_id": "dhaulagiribank-website",
-        "status": "SUCCESS",
-        "items_found": 1,
-        "items_changed": 0,
-        "items_new": 0,
-        "items_failed": 0,
-        "error_count": 0,
-        "parser_version": "people-html-v2"
-      },
-      {
-        "ingestion_source_id": "swastiklbs-website",
-        "status": "SUCCESS",
-        "items_found": 2,
-        "items_changed": 0,
-        "items_new": 0,
         "items_failed": 0,
         "error_count": 0,
         "parser_version": "people-html-v2"

@@ -170,6 +170,10 @@ async function main(): Promise<void> {
     ).run();
     db2.prepare(
       `INSERT OR IGNORE INTO validation_rules (id, rule_code, name, category, severity, active, params_json)
+       VALUES ('r-people-staff-directory', 'PEOPLE_STAFF_DIRECTORY', 'staff directory suppressed as a non-person listing', 'SANITY', 'INFO', 1, '{}')`,
+    ).run();
+    db2.prepare(
+      `INSERT OR IGNORE INTO validation_rules (id, rule_code, name, category, severity, active, params_json)
        VALUES ('r-branch-directory', 'BRANCH_DIRECTORY', 'branch directory extraction', 'SANITY', 'WARN', 1, '{}')`,
     ).run();
     db2.prepare(

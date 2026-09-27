@@ -174,6 +174,10 @@ function seedSource(dbPath: string, id: string, configJson: Record<string, unkno
     `INSERT OR IGNORE INTO validation_rules (id, rule_code, name, category, severity, active, params_json)
      VALUES ('r-people-directory', 'PEOPLE_DIRECTORY', 'people directory extraction', 'SANITY', 'WARN', 1, '{}')`,
   ).run();
+  db.prepare(
+    `INSERT OR IGNORE INTO validation_rules (id, rule_code, name, category, severity, active, params_json)
+     VALUES ('r-people-staff-directory', 'PEOPLE_STAFF_DIRECTORY', 'staff directory suppressed as a non-person listing', 'SANITY', 'INFO', 1, '{}')`,
+  ).run();
   db.close();
   return src;
 }
@@ -352,8 +356,15 @@ async function main(): Promise<void> {
     check("D unit: 4 people evidence rows", ev.length === 4);
     check("D unit: parserId people-json-v1", ev.every((e) => e.parserId === PEOPLE_JSON_PARSER_ID));
     check("D unit: role-keyed container confidence 0.6", ev.every((e) => e.confidence === 0.6));
+    // EXT-C1: a record with no role anywhere is no longer coerced into
+    // PEOPLE_BOARD, and a record that states a designation outside our
+    // vocabulary keeps the person in the generic field with the text intact.
     const flat = extractPeopleJson([{ name: "Kiran Thapa Magar" }], "https://api.fixture.test/p", "2026-01-01T00:00:00Z");
-    check("D unit: flat array without role defaults to board (0.55)", flat.length === 1 && flat[0].field === "PEOPLE_BOARD" && flat[0].confidence === 0.55);
+    check("D unit: flat array with no role yields nothing (no invented role)", flat.length === 0, `${flat.length} evidence rows`);
+    const statedOut = extractPeopleJson([{ name: "Kiran Thapa Magar", designation: "Head of Operations" }], "https://api.fixture.test/p", "2026-01-01T00:00:00Z");
+    check("D unit: stated designation outside the vocabulary keeps the person", statedOut.length === 1 && statedOut[0].field === "PEOPLE_BOARD", JSON.stringify(statedOut));
+    const mapped = extractPeopleJson([{ name: "Kiran Thapa Magar", designation: "Director" }], "https://api.fixture.test/p", "2026-01-01T00:00:00Z");
+    check("D unit: stated designation in the vocabulary maps to its field", mapped.length === 1 && mapped[0].field === "PEOPLE_DIRECTOR", JSON.stringify(mapped));
   }
 
   // ---------------------------------------------------------------- E
@@ -403,8 +414,13 @@ async function main(): Promise<void> {
     const thirdSnaps = (q(dbPath, "SELECT COUNT(*) c FROM source_snapshots") as { c: number }).c;
     check("F changed body → new snapshot kept alongside the old", thirdSnaps === firstSnaps + 1);
     check("F changed body → historical assertion preserved", afterChange.some((r) => r.value === "Gopal Krishna Shrestha" && r.field_name === "people_chair"));
+    // EXT-C2: a semantic claim is (entity, field, value) and is stored ONCE. The
+    // second sighting must not create a second row pointing at the new snapshot;
+    // the new evidence is recorded as an ASSERTION_RESEEN audit entry instead.
     const chairHistory = qa(dbPath, "SELECT DISTINCT source_snapshot_id FROM data_assertions WHERE value = 'Gopal Krishna Shrestha'");
-    check("F changed body → two evidence snapshots for the same person", chairHistory.length === 2);
+    check("F changed body → one stored claim, not one per snapshot", chairHistory.length === 1, `${chairHistory.length}`);
+    const reseen = qa(dbPath, "SELECT COUNT(*) c FROM audit_logs WHERE action = 'ASSERTION_RESEEN'");
+    check("F changed body → the re-sighting is recorded in the audit trail", reseen.length > 0, JSON.stringify(reseen));
   }
 
   // ---------------------------------------------------------------- G
@@ -599,7 +615,11 @@ async function main(): Promise<void> {
     const badJson = qa(dbPath, "SELECT COUNT(*) c FROM data_assertions");
     check("J junk JSON never persisted", Number(badJson[0].c) === 0);
     const nulls = extractPeopleJson({ data: null, board: [null, 42, { name: "" }, { name: "Kiran Thapa Magar" }] }, "https://api.fixture.test/y", "2026-01-01T00:00:00Z");
-    check("J null/primitive/empty entries skipped", nulls.length === 1 && nulls[0].text === "Kiran Thapa Magar");
+    // EXT-C1: junk is still skipped without a crash, and the bare name that
+    // survives the junk filter is not published, because no role was read.
+    check("J null/primitive/empty entries skipped, bare name not published", nulls.length === 0, JSON.stringify(nulls));
+    const withRole = extractPeopleJson({ board: [null, 42, { name: "" }, { name: "Kiran Thapa Magar", role: "Director" }] }, "https://api.fixture.test/y", "2026-01-01T00:00:00Z");
+    check("J junk skipped and the role-bearing record kept", withRole.length === 1 && withRole[0].text === "Kiran Thapa Magar" && withRole[0].field === "PEOPLE_DIRECTOR", JSON.stringify(withRole));
     const empty = extractPeopleJson(null, "https://api.fixture.test/z", "2026-01-01T00:00:00Z");
     check("J null payload → no crash, no evidence", empty.length === 0);
   }

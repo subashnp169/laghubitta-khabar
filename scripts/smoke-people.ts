@@ -110,6 +110,7 @@ function seedScratch(dbPath: string, src: IngestionSourceSpec): void {
   ).run(src.id, src.url, src.domain, src.sourceType, JSON.stringify({ capabilities: src.capabilities }));
   for (const rule of [
     ["r-people-directory", "PEOPLE_DIRECTORY", "people directory extraction", "SANITY", "WARN"],
+    ["r-people-staff-directory", "PEOPLE_STAFF_DIRECTORY", "staff directory suppressed as a non-person listing", "SANITY", "INFO"],
     ["r-pilot-title", "PILOT_TITLE", "pilot title present", "SANITY", "WARN"],
     ["r-pilot-email", "PILOT_EMAIL", "pilot email field sanity", "SANITY", "WARN"],
   ]) {
