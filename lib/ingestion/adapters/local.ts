@@ -12,6 +12,7 @@ import type {
   ConflictInput,
   ErrorInput,
   EvidenceWriter,
+  StoredAssertion,
   ItemInput,
   OutboundLinkInput,
   RunOutcome,
@@ -55,20 +56,31 @@ const nowIso = () => new Date().toISOString();
  * EXT-C2 - deterministic identity for one semantic assertion.
  *
  * Derived only from the fields the schema already stores for a claim
- * (entity_type, entity_id, field_name) plus a normalised value, so the id is a
+ * (entity_type, entity_id, field_name, source_id) plus a normalised value, so the
  * pure function of the claim. Normalisation is deliberately minimal - Unicode
  * NFKC, collapsed whitespace, case-folded - so "Satya Narayan  Jha" and
  * "satya narayan jha" are recognised as the same claim while a genuinely
  * different value is never folded into it. The stored `value` column keeps the
  * exact first-observed text; only identity is normalised.
+ *
+ * source_id is part of the key, and that is load-bearing rather than incidental.
+ * Without it, an official page and a regulator both asserting `district = Dang`
+ * for one branch identity hash to the SAME id, the second INSERT is ignored, and
+ * the second source's provenance is lost for good. One identity would then carry
+ * one provenance row, and "which sources saw this branch?" becomes unanswerable -
+ * which is exactly what cross-source corroboration depends on. With source_id in
+ * the key, re-sighting the same claim from the SAME source still collapses (the
+ * idempotent case this id was built for), while two different sources each keep
+ * their own row against the same entity.
  */
 async function semanticAssertionId(
   entityType: string,
   entityId: string,
   fieldName: string,
+  sourceId: string,
   value: string,
 ): Promise<string> {
-  const material = [entityType, entityId, fieldName, value.normalize("NFKC").replace(/\s+/gu, " ").trim().toLocaleLowerCase()].join("");
+  const material = [entityType, entityId, fieldName, sourceId, value.normalize("NFKC").replace(/\s+/gu, " ").trim().toLocaleLowerCase()].join("");
   const hex = await createSha256Hex(new TextEncoder().encode(material));
   return `as-${hex.slice(0, 32)}`;
 }
@@ -213,7 +225,9 @@ export class LocalSourceRegistry implements SourceRegistry {
 }
 
 // ---------------------------------------------------------------------------
-// EvidenceWriter (append-only; INSERT OR IGNORE keeps idempotent re-runs)
+// EvidenceWriter - append-only. Idempotency is a deterministic semantic id (so
+// INSERT OR IGNORE collapses a re-sighted claim) plus an explicit lookup, so no
+// uniqueness constraint or migration is needed.
 // ---------------------------------------------------------------------------
 
 export class LocalSqliteEvidenceWriter implements EvidenceWriter {
@@ -272,7 +286,7 @@ export class LocalSqliteEvidenceWriter implements EvidenceWriter {
     // a different id and is therefore inserted as a new assertion, leaving both
     // the old and the new claim, both snapshots and the conflict lifecycle
     // intact.
-    const id = await semanticAssertionId(input.entityType, input.entityId, input.fieldName, input.value);
+    const id = await semanticAssertionId(input.entityType, input.entityId, input.fieldName, input.sourceId, input.value);
     const res = this.db
       .prepare(
         `INSERT OR IGNORE INTO data_assertions
@@ -308,6 +322,95 @@ export class LocalSqliteEvidenceWriter implements EvidenceWriter {
     }
   }
 
+  /**
+   * M3.4 gate - deterministic lookup of what is already asserted in one slot.
+   *
+   * The frozen schema puts no uniqueness constraint on data_assertions, so an
+   * equivalent assertion can only be recognised by reading. This is that read.
+   * Oldest observation first, so callers can treat the last entry as current.
+   */
+  async findAssertions(input: {
+    entityType: string;
+    entityId: string;
+    fieldName: string;
+    sourceId?: string;
+  }): Promise<StoredAssertion[]> {
+    const rows = this.db
+      .prepare(
+        `SELECT id, entity_type, entity_id, field_name, value, source_id,
+                source_snapshot_id, observed_at, valid_to, verification_status
+           FROM data_assertions
+          WHERE entity_type = ? AND entity_id = ? AND field_name = ?
+            ${input.sourceId ? "AND source_id = ?" : ""}
+          ORDER BY observed_at ASC, id ASC`,
+      )
+      .all(
+        ...(input.sourceId
+          ? [input.entityType, input.entityId, input.fieldName, input.sourceId]
+          : [input.entityType, input.entityId, input.fieldName]),
+      ) as Row[];
+    return rows.map((r) => ({
+      id: String(r.id),
+      entity_type: String(r.entity_type),
+      entity_id: String(r.entity_id),
+      field_name: String(r.field_name),
+      value: String(r.value),
+      source_id: String(r.source_id),
+      source_snapshot_id: r.source_snapshot_id === null ? null : String(r.source_snapshot_id),
+      observed_at: String(r.observed_at),
+      valid_to: r.valid_to === null ? null : String(r.valid_to),
+      verification_status: String(r.verification_status),
+    }));
+  }
+
+  /**
+   * M3.4 gate - close ONE assertion out as superseded.
+   *
+   * The frozen schema already has both halves of this: data_assertions.valid_to
+   * and a STALE member of the verification_status vocabulary. What was missing was
+   * the operation, not the storage. This stamps valid_to and moves the status, and
+   * never deletes: the earlier observation keeps its value, its source and its
+   * snapshot so the change stays auditable.
+   */
+  async supersedeAssertion(input: {
+    id: string;
+    validTo: string;
+    status?: "STALE" | "CONFLICT" | "REJECTED";
+    reason?: string;
+  }): Promise<boolean> {
+    const res = this.db
+      .prepare(
+        `UPDATE data_assertions
+            SET valid_to = ?, verification_status = ?
+          WHERE id = ? AND valid_to IS NULL`,
+      )
+      .run(input.validTo, input.status ?? "STALE", input.id);
+    if (res.changes > 0) return true;
+    if (input.reason) {
+      await this.appendAudit({
+        action: "ASSERTION_SUPERSEDE_SKIPPED",
+        targetType: "DATA_ASSERTION",
+        targetId: input.id,
+        afterJson: JSON.stringify({ reason: input.reason, valid_to: input.validTo }),
+      });
+    }
+    return false;
+  }
+
+  /**
+   * M3.4 gate - reuse an existing snapshot for identical canonical content
+   * instead of appending a byte-identical row on every re-run.
+   */
+  async findSnapshotByContentHash(sourceId: string, contentHash: string): Promise<string | null> {
+    const r = this.db
+      .prepare(
+        `SELECT id FROM source_snapshots
+          WHERE source_id = ? AND content_hash = ?
+          ORDER BY fetched_at DESC, id DESC LIMIT 1`,
+      )
+      .get(sourceId, contentHash) as Row | undefined;
+    return r ? String(r.id) : null;
+  }
   async saveConflict(input: ConflictInput): Promise<void> {
     this.db
       .prepare(

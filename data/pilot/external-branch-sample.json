@@ -1,0 +1,94 @@
+{
+  "$schema": "external-branch-sample/v1",
+  "generated_at": "2026-09-28T16:57:59.257Z",
+  "fetches_used": 3,
+  "fetch_budget_note": "3 controlled fetches (2 official pages + 1 NRB table). data/pilot/pilot-budget.json maxFetches=18 is UNCHANGED. Tier-3 pages were investigated earlier; their fetch counts are recorded in branch-source-registry.json.",
+  "nrb_table_measured": {
+    "data_rows": 297,
+    "records_parsed": 297,
+    "columns_mapped": 6,
+    "rows_refused": 0,
+    "population": "COMMERCIAL BANKS ONLY - zero of the 51 pilot microfinance institutions are listed",
+    "consequence": "no MFI branch coverage is obtainable from this source; absence must be reported as 'not covered', never as zero branches"
+  },
+  "rows": [
+    {
+      "role": "official",
+      "institution_id": "mfi-003",
+      "source_type": "OFFICIAL_MFB",
+      "source_id": "mfi-003-official",
+      "url": "https://www.chhimekbank.org/branches",
+      "http_status": 200,
+      "fetched_at": "2026-09-28T16:57:59.869Z",
+      "content_hash": "28e6b49ab58e7cd7c5778600ed175441e8394cf5c4a3aa6e977a7d784ccfd78a",
+      "outcome": "VERIFIED_BRANCH_DIRECTORY / official 212 record(s), 9 rejected",
+      "branch_records": 212,
+      "detail": "structure=branch_headings; fallback used=false"
+    },
+    {
+      "role": "official",
+      "institution_id": "mfi-005",
+      "source_type": "OFFICIAL_MFB",
+      "source_id": "mfi-005-official",
+      "url": "https://www.skbbl.com.np/branch",
+      "http_status": 200,
+      "fetched_at": "2026-09-28T16:58:00.585Z",
+      "content_hash": "84a83d546d19b72c5623846348e3fe7e798abc87e07f8bc202dde5cb20c7eabd",
+      "outcome": "VERIFIED_BRANCH_DIRECTORY / official 9 record(s), 0 rejected",
+      "branch_records": 9,
+      "detail": "structure=branch_headings; fallback used=false"
+    },
+    {
+      "role": "external",
+      "institution_id": "bank-nepal-bank",
+      "source_type": "NRB",
+      "source_id": "nrb-bank-list",
+      "url": "https://www.nrb.org.np/bank-list/",
+      "http_status": 200,
+      "fetched_at": "2026-09-28T16:58:00.813Z",
+      "content_hash": "40c64869ecd1e62f90fdcc42508a61ee6450555f759f25c8b3d9df385b17b86b",
+      "outcome": "adapter OK: 297/297 rows, 0 refused",
+      "branch_records": 2,
+      "detail": "columns mapped 6/6; sampled 2 rows through EvidenceWriter (8 assertions); match=bank-nepal-bank via BFI_CODE; weak MFI-word signal in branch names=1 (population proof is the 148-bank institution selector)"
+    },
+    {
+      "role": "secondary",
+      "institution_id": "*",
+      "source_type": "MEROLAGANI",
+      "source_id": "merolagani",
+      "url": "https://www.merolagani.com/",
+      "http_status": 200,
+      "fetched_at": "2026-09-27T00:00:00.000Z",
+      "content_hash": "",
+      "outcome": "CONSULTED - no branch-level rows",
+      "branch_records": 0,
+      "detail": "VERIFIED FORMAT, NOT BRANCH-LEVEL. Live 2026-09-27: HTTP 200, 408891 bytes, 18 tables, no microfinance section, 0 occurrences of the words 'Microfinance', 'Branch' or 'BFI' on the site root. merolagani.com is a NEPSE market-data site whose company pages cover listed instruments only. Nepalese microfinance institutions are not listed on NEPSE, so this source cannot supply MFI branch rows. Usable only as secondary corroboration for a listed institution's own contact details, never as a branch directory."
+    },
+    {
+      "role": "secondary",
+      "institution_id": "*",
+      "source_type": "SHARESANSHAR",
+      "source_id": "sharesanshar",
+      "url": "https://www.sharesansar.com/company/",
+      "http_status": 200,
+      "fetched_at": "2026-09-27T00:00:00.000Z",
+      "content_hash": "",
+      "outcome": "CONSULTED - no branch-level rows",
+      "branch_records": 0,
+      "detail": "VERIFIED FORMAT, NOT BRANCH-LEVEL. Live 2026-09-27: HTTP 200. The site carries 15 microfinance-related instruments in its embedded company list (FMDBL First Microfinance, FOWAD Forward Microfinance, KMFL Kisan Microfinance, MERO Mero Microfinance, NMLBS National Microfinance, NSMLBSL National Summit Microfinance, OME Ome Microfinance, RRMBSL Rama Roshan, SMBPO Support Microfinance, plus promoter-share lines GMFBSPO/FMDBLP/FOWADP/KMFLPO/MEROPO). So the POPULATION is right where Mero Lagani is wrong. But the per-company pages are institution-level: /company/gblbs and /company/mero each return 0 occurrences of 'Branch' and exactly one address, one phone and one email - the company's own single contact, not a branch list. The /company/ path as a whole is not directly fetchable (HTTP 404) and must be addressed per symbol. Usable as secondary corroboration of an institution's existence, name and head-office contact; NOT a branch directory."
+    }
+  ],
+  "tier_order_from_registry": [
+    {
+      "institution_id": "mfi-003",
+      "has_official": true,
+      "order": "OFFICIAL_MFB > NRB > MEROLAGANI > SHARESANSHAR"
+    },
+    {
+      "institution_id": "mfi-002",
+      "has_official": false,
+      "order": "NRB > MEROLAGANI > SHARESANSHAR"
+    }
+  ],
+  "conclusion": "The external branch-evidence path is built, wired to the existing evidence pipeline, and proven end to end on the one real regulator branch table that exists. It contributes ZERO additional microfinance coverage today, because no verified public source carries branch-level rows for the pilot MFIs. Targets whose official page is unusable therefore resolve to coverage D (UNRESOLVED), never to a zero branch count."
+}

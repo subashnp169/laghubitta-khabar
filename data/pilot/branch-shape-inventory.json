@@ -1,0 +1,4854 @@
+{
+  "$schema": "branch-coverage-inventory/v2",
+  "generated_at": "2026-09-27T17:33:07.400Z",
+  "purpose": "PRE-ASSERTION branch coverage inventory. No branch assertions written. No schema change.",
+  "parser_under_audit": "branch-html-v2 (table-scoped record table, then M3.4 evidence-gated card and <br>-cell fallbacks; self-limits to capability BRANCH_DIRECTORY)",
+  "committed_targets": 35,
+  "fetched": 35,
+  "verified_directory": 18,
+  "needs_structural_work": 7,
+  "sectionA_structure_note": "structure / structureKind are measured from the HTML with no parser output involved.",
+  "sectionB_parser_note": "parser reports what branch-html-v2 did: winning grammar (table|card|cell|none), candidate records, weak evidence-only cards, refused names, gate results, attribute tallies by reason code.",
+  "sectionC_coverage_note": "coverage is a pure function of sections A and B, ordered: UNREADABLE_BODY, NOT_A_BRANCH_PAGE, BRANCH_LOCATOR_UNRENDERED, VERIFIED_BRANCH_DIRECTORY, PARTIAL_BRANCH_DIRECTORY, BRANCH_STRUCTURE_UNREAD, SINGLE_LOCATION_CONTACT, BRANCH_INTENT_NO_STRUCTURE.",
+  "shapeDistribution": {
+    "VERIFIED_BRANCH_DIRECTORY": 18,
+    "BRANCH_STRUCTURE_UNREAD": 6,
+    "SINGLE_LOCATION_CONTACT": 6,
+    "BRANCH_INTENT_NO_STRUCTURE": 2,
+    "BRANCH_LOCATOR_UNRENDERED": 2,
+    "PARTIAL_BRANCH_DIRECTORY": 1
+  },
+  "structureKindDistribution": {
+    "branch_headings": 15,
+    "phone_cards": 3,
+    "record_table": 7,
+    "none": 8,
+    "single_block": 2
+  },
+  "results": [
+    {
+      "sourceId": "nirdhan-website",
+      "institutionId": "mfi-001",
+      "url": "https://www.nirdhan.com.np/branch-network/",
+      "linkType": "BRANCH_PAGE",
+      "backfillNote": "m34 2026-09-27: re-pointed to a structurally confirmed branch page. prior target was not a branch page [phase F backfill 2026-09-26: anchor=evidence-homepage (http 200, text/html)]. confirmed by branch-url-discovery on a repeated-address/phone row structure (branchRows>=2); branch-html-v1 dry run reads 180 names (171 distinct). snapshot snap-m34disc-d60a3faaeeb6 sha256:e176269a1f3e. source-level proven_by (nrb-bfi-mid-may-2026) unchanged: this corrects WHICH page, it does not re-prove the institution.",
+      "finalUrl": "https://www.nirdhan.com.np/branch-network/",
+      "httpStatus": 200,
+      "mimeType": "text/html; charset=UTF-8",
+      "bytes": 105853,
+      "fetchedAt": "2026-09-27T17:32:26.747Z",
+      "contentHash": "7e9d3e4d8c232964d0d138945b648b30749c59a642c7aa9b2cf45c7669ae4e14",
+      "redirected": 0,
+      "snapshotId": "snap-m34-001-d60a3faa",
+      "structure": {
+        "tableCount": 21,
+        "recordTableCount": 21,
+        "branchRowCount": 203,
+        "headingCount": 12,
+        "branchHeadingCount": 11,
+        "containerCount": 4,
+        "phoneBlocks": 0,
+        "brGroupCount": 0,
+        "mapLinkCount": 0,
+        "emailCount": 0,
+        "phoneCount": 394,
+        "addressCount": 0,
+        "visibleTextLength": 29738,
+        "scriptCount": 29,
+        "noscriptCount": 0,
+        "jsRenderedIndicators": 0,
+        "title": "Branch Network | Nirdhan Utthan Laghubitta Bittiya Sanstha",
+        "densities": {
+          "phonePer1k": 13.25,
+          "emailPer1k": 0,
+          "addressPer1k": 0,
+          "brGroupsPer1k": 0
+        }
+      },
+      "structureKind": "branch_headings",
+      "parser": {
+        "path": "table",
+        "candidateRecords": 193,
+        "validNames": 158,
+        "rejectedNames": 35,
+        "evidenceOnlyRows": 35,
+        "weakCardCandidates": 0,
+        "namesFromPersonCards": 0,
+        "refusedCardCandidates": [],
+        "attributes": {
+          "BRANCH_DISTRICT": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PLACE": {
+            "extracted": 187,
+            "valid": 187,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_ADDRESS": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PHONE": {
+            "extracted": 192,
+            "valid": 192,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MOBILE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_EMAIL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MANAGER": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MAP_URL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          }
+        },
+        "nameSample": [
+          "Tikathali Branch, Lalitpur",
+          "Gagalphedi Branch, Kathmandu",
+          "Palung Branch, Makwanpur",
+          "Kalikasthan Branch, Rasuwa",
+          "Chaling Branch, Bhaktapur",
+          "Dhikure Branch, Nuwakote",
+          "Thecho Branch, Lalitpur",
+          "Namdu Branch, Dolakha",
+          "Galchi Branch, Dhadhing",
+          "Tripureswor Branch, Dhadhing",
+          "Jethal Branch, Sindhupalchok",
+          "Nawalpur Branch, Sindhupalchok"
+        ],
+        "rejectedNameSample": [
+          "Regional Office",
+          "Bhandara, Chitwan",
+          "Bharatpur, Chitwan",
+          "Chanauli, Chitwan",
+          "Daldale, Nawalparasi",
+          "Madi, Chitwan",
+          "Mungling, Chitwan",
+          "Tandi, Chitwan",
+          "Aryabhanjyang, Palpa",
+          "Banstari, Palpa",
+          "Belatari, Nawalparasi",
+          "Bhairahwa, Rupandehi"
+        ],
+        "roleBearingPeople": 0
+      },
+      "coverage": "VERIFIED_BRANCH_DIRECTORY",
+      "coverageReason": "158 assertable names from 11 branch_headings record(s)",
+      "structuralRecords": 11,
+      "structuralRecordsMax": 203,
+      "signals": {
+        "branchVocabHits": 198,
+        "locatorMarkers": 0,
+        "tableCount": 21,
+        "tableRowCount": 226,
+        "branchRows": 203,
+        "phoneHits": 394,
+        "addressHits": 0,
+        "districtHits": 231,
+        "nameLikeUnits": 190,
+        "bodyTextLength": 29738
+      },
+      "shape": "VERIFIED_BRANCH_DIRECTORY",
+      "dryRunBranchNames": 158
+    },
+    {
+      "sourceId": "chhimek-website",
+      "institutionId": "mfi-003",
+      "url": "https://www.chhimekbank.org/branches",
+      "linkType": "BRANCH_PAGE",
+      "backfillNote": "phase F backfill 2026-09-26: anchor=link (http ?, ?)",
+      "finalUrl": "https://www.chhimekbank.org/branches",
+      "httpStatus": 200,
+      "mimeType": "text/html; charset=UTF-8",
+      "bytes": 491083,
+      "fetchedAt": "2026-09-27T17:32:27.059Z",
+      "contentHash": "923a43f5438c43831047d401d8575b7b61261e1db6f725147d05594cb2ec5ff1",
+      "redirected": 0,
+      "snapshotId": "snap-m34-002-f8fab278",
+      "structure": {
+        "tableCount": 0,
+        "recordTableCount": 0,
+        "branchRowCount": 0,
+        "headingCount": 219,
+        "branchHeadingCount": 199,
+        "containerCount": 6,
+        "phoneBlocks": 0,
+        "brGroupCount": 0,
+        "mapLinkCount": 0,
+        "emailCount": 0,
+        "phoneCount": 210,
+        "addressCount": 12,
+        "visibleTextLength": 21451,
+        "scriptCount": 18,
+        "noscriptCount": 0,
+        "jsRenderedIndicators": 0,
+        "title": "Service Networks",
+        "densities": {
+          "phonePer1k": 9.79,
+          "emailPer1k": 0,
+          "addressPer1k": 0.56,
+          "brGroupsPer1k": 0
+        }
+      },
+      "structureKind": "branch_headings",
+      "parser": {
+        "path": "card",
+        "candidateRecords": 221,
+        "validNames": 212,
+        "rejectedNames": 9,
+        "evidenceOnlyRows": 9,
+        "weakCardCandidates": 0,
+        "namesFromPersonCards": 0,
+        "refusedCardCandidates": [
+          "Our Branches",
+          "HEAD OFFICE",
+          "Total no of branches : 197",
+          "Products",
+          "Corporate",
+          "Chhimek Laghubitta Bittiya Sanstha Ltd."
+        ],
+        "attributes": {
+          "BRANCH_DISTRICT": {
+            "extracted": 82,
+            "valid": 82,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PLACE": {
+            "extracted": 221,
+            "valid": 220,
+            "refused": 1,
+            "reasons": {
+              "CONTAINS_URL": 1
+            }
+          },
+          "BRANCH_ADDRESS": {
+            "extracted": 221,
+            "valid": 219,
+            "refused": 2,
+            "reasons": {
+              "CONTAINS_URL": 1,
+              "GENERIC_LABEL": 1
+            }
+          },
+          "BRANCH_PHONE": {
+            "extracted": 206,
+            "valid": 204,
+            "refused": 2,
+            "reasons": {
+              "CONTAINS_LETTERS": 2
+            }
+          },
+          "BRANCH_MOBILE": {
+            "extracted": 53,
+            "valid": 53,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_EMAIL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MANAGER": {
+            "extracted": 1,
+            "valid": 1,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MAP_URL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          }
+        },
+        "nameSample": [
+          "Lumbini Provincial Office, Butwal",
+          "Lumbini Provincial Office, Butwal",
+          "Madhesh Provincial Office, Jitpur",
+          "Madhesh Provincial Office, Jitpur",
+          "Koshi Provincial Office, Itahari",
+          "Koshi Provincial Office, Itahari",
+          "Bagmati Provincial Office, Bharatpur",
+          "Bagmati Provincial Office, Bharatpur",
+          "Sudurpaschim Provincial Office, Attariya",
+          "Sudurpaschim Provincial Office, Attariya",
+          "Gandaki Provincial Office, Pokhara",
+          "Gandaki Provincial Office, Pokhara"
+        ],
+        "rejectedNameSample": [
+          "Our Branches",
+          "HEAD OFFICE",
+          "Total no of branches : 197",
+          "Products",
+          "Corporate",
+          "Chhimek Laghubitta Bittiya Sanstha Ltd."
+        ],
+        "roleBearingPeople": 0
+      },
+      "coverage": "VERIFIED_BRANCH_DIRECTORY",
+      "coverageReason": "212 assertable names from 199 branch_headings record(s)",
+      "structuralRecords": 199,
+      "structuralRecordsMax": 199,
+      "signals": {
+        "branchVocabHits": 204,
+        "locatorMarkers": 13,
+        "tableCount": 0,
+        "tableRowCount": 0,
+        "branchRows": 0,
+        "phoneHits": 210,
+        "addressHits": 12,
+        "districtHits": 169,
+        "nameLikeUnits": 215,
+        "bodyTextLength": 21451
+      },
+      "shape": "VERIFIED_BRANCH_DIRECTORY",
+      "dryRunBranchNames": 212
+    },
+    {
+      "sourceId": "mero-website",
+      "institutionId": "mfi-020",
+      "url": "https://www.meromicrofinance.com/branches",
+      "linkType": "BRANCH_PAGE",
+      "backfillNote": "phase F backfill 2026-09-26: anchor=link (http ?, ?)",
+      "finalUrl": "https://meromicrofinance.com/branches",
+      "httpStatus": 200,
+      "mimeType": "text/html; charset=utf-8",
+      "bytes": 589540,
+      "fetchedAt": "2026-09-27T17:32:28.060Z",
+      "contentHash": "ef1c6f28de5122d2be8d5a29bafd24fcddd0b0ca03d0a0724e128cce094cd12f",
+      "redirected": 0,
+      "snapshotId": "snap-m34-003-d011beba",
+      "structure": {
+        "tableCount": 0,
+        "recordTableCount": 0,
+        "branchRowCount": 0,
+        "headingCount": 157,
+        "branchHeadingCount": 150,
+        "containerCount": 159,
+        "phoneBlocks": 147,
+        "brGroupCount": 0,
+        "mapLinkCount": 0,
+        "emailCount": 1,
+        "phoneCount": 149,
+        "addressCount": 0,
+        "visibleTextLength": 18965,
+        "scriptCount": 4,
+        "noscriptCount": 0,
+        "jsRenderedIndicators": 0,
+        "title": "Branch &amp; Monitoring Station Locator - Mero Microfinance",
+        "densities": {
+          "phonePer1k": 7.86,
+          "emailPer1k": 0.05,
+          "addressPer1k": 0,
+          "brGroupsPer1k": 0
+        }
+      },
+      "structureKind": "phone_cards",
+      "parser": {
+        "path": "card",
+        "candidateRecords": 157,
+        "validNames": 149,
+        "rejectedNames": 8,
+        "evidenceOnlyRows": 8,
+        "weakCardCandidates": 0,
+        "namesFromPersonCards": 0,
+        "refusedCardCandidates": [
+          "Bagmati Province",
+          "Gandaki Province",
+          "Karnali Province",
+          "Koshi Province",
+          "Lumbini Province",
+          "Madhes Province",
+          "Quick Links",
+          "Publications"
+        ],
+        "attributes": {
+          "BRANCH_DISTRICT": {
+            "extracted": 56,
+            "valid": 56,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PLACE": {
+            "extracted": 157,
+            "valid": 157,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_ADDRESS": {
+            "extracted": 157,
+            "valid": 157,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PHONE": {
+            "extracted": 148,
+            "valid": 148,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MOBILE": {
+            "extracted": 67,
+            "valid": 67,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_EMAIL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MANAGER": {
+            "extracted": 149,
+            "valid": 145,
+            "refused": 4,
+            "reasons": {
+              "GENERIC_LABEL": 4
+            }
+          },
+          "BRANCH_MAP_URL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          }
+        },
+        "nameSample": [
+          "Battar Branch",
+          "Ratmate Branch",
+          "Satbise Branch",
+          "Rani Pauwa Branch",
+          "Murali Bhanjyang Branch",
+          "Bhumesthan Branch",
+          "Mangalpur Branch",
+          "Chainpur Chok Branch",
+          "Bastipur Branch",
+          "Ram Gadhawa Branch",
+          "Chapagaun Branch",
+          "Katunje Branch"
+        ],
+        "rejectedNameSample": [
+          "Bagmati Province",
+          "Gandaki Province",
+          "Karnali Province",
+          "Koshi Province",
+          "Lumbini Province",
+          "Madhes Province",
+          "Quick Links",
+          "Publications"
+        ],
+        "roleBearingPeople": 0
+      },
+      "coverage": "VERIFIED_BRANCH_DIRECTORY",
+      "coverageReason": "149 assertable names from 147 phone_cards record(s)",
+      "structuralRecords": 147,
+      "structuralRecordsMax": 150,
+      "signals": {
+        "branchVocabHits": 350,
+        "locatorMarkers": 42,
+        "tableCount": 0,
+        "tableRowCount": 0,
+        "branchRows": 0,
+        "phoneHits": 149,
+        "addressHits": 0,
+        "districtHits": 77,
+        "nameLikeUnits": 0,
+        "bodyTextLength": 18965
+      },
+      "shape": "VERIFIED_BRANCH_DIRECTORY",
+      "dryRunBranchNames": 149
+    },
+    {
+      "sourceId": "matribhumi-website",
+      "institutionId": "mfi-047",
+      "url": "https://matribhumimf.com.np",
+      "linkType": "BRANCH_PAGE",
+      "backfillNote": "phase F backfill 2026-09-26: anchor=evidence-homepage (http 200, text/html)",
+      "finalUrl": "https://matribhumimf.com.np/",
+      "httpStatus": 200,
+      "mimeType": "text/html; charset=utf-8",
+      "bytes": 384265,
+      "fetchedAt": "2026-09-27T17:32:28.543Z",
+      "contentHash": "4e4395185fcf07bf11b139ad2710efbe319f0cadf9091b95c0fdb085433823fe",
+      "redirected": 0,
+      "snapshotId": "snap-m34-004-4d1b90f6",
+      "structure": {
+        "tableCount": 0,
+        "recordTableCount": 0,
+        "branchRowCount": 0,
+        "headingCount": 60,
+        "branchHeadingCount": 0,
+        "containerCount": 74,
+        "phoneBlocks": 2,
+        "brGroupCount": 0,
+        "mapLinkCount": 4,
+        "emailCount": 0,
+        "phoneCount": 34,
+        "addressCount": 2,
+        "visibleTextLength": 10810,
+        "scriptCount": 27,
+        "noscriptCount": 0,
+        "jsRenderedIndicators": 0,
+        "title": "Matribhumi Laghubitta Bittiya Sanstha Ltd.",
+        "densities": {
+          "phonePer1k": 3.15,
+          "emailPer1k": 0,
+          "addressPer1k": 0.19,
+          "brGroupsPer1k": 0
+        }
+      },
+      "structureKind": "phone_cards",
+      "parser": {
+        "path": "none",
+        "candidateRecords": 0,
+        "validNames": 0,
+        "rejectedNames": 0,
+        "evidenceOnlyRows": 0,
+        "weakCardCandidates": 1,
+        "namesFromPersonCards": 0,
+        "refusedCardCandidates": [
+          "Our Savings & Loan Products",
+          ">Can open wit 0 balance.",
+          "Group Savings",
+          ">Fund saving",
+          ">This is old and phaseout scheme",
+          "Learn More",
+          "Remittance Bachat",
+          "Minimum Balance: Upto 1500000",
+          "Minimum Balance: Upto 700000",
+          "Matribhumi Laghubitta Bittiya Sanstha Ltd.",
+          "208000+",
+          "209"
+        ],
+        "attributes": {
+          "BRANCH_DISTRICT": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PLACE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_ADDRESS": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PHONE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MOBILE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_EMAIL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MANAGER": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MAP_URL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          }
+        },
+        "nameSample": [],
+        "rejectedNameSample": [],
+        "roleBearingPeople": 0
+      },
+      "coverage": "BRANCH_STRUCTURE_UNREAD",
+      "coverageReason": "2 phone_cards record(s) in HTML, 0 assertable names",
+      "structuralRecords": 2,
+      "structuralRecordsMax": 2,
+      "signals": {
+        "branchVocabHits": 3,
+        "locatorMarkers": 68,
+        "tableCount": 0,
+        "tableRowCount": 0,
+        "branchRows": 0,
+        "phoneHits": 34,
+        "addressHits": 2,
+        "districtHits": 0,
+        "nameLikeUnits": 3,
+        "bodyTextLength": 10810
+      },
+      "shape": "BRANCH_STRUCTURE_UNREAD",
+      "dryRunBranchNames": 0
+    },
+    {
+      "sourceId": "aarambha-website",
+      "institutionId": "mfi-030",
+      "url": "https://www.aarambhachautari.com/cat/branch",
+      "linkType": "BRANCH_PAGE",
+      "backfillNote": "m34 2026-09-27: re-pointed to a structurally confirmed branch page. prior target was not a branch page [phase F backfill 2026-09-26: anchor=evidence-homepage (http 200, text/html)]. confirmed by branch-url-discovery on a repeated-address/phone row structure (branchRows>=2); branch-html-v1 dry run reads 132 names (132 distinct). snapshot snap-m34disc-a5ba2c074134 sha256:5195268b49db. source-level proven_by (nrb-bfi-mid-may-2026) unchanged: this corrects WHICH page, it does not re-prove the institution.",
+      "finalUrl": "https://www.aarambhachautari.com/cat/branch",
+      "httpStatus": 200,
+      "mimeType": "text/html; charset=UTF-8",
+      "bytes": 294564,
+      "fetchedAt": "2026-09-27T17:32:30.158Z",
+      "contentHash": "e01e0bff4fc681154c76ce461b967f2b156456c85e6d75032d745f5bba95b5a4",
+      "redirected": 0,
+      "snapshotId": "snap-m34-005-a5ba2c07",
+      "structure": {
+        "tableCount": 1,
+        "recordTableCount": 1,
+        "branchRowCount": 134,
+        "headingCount": 271,
+        "branchHeadingCount": 269,
+        "containerCount": 0,
+        "phoneBlocks": 0,
+        "brGroupCount": 0,
+        "mapLinkCount": 0,
+        "emailCount": 271,
+        "phoneCount": 271,
+        "addressCount": 0,
+        "visibleTextLength": 33118,
+        "scriptCount": 27,
+        "noscriptCount": 0,
+        "jsRenderedIndicators": 0,
+        "title": "Aarambha chautari Laghubitta Bittiya Sanstha",
+        "densities": {
+          "phonePer1k": 8.18,
+          "emailPer1k": 8.18,
+          "addressPer1k": 0,
+          "brGroupsPer1k": 0
+        }
+      },
+      "structureKind": "record_table",
+      "parser": {
+        "path": "table",
+        "candidateRecords": 134,
+        "validNames": 134,
+        "rejectedNames": 0,
+        "evidenceOnlyRows": 0,
+        "weakCardCandidates": 0,
+        "namesFromPersonCards": 0,
+        "refusedCardCandidates": [],
+        "attributes": {
+          "BRANCH_DISTRICT": {
+            "extracted": 10,
+            "valid": 0,
+            "refused": 10,
+            "reasons": {
+              "NOT_A_DISTRICT": 10
+            }
+          },
+          "BRANCH_PLACE": {
+            "extracted": 134,
+            "valid": 134,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_ADDRESS": {
+            "extracted": 134,
+            "valid": 134,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PHONE": {
+            "extracted": 134,
+            "valid": 133,
+            "refused": 1,
+            "reasons": {
+              "CONTAINS_LETTERS": 1
+            }
+          },
+          "BRANCH_MOBILE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_EMAIL": {
+            "extracted": 134,
+            "valid": 134,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MANAGER": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MAP_URL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          }
+        },
+        "nameSample": [
+          "Shivapur Branch",
+          "Dovan Branch",
+          "Gochhada Branch",
+          "Manpakadi Branch",
+          "Buddi Branch",
+          "Batase Branch",
+          "Shreenagar Branch",
+          "Tharmare Branch",
+          "Sulichaur Branch",
+          "Sardi Branch",
+          "Khanadaha Branch",
+          "Balkot Branch"
+        ],
+        "rejectedNameSample": [],
+        "roleBearingPeople": 0
+      },
+      "coverage": "VERIFIED_BRANCH_DIRECTORY",
+      "coverageReason": "134 assertable names from 134 record_table record(s)",
+      "structuralRecords": 134,
+      "structuralRecordsMax": 269,
+      "signals": {
+        "branchVocabHits": 532,
+        "locatorMarkers": 10,
+        "tableCount": 1,
+        "tableRowCount": 135,
+        "branchRows": 134,
+        "phoneHits": 271,
+        "addressHits": 0,
+        "districtHits": 134,
+        "nameLikeUnits": 130,
+        "bodyTextLength": 33118
+      },
+      "shape": "VERIFIED_BRANCH_DIRECTORY",
+      "dryRunBranchNames": 134
+    },
+    {
+      "sourceId": "aatmanirbhar-website",
+      "institutionId": "mfi-049",
+      "url": "https://aatmanirbhar.com.np/branch_detail_page/5",
+      "linkType": "BRANCH_PAGE",
+      "backfillNote": "m34 2026-09-27: re-pointed to a structurally confirmed branch page. prior target was not a branch page [phase F backfill 2026-09-26: anchor=evidence-homepage (http 200, text/html)]. confirmed by branch-url-discovery on a repeated-address/phone row structure (branchRows>=2); branch-html-v1 dry run reads 17 names but output is REPEATED_HEADER (top \"Branch Manager\" x16). snapshot snap-m34disc-f42b87bcda7c sha256:7cb92906ef1e. source-level proven_by (nrb-bfi-mid-may-2026) unchanged: this corrects WHICH page, it does not re-prove the institution.",
+      "finalUrl": "https://aatmanirbhar.com.np/branch_detail_page/5",
+      "httpStatus": 200,
+      "mimeType": "text/html; charset=UTF-8",
+      "bytes": 41081,
+      "fetchedAt": "2026-09-27T17:32:30.753Z",
+      "contentHash": "a4b7dfff0bdaa48da8078c434c3f7d83f94c8359e93d0ccc7ab40310dfa90efe",
+      "redirected": 0,
+      "snapshotId": "snap-m34-006-f42b87bc",
+      "structure": {
+        "tableCount": 1,
+        "recordTableCount": 1,
+        "branchRowCount": 24,
+        "headingCount": 8,
+        "branchHeadingCount": 1,
+        "containerCount": 11,
+        "phoneBlocks": 1,
+        "brGroupCount": 0,
+        "mapLinkCount": 0,
+        "emailCount": 27,
+        "phoneCount": 30,
+        "addressCount": 1,
+        "visibleTextLength": 4416,
+        "scriptCount": 4,
+        "noscriptCount": 0,
+        "jsRenderedIndicators": 0,
+        "title": "Branch Contact Details",
+        "densities": {
+          "phonePer1k": 6.79,
+          "emailPer1k": 6.11,
+          "addressPer1k": 0.23,
+          "brGroupsPer1k": 0
+        }
+      },
+      "structureKind": "record_table",
+      "parser": {
+        "path": "table",
+        "candidateRecords": 22,
+        "validNames": 22,
+        "rejectedNames": 0,
+        "evidenceOnlyRows": 0,
+        "weakCardCandidates": 0,
+        "namesFromPersonCards": 0,
+        "refusedCardCandidates": [],
+        "attributes": {
+          "BRANCH_DISTRICT": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PLACE": {
+            "extracted": 22,
+            "valid": 22,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_ADDRESS": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PHONE": {
+            "extracted": 22,
+            "valid": 22,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MOBILE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_EMAIL": {
+            "extracted": 8,
+            "valid": 8,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MANAGER": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MAP_URL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          }
+        },
+        "nameSample": [
+          "Ghorahi",
+          "Tulsipur A",
+          "Narayanpur",
+          "Lamahi",
+          "Bhalubang",
+          "Gadhawa",
+          "Kohalpur",
+          "Hapure",
+          "Tulsipur B",
+          "Tulsipur B",
+          "Rajpur",
+          "Shreegaun"
+        ],
+        "rejectedNameSample": [],
+        "roleBearingPeople": 0
+      },
+      "coverage": "VERIFIED_BRANCH_DIRECTORY",
+      "coverageReason": "22 assertable names from 24 record_table record(s)",
+      "structuralRecords": 24,
+      "structuralRecordsMax": 24,
+      "signals": {
+        "branchVocabHits": 27,
+        "locatorMarkers": 0,
+        "tableCount": 1,
+        "tableRowCount": 25,
+        "branchRows": 24,
+        "phoneHits": 30,
+        "addressHits": 1,
+        "districtHits": 2,
+        "nameLikeUnits": 49,
+        "bodyTextLength": 4416
+      },
+      "shape": "VERIFIED_BRANCH_DIRECTORY",
+      "dryRunBranchNames": 22
+    },
+    {
+      "sourceId": "asha-website",
+      "institutionId": "mfi-031",
+      "url": "https://ashamicrofinance.com.np/branches/",
+      "linkType": "BRANCH_PAGE",
+      "backfillNote": "m34 2026-09-27: re-pointed to a structurally confirmed branch page. prior target was not a branch page [phase F backfill 2026-09-26: anchor=evidence-homepage (http 200, text/html)]. confirmed by branch-url-discovery on a repeated-address/phone row structure (branchRows>=2); branch-html-v1 dry run reads 132 names (132 distinct). snapshot snap-m34disc-462f3755d5a8 sha256:a481d96d9355. source-level proven_by (nrb-bfi-mid-may-2026) unchanged: this corrects WHICH page, it does not re-prove the institution.",
+      "finalUrl": "https://ashamicrofinance.com.np/branches/",
+      "httpStatus": 200,
+      "mimeType": "text/html; charset=UTF-8",
+      "bytes": 188278,
+      "fetchedAt": "2026-09-27T17:32:31.907Z",
+      "contentHash": "a481d96d93553744aa8d91106f36426c25bca9945733c8884ce81a411ac02f32",
+      "redirected": 0,
+      "snapshotId": "snap-m34-007-462f3755",
+      "structure": {
+        "tableCount": 7,
+        "recordTableCount": 7,
+        "branchRowCount": 132,
+        "headingCount": 8,
+        "branchHeadingCount": 1,
+        "containerCount": 6,
+        "phoneBlocks": 0,
+        "brGroupCount": 0,
+        "mapLinkCount": 0,
+        "emailCount": 131,
+        "phoneCount": 132,
+        "addressCount": 3,
+        "visibleTextLength": 19712,
+        "scriptCount": 21,
+        "noscriptCount": 0,
+        "jsRenderedIndicators": 0,
+        "title": "Branches &#8211; Aasha Laghubitta Bittiya Sanstha Ltd.",
+        "densities": {
+          "phonePer1k": 6.7,
+          "emailPer1k": 6.65,
+          "addressPer1k": 0.15,
+          "brGroupsPer1k": 0
+        }
+      },
+      "structureKind": "record_table",
+      "parser": {
+        "path": "table",
+        "candidateRecords": 132,
+        "validNames": 132,
+        "rejectedNames": 0,
+        "evidenceOnlyRows": 0,
+        "weakCardCandidates": 0,
+        "namesFromPersonCards": 0,
+        "refusedCardCandidates": [],
+        "attributes": {
+          "BRANCH_DISTRICT": {
+            "extracted": 1,
+            "valid": 0,
+            "refused": 1,
+            "reasons": {
+              "NOT_A_DISTRICT": 1
+            }
+          },
+          "BRANCH_PLACE": {
+            "extracted": 132,
+            "valid": 132,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_ADDRESS": {
+            "extracted": 132,
+            "valid": 132,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PHONE": {
+            "extracted": 132,
+            "valid": 83,
+            "refused": 49,
+            "reasons": {
+              "DIGIT_COUNT": 49
+            }
+          },
+          "BRANCH_MOBILE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_EMAIL": {
+            "extracted": 131,
+            "valid": 131,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MANAGER": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MAP_URL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          }
+        },
+        "nameSample": [
+          "Kupinde Branch (KPD)",
+          "Chhinchu Branch (CHN)",
+          "Mahelkuna Branch (MHK)",
+          "Dhakari Branch (DKR)",
+          "Bhajani Branch (BJN)",
+          "Lamki Branch (LMK)",
+          "Dhangadhi Branch (DHI)",
+          "Daijee Branch (DJI)",
+          "Masuriya Branch Ka (MSR)",
+          "Attariya Branch (ATR)",
+          "Belauri Branch (BLR)",
+          "Kaluwapur Branch (KLU)"
+        ],
+        "rejectedNameSample": [],
+        "roleBearingPeople": 0
+      },
+      "coverage": "VERIFIED_BRANCH_DIRECTORY",
+      "coverageReason": "132 assertable names from 132 record_table record(s)",
+      "structuralRecords": 132,
+      "structuralRecordsMax": 132,
+      "signals": {
+        "branchVocabHits": 146,
+        "locatorMarkers": 0,
+        "tableCount": 7,
+        "tableRowCount": 139,
+        "branchRows": 132,
+        "phoneHits": 132,
+        "addressHits": 3,
+        "districtHits": 101,
+        "nameLikeUnits": 124,
+        "bodyTextLength": 19712
+      },
+      "shape": "VERIFIED_BRANCH_DIRECTORY",
+      "dryRunBranchNames": 132
+    },
+    {
+      "sourceId": "swbbl-website",
+      "institutionId": "mfi-004",
+      "url": "https://www.swbbl.com.np/branches",
+      "linkType": "BRANCH_PAGE",
+      "backfillNote": "phase F backfill 2026-09-26: anchor=link (http ?, ?)",
+      "finalUrl": "https://www.swbbl.com.np/branches",
+      "httpStatus": 200,
+      "mimeType": "text/html; charset=UTF-8",
+      "bytes": 157160,
+      "fetchedAt": "2026-09-27T17:32:32.817Z",
+      "contentHash": "7b6ece762eb728063b6d94266785ecc0f2848875b36a6770fbe7e26c897970aa",
+      "redirected": 0,
+      "snapshotId": "snap-m34-008-105950c3",
+      "structure": {
+        "tableCount": 0,
+        "recordTableCount": 0,
+        "branchRowCount": 0,
+        "headingCount": 9,
+        "branchHeadingCount": 2,
+        "containerCount": 3,
+        "phoneBlocks": 0,
+        "brGroupCount": 0,
+        "mapLinkCount": 145,
+        "emailCount": 1,
+        "phoneCount": 153,
+        "addressCount": 1,
+        "visibleTextLength": 9073,
+        "scriptCount": 24,
+        "noscriptCount": 1,
+        "jsRenderedIndicators": 1,
+        "title": "Branches Offices | Swabalamban Laghubitta",
+        "densities": {
+          "phonePer1k": 16.86,
+          "emailPer1k": 0.11,
+          "addressPer1k": 0.11,
+          "brGroupsPer1k": 0
+        }
+      },
+      "structureKind": "branch_headings",
+      "parser": {
+        "path": "none",
+        "candidateRecords": 0,
+        "validNames": 0,
+        "rejectedNames": 0,
+        "evidenceOnlyRows": 0,
+        "weakCardCandidates": 0,
+        "namesFromPersonCards": 0,
+        "refusedCardCandidates": [
+          "Mr. Chandra Mani Chaulagai",
+          "Mr. Rajendra Kumar Shrestha",
+          "Subscribe To Our Newsletter",
+          "Contact Details",
+          "Quick Links",
+          "Products & Services",
+          "Office Network"
+        ],
+        "attributes": {
+          "BRANCH_DISTRICT": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PLACE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_ADDRESS": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PHONE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MOBILE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_EMAIL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MANAGER": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MAP_URL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          }
+        },
+        "nameSample": [],
+        "rejectedNameSample": [],
+        "roleBearingPeople": 0
+      },
+      "coverage": "BRANCH_STRUCTURE_UNREAD",
+      "coverageReason": "2 branch_headings record(s) in HTML, 0 assertable names",
+      "structuralRecords": 2,
+      "structuralRecordsMax": 2,
+      "signals": {
+        "branchVocabHits": 153,
+        "locatorMarkers": 6,
+        "tableCount": 0,
+        "tableRowCount": 0,
+        "branchRows": 0,
+        "phoneHits": 153,
+        "addressHits": 1,
+        "districtHits": 100,
+        "nameLikeUnits": 2,
+        "bodyTextLength": 9073
+      },
+      "shape": "BRANCH_STRUCTURE_UNREAD",
+      "dryRunBranchNames": 0
+    },
+    {
+      "sourceId": "skbbl-website",
+      "institutionId": "mfi-005",
+      "url": "https://www.skbbl.com.np/branch",
+      "linkType": "BRANCH_PAGE",
+      "backfillNote": "phase F backfill 2026-09-26: anchor=link (http ?, ?)",
+      "finalUrl": "https://www.skbbl.com.np/branch",
+      "httpStatus": 200,
+      "mimeType": "text/html; charset=UTF-8",
+      "bytes": 45642,
+      "fetchedAt": "2026-09-27T17:32:33.201Z",
+      "contentHash": "7b307e40ee475b8ea606e04a09dcd8934e98b5d641729d0b4b35a1419590d4cb",
+      "redirected": 0,
+      "snapshotId": "snap-m34-009-1477194e",
+      "structure": {
+        "tableCount": 0,
+        "recordTableCount": 0,
+        "branchRowCount": 0,
+        "headingCount": 13,
+        "branchHeadingCount": 13,
+        "containerCount": 8,
+        "phoneBlocks": 0,
+        "brGroupCount": 0,
+        "mapLinkCount": 0,
+        "emailCount": 0,
+        "phoneCount": 18,
+        "addressCount": 0,
+        "visibleTextLength": 1677,
+        "scriptCount": 15,
+        "noscriptCount": 0,
+        "jsRenderedIndicators": 0,
+        "title": "Branch Location | Sana Kisan Bikas Laghubitta Bittiya Sanstha Ltd.",
+        "densities": {
+          "phonePer1k": 10.73,
+          "emailPer1k": 0,
+          "addressPer1k": 0,
+          "brGroupsPer1k": 0
+        }
+      },
+      "structureKind": "branch_headings",
+      "parser": {
+        "path": "card",
+        "candidateRecords": 9,
+        "validNames": 9,
+        "rejectedNames": 0,
+        "evidenceOnlyRows": 0,
+        "weakCardCandidates": 3,
+        "namesFromPersonCards": 0,
+        "refusedCardCandidates": [
+          "Branches"
+        ],
+        "attributes": {
+          "BRANCH_DISTRICT": {
+            "extracted": 4,
+            "valid": 4,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PLACE": {
+            "extracted": 9,
+            "valid": 9,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_ADDRESS": {
+            "extracted": 9,
+            "valid": 9,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PHONE": {
+            "extracted": 9,
+            "valid": 9,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MOBILE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_EMAIL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MANAGER": {
+            "extracted": 9,
+            "valid": 0,
+            "refused": 9,
+            "reasons": {
+              "GENERIC_LABEL": 9
+            }
+          },
+          "BRANCH_MAP_URL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          }
+        },
+        "nameSample": [
+          "Branch Office Bardibas",
+          "Branch Office Birendranagar",
+          "Branch Office Birtamod",
+          "Branch Office Butwal",
+          "Branch Office Gajuri",
+          "Branch Office Hetauda",
+          "Branch Office Kathmandu",
+          "Branch Office Lahan",
+          "Branch Office Nepalgunj"
+        ],
+        "rejectedNameSample": [],
+        "roleBearingPeople": 0
+      },
+      "coverage": "VERIFIED_BRANCH_DIRECTORY",
+      "coverageReason": "9 assertable names from 13 branch_headings record(s)",
+      "structuralRecords": 13,
+      "structuralRecordsMax": 13,
+      "signals": {
+        "branchVocabHits": 14,
+        "locatorMarkers": 0,
+        "tableCount": 0,
+        "tableRowCount": 0,
+        "branchRows": 0,
+        "phoneHits": 18,
+        "addressHits": 0,
+        "districtHits": 17,
+        "nameLikeUnits": 0,
+        "bodyTextLength": 1677
+      },
+      "shape": "VERIFIED_BRANCH_DIRECTORY",
+      "dryRunBranchNames": 9
+    },
+    {
+      "sourceId": "nerudemirmire-website",
+      "institutionId": "mfi-006",
+      "url": "https://www.nerudemirmire.com.np/branch",
+      "linkType": "BRANCH_PAGE",
+      "backfillNote": "phase F backfill 2026-09-26: anchor=link (http ?, ?)",
+      "finalUrl": "https://www.nerudemirmire.com.np/branch",
+      "httpStatus": 200,
+      "mimeType": "text/html; charset=UTF-8",
+      "bytes": 231785,
+      "fetchedAt": "2026-09-27T17:32:34.725Z",
+      "contentHash": "79a87c1d3732e7322cb7ab3289ba31e4fd785e510c5dadefdaecc1a5ae759460",
+      "redirected": 0,
+      "snapshotId": "snap-m34-010-cbbd36a0",
+      "structure": {
+        "tableCount": 0,
+        "recordTableCount": 0,
+        "branchRowCount": 0,
+        "headingCount": 9,
+        "branchHeadingCount": 5,
+        "containerCount": 10,
+        "phoneBlocks": 0,
+        "brGroupCount": 0,
+        "mapLinkCount": 0,
+        "emailCount": 1,
+        "phoneCount": 1,
+        "addressCount": 1,
+        "visibleTextLength": 6618,
+        "scriptCount": 10,
+        "noscriptCount": 0,
+        "jsRenderedIndicators": 0,
+        "title": "Nerude Mirmire Laghubitta Bittiya Sanstha Ltd.",
+        "densities": {
+          "phonePer1k": 0.15,
+          "emailPer1k": 0.15,
+          "addressPer1k": 0.15,
+          "brGroupsPer1k": 0
+        }
+      },
+      "structureKind": "branch_headings",
+      "parser": {
+        "path": "none",
+        "candidateRecords": 0,
+        "validNames": 0,
+        "rejectedNames": 0,
+        "evidenceOnlyRows": 0,
+        "weakCardCandidates": 1,
+        "namesFromPersonCards": 0,
+        "refusedCardCandidates": [
+          "Home",
+          "Branch Name:",
+          "Contact Us",
+          "Corporate Office",
+          "Pages",
+          "Quick Links",
+          "Popular Links"
+        ],
+        "attributes": {
+          "BRANCH_DISTRICT": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PLACE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_ADDRESS": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PHONE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MOBILE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_EMAIL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MANAGER": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MAP_URL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          }
+        },
+        "nameSample": [],
+        "rejectedNameSample": [],
+        "roleBearingPeople": 0
+      },
+      "coverage": "BRANCH_STRUCTURE_UNREAD",
+      "coverageReason": "5 branch_headings record(s) in HTML, 0 assertable names",
+      "structuralRecords": 5,
+      "structuralRecordsMax": 5,
+      "signals": {
+        "branchVocabHits": 164,
+        "locatorMarkers": 11,
+        "tableCount": 0,
+        "tableRowCount": 0,
+        "branchRows": 0,
+        "phoneHits": 1,
+        "addressHits": 1,
+        "districtHits": 7,
+        "nameLikeUnits": 1,
+        "bodyTextLength": 6618
+      },
+      "shape": "BRANCH_STRUCTURE_UNREAD",
+      "dryRunBranchNames": 0
+    },
+    {
+      "sourceId": "fmdb-website",
+      "institutionId": "mfi-009",
+      "url": "https://fmdb.com.np/contact-us",
+      "linkType": "BRANCH_PAGE",
+      "backfillNote": "phase F backfill 2026-09-26: anchor=link (http ?, ?)",
+      "finalUrl": "https://fmdb.com.np/contact-us",
+      "httpStatus": 200,
+      "mimeType": "text/html; charset=UTF-8",
+      "bytes": 12915,
+      "fetchedAt": "2026-09-27T17:32:35.037Z",
+      "contentHash": "3bd237c2588f174a52cc74a90f9bc7e53ace645bfebcdb7c81a3794d0072ecba",
+      "redirected": 0,
+      "snapshotId": "snap-m34-011-69068c52",
+      "structure": {
+        "tableCount": 0,
+        "recordTableCount": 0,
+        "branchRowCount": 0,
+        "headingCount": 5,
+        "branchHeadingCount": 2,
+        "containerCount": 6,
+        "phoneBlocks": 2,
+        "brGroupCount": 0,
+        "mapLinkCount": 0,
+        "emailCount": 3,
+        "phoneCount": 6,
+        "addressCount": 0,
+        "visibleTextLength": 743,
+        "scriptCount": 7,
+        "noscriptCount": 0,
+        "jsRenderedIndicators": 0,
+        "title": "|| First Microfinance Laghu Bitta Bittiya Sanstha ||",
+        "densities": {
+          "phonePer1k": 8.08,
+          "emailPer1k": 4.04,
+          "addressPer1k": 0,
+          "brGroupsPer1k": 0
+        }
+      },
+      "structureKind": "branch_headings",
+      "parser": {
+        "path": "none",
+        "candidateRecords": 0,
+        "validNames": 0,
+        "rejectedNames": 0,
+        "evidenceOnlyRows": 0,
+        "weakCardCandidates": 2,
+        "namesFromPersonCards": 0,
+        "refusedCardCandidates": [
+          "Contact Us",
+          "Head Office",
+          "Branch Office",
+          "Mr. Baburam Neupane",
+          "Location"
+        ],
+        "attributes": {
+          "BRANCH_DISTRICT": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PLACE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_ADDRESS": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PHONE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MOBILE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_EMAIL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MANAGER": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MAP_URL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          }
+        },
+        "nameSample": [],
+        "rejectedNameSample": [],
+        "roleBearingPeople": 0
+      },
+      "coverage": "BRANCH_STRUCTURE_UNREAD",
+      "coverageReason": "2 branch_headings record(s) in HTML, 0 assertable names",
+      "structuralRecords": 2,
+      "structuralRecordsMax": 2,
+      "signals": {
+        "branchVocabHits": 4,
+        "locatorMarkers": 0,
+        "tableCount": 0,
+        "tableRowCount": 0,
+        "branchRows": 0,
+        "phoneHits": 6,
+        "addressHits": 0,
+        "districtHits": 7,
+        "nameLikeUnits": 0,
+        "bodyTextLength": 743
+      },
+      "shape": "BRANCH_STRUCTURE_UNREAD",
+      "dryRunBranchNames": 0
+    },
+    {
+      "sourceId": "kalikabank-website",
+      "institutionId": "mfi-010",
+      "url": "https://www.kalikabank.com.np/branch",
+      "linkType": "BRANCH_PAGE",
+      "backfillNote": "phase F backfill 2026-09-26: anchor=link (http ?, ?)",
+      "finalUrl": "https://www.kalikabank.com.np/branch",
+      "httpStatus": 200,
+      "mimeType": "text/html; charset=UTF-8",
+      "bytes": 265753,
+      "fetchedAt": "2026-09-27T17:32:36.078Z",
+      "contentHash": "ef598bc5688e9b4136149e9eec83b9c3bb1e958247e786806c3a12ce70dbeca0",
+      "redirected": 0,
+      "snapshotId": "snap-m34-012-42d1403d",
+      "structure": {
+        "tableCount": 0,
+        "recordTableCount": 0,
+        "branchRowCount": 0,
+        "headingCount": 221,
+        "branchHeadingCount": 110,
+        "containerCount": 11,
+        "phoneBlocks": 1,
+        "brGroupCount": 0,
+        "mapLinkCount": 0,
+        "emailCount": 111,
+        "phoneCount": 111,
+        "addressCount": 0,
+        "visibleTextLength": 16813,
+        "scriptCount": 29,
+        "noscriptCount": 0,
+        "jsRenderedIndicators": 0,
+        "title": "Branch | Kalika",
+        "densities": {
+          "phonePer1k": 6.6,
+          "emailPer1k": 6.6,
+          "addressPer1k": 0,
+          "brGroupsPer1k": 0
+        }
+      },
+      "structureKind": "branch_headings",
+      "parser": {
+        "path": "card",
+        "candidateRecords": 118,
+        "validNames": 108,
+        "rejectedNames": 10,
+        "evidenceOnlyRows": 9,
+        "weakCardCandidates": 1,
+        "namesFromPersonCards": 0,
+        "refusedCardCandidates": [
+          "Welcome to Kalika Laghubitta",
+          "Branch Office",
+          "Apsara B.K.",
+          "Harinas-4, Syangja",
+          "Srijana K.C.",
+          "Puja K.C. Karki",
+          "About",
+          "Quick Links",
+          "Get in Touch",
+          "Location",
+          "Helpdesk"
+        ],
+        "attributes": {
+          "BRANCH_DISTRICT": {
+            "extracted": 57,
+            "valid": 57,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PLACE": {
+            "extracted": 117,
+            "valid": 117,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_ADDRESS": {
+            "extracted": 117,
+            "valid": 116,
+            "refused": 1,
+            "reasons": {
+              "GENERIC_LABEL": 1
+            }
+          },
+          "BRANCH_PHONE": {
+            "extracted": 109,
+            "valid": 109,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MOBILE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_EMAIL": {
+            "extracted": 110,
+            "valid": 110,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MANAGER": {
+            "extracted": 106,
+            "valid": 106,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MAP_URL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          }
+        },
+        "nameSample": [
+          "Waling Branch",
+          "Rampur Branch",
+          "Hatemalo Chowk Branch",
+          "Chormara Branch",
+          "Pokhara Branch",
+          "Panchanagar Branch",
+          "Malunga Branch",
+          "Madanpokhara Branch",
+          "Khaseuli Branch",
+          "Karkineta Branch",
+          "Chapakot Branch",
+          "Bhawanipur Branch"
+        ],
+        "rejectedNameSample": [
+          "Welcome to Kalika Laghubitta",
+          "Branch Office",
+          "Apsara B.K.",
+          "Harinas-4, Syangja",
+          "Srijana K.C.",
+          "Puja K.C. Karki",
+          "About",
+          "Quick Links",
+          "Location",
+          "Helpdesk"
+        ],
+        "roleBearingPeople": 0
+      },
+      "coverage": "VERIFIED_BRANCH_DIRECTORY",
+      "coverageReason": "108 assertable names from 110 branch_headings record(s)",
+      "structuralRecords": 110,
+      "structuralRecordsMax": 110,
+      "signals": {
+        "branchVocabHits": 224,
+        "locatorMarkers": 13,
+        "tableCount": 0,
+        "tableRowCount": 0,
+        "branchRows": 0,
+        "phoneHits": 111,
+        "addressHits": 0,
+        "districtHits": 49,
+        "nameLikeUnits": 0,
+        "bodyTextLength": 16813
+      },
+      "shape": "VERIFIED_BRANCH_DIRECTORY",
+      "dryRunBranchNames": 108
+    },
+    {
+      "sourceId": "jucbank-website",
+      "institutionId": "mfi-011",
+      "url": "https://www.jucbank.com.np/categories/branch",
+      "linkType": "BRANCH_PAGE",
+      "backfillNote": "m34 2026-09-27: re-pointed to a structurally confirmed branch page. prior target was not a branch page [phase F backfill 2026-09-26: anchor=evidence-homepage (http 200, text/html)]. confirmed by branch-url-discovery on a repeated-address/phone row structure (branchRows>=2); branch-html-v1 dry run reads 39 names (39 distinct). snapshot snap-m34disc-d040fd2a2d47 sha256:1bc04125dea1. source-level proven_by (nrb-bfi-mid-may-2026) unchanged: this corrects WHICH page, it does not re-prove the institution.",
+      "finalUrl": "https://www.jucbank.com.np/categories/branch",
+      "httpStatus": 200,
+      "mimeType": "text/html; charset=UTF-8",
+      "bytes": 141403,
+      "fetchedAt": "2026-09-27T17:32:37.391Z",
+      "contentHash": "1bc04125dea10e1e05ae61cf3aa38d988cb51bf6c92569a2e6536371e7645e27",
+      "redirected": 0,
+      "snapshotId": "snap-m34-013-d040fd2a",
+      "structure": {
+        "tableCount": 1,
+        "recordTableCount": 1,
+        "branchRowCount": 39,
+        "headingCount": 39,
+        "branchHeadingCount": 39,
+        "containerCount": 3,
+        "phoneBlocks": 0,
+        "brGroupCount": 0,
+        "mapLinkCount": 0,
+        "emailCount": 79,
+        "phoneCount": 112,
+        "addressCount": 0,
+        "visibleTextLength": 8200,
+        "scriptCount": 16,
+        "noscriptCount": 0,
+        "jsRenderedIndicators": 0,
+        "title": "Janautthan Samudayic Laghubitta Bittiya Sanstha Ltd.",
+        "densities": {
+          "phonePer1k": 13.66,
+          "emailPer1k": 9.63,
+          "addressPer1k": 0,
+          "brGroupsPer1k": 0
+        }
+      },
+      "structureKind": "record_table",
+      "parser": {
+        "path": "table",
+        "candidateRecords": 39,
+        "validNames": 39,
+        "rejectedNames": 0,
+        "evidenceOnlyRows": 0,
+        "weakCardCandidates": 0,
+        "namesFromPersonCards": 0,
+        "refusedCardCandidates": [],
+        "attributes": {
+          "BRANCH_DISTRICT": {
+            "extracted": 12,
+            "valid": 0,
+            "refused": 12,
+            "reasons": {
+              "NOT_A_DISTRICT": 12
+            }
+          },
+          "BRANCH_PLACE": {
+            "extracted": 39,
+            "valid": 39,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_ADDRESS": {
+            "extracted": 39,
+            "valid": 39,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PHONE": {
+            "extracted": 39,
+            "valid": 22,
+            "refused": 17,
+            "reasons": {
+              "CONTAINS_LETTERS": 17
+            }
+          },
+          "BRANCH_MOBILE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_EMAIL": {
+            "extracted": 39,
+            "valid": 39,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MANAGER": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MAP_URL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          }
+        },
+        "nameSample": [
+          "Butwal Branch",
+          "Palpa Branch",
+          "Kohalpur Branch",
+          "Ramnagar Branch",
+          "Durgauli Branch",
+          "Kakaura Branch",
+          "Mangalpur Branch",
+          "Kalony Branch",
+          "Bangai Branch",
+          "Raikwar Bichawa Branch",
+          "Thori Branch",
+          "Lalmatiya Branch"
+        ],
+        "rejectedNameSample": [],
+        "roleBearingPeople": 0
+      },
+      "coverage": "VERIFIED_BRANCH_DIRECTORY",
+      "coverageReason": "39 assertable names from 39 record_table record(s)",
+      "structuralRecords": 39,
+      "structuralRecordsMax": 39,
+      "signals": {
+        "branchVocabHits": 83,
+        "locatorMarkers": 10,
+        "tableCount": 1,
+        "tableRowCount": 40,
+        "branchRows": 39,
+        "phoneHits": 112,
+        "addressHits": 0,
+        "districtHits": 41,
+        "nameLikeUnits": 38,
+        "bodyTextLength": 8200
+      },
+      "shape": "VERIFIED_BRANCH_DIRECTORY",
+      "dryRunBranchNames": 39
+    },
+    {
+      "sourceId": "swmfi-website",
+      "institutionId": "mfi-012",
+      "url": "https://swmfi.com.np/branches",
+      "linkType": "BRANCH_PAGE",
+      "backfillNote": "phase F backfill 2026-09-26: anchor=link (http ?, ?)",
+      "finalUrl": "https://swmfi.com.np/branches",
+      "httpStatus": 200,
+      "mimeType": "text/html; charset=UTF-8",
+      "bytes": 546384,
+      "fetchedAt": "2026-09-27T17:32:39.348Z",
+      "contentHash": "f68bbb73ef667937db5f3f557202dddf3f3d577b96f3704bd946c958217e342f",
+      "redirected": 0,
+      "snapshotId": "snap-m34-014-c754ff08",
+      "structure": {
+        "tableCount": 0,
+        "recordTableCount": 0,
+        "branchRowCount": 0,
+        "headingCount": 701,
+        "branchHeadingCount": 340,
+        "containerCount": 2,
+        "phoneBlocks": 0,
+        "brGroupCount": 0,
+        "mapLinkCount": 0,
+        "emailCount": 343,
+        "phoneCount": 344,
+        "addressCount": 0,
+        "visibleTextLength": 41694,
+        "scriptCount": 26,
+        "noscriptCount": 0,
+        "jsRenderedIndicators": 0,
+        "title": "Suryodaya Womi Laghubitta Bittiya Sanstha Ltd.",
+        "densities": {
+          "phonePer1k": 8.25,
+          "emailPer1k": 8.23,
+          "addressPer1k": 0,
+          "brGroupsPer1k": 0
+        }
+      },
+      "structureKind": "branch_headings",
+      "parser": {
+        "path": "card",
+        "candidateRecords": 702,
+        "validNames": 336,
+        "rejectedNames": 366,
+        "evidenceOnlyRows": 366,
+        "weakCardCandidates": 1,
+        "namesFromPersonCards": 0,
+        "refusedCardCandidates": [
+          "Branch Networks",
+          "Branch Network",
+          "Province 1 15",
+          "<i class=\"fa fa-envelope\"",
+          "DIL KUMAR B.K.",
+          "Province 2 38",
+          "Province 3 28",
+          "Province 4 34",
+          "13 KILO BRANCH",
+          "SHANTI B.K",
+          "LAMACHAUR",
+          "Province 5 47"
+        ],
+        "attributes": {
+          "BRANCH_DISTRICT": {
+            "extracted": 156,
+            "valid": 156,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PLACE": {
+            "extracted": 702,
+            "valid": 702,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_ADDRESS": {
+            "extracted": 702,
+            "valid": 702,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PHONE": {
+            "extracted": 342,
+            "valid": 342,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MOBILE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_EMAIL": {
+            "extracted": 342,
+            "valid": 342,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MANAGER": {
+            "extracted": 342,
+            "valid": 0,
+            "refused": 342,
+            "reasons": {
+              "CONTAINS_URL": 342
+            }
+          },
+          "BRANCH_MAP_URL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          }
+        },
+        "nameSample": [
+          "BELBARI BRANCH",
+          "DHAIJAN BRANCH",
+          "DHARAMPUR BRANCH",
+          "DURGAPUR BRANCH",
+          "DURGAPURI BRANCH",
+          "GYANECHOK BRANCH",
+          "HATKHOLA BRANCH",
+          "INARUWA BRANCH",
+          "JIRIKHIMTI BRANCH",
+          "NAWAMI BRANCH",
+          "OKHALDHUNGA BRANCH",
+          "RAMDHUNI BRANCH"
+        ],
+        "rejectedNameSample": [
+          "Branch Networks",
+          "Province 1 15",
+          "<i class=\"fa fa-envelope\"",
+          "DIL KUMAR B.K.",
+          "Province 2 38",
+          "Province 3 28",
+          "Province 4 34",
+          "13 KILO BRANCH",
+          "SHANTI B.K",
+          "LAMACHAUR",
+          "Province 5 47",
+          "DAKHAKOWADI"
+        ],
+        "roleBearingPeople": 0
+      },
+      "coverage": "VERIFIED_BRANCH_DIRECTORY",
+      "coverageReason": "336 assertable names from 340 branch_headings record(s)",
+      "structuralRecords": 340,
+      "structuralRecordsMax": 340,
+      "signals": {
+        "branchVocabHits": 342,
+        "locatorMarkers": 0,
+        "tableCount": 0,
+        "tableRowCount": 0,
+        "branchRows": 0,
+        "phoneHits": 344,
+        "addressHits": 0,
+        "districtHits": 172,
+        "nameLikeUnits": 0,
+        "bodyTextLength": 41694
+      },
+      "shape": "VERIFIED_BRANCH_DIRECTORY",
+      "dryRunBranchNames": 336
+    },
+    {
+      "sourceId": "laxmilaghu-website",
+      "institutionId": "mfi-013",
+      "url": "https://laxmilaghu.com.np/branch-network-2",
+      "linkType": "BRANCH_PAGE",
+      "backfillNote": "phase F backfill 2026-09-26: anchor=link (http ?, ?)",
+      "finalUrl": "https://laxmilaghu.com.np/branch-network-2/",
+      "httpStatus": 200,
+      "mimeType": "text/html; charset=UTF-8",
+      "bytes": 396361,
+      "fetchedAt": "2026-09-27T17:32:42.828Z",
+      "contentHash": "b9b3873200ed8cea7d3876ae08e19fe5b218ffc5a3ccc395d18c837b51fc2d65",
+      "redirected": 0,
+      "snapshotId": "snap-m34-015-5951d99f",
+      "structure": {
+        "tableCount": 0,
+        "recordTableCount": 0,
+        "branchRowCount": 0,
+        "headingCount": 6,
+        "branchHeadingCount": 1,
+        "containerCount": 10,
+        "phoneBlocks": 0,
+        "brGroupCount": 0,
+        "mapLinkCount": 0,
+        "emailCount": 0,
+        "phoneCount": 1,
+        "addressCount": 0,
+        "visibleTextLength": 436,
+        "scriptCount": 55,
+        "noscriptCount": 0,
+        "jsRenderedIndicators": 0,
+        "title": "Branch Network &#8211; Laxmi laghubitta",
+        "densities": {
+          "phonePer1k": 2.29,
+          "emailPer1k": 0,
+          "addressPer1k": 0,
+          "brGroupsPer1k": 0
+        }
+      },
+      "structureKind": "none",
+      "parser": {
+        "path": "none",
+        "candidateRecords": 0,
+        "validNames": 0,
+        "rejectedNames": 0,
+        "evidenceOnlyRows": 0,
+        "weakCardCandidates": 0,
+        "namesFromPersonCards": 0,
+        "refusedCardCandidates": [
+          "Email Us",
+          "BRANCH NETWORKS",
+          "From:",
+          "Use my location to find the closest Service Provider near me"
+        ],
+        "attributes": {
+          "BRANCH_DISTRICT": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PLACE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_ADDRESS": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PHONE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MOBILE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_EMAIL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MANAGER": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MAP_URL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          }
+        },
+        "nameSample": [],
+        "rejectedNameSample": [],
+        "roleBearingPeople": 0
+      },
+      "coverage": "SINGLE_LOCATION_CONTACT",
+      "coverageReason": "contact details for one place, no location records",
+      "structuralRecords": 0,
+      "structuralRecordsMax": 0,
+      "signals": {
+        "branchVocabHits": 4,
+        "locatorMarkers": 2,
+        "tableCount": 0,
+        "tableRowCount": 0,
+        "branchRows": 0,
+        "phoneHits": 1,
+        "addressHits": 0,
+        "districtHits": 0,
+        "nameLikeUnits": 1,
+        "bodyTextLength": 436
+      },
+      "shape": "SINGLE_LOCATION_CONTACT",
+      "dryRunBranchNames": 0
+    },
+    {
+      "sourceId": "himalayanlaghubitta-website",
+      "institutionId": "mfi-014",
+      "url": "https://himalayanlaghubitta.com/page/contactus/9",
+      "linkType": "BRANCH_PAGE",
+      "backfillNote": "phase F backfill 2026-09-26: anchor=link (http ?, ?)",
+      "finalUrl": "https://himalayanlaghubitta.com/page/contactus/9",
+      "httpStatus": 200,
+      "mimeType": "text/html; charset=utf-8",
+      "bytes": 37623,
+      "fetchedAt": "2026-09-27T17:32:43.690Z",
+      "contentHash": "e613a486179d074c686bb4b1fa4e11b0a8af743a5a14d4dc93ad5eff9a6619e1",
+      "redirected": 0,
+      "snapshotId": "snap-m34-016-62272a0a",
+      "structure": {
+        "tableCount": 0,
+        "recordTableCount": 0,
+        "branchRowCount": 0,
+        "headingCount": 1,
+        "branchHeadingCount": 1,
+        "containerCount": 5,
+        "phoneBlocks": 0,
+        "brGroupCount": 0,
+        "mapLinkCount": 0,
+        "emailCount": 0,
+        "phoneCount": 0,
+        "addressCount": 0,
+        "visibleTextLength": 705,
+        "scriptCount": 12,
+        "noscriptCount": 0,
+        "jsRenderedIndicators": 0,
+        "title": "Himalayan Laghubitta Bittiya Sanstha Limited | Contact Us",
+        "densities": {
+          "phonePer1k": 0,
+          "emailPer1k": 0,
+          "addressPer1k": 0,
+          "brGroupsPer1k": 0
+        }
+      },
+      "structureKind": "none",
+      "parser": {
+        "path": "none",
+        "candidateRecords": 0,
+        "validNames": 0,
+        "rejectedNames": 0,
+        "evidenceOnlyRows": 0,
+        "weakCardCandidates": 1,
+        "namesFromPersonCards": 0,
+        "refusedCardCandidates": [
+          "About",
+          "USEFUL LINKS",
+          "केन्द्रीय कार्यालय"
+        ],
+        "attributes": {
+          "BRANCH_DISTRICT": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PLACE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_ADDRESS": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PHONE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MOBILE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_EMAIL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MANAGER": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MAP_URL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          }
+        },
+        "nameSample": [],
+        "rejectedNameSample": [],
+        "roleBearingPeople": 0
+      },
+      "coverage": "BRANCH_INTENT_NO_STRUCTURE",
+      "coverageReason": "branch vocabulary without location records",
+      "structuralRecords": 0,
+      "structuralRecordsMax": 0,
+      "signals": {
+        "branchVocabHits": 5,
+        "locatorMarkers": 3,
+        "tableCount": 0,
+        "tableRowCount": 0,
+        "branchRows": 0,
+        "phoneHits": 0,
+        "addressHits": 0,
+        "districtHits": 0,
+        "nameLikeUnits": 3,
+        "bodyTextLength": 705
+      },
+      "shape": "BRANCH_INTENT_NO_STRUCTURE",
+      "dryRunBranchNames": 0
+    },
+    {
+      "sourceId": "vlbs-website",
+      "institutionId": "mfi-015",
+      "url": "https://vlbs.com.np/branchesmap",
+      "linkType": "BRANCH_PAGE",
+      "backfillNote": "phase F backfill 2026-09-26: anchor=link (http ?, ?)",
+      "finalUrl": "https://vlbs.com.np/branchesmap",
+      "httpStatus": 200,
+      "mimeType": "text/html; charset=utf-8",
+      "bytes": 16303,
+      "fetchedAt": "2026-09-27T17:32:43.821Z",
+      "contentHash": "1b1006a4bbd3d290b58ba67d3d9071a1430eb92831a024d48e7100fd1073ff84",
+      "redirected": 0,
+      "snapshotId": "snap-m34-017-ad126074",
+      "structure": {
+        "tableCount": 0,
+        "recordTableCount": 0,
+        "branchRowCount": 0,
+        "headingCount": 1,
+        "branchHeadingCount": 0,
+        "containerCount": 8,
+        "phoneBlocks": 0,
+        "brGroupCount": 0,
+        "mapLinkCount": 0,
+        "emailCount": 0,
+        "phoneCount": 0,
+        "addressCount": 0,
+        "visibleTextLength": 23,
+        "scriptCount": 32,
+        "noscriptCount": 1,
+        "jsRenderedIndicators": 2,
+        "title": "",
+        "densities": {
+          "phonePer1k": 0,
+          "emailPer1k": 0,
+          "addressPer1k": 0,
+          "brGroupsPer1k": 0
+        }
+      },
+      "structureKind": "none",
+      "parser": {
+        "path": "none",
+        "candidateRecords": 0,
+        "validNames": 0,
+        "rejectedNames": 0,
+        "evidenceOnlyRows": 0,
+        "weakCardCandidates": 1,
+        "namesFromPersonCards": 0,
+        "refusedCardCandidates": [
+          "Update",
+          "Pages",
+          "UseFul Links"
+        ],
+        "attributes": {
+          "BRANCH_DISTRICT": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PLACE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_ADDRESS": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PHONE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MOBILE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_EMAIL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MANAGER": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MAP_URL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          }
+        },
+        "nameSample": [],
+        "rejectedNameSample": [],
+        "roleBearingPeople": 0
+      },
+      "coverage": "BRANCH_LOCATOR_UNRENDERED",
+      "coverageReason": "client-rendered shell: text=23 scripts=32 noscript=1 jsMarkers=2",
+      "structuralRecords": 0,
+      "structuralRecordsMax": 0,
+      "signals": {
+        "branchVocabHits": 0,
+        "locatorMarkers": 0,
+        "tableCount": 0,
+        "tableRowCount": 0,
+        "branchRows": 0,
+        "phoneHits": 0,
+        "addressHits": 0,
+        "districtHits": 0,
+        "nameLikeUnits": 0,
+        "bodyTextLength": 23
+      },
+      "shape": "BRANCH_LOCATOR_UNRENDERED",
+      "dryRunBranchNames": 0
+    },
+    {
+      "sourceId": "nmbmicrofinance-website",
+      "institutionId": "mfi-016",
+      "url": "https://nmbmicrofinance.com/About/Contactus",
+      "linkType": "BRANCH_PAGE",
+      "backfillNote": "phase F backfill 2026-09-26: anchor=link (http ?, ?)",
+      "finalUrl": "https://nmbmicrofinance.com/About/Contactus",
+      "httpStatus": 200,
+      "mimeType": "text/html; charset=utf-8",
+      "bytes": 38221,
+      "fetchedAt": "2026-09-27T17:32:43.934Z",
+      "contentHash": "d07cebd7bb063f6ab58a56b0c9ec340d97ed779df73cd06c997347f1f6987110",
+      "redirected": 0,
+      "snapshotId": "snap-m34-018-b430b8eb",
+      "structure": {
+        "tableCount": 0,
+        "recordTableCount": 0,
+        "branchRowCount": 0,
+        "headingCount": 2,
+        "branchHeadingCount": 0,
+        "containerCount": 5,
+        "phoneBlocks": 0,
+        "brGroupCount": 0,
+        "mapLinkCount": 0,
+        "emailCount": 1,
+        "phoneCount": 1,
+        "addressCount": 2,
+        "visibleTextLength": 698,
+        "scriptCount": 19,
+        "noscriptCount": 0,
+        "jsRenderedIndicators": 0,
+        "title": "Home Page | NMB Laghubitta Bittiya Sanstha Limited",
+        "densities": {
+          "phonePer1k": 1.43,
+          "emailPer1k": 1.43,
+          "addressPer1k": 2.87,
+          "brGroupsPer1k": 0
+        }
+      },
+      "structureKind": "none",
+      "parser": {
+        "path": "none",
+        "candidateRecords": 0,
+        "validNames": 0,
+        "rejectedNames": 0,
+        "evidenceOnlyRows": 0,
+        "weakCardCandidates": 0,
+        "namesFromPersonCards": 0,
+        "refusedCardCandidates": [
+          "Get in touch"
+        ],
+        "attributes": {
+          "BRANCH_DISTRICT": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PLACE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_ADDRESS": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PHONE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MOBILE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_EMAIL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MANAGER": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MAP_URL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          }
+        },
+        "nameSample": [],
+        "rejectedNameSample": [],
+        "roleBearingPeople": 0
+      },
+      "coverage": "SINGLE_LOCATION_CONTACT",
+      "coverageReason": "contact details for one place, no location records",
+      "structuralRecords": 0,
+      "structuralRecordsMax": 0,
+      "signals": {
+        "branchVocabHits": 2,
+        "locatorMarkers": 1,
+        "tableCount": 0,
+        "tableRowCount": 0,
+        "branchRows": 0,
+        "phoneHits": 1,
+        "addressHits": 2,
+        "districtHits": 1,
+        "nameLikeUnits": 0,
+        "bodyTextLength": 698
+      },
+      "shape": "SINGLE_LOCATION_CONTACT",
+      "dryRunBranchNames": 0
+    },
+    {
+      "sourceId": "forwardmfbank-website",
+      "institutionId": "mfi-017",
+      "url": "https://forwardmfbank.com.np/index.php/our-network/branches",
+      "linkType": "BRANCH_PAGE",
+      "backfillNote": "m34 2026-09-27: re-pointed to a structurally confirmed branch page. prior target was not a branch page [phase F backfill 2026-09-26: anchor=evidence-homepage (http 200, text/html)]. confirmed by branch-url-discovery on a repeated-address/phone row structure (branchRows>=2); branch-html-v1 dry run reads 50 names (12 distinct). snapshot snap-m34disc-83d790684b4a sha256:0180d4f4cc6e. source-level proven_by (nrb-bfi-mid-may-2026) unchanged: this corrects WHICH page, it does not re-prove the institution.",
+      "finalUrl": "https://forwardmfbank.com.np/index.php/our-network/branches",
+      "httpStatus": 200,
+      "mimeType": "text/html; charset=utf-8",
+      "bytes": 56115,
+      "fetchedAt": "2026-09-27T17:32:44.130Z",
+      "contentHash": "0180d4f4cc6eec4ec9db28d4c564d60440925ed929025f18d3fca3dc3b90faed",
+      "redirected": 0,
+      "snapshotId": "snap-m34-019-83d79068",
+      "structure": {
+        "tableCount": 1,
+        "recordTableCount": 1,
+        "branchRowCount": 86,
+        "headingCount": 0,
+        "branchHeadingCount": 0,
+        "containerCount": 1,
+        "phoneBlocks": 0,
+        "brGroupCount": 0,
+        "mapLinkCount": 0,
+        "emailCount": 0,
+        "phoneCount": 0,
+        "addressCount": 11,
+        "visibleTextLength": 8376,
+        "scriptCount": 9,
+        "noscriptCount": 0,
+        "jsRenderedIndicators": 0,
+        "title": "Branches",
+        "densities": {
+          "phonePer1k": 0,
+          "emailPer1k": 0,
+          "addressPer1k": 1.31,
+          "brGroupsPer1k": 0
+        }
+      },
+      "structureKind": "record_table",
+      "parser": {
+        "path": "table",
+        "candidateRecords": 142,
+        "validNames": 142,
+        "rejectedNames": 0,
+        "evidenceOnlyRows": 0,
+        "weakCardCandidates": 0,
+        "namesFromPersonCards": 0,
+        "refusedCardCandidates": [],
+        "attributes": {
+          "BRANCH_DISTRICT": {
+            "extracted": 48,
+            "valid": 48,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PLACE": {
+            "extracted": 142,
+            "valid": 142,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_ADDRESS": {
+            "extracted": 115,
+            "valid": 115,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PHONE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MOBILE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_EMAIL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MANAGER": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MAP_URL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          }
+        },
+        "nameSample": [
+          "Amardaha",
+          "Aurabani",
+          "Bahuni",
+          "Baniyani",
+          "Basantpur",
+          "Belbari",
+          "Bhadrapur",
+          "Bhojpur",
+          "Biratnagar",
+          "Birtabazar",
+          "Chakarghatti",
+          "Chimadi"
+        ],
+        "rejectedNameSample": [],
+        "roleBearingPeople": 0
+      },
+      "coverage": "VERIFIED_BRANCH_DIRECTORY",
+      "coverageReason": "142 assertable names from 86 record_table record(s)",
+      "structuralRecords": 86,
+      "structuralRecordsMax": 86,
+      "signals": {
+        "branchVocabHits": 5,
+        "locatorMarkers": 0,
+        "tableCount": 1,
+        "tableRowCount": 143,
+        "branchRows": 86,
+        "phoneHits": 0,
+        "addressHits": 11,
+        "districtHits": 97,
+        "nameLikeUnits": 188,
+        "bodyTextLength": 8376
+      },
+      "shape": "VERIFIED_BRANCH_DIRECTORY",
+      "dryRunBranchNames": 142
+    },
+    {
+      "sourceId": "mslbsl-website",
+      "institutionId": "mfi-019",
+      "url": "https://www.mslbsl.com.np/branches",
+      "linkType": "BRANCH_PAGE",
+      "backfillNote": "phase F backfill 2026-09-26: anchor=link (http ?, ?)",
+      "finalUrl": "https://www.mslbsl.com.np/branches",
+      "httpStatus": 200,
+      "mimeType": "text/html; charset=utf-8",
+      "bytes": 68012,
+      "fetchedAt": "2026-09-27T17:32:45.042Z",
+      "contentHash": "dcc0c2e73b048a5418b5d443bad934b0c570d71971ffc2a72275fbaee185e4a2",
+      "redirected": 0,
+      "snapshotId": "snap-m34-020-d7c59108",
+      "structure": {
+        "tableCount": 64,
+        "recordTableCount": 64,
+        "branchRowCount": 115,
+        "headingCount": 66,
+        "branchHeadingCount": 65,
+        "containerCount": 27,
+        "phoneBlocks": 0,
+        "brGroupCount": 0,
+        "mapLinkCount": 0,
+        "emailCount": 65,
+        "phoneCount": 85,
+        "addressCount": 0,
+        "visibleTextLength": 10123,
+        "scriptCount": 12,
+        "noscriptCount": 0,
+        "jsRenderedIndicators": 0,
+        "title": "Branches",
+        "densities": {
+          "phonePer1k": 8.4,
+          "emailPer1k": 6.42,
+          "addressPer1k": 0,
+          "brGroupsPer1k": 0
+        }
+      },
+      "structureKind": "branch_headings",
+      "parser": {
+        "path": "card",
+        "candidateRecords": 64,
+        "validNames": 64,
+        "rejectedNames": 0,
+        "evidenceOnlyRows": 0,
+        "weakCardCandidates": 4,
+        "namesFromPersonCards": 0,
+        "refusedCardCandidates": [
+          "Branches",
+          "Find Us Here",
+          "QUICK LINK",
+          "Loan Amount (NPR):"
+        ],
+        "attributes": {
+          "BRANCH_DISTRICT": {
+            "extracted": 13,
+            "valid": 13,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PLACE": {
+            "extracted": 64,
+            "valid": 64,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_ADDRESS": {
+            "extracted": 64,
+            "valid": 64,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PHONE": {
+            "extracted": 64,
+            "valid": 64,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MOBILE": {
+            "extracted": 64,
+            "valid": 64,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_EMAIL": {
+            "extracted": 64,
+            "valid": 64,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MANAGER": {
+            "extracted": 64,
+            "valid": 0,
+            "refused": 64,
+            "reasons": {
+              "GENERIC_LABEL": 64
+            }
+          },
+          "BRANCH_MAP_URL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          }
+        },
+        "nameSample": [
+          "Mahuli Branch",
+          "Topa Branch",
+          "Maleth Branch",
+          "Kathauna Branch",
+          "Arnaha Branch",
+          "Rajbiraj Branch",
+          "Kushaha Branch",
+          "Malhaniya Branch",
+          "Beltar Branch",
+          "Gaighat Branch",
+          "Rampur Branch",
+          "Murkuchi Nepaltar Branch"
+        ],
+        "rejectedNameSample": [],
+        "roleBearingPeople": 0
+      },
+      "coverage": "VERIFIED_BRANCH_DIRECTORY",
+      "coverageReason": "64 assertable names from 65 branch_headings record(s)",
+      "structuralRecords": 65,
+      "structuralRecordsMax": 115,
+      "signals": {
+        "branchVocabHits": 130,
+        "locatorMarkers": 0,
+        "tableCount": 64,
+        "tableRowCount": 320,
+        "branchRows": 115,
+        "phoneHits": 85,
+        "addressHits": 0,
+        "districtHits": 36,
+        "nameLikeUnits": 1,
+        "bodyTextLength": 10123
+      },
+      "shape": "VERIFIED_BRANCH_DIRECTORY",
+      "dryRunBranchNames": 64
+    },
+    {
+      "sourceId": "samata-website",
+      "institutionId": "mfi-021",
+      "url": "https://www.samata.org.np/about-us/branch-network",
+      "linkType": "BRANCH_PAGE",
+      "backfillNote": "phase F backfill 2026-09-26: anchor=link (http ?, ?)",
+      "finalUrl": "https://www.samata.org.np/about-us/branch-network/",
+      "httpStatus": 200,
+      "mimeType": "text/html; charset=UTF-8",
+      "bytes": 109796,
+      "fetchedAt": "2026-09-27T17:32:46.531Z",
+      "contentHash": "7fa0cc9a31e3b593dc1b72a7e3e0158c460d78ea9b493a7ced84e4e6a19225fe",
+      "redirected": 0,
+      "snapshotId": "snap-m34-021-6b25aed6",
+      "structure": {
+        "tableCount": 0,
+        "recordTableCount": 0,
+        "branchRowCount": 0,
+        "headingCount": 185,
+        "branchHeadingCount": 91,
+        "containerCount": 93,
+        "phoneBlocks": 0,
+        "brGroupCount": 0,
+        "mapLinkCount": 0,
+        "emailCount": 93,
+        "phoneCount": 4,
+        "addressCount": 0,
+        "visibleTextLength": 8791,
+        "scriptCount": 28,
+        "noscriptCount": 0,
+        "jsRenderedIndicators": 0,
+        "title": "Samata Gharelu Laghubitta Bittiya Sanstha Ltd &raquo; Branch Network",
+        "densities": {
+          "phonePer1k": 0.46,
+          "emailPer1k": 10.58,
+          "addressPer1k": 0,
+          "brGroupsPer1k": 0
+        }
+      },
+      "structureKind": "branch_headings",
+      "parser": {
+        "path": "card",
+        "candidateRecords": 93,
+        "validNames": 89,
+        "rejectedNames": 4,
+        "evidenceOnlyRows": 3,
+        "weakCardCandidates": 2,
+        "namesFromPersonCards": 0,
+        "refusedCardCandidates": [
+          "Mr.",
+          "Gulariya -2 Branch",
+          "About Us",
+          "यसमा Click गरी आफ्नो गुनासो टिपाउनुहोस ( वित्तीय ग्राहक गुनासो पोर्टल )",
+          "width=\"130\""
+        ],
+        "attributes": {
+          "BRANCH_DISTRICT": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PLACE": {
+            "extracted": 3,
+            "valid": 3,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_ADDRESS": {
+            "extracted": 3,
+            "valid": 2,
+            "refused": 1,
+            "reasons": {
+              "CONTAINS_URL": 1
+            }
+          },
+          "BRANCH_PHONE": {
+            "extracted": 2,
+            "valid": 2,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MOBILE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_EMAIL": {
+            "extracted": 92,
+            "valid": 92,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MANAGER": {
+            "extracted": 92,
+            "valid": 1,
+            "refused": 91,
+            "reasons": {
+              "CONTAINS_URL": 91
+            }
+          },
+          "BRANCH_MAP_URL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          }
+        },
+        "nameSample": [
+          "Simara Branch",
+          "Kalaiya Branch",
+          "Nijgadh Branch",
+          "Kolhabi Branch",
+          "Bariyarpur Branch",
+          "Simraungadh Branch",
+          "Kathariya Branch",
+          "Chapur Branch",
+          "Lalbandi Branch",
+          "Bardibas Branch",
+          "Sindhuli branch",
+          "Dudhauli Branch"
+        ],
+        "rejectedNameSample": [
+          "Mr.",
+          "Gulariya -2 Branch",
+          "About Us",
+          "width=\"130\""
+        ],
+        "roleBearingPeople": 0
+      },
+      "coverage": "VERIFIED_BRANCH_DIRECTORY",
+      "coverageReason": "89 assertable names from 91 branch_headings record(s)",
+      "structuralRecords": 91,
+      "structuralRecordsMax": 91,
+      "signals": {
+        "branchVocabHits": 186,
+        "locatorMarkers": 0,
+        "tableCount": 0,
+        "tableRowCount": 0,
+        "branchRows": 0,
+        "phoneHits": 4,
+        "addressHits": 0,
+        "districtHits": 3,
+        "nameLikeUnits": 4,
+        "bodyTextLength": 8791
+      },
+      "shape": "VERIFIED_BRANCH_DIRECTORY",
+      "dryRunBranchNames": 89
+    },
+    {
+      "sourceId": "rsdcmf-website",
+      "institutionId": "mfi-022",
+      "url": "https://www.rsdcmf.com/branches",
+      "linkType": "BRANCH_PAGE",
+      "backfillNote": "phase F backfill 2026-09-26: anchor=link (http ?, ?)",
+      "finalUrl": "https://www.rsdcmf.com/branches",
+      "httpStatus": 200,
+      "mimeType": "text/html; charset=UTF-8",
+      "bytes": 36964,
+      "fetchedAt": "2026-09-27T17:32:47.361Z",
+      "contentHash": "e6fbd76729f4c7847db4ba82581d06f4aad9e8ae1cf9f4989b7ba235a6bdbf77",
+      "redirected": 0,
+      "snapshotId": "snap-m34-022-cab72892",
+      "structure": {
+        "tableCount": 0,
+        "recordTableCount": 0,
+        "branchRowCount": 0,
+        "headingCount": 4,
+        "branchHeadingCount": 4,
+        "containerCount": 3,
+        "phoneBlocks": 0,
+        "brGroupCount": 0,
+        "mapLinkCount": 3,
+        "emailCount": 3,
+        "phoneCount": 4,
+        "addressCount": 0,
+        "visibleTextLength": 545,
+        "scriptCount": 14,
+        "noscriptCount": 0,
+        "jsRenderedIndicators": 0,
+        "title": "Branch Networks",
+        "densities": {
+          "phonePer1k": 7.34,
+          "emailPer1k": 5.5,
+          "addressPer1k": 0,
+          "brGroupsPer1k": 0
+        }
+      },
+      "structureKind": "branch_headings",
+      "parser": {
+        "path": "card",
+        "candidateRecords": 6,
+        "validNames": 2,
+        "rejectedNames": 4,
+        "evidenceOnlyRows": 4,
+        "weakCardCandidates": 4,
+        "namesFromPersonCards": 0,
+        "refusedCardCandidates": [
+          "Branch Networks",
+          "Main Branch",
+          "Contact Us",
+          "Quick Links",
+          "Downloads",
+          "Important Links",
+          "Gallery",
+          "Mr. Ram Prasad Panthi"
+        ],
+        "attributes": {
+          "BRANCH_DISTRICT": {
+            "extracted": 2,
+            "valid": 2,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PLACE": {
+            "extracted": 6,
+            "valid": 6,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_ADDRESS": {
+            "extracted": 5,
+            "valid": 1,
+            "refused": 4,
+            "reasons": {
+              "CONTAINS_URL": 3,
+              "GENERIC_LABEL": 1
+            }
+          },
+          "BRANCH_PHONE": {
+            "extracted": 6,
+            "valid": 4,
+            "refused": 2,
+            "reasons": {
+              "DIGIT_COUNT": 1,
+              "DATE_LIKE": 1
+            }
+          },
+          "BRANCH_MOBILE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_EMAIL": {
+            "extracted": 5,
+            "valid": 5,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MANAGER": {
+            "extracted": 4,
+            "valid": 1,
+            "refused": 3,
+            "reasons": {
+              "GENERIC_LABEL": 3
+            }
+          },
+          "BRANCH_MAP_URL": {
+            "extracted": 3,
+            "valid": 3,
+            "refused": 0,
+            "reasons": {}
+          }
+        },
+        "nameSample": [
+          "Kohalpur Branch",
+          "Bardibas Branch"
+        ],
+        "rejectedNameSample": [
+          "Main Branch",
+          "Contact Us",
+          "Downloads",
+          "Mr. Ram Prasad Panthi"
+        ],
+        "roleBearingPeople": 0
+      },
+      "coverage": "PARTIAL_BRANCH_DIRECTORY",
+      "coverageReason": "2 assertable of 4 branch_headings record(s) (4 refused)",
+      "structuralRecords": 4,
+      "structuralRecordsMax": 4,
+      "signals": {
+        "branchVocabHits": 9,
+        "locatorMarkers": 0,
+        "tableCount": 0,
+        "tableRowCount": 0,
+        "branchRows": 0,
+        "phoneHits": 4,
+        "addressHits": 0,
+        "districtHits": 4,
+        "nameLikeUnits": 1,
+        "bodyTextLength": 545
+      },
+      "shape": "PARTIAL_BRANCH_DIRECTORY",
+      "dryRunBranchNames": 2
+    },
+    {
+      "sourceId": "slbsl-website",
+      "institutionId": "mfi-023",
+      "url": "https://www.slbsl.com.np/branchDetails.html",
+      "linkType": "BRANCH_PAGE",
+      "backfillNote": "phase F backfill 2026-09-26: anchor=link (http ?, ?)",
+      "finalUrl": "https://www.slbsl.com.np/branchDetails.html",
+      "httpStatus": 200,
+      "mimeType": "text/html",
+      "bytes": 57507,
+      "fetchedAt": "2026-09-27T17:32:47.532Z",
+      "contentHash": "30165fd558ba24bce84ad9df7f345ff5e6eca1eef8f44032b09b88a33ce69f87",
+      "redirected": 0,
+      "snapshotId": "snap-m34-023-29bf2721",
+      "structure": {
+        "tableCount": 0,
+        "recordTableCount": 0,
+        "branchRowCount": 0,
+        "headingCount": 17,
+        "branchHeadingCount": 1,
+        "containerCount": 38,
+        "phoneBlocks": 1,
+        "brGroupCount": 0,
+        "mapLinkCount": 0,
+        "emailCount": 48,
+        "phoneCount": 2,
+        "addressCount": 0,
+        "visibleTextLength": 7803,
+        "scriptCount": 21,
+        "noscriptCount": 0,
+        "jsRenderedIndicators": 0,
+        "title": "Samudayik Laghubitta Bittiya Sanstha Limited",
+        "densities": {
+          "phonePer1k": 0.26,
+          "emailPer1k": 6.15,
+          "addressPer1k": 0,
+          "brGroupsPer1k": 0
+        }
+      },
+      "structureKind": "single_block",
+      "parser": {
+        "path": "none",
+        "candidateRecords": 0,
+        "validNames": 0,
+        "rejectedNames": 0,
+        "evidenceOnlyRows": 0,
+        "weakCardCandidates": 15,
+        "namesFromPersonCards": 0,
+        "refusedCardCandidates": [
+          "Welcome to Samudayik Laghubitta Bittiya Sanstha Ltd.",
+          "Annual Center Evaluation in Diktel",
+          "Our Saving Products",
+          "4th Annual General Assembly 2073-74",
+          "Center Chief Meeting in Halesi Khotang",
+          "Our Available Loan Products",
+          "Our Remittance Services",
+          "2nd General Assembly of Samudayik Laghubitta Bittiya Sanstha Limited.",
+          "News & Events",
+          "Notices",
+          "Quick Links",
+          "Our Gallery"
+        ],
+        "attributes": {
+          "BRANCH_DISTRICT": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PLACE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_ADDRESS": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PHONE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MOBILE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_EMAIL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MANAGER": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MAP_URL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          }
+        },
+        "nameSample": [],
+        "rejectedNameSample": [],
+        "roleBearingPeople": 0
+      },
+      "coverage": "BRANCH_INTENT_NO_STRUCTURE",
+      "coverageReason": "one location block, no assertable name",
+      "structuralRecords": 1,
+      "structuralRecordsMax": 0,
+      "signals": {
+        "branchVocabHits": 99,
+        "locatorMarkers": 0,
+        "tableCount": 0,
+        "tableRowCount": 0,
+        "branchRows": 0,
+        "phoneHits": 2,
+        "addressHits": 0,
+        "districtHits": 27,
+        "nameLikeUnits": 20,
+        "bodyTextLength": 7803
+      },
+      "shape": "BRANCH_INTENT_NO_STRUCTURE",
+      "dryRunBranchNames": 0
+    },
+    {
+      "sourceId": "nationalmicrofinance-website",
+      "institutionId": "mfi-024",
+      "url": "https://nationalmicrofinance.com.np/contact-us",
+      "linkType": "BRANCH_PAGE",
+      "backfillNote": "phase F backfill 2026-09-26: anchor=link (http ?, ?)",
+      "finalUrl": "https://nationalmicrofinance.com.np/contact-us",
+      "httpStatus": 200,
+      "mimeType": "text/html; charset=UTF-8",
+      "bytes": 32526,
+      "fetchedAt": "2026-09-27T17:32:48.535Z",
+      "contentHash": "5b20f75ec627a19df1708922fae39cd3e4f71a174e5c8d1800a481166299ec3c",
+      "redirected": 0,
+      "snapshotId": "snap-m34-024-88d06254",
+      "structure": {
+        "tableCount": 0,
+        "recordTableCount": 0,
+        "branchRowCount": 0,
+        "headingCount": 1,
+        "branchHeadingCount": 0,
+        "containerCount": 1,
+        "phoneBlocks": 0,
+        "brGroupCount": 0,
+        "mapLinkCount": 0,
+        "emailCount": 1,
+        "phoneCount": 0,
+        "addressCount": 0,
+        "visibleTextLength": 250,
+        "scriptCount": 18,
+        "noscriptCount": 0,
+        "jsRenderedIndicators": 0,
+        "title": "National Microfinance",
+        "densities": {
+          "phonePer1k": 0,
+          "emailPer1k": 4,
+          "addressPer1k": 0,
+          "brGroupsPer1k": 0
+        }
+      },
+      "structureKind": "none",
+      "parser": {
+        "path": "none",
+        "candidateRecords": 0,
+        "validNames": 0,
+        "rejectedNames": 0,
+        "evidenceOnlyRows": 0,
+        "weakCardCandidates": 0,
+        "namesFromPersonCards": 0,
+        "refusedCardCandidates": [
+          "NATIONAL LAGHUBITTA BITTIYA SANSTHA LTD."
+        ],
+        "attributes": {
+          "BRANCH_DISTRICT": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PLACE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_ADDRESS": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PHONE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MOBILE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_EMAIL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MANAGER": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MAP_URL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          }
+        },
+        "nameSample": [],
+        "rejectedNameSample": [],
+        "roleBearingPeople": 0
+      },
+      "coverage": "SINGLE_LOCATION_CONTACT",
+      "coverageReason": "contact details for one place, no location records",
+      "structuralRecords": 0,
+      "structuralRecordsMax": 0,
+      "signals": {
+        "branchVocabHits": 2,
+        "locatorMarkers": 0,
+        "tableCount": 0,
+        "tableRowCount": 0,
+        "branchRows": 0,
+        "phoneHits": 0,
+        "addressHits": 0,
+        "districtHits": 0,
+        "nameLikeUnits": 0,
+        "bodyTextLength": 250
+      },
+      "shape": "SINGLE_LOCATION_CONTACT",
+      "dryRunBranchNames": 0
+    },
+    {
+      "sourceId": "gblbs-website",
+      "institutionId": "mfi-025",
+      "url": "https://www.gblbs.com.np/branch.html",
+      "linkType": "BRANCH_PAGE",
+      "backfillNote": "m34 2026-09-27: re-pointed to a structurally confirmed branch page. prior target was not a branch page [phase F backfill 2026-09-26: anchor=evidence-homepage (http 200, text/html)]. confirmed by branch-url-discovery on a repeated-address/phone row structure (branchRows>=2); branch-html-v1 dry run reads 191 names (189 distinct). snapshot snap-m34disc-88738a9a616e sha256:73cee7ccb389. source-level proven_by (nrb-bfi-mid-may-2026) unchanged: this corrects WHICH page, it does not re-prove the institution.",
+      "finalUrl": "https://www.gblbs.com.np/branch.html",
+      "httpStatus": 200,
+      "mimeType": "text/html",
+      "bytes": 68923,
+      "fetchedAt": "2026-09-27T17:32:49.223Z",
+      "contentHash": "73cee7ccb389f9f624c0fdd5ddfce9c6f7fb3c05d1c2c76be09b9909c521b88a",
+      "redirected": 0,
+      "snapshotId": "snap-m34-025-88738a9a",
+      "structure": {
+        "tableCount": 5,
+        "recordTableCount": 5,
+        "branchRowCount": 183,
+        "headingCount": 6,
+        "branchHeadingCount": 1,
+        "containerCount": 20,
+        "phoneBlocks": 6,
+        "brGroupCount": 0,
+        "mapLinkCount": 0,
+        "emailCount": 1,
+        "phoneCount": 154,
+        "addressCount": 5,
+        "visibleTextLength": 14425,
+        "scriptCount": 4,
+        "noscriptCount": 0,
+        "jsRenderedIndicators": 0,
+        "title": "GBLBS | Branch Offices",
+        "densities": {
+          "phonePer1k": 10.68,
+          "emailPer1k": 0.07,
+          "addressPer1k": 0.35,
+          "brGroupsPer1k": 0
+        }
+      },
+      "structureKind": "phone_cards",
+      "parser": {
+        "path": "table",
+        "candidateRecords": 191,
+        "validNames": 191,
+        "rejectedNames": 0,
+        "evidenceOnlyRows": 0,
+        "weakCardCandidates": 0,
+        "namesFromPersonCards": 0,
+        "refusedCardCandidates": [],
+        "attributes": {
+          "BRANCH_DISTRICT": {
+            "extracted": 191,
+            "valid": 97,
+            "refused": 94,
+            "reasons": {
+              "NOT_A_DISTRICT": 94
+            }
+          },
+          "BRANCH_PLACE": {
+            "extracted": 191,
+            "valid": 191,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_ADDRESS": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PHONE": {
+            "extracted": 191,
+            "valid": 153,
+            "refused": 38,
+            "reasons": {
+              "CONTAINS_LETTERS": 38
+            }
+          },
+          "BRANCH_MOBILE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_EMAIL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MANAGER": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MAP_URL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          }
+        },
+        "nameSample": [
+          "Branch Office Biratnagar",
+          "Branch Office Urlabari",
+          "Branch Office Banigama",
+          "Branch Office Dangihat",
+          "Branch Office Karsiya",
+          "Branch Office Katahari",
+          "Branch Office Keraun",
+          "Branch Office Jhorahaat",
+          "Branch Office Jhurkiya",
+          "Branch Office Rangeli",
+          "Branch Office Salakpur",
+          "Branch Office Tanki"
+        ],
+        "rejectedNameSample": [],
+        "roleBearingPeople": 0
+      },
+      "coverage": "VERIFIED_BRANCH_DIRECTORY",
+      "coverageReason": "191 assertable names from 6 phone_cards record(s)",
+      "structuralRecords": 6,
+      "structuralRecordsMax": 183,
+      "signals": {
+        "branchVocabHits": 208,
+        "locatorMarkers": 1,
+        "tableCount": 5,
+        "tableRowCount": 196,
+        "branchRows": 183,
+        "phoneHits": 154,
+        "addressHits": 5,
+        "districtHits": 155,
+        "nameLikeUnits": 197,
+        "bodyTextLength": 14425
+      },
+      "shape": "VERIFIED_BRANCH_DIRECTORY",
+      "dryRunBranchNames": 191
+    },
+    {
+      "sourceId": "unnatislbs-website",
+      "institutionId": "mfi-027",
+      "url": "https://unnatislbs.com.np/branches-map",
+      "linkType": "BRANCH_PAGE",
+      "backfillNote": "phase F backfill 2026-09-26: anchor=link (http ?, ?)",
+      "finalUrl": "https://unnatislbs.com.np/branches-map",
+      "httpStatus": 200,
+      "mimeType": "text/html; charset=utf-8",
+      "bytes": 10775,
+      "fetchedAt": "2026-09-27T17:32:49.383Z",
+      "contentHash": "6319cf82ee95e52ceb177c1a5e7768895f15a2a30d4a21b4f914828a581d95b3",
+      "redirected": 0,
+      "snapshotId": "snap-m34-026-fa70db58",
+      "structure": {
+        "tableCount": 0,
+        "recordTableCount": 0,
+        "branchRowCount": 0,
+        "headingCount": 1,
+        "branchHeadingCount": 0,
+        "containerCount": 6,
+        "phoneBlocks": 0,
+        "brGroupCount": 0,
+        "mapLinkCount": 0,
+        "emailCount": 0,
+        "phoneCount": 0,
+        "addressCount": 0,
+        "visibleTextLength": 8,
+        "scriptCount": 10,
+        "noscriptCount": 1,
+        "jsRenderedIndicators": 2,
+        "title": "",
+        "densities": {
+          "phonePer1k": 0,
+          "emailPer1k": 0,
+          "addressPer1k": 0,
+          "brGroupsPer1k": 0
+        }
+      },
+      "structureKind": "none",
+      "parser": {
+        "path": "none",
+        "candidateRecords": 0,
+        "validNames": 0,
+        "rejectedNames": 0,
+        "evidenceOnlyRows": 0,
+        "weakCardCandidates": 1,
+        "namesFromPersonCards": 0,
+        "refusedCardCandidates": [
+          "Update",
+          "Pages",
+          "UseFul Links"
+        ],
+        "attributes": {
+          "BRANCH_DISTRICT": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PLACE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_ADDRESS": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PHONE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MOBILE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_EMAIL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MANAGER": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MAP_URL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          }
+        },
+        "nameSample": [],
+        "rejectedNameSample": [],
+        "roleBearingPeople": 0
+      },
+      "coverage": "BRANCH_LOCATOR_UNRENDERED",
+      "coverageReason": "client-rendered shell: text=8 scripts=10 noscript=1 jsMarkers=2",
+      "structuralRecords": 0,
+      "structuralRecordsMax": 0,
+      "signals": {
+        "branchVocabHits": 0,
+        "locatorMarkers": 0,
+        "tableCount": 0,
+        "tableRowCount": 0,
+        "branchRows": 0,
+        "phoneHits": 0,
+        "addressHits": 0,
+        "districtHits": 0,
+        "nameLikeUnits": 0,
+        "bodyTextLength": 8
+      },
+      "shape": "BRANCH_LOCATOR_UNRENDERED",
+      "dryRunBranchNames": 0
+    },
+    {
+      "sourceId": "nadeplaghubitta-website",
+      "institutionId": "mfi-028",
+      "url": "https://www.nadeplaghubitta.com/our-branches/",
+      "linkType": "BRANCH_PAGE",
+      "backfillNote": "m34 2026-09-27: re-pointed to a structurally confirmed branch page. prior target was not a branch page [phase F backfill 2026-09-26: anchor=link (http ?, ?)]. confirmed by branch-url-discovery on a repeated-address/phone row structure (branchRows>=2); branch-html-v1 dry run reads 0 names (page is a real directory the parser cannot read yet). snapshot snap-m34disc-581e57cb767f sha256:1ed150abaeae. source-level proven_by (nrb-bfi-mid-may-2026) unchanged: this corrects WHICH page, it does not re-prove the institution.",
+      "finalUrl": "https://www.nadeplaghubitta.com/our-branches/",
+      "httpStatus": 200,
+      "mimeType": "text/html; charset=UTF-8",
+      "bytes": 127574,
+      "fetchedAt": "2026-09-27T17:32:51.060Z",
+      "contentHash": "9325a83cd83a51f3a2f29916b944d7eff71e7a9287a7bfcea79f76eefd0cae47",
+      "redirected": 0,
+      "snapshotId": "snap-m34-027-581e57cb",
+      "structure": {
+        "tableCount": 1,
+        "recordTableCount": 1,
+        "branchRowCount": 32,
+        "headingCount": 1,
+        "branchHeadingCount": 1,
+        "containerCount": 3,
+        "phoneBlocks": 0,
+        "brGroupCount": 88,
+        "mapLinkCount": 0,
+        "emailCount": 96,
+        "phoneCount": 189,
+        "addressCount": 0,
+        "visibleTextLength": 11245,
+        "scriptCount": 30,
+        "noscriptCount": 0,
+        "jsRenderedIndicators": 0,
+        "title": "Our Branches &#8211; nadeplaghubitta",
+        "densities": {
+          "phonePer1k": 16.81,
+          "emailPer1k": 8.54,
+          "addressPer1k": 0,
+          "brGroupsPer1k": 7.83
+        }
+      },
+      "structureKind": "record_table",
+      "parser": {
+        "path": "cell",
+        "candidateRecords": 89,
+        "validNames": 89,
+        "rejectedNames": 0,
+        "evidenceOnlyRows": 0,
+        "weakCardCandidates": 2,
+        "namesFromPersonCards": 0,
+        "refusedCardCandidates": [
+          "PRODUCTS &#038; SERVICES",
+          "Contact Info",
+          "Important Links"
+        ],
+        "attributes": {
+          "BRANCH_DISTRICT": {
+            "extracted": 40,
+            "valid": 40,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PLACE": {
+            "extracted": 89,
+            "valid": 89,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_ADDRESS": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PHONE": {
+            "extracted": 89,
+            "valid": 3,
+            "refused": 86,
+            "reasons": {
+              "DIGIT_COUNT": 86
+            }
+          },
+          "BRANCH_MOBILE": {
+            "extracted": 89,
+            "valid": 89,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_EMAIL": {
+            "extracted": 89,
+            "valid": 89,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MANAGER": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MAP_URL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          }
+        },
+        "nameSample": [
+          "Area Office Birtamod, Jhapa",
+          "Branch Office Baniyani, Jhapa",
+          "Branch Office Bhadrapur, Jhapa",
+          "Branch Office Birtamod, Jhapa",
+          "Branch Office Dhulabari, Jhapa",
+          "Branch Office Urlabari, Morang",
+          "Branch Office Damak, Jhapa",
+          "Sub Branch Office Budhabare, Jhapa",
+          "Area Office Itahari, Sunsari",
+          "Branch Office Rangeli, Morang",
+          "Branch Office Katahari, Morang",
+          "Branch Office Tankisinuwari, Morang"
+        ],
+        "rejectedNameSample": [],
+        "roleBearingPeople": 0
+      },
+      "coverage": "VERIFIED_BRANCH_DIRECTORY",
+      "coverageReason": "89 assertable names from 32 record_table record(s)",
+      "structuralRecords": 32,
+      "structuralRecordsMax": 88,
+      "signals": {
+        "branchVocabHits": 90,
+        "locatorMarkers": 0,
+        "tableCount": 1,
+        "tableRowCount": 32,
+        "branchRows": 32,
+        "phoneHits": 189,
+        "addressHits": 0,
+        "districtHits": 57,
+        "nameLikeUnits": 0,
+        "bodyTextLength": 11245
+      },
+      "shape": "VERIFIED_BRANCH_DIRECTORY",
+      "dryRunBranchNames": 89
+    },
+    {
+      "sourceId": "supportmicrofinance-website",
+      "institutionId": "mfi-029",
+      "url": "https://www.supportmicrofinance.com.np/branch",
+      "linkType": "BRANCH_PAGE",
+      "backfillNote": "phase F backfill 2026-09-26: anchor=link (http ?, ?)",
+      "finalUrl": "https://www.supportmicrofinance.com.np/branch",
+      "httpStatus": 200,
+      "mimeType": "text/html; charset=UTF-8",
+      "bytes": 25329,
+      "fetchedAt": "2026-09-27T17:32:52.971Z",
+      "contentHash": "3fb49aa14fab9286f9a0bee0316ea98691a445bf40e4fb4decf63c500b06ca08",
+      "redirected": 0,
+      "snapshotId": "snap-m34-028-9822f05b",
+      "structure": {
+        "tableCount": 0,
+        "recordTableCount": 0,
+        "branchRowCount": 0,
+        "headingCount": 26,
+        "branchHeadingCount": 15,
+        "containerCount": 0,
+        "phoneBlocks": 0,
+        "brGroupCount": 0,
+        "mapLinkCount": 0,
+        "emailCount": 9,
+        "phoneCount": 15,
+        "addressCount": 0,
+        "visibleTextLength": 1555,
+        "scriptCount": 7,
+        "noscriptCount": 0,
+        "jsRenderedIndicators": 0,
+        "title": "supportmicrofinance",
+        "densities": {
+          "phonePer1k": 9.65,
+          "emailPer1k": 5.79,
+          "addressPer1k": 0,
+          "brGroupsPer1k": 0
+        }
+      },
+      "structureKind": "branch_headings",
+      "parser": {
+        "path": "card",
+        "candidateRecords": 13,
+        "validNames": 12,
+        "rejectedNames": 1,
+        "evidenceOnlyRows": 1,
+        "weakCardCandidates": 5,
+        "namesFromPersonCards": 0,
+        "refusedCardCandidates": [
+          "Branch Network",
+          "Quick Links",
+          "Useful Links",
+          "Contact Us"
+        ],
+        "attributes": {
+          "BRANCH_DISTRICT": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PLACE": {
+            "extracted": 13,
+            "valid": 13,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_ADDRESS": {
+            "extracted": 13,
+            "valid": 12,
+            "refused": 1,
+            "reasons": {
+              "CONTAINS_URL": 1
+            }
+          },
+          "BRANCH_PHONE": {
+            "extracted": 13,
+            "valid": 13,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MOBILE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_EMAIL": {
+            "extracted": 10,
+            "valid": 9,
+            "refused": 1,
+            "reasons": {
+              "EMAIL_FORMAT": 1
+            }
+          },
+          "BRANCH_MANAGER": {
+            "extracted": 10,
+            "valid": 0,
+            "refused": 10,
+            "reasons": {
+              "GENERIC_LABEL": 10
+            }
+          },
+          "BRANCH_MAP_URL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          }
+        },
+        "nameSample": [
+          "DHANKUTA BRANCH",
+          "HADIYA BRANCH",
+          "SANKRANTI BRANCH",
+          "DINGLA BRANCH",
+          "SONAPUR BRANCH",
+          "Bhokraha Branch",
+          "CHHITAHA BRANCH",
+          "BAKLAURI BRANCH",
+          "SIDHUWA BRANCH",
+          "POUWA BHANJYANG BRANCH",
+          "HARINAGARA BRANCH",
+          "MAHENDRANAGAR BRANCH"
+        ],
+        "rejectedNameSample": [
+          "Contact Us"
+        ],
+        "roleBearingPeople": 0
+      },
+      "coverage": "VERIFIED_BRANCH_DIRECTORY",
+      "coverageReason": "12 assertable names from 15 branch_headings record(s)",
+      "structuralRecords": 15,
+      "structuralRecordsMax": 15,
+      "signals": {
+        "branchVocabHits": 17,
+        "locatorMarkers": 0,
+        "tableCount": 0,
+        "tableRowCount": 0,
+        "branchRows": 0,
+        "phoneHits": 15,
+        "addressHits": 0,
+        "districtHits": 7,
+        "nameLikeUnits": 0,
+        "bodyTextLength": 1555
+      },
+      "shape": "VERIFIED_BRANCH_DIRECTORY",
+      "dryRunBranchNames": 12
+    },
+    {
+      "sourceId": "sampadalaghubitta-website",
+      "institutionId": "mfi-036",
+      "url": "https://www.sampadalaghubitta.com.np/branches",
+      "linkType": "BRANCH_PAGE",
+      "backfillNote": "phase F backfill 2026-09-26: anchor=link (http ?, ?)",
+      "finalUrl": "https://www.sampadalaghubitta.com.np/branches",
+      "httpStatus": 200,
+      "mimeType": "text/html; charset=UTF-8",
+      "bytes": 288622,
+      "fetchedAt": "2026-09-27T17:32:53.921Z",
+      "contentHash": "f657320044e4720a4f757148cd2d11d90a572023c733005955232e8488a85aa4",
+      "redirected": 0,
+      "snapshotId": "snap-m34-029-db738ad1",
+      "structure": {
+        "tableCount": 0,
+        "recordTableCount": 0,
+        "branchRowCount": 0,
+        "headingCount": 156,
+        "branchHeadingCount": 156,
+        "containerCount": 1,
+        "phoneBlocks": 0,
+        "brGroupCount": 0,
+        "mapLinkCount": 0,
+        "emailCount": 155,
+        "phoneCount": 155,
+        "addressCount": 0,
+        "visibleTextLength": 23423,
+        "scriptCount": 7,
+        "noscriptCount": 0,
+        "jsRenderedIndicators": 0,
+        "title": "Sampada Laghubitta Bittiya Sanstha Limited",
+        "densities": {
+          "phonePer1k": 6.62,
+          "emailPer1k": 6.62,
+          "addressPer1k": 0,
+          "brGroupsPer1k": 0
+        }
+      },
+      "structureKind": "branch_headings",
+      "parser": {
+        "path": "card",
+        "candidateRecords": 156,
+        "validNames": 154,
+        "rejectedNames": 2,
+        "evidenceOnlyRows": 2,
+        "weakCardCandidates": 2,
+        "namesFromPersonCards": 154,
+        "refusedCardCandidates": [
+          "Branch Network",
+          "P.O Box Number: 33003",
+          "Quick Links",
+          "Useful Links"
+        ],
+        "attributes": {
+          "BRANCH_DISTRICT": {
+            "extracted": 4,
+            "valid": 4,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PLACE": {
+            "extracted": 156,
+            "valid": 156,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_ADDRESS": {
+            "extracted": 155,
+            "valid": 155,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PHONE": {
+            "extracted": 156,
+            "valid": 8,
+            "refused": 148,
+            "reasons": {
+              "DIGIT_COUNT": 148
+            }
+          },
+          "BRANCH_MOBILE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_EMAIL": {
+            "extracted": 156,
+            "valid": 156,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MANAGER": {
+            "extracted": 155,
+            "valid": 0,
+            "refused": 155,
+            "reasons": {
+              "GENERIC_LABEL": 155
+            }
+          },
+          "BRANCH_MAP_URL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          }
+        },
+        "nameSample": [
+          "Ghairung Branch",
+          "Ghyampesal Branch",
+          "Palungtar Branch",
+          "Bachchek Branch",
+          "Salyantar Branch",
+          "Satbise Branch",
+          "Dhadingbesi Branch",
+          "Chainpur Branch",
+          "Simle Branch",
+          "Hadikhola Branch",
+          "Phaparbari Branch",
+          "Chandrawati Branch"
+        ],
+        "rejectedNameSample": [
+          "Branch Network",
+          "P.O Box Number: 33003"
+        ],
+        "roleBearingPeople": 0
+      },
+      "coverage": "VERIFIED_BRANCH_DIRECTORY",
+      "coverageReason": "154 assertable names from 156 branch_headings record(s)",
+      "structuralRecords": 156,
+      "structuralRecordsMax": 156,
+      "signals": {
+        "branchVocabHits": 312,
+        "locatorMarkers": 0,
+        "tableCount": 0,
+        "tableRowCount": 0,
+        "branchRows": 0,
+        "phoneHits": 155,
+        "addressHits": 0,
+        "districtHits": 17,
+        "nameLikeUnits": 0,
+        "bodyTextLength": 23423
+      },
+      "shape": "VERIFIED_BRANCH_DIRECTORY",
+      "dryRunBranchNames": 154
+    },
+    {
+      "sourceId": "mlbsl-website",
+      "institutionId": "mfi-038",
+      "url": "https://www.mlbsl.com.np/branches/category/branch-office",
+      "linkType": "BRANCH_PAGE",
+      "backfillNote": "phase F backfill 2026-09-26: anchor=link (http ?, ?)",
+      "finalUrl": "https://www.mlbsl.com.np/branches/category/branch-office",
+      "httpStatus": 200,
+      "mimeType": "text/html; charset=UTF-8",
+      "bytes": 975720,
+      "fetchedAt": "2026-09-27T17:32:56.547Z",
+      "contentHash": "1893414ae13643a0cb0bb9101b9384b4299e1ec64e0c115e6c49ee522d0c43b6",
+      "redirected": 0,
+      "snapshotId": "snap-m34-030-20f5549a",
+      "structure": {
+        "tableCount": 0,
+        "recordTableCount": 0,
+        "branchRowCount": 0,
+        "headingCount": 146,
+        "branchHeadingCount": 3,
+        "containerCount": 399,
+        "phoneBlocks": 78,
+        "brGroupCount": 0,
+        "mapLinkCount": 154,
+        "emailCount": 78,
+        "phoneCount": 79,
+        "addressCount": 0,
+        "visibleTextLength": 14598,
+        "scriptCount": 632,
+        "noscriptCount": 0,
+        "jsRenderedIndicators": 0,
+        "title": "Mahila Laghubitta Bittiya Sanstha Limited",
+        "densities": {
+          "phonePer1k": 5.41,
+          "emailPer1k": 5.34,
+          "addressPer1k": 0,
+          "brGroupsPer1k": 0
+        }
+      },
+      "structureKind": "branch_headings",
+      "parser": {
+        "path": "none",
+        "candidateRecords": 0,
+        "validNames": 0,
+        "rejectedNames": 0,
+        "evidenceOnlyRows": 0,
+        "weakCardCandidates": 14,
+        "namesFromPersonCards": 0,
+        "refusedCardCandidates": [
+          "The Importance of an Emergency Fund: How Much Should You Save?",
+          "Why You Need an Emergency Fund",
+          "How Much Should You Save?",
+          "Side Hustles That Can Help You Earn Extra Income",
+          "Best Side Hustles to Start",
+          "How to Succeed in Your Side Hustle",
+          "The Beginner’s Guide to Investing: How to Grow Your Wealth",
+          "\\n \\n Stocks: Buying shares of a company to gain potential returns.",
+          "Key Principles for Success",
+          "How to Save Money Effectively: Smart Budgeting Tips",
+          "Steps to Create a Budget",
+          "Understanding Credit Scores: How to Improve Yours"
+        ],
+        "attributes": {
+          "BRANCH_DISTRICT": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PLACE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_ADDRESS": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PHONE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MOBILE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_EMAIL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MANAGER": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MAP_URL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          }
+        },
+        "nameSample": [],
+        "rejectedNameSample": [],
+        "roleBearingPeople": 0
+      },
+      "coverage": "BRANCH_STRUCTURE_UNREAD",
+      "coverageReason": "3 branch_headings record(s) in HTML, 0 assertable names",
+      "structuralRecords": 3,
+      "structuralRecordsMax": 78,
+      "signals": {
+        "branchVocabHits": 86,
+        "locatorMarkers": 179,
+        "tableCount": 0,
+        "tableRowCount": 0,
+        "branchRows": 0,
+        "phoneHits": 79,
+        "addressHits": 0,
+        "districtHits": 28,
+        "nameLikeUnits": 2,
+        "bodyTextLength": 14598
+      },
+      "shape": "BRANCH_STRUCTURE_UNREAD",
+      "dryRunBranchNames": 0
+    },
+    {
+      "sourceId": "uniquenepalmicrofinance-website",
+      "institutionId": "mfi-040",
+      "url": "https://uniquenepalmicrofinance.com.np",
+      "linkType": "BRANCH_PAGE",
+      "backfillNote": "phase F backfill 2026-09-26: anchor=evidence-homepage (http 200, text/html)",
+      "finalUrl": "https://uniquenepalmicrofinance.com.np/",
+      "httpStatus": 200,
+      "mimeType": "text/html; charset=UTF-8",
+      "bytes": 74258,
+      "fetchedAt": "2026-09-27T17:32:57.266Z",
+      "contentHash": "a38233d1116f956054ee7a631390984e93bfae856d6ac5716727cd20c741f718",
+      "redirected": 0,
+      "snapshotId": "snap-m34-031-023ff1f2",
+      "structure": {
+        "tableCount": 0,
+        "recordTableCount": 0,
+        "branchRowCount": 0,
+        "headingCount": 10,
+        "branchHeadingCount": 1,
+        "containerCount": 17,
+        "phoneBlocks": 0,
+        "brGroupCount": 0,
+        "mapLinkCount": 0,
+        "emailCount": 0,
+        "phoneCount": 2,
+        "addressCount": 0,
+        "visibleTextLength": 2708,
+        "scriptCount": 24,
+        "noscriptCount": 0,
+        "jsRenderedIndicators": 0,
+        "title": "Unique Nepal Laghubitta Bittiya Sanstha Limited",
+        "densities": {
+          "phonePer1k": 0.74,
+          "emailPer1k": 0,
+          "addressPer1k": 0,
+          "brGroupsPer1k": 0
+        }
+      },
+      "structureKind": "none",
+      "parser": {
+        "path": "none",
+        "candidateRecords": 0,
+        "validNames": 0,
+        "rejectedNames": 0,
+        "evidenceOnlyRows": 0,
+        "weakCardCandidates": 3,
+        "namesFromPersonCards": 0,
+        "refusedCardCandidates": [
+          "Notices",
+          "उद्यमी बन्न सफल दिपा तामाङ्गको कथा",
+          "Reports & Impacts",
+          "Career",
+          "News & Updates",
+          "Photo Gallery",
+          "Video Gallery",
+          "Branch Offices",
+          "About Us",
+          "Contact Info",
+          "alt=\"Gunaso Adikari\"",
+          "alt=\"सूचना अधिकारी\""
+        ],
+        "attributes": {
+          "BRANCH_DISTRICT": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PLACE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_ADDRESS": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PHONE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MOBILE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_EMAIL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MANAGER": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MAP_URL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          }
+        },
+        "nameSample": [],
+        "rejectedNameSample": [],
+        "roleBearingPeople": 0
+      },
+      "coverage": "SINGLE_LOCATION_CONTACT",
+      "coverageReason": "contact details for one place, no location records",
+      "structuralRecords": 0,
+      "structuralRecordsMax": 0,
+      "signals": {
+        "branchVocabHits": 2,
+        "locatorMarkers": 0,
+        "tableCount": 0,
+        "tableRowCount": 0,
+        "branchRows": 0,
+        "phoneHits": 2,
+        "addressHits": 0,
+        "districtHits": 0,
+        "nameLikeUnits": 13,
+        "bodyTextLength": 2708
+      },
+      "shape": "SINGLE_LOCATION_CONTACT",
+      "dryRunBranchNames": 0
+    },
+    {
+      "sourceId": "ulbsl-website",
+      "institutionId": "mfi-041",
+      "url": "https://www.ulbsl.com.np/branch",
+      "linkType": "BRANCH_PAGE",
+      "backfillNote": "phase F backfill 2026-09-26: anchor=link (http ?, ?)",
+      "finalUrl": "https://www.ulbsl.com.np/branch",
+      "httpStatus": 200,
+      "mimeType": "text/html; charset=UTF-8",
+      "bytes": 24831,
+      "fetchedAt": "2026-09-27T17:32:59.331Z",
+      "contentHash": "8a1427e3002dd7b2de4318a177130013c114d2e170621d78e1100e8041d2fc2d",
+      "redirected": 0,
+      "snapshotId": "snap-m34-032-b505f8b6",
+      "structure": {
+        "tableCount": 0,
+        "recordTableCount": 0,
+        "branchRowCount": 0,
+        "headingCount": 23,
+        "branchHeadingCount": 11,
+        "containerCount": 1,
+        "phoneBlocks": 0,
+        "brGroupCount": 0,
+        "mapLinkCount": 0,
+        "emailCount": 12,
+        "phoneCount": 15,
+        "addressCount": 0,
+        "visibleTextLength": 1684,
+        "scriptCount": 9,
+        "noscriptCount": 0,
+        "jsRenderedIndicators": 0,
+        "title": "Branch",
+        "densities": {
+          "phonePer1k": 8.91,
+          "emailPer1k": 7.13,
+          "addressPer1k": 0,
+          "brGroupsPer1k": 0
+        }
+      },
+      "structureKind": "branch_headings",
+      "parser": {
+        "path": "none",
+        "candidateRecords": 0,
+        "validNames": 0,
+        "rejectedNames": 0,
+        "evidenceOnlyRows": 0,
+        "weakCardCandidates": 0,
+        "namesFromPersonCards": 0,
+        "refusedCardCandidates": [
+          "Branch Network",
+          "Kohalpur,11, Fulbarinagar",
+          "Nepalgunj,18,",
+          "Baijanath-,6, Samjhanachock",
+          "Raptisonari,5, Chilhariya",
+          "BANKE,Khajura-4",
+          "Kohalpur 11",
+          "Raptisonar 8, Samsergunj",
+          "Khajura 2, Rimjhim",
+          "Nepalgunj 6",
+          "Contact Us",
+          "Quick Links"
+        ],
+        "attributes": {
+          "BRANCH_DISTRICT": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PLACE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_ADDRESS": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PHONE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MOBILE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_EMAIL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MANAGER": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MAP_URL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          }
+        },
+        "nameSample": [],
+        "rejectedNameSample": [],
+        "roleBearingPeople": 0
+      },
+      "coverage": "BRANCH_STRUCTURE_UNREAD",
+      "coverageReason": "11 branch_headings record(s) in HTML, 0 assertable names",
+      "structuralRecords": 11,
+      "structuralRecordsMax": 11,
+      "signals": {
+        "branchVocabHits": 23,
+        "locatorMarkers": 0,
+        "tableCount": 0,
+        "tableRowCount": 0,
+        "branchRows": 0,
+        "phoneHits": 15,
+        "addressHits": 0,
+        "districtHits": 2,
+        "nameLikeUnits": 1,
+        "bodyTextLength": 1684
+      },
+      "shape": "BRANCH_STRUCTURE_UNREAD",
+      "dryRunBranchNames": 0
+    },
+    {
+      "sourceId": "dhaulagiribank-website",
+      "institutionId": "mfi-042",
+      "url": "https://dhaulagiribank.com/branch-networks/",
+      "linkType": "BRANCH_PAGE",
+      "backfillNote": "m34 2026-09-27: re-pointed to a structurally confirmed branch page. prior target was not a branch page [phase F backfill 2026-09-26: anchor=evidence-homepage (http 200, text/html)]. confirmed by branch-url-discovery on a repeated-address/phone row structure (branchRows>=2); branch-html-v1 dry run reads 58 names (58 distinct). snapshot snap-m34disc-3542e2f76158 sha256:b1c3121b5255. source-level proven_by (nrb-bfi-mid-may-2026) unchanged: this corrects WHICH page, it does not re-prove the institution.",
+      "finalUrl": "https://dhaulagiribank.com/branch-networks/",
+      "httpStatus": 200,
+      "mimeType": "text/html; charset=UTF-8",
+      "bytes": 119847,
+      "fetchedAt": "2026-09-27T17:32:59.630Z",
+      "contentHash": "354dcfff344f526d2a5b9a7bddf9c0c99cfd219726b0c80d2c32a71e81e29ba4",
+      "redirected": 0,
+      "snapshotId": "snap-m34-033-3542e2f7",
+      "structure": {
+        "tableCount": 1,
+        "recordTableCount": 1,
+        "branchRowCount": 58,
+        "headingCount": 1,
+        "branchHeadingCount": 1,
+        "containerCount": 8,
+        "phoneBlocks": 1,
+        "brGroupCount": 0,
+        "mapLinkCount": 1,
+        "emailCount": 58,
+        "phoneCount": 115,
+        "addressCount": 0,
+        "visibleTextLength": 8362,
+        "scriptCount": 65,
+        "noscriptCount": 0,
+        "jsRenderedIndicators": 0,
+        "title": "Branch Networks - Dhaulagiri Laghubitta Bittiya Sanstha Limited",
+        "densities": {
+          "phonePer1k": 13.75,
+          "emailPer1k": 6.94,
+          "addressPer1k": 0,
+          "brGroupsPer1k": 0
+        }
+      },
+      "structureKind": "record_table",
+      "parser": {
+        "path": "table",
+        "candidateRecords": 58,
+        "validNames": 58,
+        "rejectedNames": 0,
+        "evidenceOnlyRows": 0,
+        "weakCardCandidates": 0,
+        "namesFromPersonCards": 0,
+        "refusedCardCandidates": [],
+        "attributes": {
+          "BRANCH_DISTRICT": {
+            "extracted": 26,
+            "valid": 0,
+            "refused": 26,
+            "reasons": {
+              "NOT_A_DISTRICT": 26
+            }
+          },
+          "BRANCH_PLACE": {
+            "extracted": 58,
+            "valid": 58,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_ADDRESS": {
+            "extracted": 58,
+            "valid": 58,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PHONE": {
+            "extracted": 58,
+            "valid": 58,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MOBILE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_EMAIL": {
+            "extracted": 58,
+            "valid": 58,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MANAGER": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MAP_URL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          }
+        },
+        "nameSample": [
+          "Branch Office Thada",
+          "Branch Office Burtibang",
+          "Branch Office Ghari",
+          "Branch Office Gulmi",
+          "Branch Office Hatiya",
+          "Branch Office Katahariya",
+          "Pokhara Dadeldhura Branch",
+          "Branch Office Arghakachi",
+          "Branch Office Bhimphedi",
+          "Branch Office Chimtaha",
+          "Branch Office Darwang",
+          "Branch Office Durgapur"
+        ],
+        "rejectedNameSample": [],
+        "roleBearingPeople": 0
+      },
+      "coverage": "VERIFIED_BRANCH_DIRECTORY",
+      "coverageReason": "58 assertable names from 58 record_table record(s)",
+      "structuralRecords": 58,
+      "structuralRecordsMax": 58,
+      "signals": {
+        "branchVocabHits": 64,
+        "locatorMarkers": 0,
+        "tableCount": 1,
+        "tableRowCount": 59,
+        "branchRows": 58,
+        "phoneHits": 115,
+        "addressHits": 0,
+        "districtHits": 44,
+        "nameLikeUnits": 58,
+        "bodyTextLength": 8362
+      },
+      "shape": "VERIFIED_BRANCH_DIRECTORY",
+      "dryRunBranchNames": 58
+    },
+    {
+      "sourceId": "swastiklbs-website",
+      "institutionId": "mfi-045",
+      "url": "https://swastiklbs.com.np/contact-us",
+      "linkType": "BRANCH_PAGE",
+      "backfillNote": "phase F backfill 2026-09-26: anchor=link (http ?, ?)",
+      "finalUrl": "https://swastiklbs.com.np/contact-us/",
+      "httpStatus": 200,
+      "mimeType": "text/html; charset=UTF-8",
+      "bytes": 57870,
+      "fetchedAt": "2026-09-27T17:33:03.666Z",
+      "contentHash": "fad877fb5a8674b10d8b6a1b32450b6ad73643bfc045fec4bcd2b6141890bbaf",
+      "redirected": 0,
+      "snapshotId": "snap-m34-034-8505687c",
+      "structure": {
+        "tableCount": 0,
+        "recordTableCount": 0,
+        "branchRowCount": 0,
+        "headingCount": 1,
+        "branchHeadingCount": 1,
+        "containerCount": 15,
+        "phoneBlocks": 1,
+        "brGroupCount": 0,
+        "mapLinkCount": 0,
+        "emailCount": 0,
+        "phoneCount": 1,
+        "addressCount": 0,
+        "visibleTextLength": 271,
+        "scriptCount": 25,
+        "noscriptCount": 0,
+        "jsRenderedIndicators": 0,
+        "title": "Contact Us &#8211; Swastik Microfinance ltd | स्वस्तिक लघुवित्त वित्तिय सँस्था ली.",
+        "densities": {
+          "phonePer1k": 3.69,
+          "emailPer1k": 0,
+          "addressPer1k": 0,
+          "brGroupsPer1k": 0
+        }
+      },
+      "structureKind": "single_block",
+      "parser": {
+        "path": "none",
+        "candidateRecords": 0,
+        "validNames": 0,
+        "rejectedNames": 0,
+        "evidenceOnlyRows": 0,
+        "weakCardCandidates": 1,
+        "namesFromPersonCards": 0,
+        "refusedCardCandidates": [
+          "Useful Links"
+        ],
+        "attributes": {
+          "BRANCH_DISTRICT": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PLACE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_ADDRESS": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PHONE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MOBILE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_EMAIL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MANAGER": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MAP_URL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          }
+        },
+        "nameSample": [],
+        "rejectedNameSample": [],
+        "roleBearingPeople": 0
+      },
+      "coverage": "SINGLE_LOCATION_CONTACT",
+      "coverageReason": "one location block, one contact location",
+      "structuralRecords": 1,
+      "structuralRecordsMax": 0,
+      "signals": {
+        "branchVocabHits": 4,
+        "locatorMarkers": 0,
+        "tableCount": 0,
+        "tableRowCount": 0,
+        "branchRows": 0,
+        "phoneHits": 1,
+        "addressHits": 0,
+        "districtHits": 1,
+        "nameLikeUnits": 0,
+        "bodyTextLength": 271
+      },
+      "shape": "SINGLE_LOCATION_CONTACT",
+      "dryRunBranchNames": 0
+    },
+    {
+      "sourceId": "jeevanbikasmf-website",
+      "institutionId": "mfi-048",
+      "url": "https://jeevanbikasmf.com/contact-us",
+      "linkType": "BRANCH_PAGE",
+      "backfillNote": "phase F backfill 2026-09-26: anchor=link (http ?, ?)",
+      "finalUrl": "https://jeevanbikasmf.com/contact-us/",
+      "httpStatus": 200,
+      "mimeType": "text/html; charset=UTF-8",
+      "bytes": 150171,
+      "fetchedAt": "2026-09-27T17:33:07.370Z",
+      "contentHash": "4529fba4efc43fdca6f4dd79f383ef68afa0989b49c14c53d93f364bf4e2dee8",
+      "redirected": 0,
+      "snapshotId": "snap-m34-035-6139076e",
+      "structure": {
+        "tableCount": 0,
+        "recordTableCount": 0,
+        "branchRowCount": 0,
+        "headingCount": 7,
+        "branchHeadingCount": 0,
+        "containerCount": 0,
+        "phoneBlocks": 0,
+        "brGroupCount": 0,
+        "mapLinkCount": 0,
+        "emailCount": 1,
+        "phoneCount": 0,
+        "addressCount": 0,
+        "visibleTextLength": 443,
+        "scriptCount": 47,
+        "noscriptCount": 0,
+        "jsRenderedIndicators": 0,
+        "title": "Contact Us - JBLBSL",
+        "densities": {
+          "phonePer1k": 0,
+          "emailPer1k": 2.26,
+          "addressPer1k": 0,
+          "brGroupsPer1k": 0
+        }
+      },
+      "structureKind": "none",
+      "parser": {
+        "path": "none",
+        "candidateRecords": 0,
+        "validNames": 0,
+        "rejectedNames": 0,
+        "evidenceOnlyRows": 0,
+        "weakCardCandidates": 1,
+        "namesFromPersonCards": 0,
+        "refusedCardCandidates": [
+          "Facebook",
+          "More Downloads",
+          "९८०२७९६१९६",
+          "Quick Links",
+          "Copyright © 2026 JBLBSL"
+        ],
+        "attributes": {
+          "BRANCH_DISTRICT": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PLACE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_ADDRESS": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_PHONE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MOBILE": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_EMAIL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MANAGER": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          },
+          "BRANCH_MAP_URL": {
+            "extracted": 0,
+            "valid": 0,
+            "refused": 0,
+            "reasons": {}
+          }
+        },
+        "nameSample": [],
+        "rejectedNameSample": [],
+        "roleBearingPeople": 0
+      },
+      "coverage": "SINGLE_LOCATION_CONTACT",
+      "coverageReason": "contact details for one place, no location records",
+      "structuralRecords": 0,
+      "structuralRecordsMax": 0,
+      "signals": {
+        "branchVocabHits": 1,
+        "locatorMarkers": 0,
+        "tableCount": 0,
+        "tableRowCount": 0,
+        "branchRows": 0,
+        "phoneHits": 0,
+        "addressHits": 0,
+        "districtHits": 1,
+        "nameLikeUnits": 0,
+        "bodyTextLength": 443
+      },
+      "shape": "SINGLE_LOCATION_CONTACT",
+      "dryRunBranchNames": 0
+    }
+  ]
+}

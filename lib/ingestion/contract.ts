@@ -176,6 +176,55 @@ export interface EvidenceWriter {
    * while the versioned evidence lives in source_snapshots.
    */
   saveOutboundLink(input: OutboundLinkInput): Promise<void>;
+  /**
+   * The stored assertion rows for one semantic slot, newest observation last.
+   *
+   * This is the deterministic LOOKUP that makes idempotency a read-then-write
+   * decision instead of a blind insert. The frozen schema has no uniqueness
+   * constraint on data_assertions, so an equivalent assertion can only be
+   * recognised by looking at what is already stored.
+   */
+  findAssertions(input: {
+    entityType: string;
+    entityId: string;
+    fieldName: string;
+    sourceId?: string;
+  }): Promise<StoredAssertion[]>;
+  /**
+   * Close out ONE assertion as superseded: stamp valid_to and move it to the
+   * STALE status the frozen vocabulary already allows.
+   *
+   * This never deletes. A superseded assertion stays readable with its original
+   * value, source and snapshot, which is the point: a branch that changed must
+   * leave the earlier observation auditable, and a branch that was renamed must
+   * leave the old identity readable as history.
+   */
+  supersedeAssertion(input: {
+    id: string;
+    validTo: string;
+    status?: "STALE" | "CONFLICT" | "REJECTED";
+    reason?: string;
+  }): Promise<boolean>;
+  /**
+   * The most recent snapshot for a source with a given canonical content hash,
+   * or null. Used to reuse an existing snapshot instead of appending a
+   * byte-identical one, and to re-point assertions at it.
+   */
+  findSnapshotByContentHash(sourceId: string, contentHash: string): Promise<string | null>;
+}
+
+/** One stored assertion, as the deterministic lookup returns it. */
+export interface StoredAssertion {
+  id: string;
+  entity_type: string;
+  entity_id: string;
+  field_name: string;
+  value: string;
+  source_id: string;
+  source_snapshot_id: string | null;
+  observed_at: string;
+  valid_to: string | null;
+  verification_status: string;
 }
 
 /** Mirrors outbound_links; a discovered official document link (+ check state). */

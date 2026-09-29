@@ -16,17 +16,54 @@
 import type { ExtractedEvidence } from "./types";
 import type { Validator, ValidationContext } from "./contract";
 import { cleanCell } from "./people";
+import { isAssertableCard, parseCardRecords } from "./branch-records";
 import type { HtmlExtractor } from "./people";
 
 export const BRANCH_DIRECTORY_RULE_ID = "r-branch-directory";
 export const VACANCY_RULE_ID = "r-vacancies";
 export const FINANCIAL_METADATA_RULE_ID = "r-financial-metadata";
 
-export const BRANCH_PARSER_ID = "branch-html-v1";
+// v2 (M3.4 Phase 5/6): reusable card grammar with evidence strength, adjacent
+// branch<->manager contact pairing, table-scoped header selection with multiple
+// name columns, and the email/address/manager/mobile/map attributes. The bump is
+// deliberate: the grammar changed materially, so evidence must not be recorded
+// under the id of the parser that produced the previous numbers.
+export const BRANCH_PARSER_ID = "branch-html-v2";
 export const VACANCY_PARSER_ID = "vacancy-html-v1";
 export const FINMETADATA_PARSER_ID = "finmeta-html-v1";
 
-interface BranchRow { name: string; district: string | null; place: string | null; phone: string | null; }
+/** A branch record as the parsers produce it. Every attribute is nullable: a
+ *  card can carry an email and no phone, or a phone and no district. Nothing
+ *  here is an assertion — the extractor applies the gates. */
+interface BranchRow {
+  name: string;
+  district: string | null;
+  place: string | null;
+  address: string | null;
+  phone: string | null;
+  mobile: string | null;
+  email: string | null;
+  manager: string | null;
+  map: string | null;
+  /** where the name text came from, for provenance in the report */
+  nameSource: "table" | "card" | "cell" | "heading" | "body";
+  /** true when the name was recovered from a card whose heading was a person */
+  nameFromPersonCard: boolean;
+  /**
+   * true when this name was accepted from a column whose own header declares
+   * branch semantics ("Branch Name", "Branch", "Office"). Such a name is still
+   * held to the full value gate, but a bare place word in it is a branch rather
+   * than a leaked district. Reported separately so this class of name is never
+   * mistaken for an unqualified assertion.
+   */
+  nameFromDeclaredBranchColumn?: boolean;
+  /**
+   * false only for a card with no contact and no corroboration: the row is
+   * reported as evidence but is not allowed to assert. Table and cell grammars
+   * are self-evidencing by their repeating column structure and leave it unset.
+   */
+  assertable?: boolean;
+}
 interface VacancyRow { title: string; deadline: string | null; }
 interface FinanceRow { title: string; period: string | null; }
 
@@ -51,28 +88,158 @@ const HEADER_LABEL_RE = /^(?:s\.?\s?n\.?o\.?|s\/n|\d{0,2}#|#|no\.|sn|क्र\.
 const PERSON_ATTR_RE =
   /[:|]\s*(?:(?:(?:mr\.?|mrs\.?|ms\.?|dr\.?|er\.?|shri)\s*)?[\p{Lu}][a-z]+(?:\s+[\p{Lu}][a-z.]+){1,}|[\u0900-\u097F]+(?:\s+[\u0900-\u097F]+){2,})\s*$/iu;
 // Words that can appear in a generic marker-only heading ("Branch Office").
+// M3.4: extended after measuring the committed targets. "Regional Office" and
+// "Branch Manager" both sailed through the table-only parser on real pages
+// because "regional"/"manager" were missing from this set, so the whole page's
+// branch_name column was a repeated heading rather than a location.
 const BARE_BRANCH_TOKENS = new Set([
   "branch", "office", "शाखा", "कार्यालय", "केन्द्र", "unit", "एकाइ",
   "province", "प्रदेश", "bittiya", "of", "the", "main", "मुख्य",
+  // generic qualifiers: "Regional Office", "Sub Branch Office", "Head Office"
+  "regional", "area", "sub", "head", "principal", "central", "सङ्घ", "क्षेत्रीय", "उप",
+  // column labels: "Branch Manager", "Branch Name", "Contact", "Designation"
+  "manager", "name", "contact", "phone", "mobile", "email", "address",
+  "district", "designation", "number", "total", "count", "no", "sn", "serial",
+  "प्रबन्धक", "प्रबंधक", "नाम", "जिल्ला", "फोन", "मोबाइल", "ठेगाना", "सम्पर्क",
+  "पद", "क्रम", "संख्या",
 ]);
+
+/**
+ * Generic vocabulary that cannot be part of a real branch place-name: office,
+ * abstract-department, opening-hours and collection wording that any
+ * institution's website uses. Institution-agnostic on purpose — nothing here
+ * names a specific MFB, city, or URL pattern.
+ */
+const NON_PLACE_WORDS = new Set([
+  "corporate", "central", "principal", "main", "general", "head", "regional", "sub",
+  "primary", "secondary", "tertiary", "divisional", "zonal", "provincial",
+  "finance", "financial", "accounts", "accounting", "audit", "credit", "loan", "loans",
+  "marketing", "human", "resource", "admin", "administration", "administrative", "legal",
+  "compliance", "risk", "treasury", "operation", "operations", "service", "services",
+  "customer", "digital", "technology", "planning", "development", "business", "international",
+  "overseas", "remittance", "payment", "savings", "deposit", "insurance", "securities",
+  "centre", "center", "bank", "company", "limited", "ltd",
+  "hours", "hour", "open", "opens", "opening", "close", "closes", "closing", "closed",
+  "time", "times", "day", "days", "monday", "tuesday", "wednesday", "thursday", "friday",
+  "saturday", "sunday", "am", "pm", "till", "until", "except", "holiday", "holidays",
+  "network", "networks", "list", "lists", "directory", "locator", "finder", "map",
+  "page", "pages", "details", "detail", "overview", "all", "view", "us", "our", "the",
+  "and", "for", "of", "in", "at", "on", "to", "website", "click", "here", "read", "more",
+]);
+
+/** A marker followed by one of these is a list heading ("Branch Network"), never
+ *  a record. Deliberately excludes "branch"/"office" so real names ending in
+ *  "... Branch" still pass. */
+const COLLECTION_TAIL_WORDS = new Set([
+  "network", "networks", "list", "lists", "directory", "locator", "finder", "map",
+  "page", "pages", "details", "detail", "overview", "all", "branches", "outlets",
+]);
+
+/** Announcement / event / document nouns. A place name never contains one, so
+ *  presence alone is disqualifying. */
+const NOTICE_WORDS = new Set([
+  "notice", "notices", "circular", "circulars", "announcement", "announcements",
+  "press", "release", "releases", "news", "blog", "newsletter", "meeting", "meetings",
+  "assembly", "workshop", "seminar", "training", "trainings", "event", "events",
+  "result", "results", "vacancy", "vacancies", "recruitment", "tender", "tenders",
+  "program", "programme", "campaign", "celebration", "inaugural", "inauguration",
+  "orientation", "exam", "examination", "interview", "award", "awards", "ceremony",
+  "symposium", "webinar", "report", "reports", "schedule", "timetable", "calendar",
+  "syllabus", "form", "download", "downloads", "advertisement", "publicity",
+]);
+
+/** Role nouns. A branch is a place, so a job title inside the name disqualifies
+ *  it. "Branch Officer" and "Branch In Charge" were both measured asserting. */
+const ROLE_WORDS = new Set([
+  "officer", "officers", "manager", "managers", "charge", "chief", "deputy",
+  "assistant", "executive", "administrator", "operator", "clerk", "cashier",
+  "teller", "guard", "peon", "attendant", "supervisor", "engineer", "accountant",
+  "coordinator", "receptionist", "counselor", "counsellor", "staff", "employee",
+  "staffs", "employees", "worker", "workers", "driver", "monitor", "incharge",
+]);
+
+/** Organisational-unit nouns, other than the office/branch markers themselves. */
+const UNIT_WORDS = new Set([
+  "department", "departments", "division", "divisions", "section", "sections",
+  "committee", "committees", "board", "boards", "team", "teams", "cell", "cells",
+  "wing", "wings", "directorate", "secretariat", "corps",
+]);
+
+/** A cell that is exactly a district/place word, e.g. "Morang" or "काठमाडौँ". */
+function isBareDistrictName(raw: string): boolean {
+  const lower = cleanCell(raw).toLowerCase();
+  if (lower.length === 0) return false;
+  return DISTRICT_WORDS.some((d) => lower === d.toLowerCase());
+}
+
+/**
+ * A registered-company name is an organisation, not a location. Measured on the
+ * committed target set: nationalmicrofinance asserted its own
+ * "NATIONAL LAGHUBITTA BITTIYA SANSTHA LTD." as a branch_name, because "bittiya"
+ * is a branch marker and the value was long enough to look like a place. The
+ * legal form is a generic suffix, so this is a value class, not a site rule.
+ */
+const ENTITY_SUFFIX_RE =
+  /\b(?:ltd|limited|company|co|pvt|inc|incorporated|plc|corporation|holding|sanstha|समिति|institute|foundation|association|cooperative)\b\.?\s*$/i;
 
 /**
  * Directory name cells must look like a branch/office location, not any
  * title-case string: a branch/office/unit marker, or a known district/place
  * word. Persons and column labels ("S.No.") never qualify.
  */
+/** Crude English singular, so "offices" is judged by the same rule as "office". */
+function singularToken(t: string): string {
+  if (t.length > 3 && t.endsWith("s") && !t.endsWith("ss")) return t.slice(0, -1);
+  return t;
+}
+
+/** A word that names no place: branch/office/label vocabulary in either number. */
+function isLabelToken(t: string): boolean {
+  const s = singularToken(t);
+  return BARE_BRANCH_TOKENS.has(t) || BARE_BRANCH_TOKENS.has(s) || NON_PLACE_WORDS.has(t) || NON_PLACE_WORDS.has(s);
+}
+
 function directoryNameLike(raw: string): boolean {
   const s = cleanCell(raw);
   if (PHONE_RE.test(s) || /@|https?:\/\/|www\./.test(s) || /\d/.test(s)) return false;
   if (s.length < 2 || s.length > 40) return false;
   if (HEADER_LABEL_RE.test(s)) return false;
   if (PERSON_ATTR_RE.test(s)) return false;
+  // The institution's own registered name is never one of its branches.
+  if (ENTITY_SUFFIX_RE.test(s)) return false;
   const lower = s.toLowerCase();
   if (BRANCH_MARKER_RE.test(lower)) {
-    // "Branch Office" / "शाखा कार्यालय" with no place word is a generic
-    // section/column heading, not a named branch.
-    const tokens = s.toLowerCase().split(/[^a-z\u0900-\u097F]+/).filter(Boolean);
-    if (tokens.length > 0 && tokens.every((t) => BARE_BRANCH_TOKENS.has(t))) return false;
+      // "Branch Office" / "शाखा कार्यालय" with no place word is a generic
+      // section/column heading, not a named branch. The same holds for the plural
+      // collective forms a nav menu uses: "Branch Offices", "Our Branches".
+      const tokens = s.toLowerCase().split(/[^a-zऀ-ॿ]+/).filter(Boolean);
+      if (tokens.length > 0 && tokens.every((t) => isLabelToken(t))) return false;
+      // Every word is office vocabulary, so the value names no place at all:
+      // "Corporate Office", "Office Hours", "Branch Finance Department".
+      if (
+        tokens.length > 0 &&
+        tokens.every((t) => isLabelToken(t))
+      ) {
+        return false;
+      }
+    // An announcement, role or org-unit noun disqualifies the value wherever it
+    // appears: "Branch Annual Meeting Notice", "Branch Officer",
+    // "Branch Training Department".
+    if (tokens.some((t) => NOTICE_WORDS.has(t) || ROLE_WORDS.has(t) || UNIT_WORDS.has(t))) {
+      return false;
+    }
+    // A marker plus a collection noun is a section heading, not a record:
+    // "Branch Network", "Branch List", "All Branches".
+    const tail = tokens[tokens.length - 1];
+    if (tail !== undefined && COLLECTION_TAIL_WORDS.has(tail)) return false;
+    // Province with no district word anywhere is a province-only value:
+    // "Bagmati Province", "Koshi Province".
+    if (
+      tokens.includes("province") &&
+      !DISTRICT_WORDS.some((d) => lower.includes(d.toLowerCase()))
+    ) {
+      return false;
+    }
     return true;
   }
   if (DISTRICT_WORDS.some((d) => lower === d.toLowerCase())) return true;
@@ -80,7 +247,12 @@ function directoryNameLike(raw: string): boolean {
 }
 
 const BRANCH_HEADER_MAP: Record<string, string> = {
-  name: "name", branch: "name", "branch name": "name", "office name": "name",
+  name: "name",
+  // Headers that DECLARE branch semantics. Kept distinct from a bare "name"
+  // because a table may carry both ("Name" = the manager, "Branch" = the office),
+  // and the branch-declaring header is the authoritative name column.
+  "branch": "branchname", "branch name": "branchname", "office name": "branchname",
+  "branch office": "branchname", "branchname": "branchname", "office": "branchname",
   शाखा: "name", "शाखा कार्यालय": "name", केन्द्र: "name",
   district: "district", जिल्ला: "district",
   place: "place", address: "place", "address place": "place", ठेगाना: "place",
@@ -94,48 +266,613 @@ function mapHeader(raw: string): string | null {
   return BRANCH_HEADER_MAP[k] ?? null;
 }
 
-function bestName(cells: string[]): string | null {
-  return cells.find((c) => directoryNameLike(c) && !PHONE_RE.test(c)) ?? null;
+/**
+ * Value-level gate on a candidate branch_name. Applied at the point where the
+ * BRANCH_NAME assertion would be created, so a bad value can never reach an
+ * assertion while the row's address/phone/district evidence is still kept.
+ *
+ * Rejects, all observed on real committed targets:
+ *   "Branch Manager"     a repeated column heading, not a location
+ *   "Regional Office"    a generic section heading
+ *   "Morang" / "Jhapa"   a district column read as the name column
+ *
+ * A name that is ONLY a district word is withheld rather than asserted: on the
+ * measured pages that shape was always a column mix-up, never a branch actually
+ * called after its district. The row is still recorded as evidence.
+ */
+export function isAssertableBranchName(raw: string): boolean {
+  const s = cleanCell(raw);
+  if (s.length === 0) return false;
+  if (!directoryNameLike(s)) return false;
+  if (isBareDistrictName(s)) return false;
+  return true;
 }
 
-function parseBranchRows(html: string): BranchRow[] {
-  const rows: BranchRow[] = [];
-  const rowRe = /<tr\b[^>]*>([\s\S]*?)<\/tr>/gi;
-  let rm: RegExpExecArray | null;
-  while ((rm = rowRe.exec(html)) !== null) {
+/** Placeholders a table uses for an empty cell. Never a branch name. */
+const PLACEHOLDER_CELL_RE = /^(?:[-–—_./\\|,:*#\s]*|n\/?a|none|nil|null|unknown|tbd|not available|\d+)$/i;
+
+/**
+ * A value read from a column the publisher labelled as a branch column.
+ *
+ * In such a column the publisher has already stated that each cell is a branch,
+ * so the value does not also have to carry branch vocabulary: a branch named
+ * after its own village ("Ghorahi", "Amardaha") is legitimately a bare place word
+ * and the lexical test can never recognise it. What is still refused is every
+ * value that is not a place: contact syntax, numbers and codes, column labels,
+ * role labels, placeholders, and the institution's own registered name.
+ *
+ * Person-shape is deliberately NOT re-tested here. A one-word village name and a
+ * one-word given name are the same string, so any test that separated them would
+ * be a guess. The protection is structural instead: a branch-declaring header is
+ * always preferred over a bare "Name" header (which is usually the person), and
+ * these names are reported in their own provenance class for review.
+ */
+function declaredColumnNameLike(raw: string): boolean {
+  const s = cleanCell(raw);
+  if (s.length < 2 || s.length > 60) return false;
+  if (PHONE_RE.test(s) || /@|https?:\/\/|www\./.test(s)) return false;
+  if (/\d/.test(s)) return false; // a serial or ward code is not a name
+  if (PLACEHOLDER_CELL_RE.test(s)) return false;
+  if (HEADER_LABEL_RE.test(s)) return false;
+  if (PERSON_ATTR_RE.test(s)) return false;
+  if (ENTITY_SUFFIX_RE.test(s)) return false;
+  const lower = s.toLowerCase();
+  // A value built only from branch/office/label words is a heading, not a place.
+  const tokens = s.toLowerCase().split(/[^a-zऀ-ॿ]+/).filter(Boolean);
+  if (tokens.length > 0 && tokens.every((t) => isLabelToken(t))) return false;
+  // A person title, "Mr."/"Mrs."/a Devanagari honorific, is never a branch.
+  if (/^(?:mr|mrs|ms|miss|dr|prof)\.?\s/i.test(s)) return false;
+  if (/श्री|श्रीमती|सुश्री/.test(s)) return false;
+  // A notice, event or collection noun in the cell disqualifies it.
+  if (s.toLowerCase().split(/[^a-zऀ-ॿ]+/).filter(Boolean).some((t) => NOTICE_WORDS.has(t)) && !directoryNameLike(s)) return false;
+  // Bare branch vocabulary with no place word is still a heading.
+  if (BRANCH_MARKER_RE.test(lower) && tokens.length > 0 && tokens.every((t) => isLabelToken(t))) return false;
+  return true;
+}
+
+/**
+ * The value gate, plus the one context in which a bare place word is allowed.
+ *
+ * `declaresBranch` is true only when the cell sits in a column whose own header
+ * says "Branch Name"/"Branch"/"Office". In that case the publisher has declared
+ * the column's meaning and the lexical place test is replaced, not removed, by
+ * that declaration. It is schema-declared, not positional: no column index, no
+ * site knowledge, and it cannot fire on a table whose columns were inferred.
+ */
+function nameAllowedInColumn(raw: string, declaresBranch: boolean): boolean {
+  if (!declaresBranch) return isAssertableBranchName(raw);
+  return declaredColumnNameLike(raw);
+}
+
+// ---------------------------------------------------------------------------
+// Attribute plausibility (M3.4 Phase 3 / 15).
+//
+// Every branch attribute except the name is evidence-only by confidence, so
+// this gate does not decide assertion. It decides whether a value is usable
+// evidence at all, and it returns a stable reason code so the quality report
+// can group rejections instead of counting a single opaque "invalid" bucket.
+// The reason codes are generic value classes, never institution-specific.
+// ---------------------------------------------------------------------------
+
+export type BranchAttributeRejection =
+  | "EMPTY"
+  | "TOO_LONG"
+  | "CONTAINS_LETTERS"
+  | "CONTAINS_URL"
+  | "DATE_LIKE"
+  | "DIGIT_COUNT"
+  | "REPEATED_DIGITS"
+  | "NOT_A_DISTRICT"
+  | "GENERIC_LABEL"
+  | "EMAIL_FORMAT"
+  | "MAP_SCHEME"
+  | "MAP_HOST"
+  | "UNKNOWN_FIELD";
+
+export type BranchAttributeVerdict =
+  | { ok: true; value: string }
+  | { ok: false; reason: BranchAttributeRejection };
+
+/** A phone value: digits plus the separators humans write. Nothing else. */
+const PHONE_ALLOWED_RE = /^[+(]?[\d][\d\s\-()./]{5,}\d$/;
+const DIGIT_RUN_RE = /(\d)\1{5,}/;
+const MAP_HOSTS = [
+  "google.com", "google.co.in", "goo.gl", "maps.app.goo.gl", "maps.google",
+  "openstreetmap.org", "osm.org", "bing.com", "mapquest.com", "here.com",
+  "apple.com", "wikimapia.org", "mapy.cz", "google.com.np",
+];
+
+function reject(reason: BranchAttributeRejection): BranchAttributeVerdict {
+  return { ok: false, reason };
+}
+
+/** A person name: not a contact value, not a URL, not a number, not a label. */
+function personNameLike(raw: string): boolean {
+  const v = cleanCell(raw);
+  if (v.length < 3 || v.length > 80) return false;
+  if (/https?:\/\/|@|\d/.test(v)) return false;
+  if (BARE_BRANCH_TOKENS.has(v.toLowerCase())) return false;
+  const tokens = v.toLowerCase().split(/[^a-zऀ-ॿ]+/).filter(Boolean);
+  // A value built only from role/org-unit/notice words and branch tokens is a
+  // label, not a person: "Branch Manager", "BRANCH MANAGER", "Credit Department".
+  const labelish = new Set<string>([...ROLE_WORDS, ...UNIT_WORDS, ...NOTICE_WORDS, ...BARE_BRANCH_TOKENS]);
+  if (tokens.length > 0 && tokens.every((t) => labelish.has(t))) return false;
+  // English + Devanagari personal names.
+  if (/^[\p{Lu}][\p{L}'’-]+(?:\s+[\p{Lu}][\p{L}'’-]+){0,3}$/u.test(v)) return true;
+  if (/^[\u0900-\u097F]+(?:\s+[\u0900-\u097F]+){0,3}$/u.test(v)) return true;
+  return false;
+}
+
+/** A 10-digit national mobile, optionally +977. A landline is not a mobile. */
+function mobileLike(raw: string): boolean {
+  const digits = cleanCell(raw).replace(/\D/g, "");
+  const local = digits.replace(/^977/, "");
+  return local.length === 10 && local.startsWith("9");
+}
+
+/**
+ * Deterministic validation of one branch attribute value. `field` is the
+ * BRANCH_* field name. An unknown field is rejected rather than passed
+ * through, so a future caller cannot accidentally assert an unvalidated
+ * attribute.
+ */
+export function isAssertableBranchAttribute(
+  field: string,
+  raw: string,
+): BranchAttributeVerdict {
+  const v = cleanCell(raw);
+  if (v.length === 0) return reject("EMPTY");
+  if (v.length > 200) return reject("TOO_LONG");
+  switch (field) {
+    case "BRANCH_DISTRICT": {
+      const hit = DISTRICT_WORDS.find((d) => d.toLowerCase() === v.toLowerCase());
+      return hit ? { ok: true, value: hit } : reject("NOT_A_DISTRICT");
+    }
+    case "BRANCH_PLACE": {
+      if (/https?:\/\//i.test(v)) return reject("CONTAINS_URL");
+      if (PHONE_RE.test(v)) return reject("DIGIT_COUNT");
+      if (/^\d+$/.test(v)) return reject("DIGIT_COUNT");
+      if (BARE_BRANCH_TOKENS.has(v.toLowerCase())) return reject("GENERIC_LABEL");
+      return { ok: true, value: v };
+    }
+    case "BRANCH_PHONE": {
+      if (/[A-Za-zऀ-ॿ]/.test(v)) return reject("CONTAINS_LETTERS");
+      if (!PHONE_ALLOWED_RE.test(v)) return reject("CONTAINS_LETTERS");
+      if (DATE_RE.test(v) || /^\d{4}[-/.]\d{1,2}[-/.]\d{1,2}$/.test(v)) {
+        return reject("DATE_LIKE");
+      }
+      const digits = v.replace(/\D/g, "");
+      if (digits.length < 7 || digits.length > 15) return reject("DIGIT_COUNT");
+      if (DIGIT_RUN_RE.test(digits)) return reject("REPEATED_DIGITS");
+      return { ok: true, value: v };
+    }
+    case "BRANCH_EMAIL": {
+      if (!/^[^\s@]+@[^\s@.]+(\.[^\s@.]+)+$/.test(v)) return reject("EMAIL_FORMAT");
+      const tld = v.slice(v.lastIndexOf(".") + 1);
+      if (!/^[A-Za-z]{2,}$/.test(tld)) return reject("EMAIL_FORMAT");
+      return { ok: true, value: v };
+    }
+    case "BRANCH_MOBILE": {
+      // A mobile is a mobile: the same digit hygiene as a phone, plus the
+      // national-mobile shape. Keeps a manager's mobile from being recorded as
+      // the branch line, and a landline from being recorded as a mobile.
+      if (/[A-Za-zऀ-ॿ]/.test(v) || !PHONE_ALLOWED_RE.test(v)) return reject("CONTAINS_LETTERS");
+      if (DATE_RE.test(v)) return reject("DATE_LIKE");
+      if (!mobileLike(v)) return reject("DIGIT_COUNT");
+      return { ok: true, value: v };
+    }
+    case "BRANCH_ADDRESS": {
+      if (/https?:\/\//i.test(v)) return reject("CONTAINS_URL");
+      if (v.includes("@")) return reject("CONTAINS_URL");
+      if (PHONE_RE.test(v) || /^\d+$/.test(v)) return reject("DIGIT_COUNT");
+      if (BARE_BRANCH_TOKENS.has(v.toLowerCase())) return reject("GENERIC_LABEL");
+      if (ENTITY_SUFFIX_RE.test(v)) return reject("GENERIC_LABEL");
+      return { ok: true, value: v };
+    }
+    case "BRANCH_MANAGER": {
+      // Only an explicit, name-shaped person is a manager. Never inferred from
+      // proximity, and never an organisation or a contact value.
+      if (/https?:\/\//i.test(v) || v.includes("@")) return reject("CONTAINS_URL");
+      if (/^\d+$/.test(v)) return reject("DIGIT_COUNT");
+      if (!personNameLike(v)) return reject("GENERIC_LABEL");
+      return { ok: true, value: v };
+    }
+    case "BRANCH_MAP_URL": {
+      let u: URL;
+      try {
+        u = new URL(v);
+      } catch {
+        return reject("MAP_SCHEME");
+      }
+      if (u.protocol !== "https:") return reject("MAP_SCHEME");
+      const host = u.hostname.toLowerCase();
+      const known = MAP_HOSTS.some((h) => host === h || host.endsWith(`.${h}`));
+      if (!known) return reject("MAP_HOST");
+      return { ok: true, value: u.href };
+    }
+    default:
+      return reject("UNKNOWN_FIELD");
+  }
+}
+
+function bestName(cells: string[]): string | null {
+  const candidates = cells.filter((c) => directoryNameLike(c) && !PHONE_RE.test(c));
+  if (candidates.length === 0) return null;
+  // Prefer a cell that names a location over a cell that is only a district
+  // word. This is what a name-column/district-column mix-up looks like: the
+  // district cell appears first and used to win outright.
+  return candidates.find((c) => !isBareDistrictName(c)) ?? candidates[0] ?? null;
+}
+
+/**
+ * Header cells of a table, or [] when the table has no header row.
+ *
+ * The header is not always the first row: several layouts print a sentence of
+ * preamble ("...21 working branch offices mentioned below:") in a row of its own
+ * before the real column labels. So the first few rows are scanned and the first
+ * one that actually declares columns wins. The number of rows skipped is
+ * returned as `preamble` so the caller can drop exactly those rows and nothing
+ * else - no positional guessing about where data starts.
+ */
+function tableHeaderCells(tableHtml: string): { cells: string[]; preamble: number } {
+  const rows = tableHtml.match(/<tr\b[\s\S]*?<\/tr>/gi) ?? [];
+  const noHeader = { cells: [] as string[], preamble: 0 };
+  for (let i = 0; i < Math.min(rows.length, HEADER_SCAN_ROWS); i++) {
+    const isTh = /<th\b/i.test(rows[i]);
     const cells: string[] = [];
     const cellRe = /<t[hd]\b[^>]*>([\s\S]*?)<\/t[hd]>/gi;
     let cm: RegExpExecArray | null;
-    while ((cm = cellRe.exec(rm[1])) !== null) cells.push(cleanCell(cm[1]));
-    if (cells.length < 2) continue;
-    if (cells.some((c) => HEADER_LABEL_RE.test(c))) continue; // header/sequence row
-    const mapped = cells.map(mapHeader);
-    const namedCols = mapped.filter((m) => m !== null).length;
-    if (namedCols >= 2) {
-      const columnMap = mapped.map((m) => m ?? null);
+    while ((cm = cellRe.exec(rows[i])) !== null) {
+      cells.push(cleanCell(cm[1]).toLowerCase().replace(/\s+/g, " ").trim());
+    }
+    if (cells.length === 0) continue;
+    // A row is a header when it uses <th>, or when at least one of its cells is a
+    // recognised column label. Without that test a headerless table's first DATA
+    // row becomes the header, its values are treated as column names, and every
+    // row of the table is then read against the wrong column semantics.
+    const labelled = cells.some((c) => c.length > 0 && mapHeader(c) !== null);
+    if (!isTh && !labelled) continue;
+    return { cells, preamble: i };
+  }
+  return noHeader;
+}
+
+/** How many leading rows may be scanned before giving up on finding a header. */
+const HEADER_SCAN_ROWS = 3;
+
+/**
+ * Choose the branch-name column for ONE table, from its own header row.
+ *
+ * This is table-scoped on purpose. Measured on forwardmfbank: the page carries a
+ * branch table ("S.No. | Branch Name | Province | Province District | Local
+ * Bodies | Ward | Address") AND a district summary table. Parsing every <tr> in
+ * the document and picking a name-shaped cell per row pulled district names out
+ * of the summary table and offered them as branch names; the gate then correctly
+ * refused 48 of them. A table whose header has no name column contributes
+ * nothing, which is the generic statement of "don't read a district list as a
+ * branch list".
+ *
+ * When several header cells map to "name" — aatmanirbhar has both "Name" (the
+ * manager) and "Branch" (the location) — the FIRST assertable value across those
+ * columns wins. The manager is refused by the person gate, the location is not.
+ * That resolution is by value, not by column position, so it transfers to any
+ * table with the same semantics.
+ */
+  function selectNameColumn(header: string[]): number[] {
+    // A header that declares branch semantics is the authoritative name column.
+    // It is preferred over a bare "Name", because a directory table may carry
+    // both: "Name" is frequently the person, and "Branch" is the office. Falling
+    // back to whichever came first is how a manager column becomes 16 identical
+    // "Branch Manager" values.
+    const declared: number[] = [];
+    const generic: number[] = [];
+    header.forEach((h, i) => {
+      if (h.length === 0) return;
+      const role = mapHeader(h);
+      if (role === "branchname") declared.push(i);
+      else if (role === "name") generic.push(i);
+    });
+    if (declared.length > 0) return declared;
+    if (generic.length > 0) return generic;
+    // No recognised name header: fall back to a header cell that carries branch
+    // vocabulary. A "Province"/"District" column is not a name column, so a header
+    // that is exactly a region word is excluded.
+    const cols: number[] = [];
+    header.forEach((h, i) => {
+      if (h.length === 0) return;
+      if (DISTRICT_WORDS.some((d) => h.toLowerCase() === d.toLowerCase())) return;
+      if (BRANCH_MARKER_RE.test(h)) cols.push(i);
+    });
+    return cols;
+  }
+
+  function parseBranchRows(html: string): BranchRow[] {
+    const rows: BranchRow[] = [];
+    const tableRe = /<table\b[^>]*>([\s\S]*?)<\/table>/gi;
+    let tm: RegExpExecArray | null;
+    while ((tm = tableRe.exec(html)) !== null) {
+      const tableHtml = tm[1];
+      const { cells: header, preamble } = tableHeaderCells(tableHtml);
+      // Column semantics come from the header, and apply to every row of this
+      // table. A table with no name-bearing header is not a branch table.
+      const nameCols = header.length > 0 ? selectNameColumn(header) : [];
+      const headerMapped = header.map((h) => mapHeader(h));
+      const hasHeaderSchema = headerMapped.some((m) => m !== null);
+      // True when the chosen name column's own header declares branch semantics.
+      const nameColumnDeclaresBranch = nameCols.some((i) => headerMapped[i] === "branchname");
+
+      const allRows = tableHtml.match(/<tr\b[^>]*>[\s\S]*?<\/tr>/gi) ?? [];
+      for (let rowIndex = preamble; rowIndex < allRows.length; rowIndex++) {
+        const rm = { 1: allRows[rowIndex].replace(/^<tr\b[^>]*>/i, "").replace(/<\/tr>$/i, "") };
+        const cells: string[] = [];
+        const cellRe = /<t[hd]\b[^>]*>([\s\S]*?)<\/t[hd]>/gi;
+        let cm: RegExpExecArray | null;
+        while ((cm = cellRe.exec(rm[1])) !== null) cells.push(cleanCell(cm[1]));
+        if (cells.length < 2) continue;
+        if (cells.some((c) => HEADER_LABEL_RE.test(c))) continue; // header/sequence row
+        // Skip the header row itself when it is a <td> row.
+        if (cells.length === header.length && cells.every((c, i) => c.toLowerCase().trim() === header[i])) continue;
+
+        let name: string | null = null;
+        let fromDeclaredColumn = false;
+        if (nameCols.length > 0) {
+          for (const i of nameCols) {
+            const c = cells[i];
+            if (c === undefined || c.length === 0) continue;
+            if (nameAllowedInColumn(c, nameColumnDeclaresBranch)) { name = c; break; }
+            if (name === null) name = c; // remember for the "all refused" case
+          }
+          // Every name column held an unassertable value: keep it as a candidate so
+          // the report can show the refusal, but never as an assertion.
+        } else if (!hasHeaderSchema) {
+          // No header at all: fall back to value shape within the row.
+          name = bestName(cells);
+        }
+        if (name === null) continue;
+        if (nameCols.length > 0 && nameColumnDeclaresBranch) {
+          // The chosen name column's own header declares branch semantics, so the
+          // publisher stated each cell is a branch. Recorded on the row so this
+          // class of name is reported separately and never mistaken for a name
+          // that passed the lexical gate on its own.
+          fromDeclaredColumn = true;
+        }
+
+      const namedCols = headerMapped.filter((m) => m !== null).length;
+      const columnMap = header.map((h) => mapHeader(h));
       const by = (f: string): string | null => {
         const idx = columnMap.indexOf(f);
-        return idx >= 0 ? cells[idx] : null;
+        return idx >= 0 ? (cells[idx] ?? null) : null;
       };
-      const name = by("name") || bestName(cells);
-      if (!name) continue;
-      const nameKey = cleanCell(name).toLowerCase().replace(/\s+/g, " ");
-      if (nameKey in BRANCH_HEADER_MAP) continue; // literal header row ("Name", "नाम", …)
-      const district = by("district") || (cells.find((c) => DISTRICT_WORDS.some((d) => c === d || c.endsWith(` ${d}`))) ?? null);
+      const nameIdx = cells.indexOf(name);
+      // A district must be a different cell from the name. "Head Office Butwal"
+      // ends with a district word, so without this guard a branch named after a
+      // district becomes its own district and the real district cell is missed.
+      const district =
+        by("district") ||
+        (cells.find(
+          (c, i) =>
+            i !== nameIdx && c !== name && !PHONE_RE.test(c) && DISTRICT_WORDS.some((d) => c === d || c.endsWith(` ${d}`)),
+        ) ??
+          null);
       const phone = by("phone") || (cells.find((c) => PHONE_RE.test(c)) ?? null);
-      const place = by("place") || (cells.find((c) => c !== name && c !== district && c !== phone && c.length <= 60 && !PHONE_RE.test(c) && /^[\p{L}\p{M}.'\s-]+$/u.test(c)) ?? null);
-      rows.push({ name, district: district ?? null, place: place ?? null, phone: phone ?? null });
-      continue;
+      const address = by("place");
+      const emailCell = cells.find((c) => /^[^\s@]+@[^\s@.]+(\.[^\s@.]+)+$/.test(c)) ?? null;
+      const mapHref = (/<a\b[^>]*href\s*=\s*["']([^"']*(?:google\.[a-z.]+\/maps|maps\.google|goo\.gl\/maps|openstreetmap|osm\.org)[^"']*)["']/i.exec(rm[1]) ?? [])[1] ?? null;
+      const place =
+        address ||
+        (cells.find(
+          (c, i) =>
+            i !== nameIdx &&
+            c !== name &&
+            c !== district &&
+            c !== phone &&
+            c !== emailCell &&
+            c.length <= 60 &&
+            !PHONE_RE.test(c) &&
+            /^[\p{L}\p{M}.'\s-]+$/u.test(c),
+        ) ?? null);
+      rows.push({
+        name,
+        district: district ?? null,
+        place: place ?? null,
+        address: address ?? null,
+        phone: phone ?? null,
+        mobile: null,
+        email: emailCell,
+        manager: null,
+        map: mapHref,
+        nameSource: "table",
+        nameFromPersonCard: false,
+        nameFromDeclaredBranchColumn: fromDeclaredColumn,
+      });
+      void namedCols;
     }
-    // No header schema → name cell plus district/phone/place clues.
-    const name = bestName(cells);
-    if (!name) continue;
-    const district = cells.find((c) => c !== name && DISTRICT_WORDS.some((d) => c === d || c.endsWith(` ${d}`))) ?? null;
-    const phone = cells.find((c) => c !== name && PHONE_RE.test(c) && !c.startsWith(name)) ?? null;
-    const place = cells.find((c) => c !== name && c !== district && c !== phone && c.length <= 60 && !PHONE_RE.test(c) && /^[\p{L}\p{M}.'\s-]+$/u.test(c)) ?? null;
-    rows.push({ name, district: district ?? null, place: place ?? null, phone: phone ?? null });
   }
   return rows;
+}
+
+// ---------------------------------------------------------------------------
+// M3.4 — card-grid / record-block fallbacks.
+//
+// Two real branch directories in the committed target set do not use a record
+// table at all, and both are ordinary CMS output rather than anything unusual:
+//   A) heading-delimited card grid: <h4>Mahuli Branch</h4> followed by a 2-column
+//      label->value table (address / phone / email / branch manager)
+//   B) many records per cell: one <td> holding <br>-separated blocks of
+//      "Branch Office" / "Birtamod, Jhapa" / "Contact: ..." / "Email: ..."
+//
+// Both are handled generically, and ONLY as a fallback: the record-table path
+// always runs first and keeps priority, so no page that already parses is
+// affected. No CSS class, no site, no institution.
+// ---------------------------------------------------------------------------
+const PHONE_SEARCH_RE = /(?:\+?\d[\d\s\-/()]{6,}\d)/;
+/** Every word allowed in a line that starts a <br>-separated record. The line
+ *  must also contain "office" or "branch" to open a record, so a stray "Branch"
+ *  inside a sentence cannot start one. */
+const OFFICE_TYPE_WORDS = new Set([
+  "sub", "branch", "area", "regional", "head", "principal", "central", "field",
+  "main", "office", "unit", "ward", "division", "zonal",
+]);
+function isOfficeTypeLine(line: string): boolean {
+  const words = line.toLowerCase().split(/\s+/).filter((w) => w.length > 0);
+  if (words.length === 0 || words.length > 3) return false;
+  if (!words.every((w) => OFFICE_TYPE_WORDS.has(w))) return false;
+  return words.includes("office") || words.includes("branch");
+}
+
+/** The second line of a record is its distinguishing place. Without a comma or
+ *  a known district, a line like "Office Hours" would otherwise turn into
+ *  "Branch Office Hours" and assert as a branch name. */
+function isPlaceLine(line: string): boolean {
+  if (line.length < 3 || line.length > 80) return false;
+  if (line.includes("@") || PHONE_SEARCH_RE.test(line)) return false;
+  if (PERSON_ATTR_RE.test(line)) return false;
+  return line.includes(",") || districtIn(line) !== null;
+}
+
+function firstPhoneIn(text: string): string | null {
+  const m = text.match(PHONE_SEARCH_RE);
+  return m ? m[0].replace(/\s+/g, " ").trim() : null;
+}
+
+function districtIn(text: string): string | null {
+  const lower = text.toLowerCase();
+  return DISTRICT_WORDS.find((d) => lower.includes(d.toLowerCase())) ?? null;
+}
+
+const EMAIL_SCAN_RE = /[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)+/g;
+const MOBILE_SCAN_RE = /(?:\+?977[-\s]?)?9\d{9}/g;
+
+function firstOfMatches(text: string, re: RegExp): string | null {
+  const m = new RegExp(re.source, re.flags).exec(text);
+  return m ? m[0].trim() : null;
+}
+
+/** Shape A: a repeated card grid anchored on a heading.
+ *
+ *  M3.4 Phase 5: the heading is the record BOUNDARY, not necessarily the name.
+ *  Measured on the committed target set, three of the four large card targets
+ *  print the branch name in a heading with a serial code
+ *  ("Simara Branch (001)", "[003]-Waling Branch"), and the fourth
+ *  (sampadalaghubitta) puts the MANAGER in the heading and the branch name in the
+ *  body of the same card. Delegating to parseCardRecords handles both, and keeps
+ *  the plausibility gate here so this function cannot loosen it.
+ */
+function parseBranchBlockCandidates(html: string): { rows: BranchRow[]; weak: number } {
+  const out: BranchRow[] = [];
+  let weak = 0;
+  for (const rec of parseCardRecords(html)) {
+    const nameText = rec.name;
+    if (nameText === null) continue;
+    // A card with no contact and no corroboration is evidence, not a record: it
+    // is counted and reported but never asserted, because a lone heading cannot
+    // be told apart from a person, a department or a nav label.
+    const assertable = isAssertableCard(rec);
+    if (!assertable) weak++;
+    // Geography is read from the labelled address, then from the contact-free
+    // card text. Never from `text` itself: a mailbox such as
+    // "butwal.branch@example.com" spells a district and would be mined as one.
+    const chunkDistrict = districtIn(rec.address ?? rec.place ?? "") || districtIn(rec.freeText);
+    out.push({
+      name: nameText,
+      district: chunkDistrict,
+      place: rec.place ?? rec.address ?? null,
+      address: rec.address,
+      phone: rec.phone,
+      mobile: rec.mobile,
+      email: rec.email,
+      manager: rec.manager,
+      map: rec.map,
+      nameSource: rec.nameSource === "body" ? "body" : "card",
+      nameFromPersonCard: rec.nameFromPersonCard,
+      assertable,
+    });
+  }
+  return { rows: out, weak };
+}
+
+/** Shape B: <br>-separated record groups inside a single cell. */
+function parseBranchCells(html: string): BranchRow[] {
+  const out: BranchRow[] = [];
+  const cre = /<t[dh]\b[^>]*>([\s\S]*?)<\/t[dh]>/gi;
+  let m: RegExpExecArray | null;
+  while ((m = cre.exec(html)) !== null) {
+    const inner = m[1];
+    if (!/<br\s*\/?\s*>/i.test(inner)) continue;
+    const lines = inner
+      .split(/<br\s*\/?\s*>/i)
+      .map((l) => cleanCell(l).replace(/\s+/g, " ").trim())
+      .filter((l) => l.length > 0);
+    let cur: string[] = [];
+    const flush = (): void => {
+      const taken = cur;
+      cur = [];
+      if (taken.length < 2) return;
+      const [typeLine, placeLine, ...rest] = taken;
+      if (!isOfficeTypeLine(typeLine) || !isPlaceLine(placeLine)) return;
+      // The office type alone is generic ("Branch Office"); the place line is
+      // what makes it a record, so the name is the pair.
+      const name = `${typeLine} ${placeLine}`;
+      if (!isAssertableBranchName(name)) return;
+      const tail = rest.join(" ");
+      out.push({
+        name,
+        district: districtIn(placeLine),
+        place: placeLine,
+        address: null,
+        phone: firstPhoneIn(tail),
+        mobile: firstOfMatches(tail, MOBILE_SCAN_RE),
+        email: firstOfMatches(tail, EMAIL_SCAN_RE),
+        manager: null,
+        map: null,
+        nameSource: "cell",
+        nameFromPersonCard: false,
+      });
+    };
+    for (const line of lines) {
+      const isType = isOfficeTypeLine(line);
+      if (isType && cur.length > 0) flush();
+      if (cur.length === 0 && !isType) continue; // ignore any preamble
+      cur.push(line);
+    }
+    flush();
+  }
+  return out;
+}
+
+/**
+ * Which grammar produced the rows, and the rows themselves. Table grammar is
+ * tried first and is only abandoned when it yields no assertable name; the two
+ * card grammars are fallbacks, and a fallback is only adopted on the same test.
+ *
+ * Exported so the Phase 4 inventory can report "how the parser read the page"
+ * without re-implementing the choice, and so path selection has exactly one
+ * implementation.
+ */
+export type BranchPath = "table" | "card" | "cell" | "none";
+
+export function selectBranchRows(html: string): { path: BranchPath; rows: BranchRow[]; weak: number; refusedCards: string[] } {
+  const table = parseBranchRows(html);
+  // Path choice uses the SAME predicate the extractor asserts with, so a name that
+  // qualifies only because its column declares branch semantics is not thrown
+  // away by a stricter test used for the decision.
+  const tableOk = (r: BranchRow): boolean => nameAllowedInColumn(r.name, r.nameFromDeclaredBranchColumn === true);
+  if (table.some(tableOk)) return { path: "table", rows: table, weak: 0, refusedCards: [] };
+  // Path choice uses the CANDIDATES, including cards that are too weak to
+  // assert, and only the returned rows are filtered. Choosing the path after
+  // filtering would report a page of evidence-only cards as "none" and lose the
+  // very candidates worth reporting.
+  const cards = parseBranchBlockCandidates(html);
+  // Candidates the value gate refused are reported even when the page asserts
+  // nothing, so a "Contact Us" or "Credit Department" page leaves a trace of why
+  // it produced no branch instead of looking like a page that was never read.
+  const refusedCards = [...new Set(cards.rows.filter((r) => !isAssertableBranchName(r.name)).map((r) => r.name))];
+  if (cards.rows.some((r) => isAssertableBranchName(r.name))) {
+    return { path: "card", rows: cards.rows.filter((r) => r.assertable !== false), weak: cards.weak, refusedCards };
+  }
+  const cells = parseBranchCells(html);
+  if (cells.some((r) => isAssertableBranchName(r.name))) return { path: "cell", rows: cells, weak: cards.weak, refusedCards };
+  return { path: "none", rows: table, weak: cards.weak, refusedCards };
 }
 
 export const branchDirectoryExtractor: HtmlExtractor = {
@@ -146,11 +883,37 @@ export const branchDirectoryExtractor: HtmlExtractor = {
     const cap = ctx.capability as ExtractedEvidence["capability"];
     const out: ExtractedEvidence[] = [];
     const now = new Date().toISOString();
-    for (const row of parseBranchRows(html)) {
-      out.push({ kind: "FIELD", capability: cap, field: "BRANCH_NAME", sourceUrl: ctx.url, text: row.name, confidence: 0.6, parserId: BRANCH_PARSER_ID, extractedAt: now });
-      if (row.district) out.push({ kind: "FIELD", capability: cap, field: "BRANCH_DISTRICT", sourceUrl: ctx.url, text: row.district, confidence: 0.45, parserId: BRANCH_PARSER_ID, extractedAt: now });
-      if (row.place) out.push({ kind: "FIELD", capability: cap, field: "BRANCH_PLACE", sourceUrl: ctx.url, text: row.place, confidence: 0.45, parserId: BRANCH_PARSER_ID, extractedAt: now });
-      if (row.phone) out.push({ kind: "FIELD", capability: cap, field: "BRANCH_PHONE", sourceUrl: ctx.url, text: row.phone, confidence: 0.45, parserId: BRANCH_PARSER_ID, extractedAt: now });
+    const { rows } = selectBranchRows(html);
+    for (const row of rows) {
+      // Value gate: never create a branch_name assertion from a value that is a
+      // repeated column heading, a generic "Branch Office"-style phrase, or a
+      // bare district word. The row's attribute evidence below is still kept.
+      // A name taken from a column the publisher labelled as a branch column is
+      // held to the same test with the one documented exception.
+      if (nameAllowedInColumn(row.name, row.nameFromDeclaredBranchColumn === true)) {
+        out.push({ kind: "FIELD", capability: cap, field: "BRANCH_NAME", sourceUrl: ctx.url, text: row.name, confidence: 0.6, parserId: BRANCH_PARSER_ID, extractedAt: now });
+      }
+      // Attributes are evidence-only (0.45 < the 0.5 assertion gate). Each is
+      // validated on its own, so an invalid phone never invalidates the name and
+      // a valid name is never withheld because an attribute was refused.
+      const attrs: Array<[string, string | null]> = [
+        ["BRANCH_DISTRICT", row.district],
+        ["BRANCH_PLACE", row.place],
+        ["BRANCH_ADDRESS", row.address],
+        ["BRANCH_PHONE", row.phone],
+        ["BRANCH_MOBILE", row.mobile],
+        ["BRANCH_EMAIL", row.email],
+        ["BRANCH_MANAGER", row.manager],
+        ["BRANCH_MAP_URL", row.map],
+      ];
+      for (const [field, raw] of attrs) {
+        if (!raw) continue;
+        const v = isAssertableBranchAttribute(field, raw);
+        if (!v.ok) continue;
+        // PLACE and ADDRESS are the same evidence from two grammars; keep one.
+        if (field === "BRANCH_ADDRESS" && out.some((e) => e.field === "BRANCH_PLACE" && e.text === v.value)) continue;
+        out.push({ kind: "FIELD", capability: cap, field, sourceUrl: ctx.url, text: v.value, confidence: 0.45, parserId: BRANCH_PARSER_ID, extractedAt: now });
+      }
     }
     return out;
   },
@@ -351,6 +1114,31 @@ function directoryValidatorFor(ruleId: string, fieldPrefix: string): Validator {
       if (rows.length === 0) {
         return { status: "PENDING", severity: "info", ruleId, message: `no ${fieldPrefix.toLowerCase()} evidence`, evidence: { count: 0 } };
       }
+      // Value-level backstop. A "directory" whose single value repeats across
+      // most rows is a column heading that got read as data, not a set of
+      // distinct records. Measured case: a genuine 24-branch page where the
+      // name column resolved to "Branch Manager" sixteen times.
+      const texts = rows.map((r) => (r.text ?? "").trim()).filter((t) => t.length > 0);
+      const counts = new Map<string, number>();
+      for (const t of texts) counts.set(t.toLowerCase(), (counts.get(t.toLowerCase()) ?? 0) + 1);
+      let topValue = "";
+      let topCount = 0;
+      for (const [v, c] of counts) {
+        if (c > topCount) {
+          topValue = v;
+          topCount = c;
+        }
+      }
+      const distinct = counts.size;
+      if (rows.length >= 3 && topCount >= 3 && topCount * 2 >= rows.length) {
+        return {
+          status: "PENDING",
+          severity: "warning",
+          ruleId,
+          message: `${fieldPrefix.toLowerCase()} column is a repeated heading, not distinct records`,
+          evidence: { count: rows.length, distinct, repeatedValue: topValue, repeatedCount: topCount },
+        };
+      }
       const attrs = ctx.evidence.filter((e) => e.kind === "FIELD" && e.field !== undefined && !(e.field as string).startsWith(fieldPrefix));
       return {
         status: "PASS",
@@ -549,3 +1337,117 @@ export const nrbStructuredValidators: ReadonlyArray<Validator> = [
   ...structuredValidators,
   nrbListingValidator,
 ];
+// ---------------------------------------------------------------------------
+// M3.4 Phase 4 / 14 — parser-result analysis.
+//
+// Reports what the parser did to a page without writing anything: which grammar
+// won, how many candidate records it produced, how many the value gate refused,
+// how many survived, and per-attribute extracted/valid/refused tallies broken
+// down by reason code. Pure function of the HTML.
+// ---------------------------------------------------------------------------
+
+export interface AttributeTally {
+  extracted: number;
+  valid: number;
+  refused: number;
+  /** value -> reason code, only for refused values */
+  reasons: Record<string, number>;
+}
+
+export interface BranchPageAnalysis {
+  path: BranchPath;
+  candidateRecords: number;
+  validNames: number;
+  rejectedNames: number;
+  /** rows that were refused as names but still contributed attribute evidence */
+  evidenceOnlyRows: number;
+  /** names whose text came from a card body because the heading was a person */
+  namesFromPersonCards: number;
+  /** cards kept as evidence only, because a name alone is not enough */
+  weakCardCandidates: number;
+  /** card candidates the value gate refused, reported even on a zero-assert page */
+  refusedCardCandidates: string[];
+  attributes: Record<string, AttributeTally>;
+  rejectedNameSamples: string[];
+  nameSamples: string[];
+  /** attribute values found on accepted records, for the quality matrix */
+  accepted: Array<{
+    name: string;
+    nameSource: string;
+    nameFromPersonCard: boolean;
+    district: string | null;
+    place: string | null;
+    address: string | null;
+    phone: string | null;
+    mobile: string | null;
+    email: string | null;
+    manager: string | null;
+    map: string | null;
+  }>;
+}
+
+const NAME_REJECTED_SAMPLE_CAP = 12;
+const ACCEPTED_SAMPLE_CAP = 4000;
+
+function tally(): AttributeTally {
+  return { extracted: 0, valid: 0, refused: 0, reasons: {} };
+}
+
+export function analyzeBranchPage(html: string): BranchPageAnalysis {
+  const { path, rows, weak, refusedCards } = selectBranchRows(html);
+  const attributes: Record<string, AttributeTally> = {
+    BRANCH_DISTRICT: tally(),
+    BRANCH_PLACE: tally(),
+    BRANCH_ADDRESS: tally(),
+    BRANCH_PHONE: tally(),
+    BRANCH_MOBILE: tally(),
+    BRANCH_EMAIL: tally(),
+    BRANCH_MANAGER: tally(),
+    BRANCH_MAP_URL: tally(),
+  };
+  let validNames = 0;
+  let rejectedNames = 0;
+  let evidenceOnlyRows = 0;
+  let namesFromPersonCards = 0;
+  const rejectedNameSamples: string[] = [];
+  const nameSamples: string[] = [];
+  const accepted: BranchPageAnalysis["accepted"] = [];
+
+  for (const row of rows) {
+    if (nameAllowedInColumn(row.name, row.nameFromDeclaredBranchColumn === true)) {
+      validNames++;
+      if (row.nameFromPersonCard) namesFromPersonCards++;
+      if (nameSamples.length < NAME_REJECTED_SAMPLE_CAP) nameSamples.push(row.name);
+      if (accepted.length < ACCEPTED_SAMPLE_CAP) accepted.push({ name: row.name, nameSource: row.nameSource, nameFromPersonCard: row.nameFromPersonCard, district: row.district, place: row.place, address: row.address, phone: row.phone, mobile: row.mobile, email: row.email, manager: row.manager, map: row.map });
+    } else {
+      rejectedNames++;
+      const seen = new Set(rejectedNameSamples);
+      if (rejectedNameSamples.length < NAME_REJECTED_SAMPLE_CAP && !seen.has(row.name)) {
+        rejectedNameSamples.push(row.name);
+      }
+      if (row.district || row.place || row.phone) evidenceOnlyRows++;
+    }
+    const pairs: Array<[string, string | null]> = [
+      ["BRANCH_DISTRICT", row.district],
+      ["BRANCH_PLACE", row.place],
+      ["BRANCH_ADDRESS", row.address],
+      ["BRANCH_PHONE", row.phone],
+      ["BRANCH_MOBILE", row.mobile],
+      ["BRANCH_EMAIL", row.email],
+      ["BRANCH_MANAGER", row.manager],
+      ["BRANCH_MAP_URL", row.map],
+    ];
+    for (const [field, raw] of pairs) {
+      if (!raw) continue;
+      const t = attributes[field];
+      t.extracted++;
+      const verdict = isAssertableBranchAttribute(field, raw);
+      if (verdict.ok) t.valid++;
+      else {
+        t.refused++;
+        t.reasons[verdict.reason] = (t.reasons[verdict.reason] ?? 0) + 1;
+      }
+    }
+  }
+  return { path, candidateRecords: rows.length, validNames, rejectedNames, evidenceOnlyRows, namesFromPersonCards, weakCardCandidates: weak, refusedCardCandidates: refusedCards.slice(0, NAME_REJECTED_SAMPLE_CAP), attributes, rejectedNameSamples, nameSamples, accepted };
+}

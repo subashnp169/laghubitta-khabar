@@ -1,0 +1,1611 @@
+{
+  "$schema": "branch-url-discovery/v1",
+  "generated_at": "2026-09-27T14:42:04.281Z",
+  "mode": "verify-only (candidates reused from a previous mine)",
+  "purpose": "Discover REAL branch page URLs for the committed BRANCH_DIRECTORY sources. No assertions written, no schema change, pilot-sources.json NOT modified.",
+  "method": "stage1 robots.txt -> /sitemap.xml -> /wp-sitemap.xml; stage2 mine+score <loc> paths (zero page fetches); stage3 bounded fetch and confirm with a STRUCTURAL gate (vocabulary alone is never sufficient)",
+  "bounds": {
+    "maxSitemapProbesPerHost": 3,
+    "maxChildSitemaps": 6,
+    "maxCandidatesPerSource": 6,
+    "maxVerifyFetches": 30,
+    "totalFetchCap": 500
+  },
+  "summary": {
+    "targets": 35,
+    "totalFetches": 30,
+    "sitemapFetches": 0,
+    "navFetches": 0,
+    "verifyFetches": 30,
+    "sourcesWithSitemap": 12,
+    "sourcesWithCandidates": 32,
+    "sourcesWithVerifiedBranchDirectory": 18,
+    "sourcesNeedingJs": 6,
+    "candidateUrlsChecked": 30,
+    "parserReadablePages": 17,
+    "parserUnreadableRealDirectories": 1,
+    "verdictTally": {
+      "VERIFIED_BRANCH_DIRECTORY": 18,
+      "BRANCH_PAGE_NEEDS_JS": 6,
+      "BRANCH_INTENT_NO_STRUCTURE": 4,
+      "NOT_A_BRANCH_PAGE": 2,
+      "UNREADABLE": 0
+    }
+  },
+  "results": [
+    {
+      "sourceId": "nirdhan-website",
+      "institutionId": "mfi-001",
+      "committedUrl": "https://www.nirdhan.com.np",
+      "host": "www.nirdhan.com.np",
+      "sitemapVia": null,
+      "sitemapsRead": [],
+      "sitemapAnomaly": null,
+      "locsScanned": 0,
+      "candidatesKept": [
+        {
+          "url": "https://www.nirdhan.com.np/branch-network/",
+          "path": "/branch-network/",
+          "score": 3,
+          "why": "core branch token in \"branch-network\"",
+          "via": "site nav"
+        },
+        {
+          "url": "https://www.nirdhan.com.np/resource-center/",
+          "path": "/resource-center/",
+          "score": 1,
+          "why": "weak location token, off-topic-free",
+          "via": "site nav"
+        },
+        {
+          "url": "https://www.nirdhan.com.np/grievance-officer/",
+          "path": "/grievance-officer/",
+          "score": 1,
+          "why": "weak location token, off-topic-free",
+          "via": "site nav"
+        }
+      ],
+      "verified": [
+        {
+          "url": "https://www.nirdhan.com.np/branch-network/",
+          "httpStatus": 200,
+          "bytes": 105853,
+          "contentHash": "9cda127d611fbfb0539b3835a4d4a0bd6f87327d54579915f3573100d6bb9e12",
+          "snapshotId": "snap-m34disc-d60a3faaeeb6",
+          "score": 3,
+          "why": "core branch token in \"branch-network\"",
+          "via": "site nav",
+          "verdict": "VERIFIED_BRANCH_DIRECTORY",
+          "shape": "BRANCH_DIRECTORY_TABLE",
+          "dryRunBranchNames": 168,
+          "parserOutput": {
+            "quality": "CLEAN",
+            "distinct": 168,
+            "topName": "Regional Office Kathmandu, Kathmandu",
+            "topCount": 1
+          },
+          "titleSample": "Branch Network | Nirdhan Utthan Laghubitta Bittiya Sanstha Branch Network &#8211; Nirdhan Utthan Laghubitta Bi"
+        }
+      ],
+      "note": null
+    },
+    {
+      "sourceId": "chhimek-website",
+      "institutionId": "mfi-003",
+      "committedUrl": "https://www.chhimekbank.org/branches",
+      "host": "www.chhimekbank.org",
+      "sitemapVia": null,
+      "sitemapsRead": [],
+      "sitemapAnomaly": null,
+      "locsScanned": 0,
+      "candidatesKept": [
+        {
+          "url": "https://www.chhimekbank.org/branches",
+          "path": "/branches",
+          "score": 3,
+          "why": "core branch token in \"branches\"",
+          "via": "site nav"
+        }
+      ],
+      "verified": [
+        {
+          "url": "https://www.chhimekbank.org/branches",
+          "httpStatus": 200,
+          "bytes": 491083,
+          "contentHash": "668c8c651a4db885c3fe08d82e8a70120351454f0ac9d995c2934d7ce91fda97",
+          "snapshotId": "snap-m34disc-f8fab278224a",
+          "score": 3,
+          "why": "core branch token in \"branches\"",
+          "via": "site nav",
+          "verdict": "VERIFIED_BRANCH_DIRECTORY",
+          "shape": "BRANCH_DIRECTORY_TABLE",
+          "dryRunBranchNames": 212,
+          "parserOutput": {
+            "quality": "CLEAN",
+            "distinct": 203,
+            "topName": "Lumbini Provincial Office, Butwal",
+            "topCount": 4
+          },
+          "titleSample": "Service Networks --> --> [email protected] +977-01-4595513 , 01-4564853 , 01-4564854 EN English नेपाली News No"
+        }
+      ],
+      "note": null
+    },
+    {
+      "sourceId": "mero-website",
+      "institutionId": "mfi-020",
+      "committedUrl": "https://www.meromicrofinance.com/branches",
+      "host": "www.meromicrofinance.com",
+      "sitemapVia": "probe /sitemap.xml",
+      "sitemapsRead": [
+        "https://www.meromicrofinance.com/sitemap.xml"
+      ],
+      "sitemapAnomaly": null,
+      "locsScanned": 59,
+      "candidatesKept": [
+        {
+          "url": "https://meromicrofinance.com/branches",
+          "path": "/branches",
+          "score": 3,
+          "why": "core branch token in \"branches\"",
+          "via": "probe /sitemap.xml"
+        },
+        {
+          "url": "https://meromicrofinance.com/partners/networks",
+          "path": "/partners/networks",
+          "score": 1,
+          "why": "weak location token, off-topic-free",
+          "via": "site nav"
+        }
+      ],
+      "verified": [
+        {
+          "url": "https://meromicrofinance.com/branches",
+          "httpStatus": 200,
+          "bytes": 589540,
+          "contentHash": "5185d20d6913ee4313f29efcfe6e208796ed46d27124e8638f6b69a5ac75d9b3",
+          "snapshotId": "snap-m34disc-8773fe24d10d",
+          "score": 3,
+          "why": "core branch token in \"branches\"",
+          "via": "probe /sitemap.xml",
+          "verdict": "VERIFIED_BRANCH_DIRECTORY",
+          "shape": "BRANCH_DIRECTORY_TABLE",
+          "dryRunBranchNames": 155,
+          "parserOutput": {
+            "quality": "CLEAN",
+            "distinct": 155,
+            "topName": "Battar Branch",
+            "topCount": 1
+          },
+          "titleSample": "Branch &amp; Monitoring Station Locator - Mero Microfinance +977 01 5315936/37 corporate@meromicrofinance.com "
+        }
+      ],
+      "note": null
+    },
+    {
+      "sourceId": "matribhumi-website",
+      "institutionId": "mfi-047",
+      "committedUrl": "https://matribhumimf.com.np",
+      "host": "matribhumimf.com.np",
+      "sitemapVia": null,
+      "sitemapsRead": [],
+      "sitemapAnomaly": null,
+      "locsScanned": 0,
+      "candidatesKept": [
+        {
+          "url": "https://matribhumimf.com.np/team/branch",
+          "path": "/team/branch",
+          "score": 3,
+          "why": "core branch token in \"branch\"",
+          "via": "site nav"
+        }
+      ],
+      "verified": [
+        {
+          "url": "https://matribhumimf.com.np/team/branch",
+          "httpStatus": 200,
+          "bytes": 1107817,
+          "contentHash": "6b2d571b0334b3d56f76466f65b95db3c48f5baa583b6c8d0d5bfbc4ca8660e4",
+          "snapshotId": "snap-m34disc-30a73e9b9dea",
+          "score": 3,
+          "why": "core branch token in \"branch\"",
+          "via": "site nav",
+          "verdict": "VERIFIED_BRANCH_DIRECTORY",
+          "shape": "BRANCH_DIRECTORY_TABLE",
+          "dryRunBranchNames": 208,
+          "parserOutput": {
+            "quality": "CLEAN",
+            "distinct": 207,
+            "topName": "Luham Branch",
+            "topCount": 2
+          },
+          "titleSample": "Branch Managers &amp; Officers - Matribhumi Laghubitta Bittiya Sanstha Ltd. Notice व्याजदर परिवर्तन सम्बन्धी स"
+        }
+      ],
+      "note": null
+    },
+    {
+      "sourceId": "aarambha-website",
+      "institutionId": "mfi-030",
+      "committedUrl": "https://www.aarambhachautari.com",
+      "host": "www.aarambhachautari.com",
+      "sitemapVia": null,
+      "sitemapsRead": [],
+      "sitemapAnomaly": null,
+      "locsScanned": 0,
+      "candidatesKept": [
+        {
+          "url": "https://www.aarambhachautari.com/cat/branch",
+          "path": "/cat/branch",
+          "score": 3,
+          "why": "core branch token in \"branch\"",
+          "via": "site nav"
+        },
+        {
+          "url": "https://www.aarambhachautari.com/cat/monitoringofficer",
+          "path": "/cat/monitoringofficer",
+          "score": 1,
+          "why": "weak location token, off-topic-free",
+          "via": "site nav"
+        }
+      ],
+      "verified": [
+        {
+          "url": "https://www.aarambhachautari.com/cat/branch",
+          "httpStatus": 200,
+          "bytes": 294564,
+          "contentHash": "3e419630145e607ae16a183102725e4011ab576942ae1f5fae8d4b63979dc149",
+          "snapshotId": "snap-m34disc-a5ba2c074134",
+          "score": 3,
+          "why": "core branch token in \"branch\"",
+          "via": "site nav",
+          "verdict": "VERIFIED_BRANCH_DIRECTORY",
+          "shape": "BRANCH_DIRECTORY_TABLE",
+          "dryRunBranchNames": 132,
+          "parserOutput": {
+            "quality": "CLEAN",
+            "distinct": 132,
+            "topName": "Shivapur Branch",
+            "topCount": 1
+          },
+          "titleSample": "Aarambha chautari Laghubitta Bittiya Sanstha Greviance Handling Centeral Office info@aarambhachautari.com aara"
+        }
+      ],
+      "note": null
+    },
+    {
+      "sourceId": "aatmanirbhar-website",
+      "institutionId": "mfi-049",
+      "committedUrl": "https://aatmanirbhar.com.np",
+      "host": "aatmanirbhar.com.np",
+      "sitemapVia": null,
+      "sitemapsRead": [],
+      "sitemapAnomaly": null,
+      "locsScanned": 0,
+      "candidatesKept": [
+        {
+          "url": "https://aatmanirbhar.com.np/branch_detail_page/5",
+          "path": "/branch_detail_page/5",
+          "score": 3,
+          "why": "core branch token in \"5\"",
+          "via": "site nav"
+        }
+      ],
+      "verified": [
+        {
+          "url": "https://aatmanirbhar.com.np/branch_detail_page/5",
+          "httpStatus": 200,
+          "bytes": 41081,
+          "contentHash": "85daad137f5becd7052e3fa5e99324b81e1a074a6e8fdd0c93ae8ab735bfdc43",
+          "snapshotId": "snap-m34disc-f42b87bcda7c",
+          "score": 3,
+          "why": "core branch token in \"5\"",
+          "via": "site nav",
+          "verdict": "VERIFIED_BRANCH_DIRECTORY",
+          "shape": "BRANCH_REPEATED_BLOCKS",
+          "dryRunBranchNames": 0,
+          "parserOutput": {
+            "quality": "NONE",
+            "distinct": 0,
+            "topName": null,
+            "topCount": 0
+          },
+          "titleSample": "Branch Contact Details AGM Career News Contact 082-560489 info@aatmanirbhar.com.np Home (current) ABOUT US Int"
+        }
+      ],
+      "note": null
+    },
+    {
+      "sourceId": "asha-website",
+      "institutionId": "mfi-031",
+      "committedUrl": "https://ashamicrofinance.com.np",
+      "host": "ashamicrofinance.com.np",
+      "sitemapVia": null,
+      "sitemapsRead": [],
+      "sitemapAnomaly": null,
+      "locsScanned": 0,
+      "candidatesKept": [
+        {
+          "url": "https://ashamicrofinance.com.np/branches/",
+          "path": "/branches/",
+          "score": 3,
+          "why": "core branch token in \"branches\"",
+          "via": "site nav"
+        },
+        {
+          "url": "https://ashamicrofinance.com.np/branches-map-view/",
+          "path": "/branches-map-view/",
+          "score": 3,
+          "why": "core branch token in \"branches-map-view\"",
+          "via": "site nav"
+        }
+      ],
+      "verified": [
+        {
+          "url": "https://ashamicrofinance.com.np/branches/",
+          "httpStatus": 200,
+          "bytes": 188278,
+          "contentHash": "a481d96d93553744aa8d91106f36426c25bca9945733c8884ce81a411ac02f32",
+          "snapshotId": "snap-m34disc-462f3755d5a8",
+          "score": 3,
+          "why": "core branch token in \"branches\"",
+          "via": "site nav",
+          "verdict": "VERIFIED_BRANCH_DIRECTORY",
+          "shape": "BRANCH_DIRECTORY_TABLE",
+          "dryRunBranchNames": 132,
+          "parserOutput": {
+            "quality": "CLEAN",
+            "distinct": 132,
+            "topName": "Kupinde Branch (KPD)",
+            "topCount": 1
+          },
+          "titleSample": "Branches &#8211; Aasha Laghubitta Bittiya Sanstha Ltd. --> --> --> Home About Us Contact Us Branches Map View "
+        }
+      ],
+      "note": null
+    },
+    {
+      "sourceId": "swbbl-website",
+      "institutionId": "mfi-004",
+      "committedUrl": "https://www.swbbl.com.np/branches",
+      "host": "www.swbbl.com.np",
+      "sitemapVia": "probe /sitemap.xml",
+      "sitemapsRead": [
+        "https://www.swbbl.com.np/sitemap.xml"
+      ],
+      "sitemapAnomaly": "sitemap loc points at localhost (dev artifact, not usable)",
+      "locsScanned": 102,
+      "candidatesKept": [
+        {
+          "url": "https://www.swbbl.com.np/branches",
+          "path": "/branches",
+          "score": 3,
+          "why": "core branch token in \"branches\"",
+          "via": "site nav"
+        },
+        {
+          "url": "https://www.swbbl.com.np/area-office",
+          "path": "/area-office",
+          "score": 1,
+          "why": "link label \"Area Office\"",
+          "via": "site nav"
+        },
+        {
+          "url": "https://www.swbbl.com.np/central-office",
+          "path": "/central-office",
+          "score": 1,
+          "why": "link label \"Central Office\"",
+          "via": "site nav"
+        },
+        {
+          "url": "https://www.swbbl.com.np/compliance-officer",
+          "path": "/compliance-officer",
+          "score": 1,
+          "why": "weak location token, off-topic-free",
+          "via": "site nav"
+        },
+        {
+          "url": "https://www.swbbl.com.np/information-office",
+          "path": "/information-office",
+          "score": 1,
+          "why": "weak location token, off-topic-free",
+          "via": "site nav"
+        }
+      ],
+      "verified": [
+        {
+          "url": "https://www.swbbl.com.np/branches",
+          "httpStatus": 200,
+          "bytes": 157159,
+          "contentHash": "9d6a62da2f780c12e0adc03e1089ce597eff35bded40330a2d951a35d812b583",
+          "snapshotId": "snap-m34disc-105950c3dcbf",
+          "score": 3,
+          "why": "core branch token in \"branches\"",
+          "via": "site nav",
+          "verdict": "BRANCH_PAGE_NEEDS_JS",
+          "shape": "BRANCH_LOCATOR_UNRENDERED",
+          "dryRunBranchNames": 0,
+          "parserOutput": {
+            "quality": "NONE",
+            "distinct": 0,
+            "topName": null,
+            "topCount": 0
+          },
+          "titleSample": "Branches Offices | Swabalamban Laghubitta --> Type to search.. Sep 27, 2026 (असोज ११,२०८३) +977-1-4534921/22 T"
+        }
+      ],
+      "note": null
+    },
+    {
+      "sourceId": "skbbl-website",
+      "institutionId": "mfi-005",
+      "committedUrl": "https://www.skbbl.com.np/branch",
+      "host": "www.skbbl.com.np",
+      "sitemapVia": "probe /sitemap.xml",
+      "sitemapsRead": [
+        "https://www.skbbl.com.np/sitemap.xml"
+      ],
+      "sitemapAnomaly": "sitemap loc points at localhost (dev artifact, not usable)",
+      "locsScanned": 102,
+      "candidatesKept": [
+        {
+          "url": "https://skbbl.com.np/branch",
+          "path": "/branch",
+          "score": 3,
+          "why": "core branch token in \"branch\"",
+          "via": "site nav"
+        },
+        {
+          "url": "https://www.skbbl.com.np/branch",
+          "path": "/branch",
+          "score": 3,
+          "why": "core branch token in \"branch\"",
+          "via": "site nav"
+        }
+      ],
+      "verified": [
+        {
+          "url": "https://skbbl.com.np/branch",
+          "httpStatus": 200,
+          "bytes": 42752,
+          "contentHash": "293aa7c18f5551e251ba32ba9ec395282c46e1ce97bce1e56335f309932336f6",
+          "snapshotId": "snap-m34disc-32dbbd0d0e72",
+          "score": 3,
+          "why": "core branch token in \"branch\"",
+          "via": "site nav",
+          "verdict": "VERIFIED_BRANCH_DIRECTORY",
+          "shape": "BRANCH_DIRECTORY_TABLE",
+          "dryRunBranchNames": 11,
+          "parserOutput": {
+            "quality": "CLEAN",
+            "distinct": 11,
+            "topName": "Branch Office Attariya",
+            "topCount": 1
+          },
+          "titleSample": "Branch Location | Sana Kisan Bikas Laghubitta Bittiya Sanstha Ltd. What are you looking for? Career Notices Gr"
+        }
+      ],
+      "note": null
+    },
+    {
+      "sourceId": "nerudemirmire-website",
+      "institutionId": "mfi-006",
+      "committedUrl": "https://www.nerudemirmire.com.np/branch",
+      "host": "www.nerudemirmire.com.np",
+      "sitemapVia": null,
+      "sitemapsRead": [],
+      "sitemapAnomaly": null,
+      "locsScanned": 0,
+      "candidatesKept": [
+        {
+          "url": "https://www.nerudemirmire.com.np/branch",
+          "path": "/branch",
+          "score": 3,
+          "why": "core branch token in \"branch\"",
+          "via": "site nav"
+        }
+      ],
+      "verified": [
+        {
+          "url": "https://www.nerudemirmire.com.np/branch",
+          "httpStatus": 200,
+          "bytes": 231776,
+          "contentHash": "c0692ca5448f025a0eb91afe7dda409b3be7ca4a146ccdf9b6040b2de2a3bcfb",
+          "snapshotId": "snap-m34disc-cbbd36a02ebd",
+          "score": 3,
+          "why": "core branch token in \"branch\"",
+          "via": "site nav",
+          "verdict": "VERIFIED_BRANCH_DIRECTORY",
+          "shape": "BRANCH_DIRECTORY_TABLE",
+          "dryRunBranchNames": 3,
+          "parserOutput": {
+            "quality": "CLEAN",
+            "distinct": 2,
+            "topName": "Branch Managers",
+            "topCount": 2
+          },
+          "titleSample": "Nerude Mirmire Laghubitta Bittiya Sanstha Ltd. Publication Base Rates Old Nerude site Welcome To Nerude Mirmir"
+        }
+      ],
+      "note": null
+    },
+    {
+      "sourceId": "fmdb-website",
+      "institutionId": "mfi-009",
+      "committedUrl": "https://fmdb.com.np/contact-us",
+      "host": "fmdb.com.np",
+      "sitemapVia": null,
+      "sitemapsRead": [],
+      "sitemapAnomaly": null,
+      "locsScanned": 0,
+      "candidatesKept": [],
+      "verified": [],
+      "note": null
+    },
+    {
+      "sourceId": "kalikabank-website",
+      "institutionId": "mfi-010",
+      "committedUrl": "https://www.kalikabank.com.np/branch",
+      "host": "www.kalikabank.com.np",
+      "sitemapVia": "robots.txt",
+      "sitemapsRead": [],
+      "sitemapAnomaly": null,
+      "locsScanned": 0,
+      "candidatesKept": [
+        {
+          "url": "https://www.kalikabank.com.np/branch",
+          "path": "/branch",
+          "score": 3,
+          "why": "core branch token in \"branch\"",
+          "via": "site nav"
+        }
+      ],
+      "verified": [
+        {
+          "url": "https://www.kalikabank.com.np/branch",
+          "httpStatus": 200,
+          "bytes": 265753,
+          "contentHash": "ef598bc5688e9b4136149e9eec83b9c3bb1e958247e786806c3a12ce70dbeca0",
+          "snapshotId": "snap-m34disc-42d1403d2d85",
+          "score": 3,
+          "why": "core branch token in \"branch\"",
+          "via": "site nav",
+          "verdict": "BRANCH_PAGE_NEEDS_JS",
+          "shape": "BRANCH_LOCATOR_UNRENDERED",
+          "dryRunBranchNames": 0,
+          "parserOutput": {
+            "quality": "NONE",
+            "distinct": 0,
+            "topName": null,
+            "topCount": 0
+          },
+          "titleSample": "Branch | Kalika Check Mail Check CIB X Welcome to Kalika Laghubitta Kalika Laghubitta Bittiya Sanstha Ltd. Con"
+        }
+      ],
+      "note": null
+    },
+    {
+      "sourceId": "jucbank-website",
+      "institutionId": "mfi-011",
+      "committedUrl": "https://www.jucbank.com.np",
+      "host": "www.jucbank.com.np",
+      "sitemapVia": null,
+      "sitemapsRead": [],
+      "sitemapAnomaly": null,
+      "locsScanned": 0,
+      "candidatesKept": [
+        {
+          "url": "https://www.jucbank.com.np/categories/branch",
+          "path": "/categories/branch",
+          "score": 3,
+          "why": "core branch token in \"branch\"",
+          "via": "site nav"
+        }
+      ],
+      "verified": [
+        {
+          "url": "https://www.jucbank.com.np/categories/branch",
+          "httpStatus": 200,
+          "bytes": 141403,
+          "contentHash": "1bc04125dea10e1e05ae61cf3aa38d988cb51bf6c92569a2e6536371e7645e27",
+          "snapshotId": "snap-m34disc-d040fd2a2d47",
+          "score": 3,
+          "why": "core branch token in \"branch\"",
+          "via": "site nav",
+          "verdict": "VERIFIED_BRANCH_DIRECTORY",
+          "shape": "BRANCH_DIRECTORY_TABLE",
+          "dryRunBranchNames": 39,
+          "parserOutput": {
+            "quality": "CLEAN",
+            "distinct": 39,
+            "topName": "Butwal Branch",
+            "topCount": 1
+          },
+          "titleSample": "Janautthan Samudayic Laghubitta Bittiya Sanstha Ltd. नेपाल राष्ट्रवैंकबाट &#039;घ&#039; वर्गको इजाजत प्राप्त ("
+        }
+      ],
+      "note": null
+    },
+    {
+      "sourceId": "swmfi-website",
+      "institutionId": "mfi-012",
+      "committedUrl": "https://swmfi.com.np/branches",
+      "host": "swmfi.com.np",
+      "sitemapVia": null,
+      "sitemapsRead": [],
+      "sitemapAnomaly": null,
+      "locsScanned": 0,
+      "candidatesKept": [
+        {
+          "url": "https://swmfi.com.np/branches",
+          "path": "/branches",
+          "score": 3,
+          "why": "core branch token in \"branches\"",
+          "via": "site nav"
+        },
+        {
+          "url": "https://swmfi.com.np/page/grievance-handling-officer",
+          "path": "/page/grievance-handling-officer",
+          "score": 1,
+          "why": "weak location token, off-topic-free",
+          "via": "site nav"
+        }
+      ],
+      "verified": [
+        {
+          "url": "https://swmfi.com.np/branches",
+          "httpStatus": 200,
+          "bytes": 546384,
+          "contentHash": "987dc7bbc4591a129f2ffb21eed097c1cf84c5a4ef947dcd166fd727644e6174",
+          "snapshotId": "snap-m34disc-c754ff08a8b0",
+          "score": 3,
+          "why": "core branch token in \"branches\"",
+          "via": "site nav",
+          "verdict": "BRANCH_INTENT_NO_STRUCTURE",
+          "shape": "SINGLE_LOCATION_CONTACT",
+          "dryRunBranchNames": 1,
+          "parserOutput": {
+            "quality": "CLEAN",
+            "distinct": 1,
+            "topName": "Branch Networks",
+            "topCount": 1
+          },
+          "titleSample": "Suryodaya Womi Laghubitta Bittiya Sanstha Ltd. Suryodaya Womi Laghubitta Bittiya Sanstha Ltd. Mon - Fri 09:00 "
+        }
+      ],
+      "note": null
+    },
+    {
+      "sourceId": "laxmilaghu-website",
+      "institutionId": "mfi-013",
+      "committedUrl": "https://laxmilaghu.com.np/branch-network-2",
+      "host": "laxmilaghu.com.np",
+      "sitemapVia": "probe /sitemap.xml",
+      "sitemapsRead": [
+        "https://laxmilaghu.com.np/sitemap.xml",
+        "https://laxmilaghu.com.np/wp-sitemap-posts-page-1.xml",
+        "https://laxmilaghu.com.np/wp-sitemap-posts-wpdmpro-1.xml",
+        "https://laxmilaghu.com.np/wp-sitemap-posts-lgxcarousel-1.xml",
+        "https://laxmilaghu.com.np/wp-sitemap-posts-news-1.xml",
+        "https://laxmilaghu.com.np/wp-sitemap-posts-elementor-hf-1.xml"
+      ],
+      "sitemapAnomaly": null,
+      "locsScanned": 103,
+      "candidatesKept": [
+        {
+          "url": "https://laxmilaghu.com.np/branch-network-2/",
+          "path": "/branch-network-2/",
+          "score": 3,
+          "why": "core branch token in \"branch-network-2\"",
+          "via": "child of https://laxmilaghu.com.np/sitemap.xml"
+        }
+      ],
+      "verified": [
+        {
+          "url": "https://laxmilaghu.com.np/branch-network-2/",
+          "httpStatus": 200,
+          "bytes": 396361,
+          "contentHash": "8e34981693033e8fd674dc05a74cc25bf905cdf1ed7be8427e0b10c6daaa0391",
+          "snapshotId": "snap-m34disc-f380c66d10eb",
+          "score": 3,
+          "why": "core branch token in \"branch-network-2\"",
+          "via": "child of https://laxmilaghu.com.np/sitemap.xml",
+          "verdict": "BRANCH_PAGE_NEEDS_JS",
+          "shape": "BRANCH_LOCATOR_UNRENDERED",
+          "dryRunBranchNames": 0,
+          "parserOutput": {
+            "quality": "NONE",
+            "distinct": 0,
+            "topName": null,
+            "topCount": 0
+          },
+          "titleSample": "Branch Network &#8211; Laxmi laghubitta Close Skip to content Laxmi laghubitta Menu Notices News Branch Networ"
+        }
+      ],
+      "note": null
+    },
+    {
+      "sourceId": "himalayanlaghubitta-website",
+      "institutionId": "mfi-014",
+      "committedUrl": "https://himalayanlaghubitta.com/page/contactus/9",
+      "host": "himalayanlaghubitta.com",
+      "sitemapVia": null,
+      "sitemapsRead": [],
+      "sitemapAnomaly": null,
+      "locsScanned": 0,
+      "candidatesKept": [
+        {
+          "url": "https://himalayanlaghubitta.com/page/network/5/branchoffice/13",
+          "path": "/page/network/5/branchoffice/13",
+          "score": 3,
+          "why": "core branch token in \"13\"",
+          "via": "site nav"
+        },
+        {
+          "url": "https://himalayanlaghubitta.com/page/network/5",
+          "path": "/page/network/5",
+          "score": 1,
+          "why": "link label \"Network\"",
+          "via": "site nav"
+        },
+        {
+          "url": "https://himalayanlaghubitta.com/page/network/5/clusteroffice/12",
+          "path": "/page/network/5/clusteroffice/12",
+          "score": 1,
+          "why": "link label \"Cluster Office\"",
+          "via": "site nav"
+        }
+      ],
+      "verified": [
+        {
+          "url": "https://himalayanlaghubitta.com/page/network/5/branchoffice/13",
+          "httpStatus": 200,
+          "bytes": 54635,
+          "contentHash": "f086ec41819ae1d5a4ab1a86ed021abb67747330ff17ee0feb04b835a943632b",
+          "snapshotId": "snap-m34disc-c10eb9223ddb",
+          "score": 3,
+          "why": "core branch token in \"13\"",
+          "via": "site nav",
+          "verdict": "BRANCH_PAGE_NEEDS_JS",
+          "shape": "BRANCH_LOCATOR_UNRENDERED",
+          "dryRunBranchNames": 0,
+          "parserOutput": {
+            "quality": "NONE",
+            "distinct": 0,
+            "topName": null,
+            "topCount": 0
+          },
+          "titleSample": "Himalayan Laghubitta Bittiya Sanstha Limited | Network /page/network/5/branchoffice/13 About Us Introduction V"
+        }
+      ],
+      "note": null
+    },
+    {
+      "sourceId": "vlbs-website",
+      "institutionId": "mfi-015",
+      "committedUrl": "https://vlbs.com.np/branchesmap",
+      "host": "vlbs.com.np",
+      "sitemapVia": null,
+      "sitemapsRead": [],
+      "sitemapAnomaly": null,
+      "locsScanned": 0,
+      "candidatesKept": [
+        {
+          "url": "https://vlbs.com.np/branchesmap",
+          "path": "/branchesmap",
+          "score": 3,
+          "why": "core branch token in \"branchesmap\"",
+          "via": "site nav"
+        }
+      ],
+      "verified": [
+        {
+          "url": "https://vlbs.com.np/branchesmap",
+          "httpStatus": 200,
+          "bytes": 16303,
+          "contentHash": "1b1006a4bbd3d290b58ba67d3d9071a1430eb92831a024d48e7100fd1073ff84",
+          "snapshotId": "snap-m34disc-ad1260742fa5",
+          "score": 3,
+          "why": "core branch token in \"branchesmap\"",
+          "via": "site nav",
+          "verdict": "NOT_A_BRANCH_PAGE",
+          "shape": "NOT_A_BRANCH_PAGE",
+          "dryRunBranchNames": 0,
+          "parserOutput": {
+            "quality": "NONE",
+            "distinct": 0,
+            "topName": null,
+            "topCount": 0
+          },
+          "titleSample": "en en np Update : en np Central Office : Email : Customer Care : / Pages Branches on MAP Contact Us Board Of D"
+        }
+      ],
+      "note": null
+    },
+    {
+      "sourceId": "nmbmicrofinance-website",
+      "institutionId": "mfi-016",
+      "committedUrl": "https://nmbmicrofinance.com/About/Contactus",
+      "host": "nmbmicrofinance.com",
+      "sitemapVia": null,
+      "sitemapsRead": [],
+      "sitemapAnomaly": null,
+      "locsScanned": 0,
+      "candidatesKept": [
+        {
+          "url": "https://nmbmicrofinance.com/Office/BranchOffice",
+          "path": "/Office/BranchOffice",
+          "score": 3,
+          "why": "core branch token in \"BranchOffice\"",
+          "via": "site nav"
+        },
+        {
+          "url": "https://nmbmicrofinance.com/Office/AreaOffice",
+          "path": "/Office/AreaOffice",
+          "score": 1,
+          "why": "link label \"Regional Office\"",
+          "via": "site nav"
+        },
+        {
+          "url": "https://nmbmicrofinance.com/Office/HeadOffice",
+          "path": "/Office/HeadOffice",
+          "score": 1,
+          "why": "link label \"Head Office\"",
+          "via": "site nav"
+        },
+        {
+          "url": "https://nmbmicrofinance.com/Office/StationOffice",
+          "path": "/Office/StationOffice",
+          "score": 1,
+          "why": "link label \"Area Office\"",
+          "via": "site nav"
+        }
+      ],
+      "verified": [
+        {
+          "url": "https://nmbmicrofinance.com/Office/BranchOffice",
+          "httpStatus": 200,
+          "bytes": 166400,
+          "contentHash": "7e470f6197df0412ea19db63945988b70ca9e373efb4671c561c3aa775e1484b",
+          "snapshotId": "snap-m34disc-6676035e7a4d",
+          "score": 3,
+          "why": "core branch token in \"BranchOffice\"",
+          "via": "site nav",
+          "verdict": "BRANCH_PAGE_NEEDS_JS",
+          "shape": "BRANCH_LOCATOR_UNRENDERED",
+          "dryRunBranchNames": 0,
+          "parserOutput": {
+            "quality": "NONE",
+            "distinct": 0,
+            "topName": null,
+            "topCount": 0
+          },
+          "titleSample": "Home Page | NMB Laghubitta Bittiya Sanstha Limited Career New Privacy-Policy Date: September 27, 2026 Home Abo"
+        }
+      ],
+      "note": null
+    },
+    {
+      "sourceId": "forwardmfbank-website",
+      "institutionId": "mfi-017",
+      "committedUrl": "https://forwardmfbank.com.np",
+      "host": "forwardmfbank.com.np",
+      "sitemapVia": null,
+      "sitemapsRead": [],
+      "sitemapAnomaly": null,
+      "locsScanned": 0,
+      "candidatesKept": [
+        {
+          "url": "https://forwardmfbank.com.np/index.php/our-network/branches",
+          "path": "/index.php/our-network/branches",
+          "score": 3,
+          "why": "core branch token in \"branches\"",
+          "via": "site nav"
+        },
+        {
+          "url": "https://forwardmfbank.com.np/index.php/our-network",
+          "path": "/index.php/our-network",
+          "score": 1,
+          "why": "link label \"Network\"",
+          "via": "site nav"
+        },
+        {
+          "url": "https://forwardmfbank.com.np/index.php/our-network/network-partners",
+          "path": "/index.php/our-network/network-partners",
+          "score": 1,
+          "why": "link label \"Network Partners\"",
+          "via": "site nav"
+        }
+      ],
+      "verified": [
+        {
+          "url": "https://forwardmfbank.com.np/index.php/our-network/branches",
+          "httpStatus": 200,
+          "bytes": 56115,
+          "contentHash": "0180d4f4cc6eec4ec9db28d4c564d60440925ed929025f18d3fca3dc3b90faed",
+          "snapshotId": "snap-m34disc-83d790684b4a",
+          "score": 3,
+          "why": "core branch token in \"branches\"",
+          "via": "site nav",
+          "verdict": "VERIFIED_BRANCH_DIRECTORY",
+          "shape": "BRANCH_DIRECTORY_TABLE",
+          "dryRunBranchNames": 2,
+          "parserOutput": {
+            "quality": "CLEAN",
+            "distinct": 2,
+            "topName": "Siksha Office Road",
+            "topCount": 1
+          },
+          "titleSample": "Branches Toggle Navigation Home About Us Introduction Board Of Directors Management Equity &amp; Funding Produ"
+        }
+      ],
+      "note": null
+    },
+    {
+      "sourceId": "mslbsl-website",
+      "institutionId": "mfi-019",
+      "committedUrl": "https://www.mslbsl.com.np/branches",
+      "host": "www.mslbsl.com.np",
+      "sitemapVia": null,
+      "sitemapsRead": [],
+      "sitemapAnomaly": null,
+      "locsScanned": 0,
+      "candidatesKept": [
+        {
+          "url": "https://www.mslbsl.com.np/branches",
+          "path": "/branches",
+          "score": 3,
+          "why": "core branch token in \"branches\"",
+          "via": "site nav"
+        }
+      ],
+      "verified": [
+        {
+          "url": "https://www.mslbsl.com.np/branches",
+          "httpStatus": 200,
+          "bytes": 68012,
+          "contentHash": "dcc0c2e73b048a5418b5d443bad934b0c570d71971ffc2a72275fbaee185e4a2",
+          "snapshotId": "snap-m34disc-d7c59108eca0",
+          "score": 3,
+          "why": "core branch token in \"branches\"",
+          "via": "site nav",
+          "verdict": "VERIFIED_BRANCH_DIRECTORY",
+          "shape": "BRANCH_DIRECTORY_TABLE",
+          "dryRunBranchNames": 63,
+          "parserOutput": {
+            "quality": "CLEAN",
+            "distinct": 63,
+            "topName": "Mahuli Branch",
+            "topCount": 1
+          },
+          "titleSample": "Branches --> Aganisair Krishanasawaran-6, Mahuli, Saptary | 411005, 411006 | info@mslbsl.com.np Staff Corner -"
+        }
+      ],
+      "note": null
+    },
+    {
+      "sourceId": "samata-website",
+      "institutionId": "mfi-021",
+      "committedUrl": "https://www.samata.org.np/about-us/branch-network",
+      "host": "www.samata.org.np",
+      "sitemapVia": null,
+      "sitemapsRead": [],
+      "sitemapAnomaly": null,
+      "locsScanned": 0,
+      "candidatesKept": [
+        {
+          "url": "https://www.samata.org.np/about-us/branch-network/",
+          "path": "/about-us/branch-network/",
+          "score": 3,
+          "why": "core branch token in \"branch-network\"",
+          "via": "site nav"
+        }
+      ],
+      "verified": [
+        {
+          "url": "https://www.samata.org.np/about-us/branch-network/",
+          "httpStatus": 200,
+          "bytes": 109796,
+          "contentHash": "7fa0cc9a31e3b593dc1b72a7e3e0158c460d78ea9b493a7ced84e4e6a19225fe",
+          "snapshotId": "snap-m34disc-be71b6c6ea6a",
+          "score": 3,
+          "why": "core branch token in \"branch-network\"",
+          "via": "site nav",
+          "verdict": "BRANCH_INTENT_NO_STRUCTURE",
+          "shape": "SINGLE_LOCATION_CONTACT",
+          "dryRunBranchNames": 0,
+          "parserOutput": {
+            "quality": "NONE",
+            "distinct": 0,
+            "topName": null,
+            "topCount": 0
+          },
+          "titleSample": "Samata Gharelu Laghubitta Bittiya Sanstha Ltd &raquo; Branch Network Boosting Agriculture Thinking food securi"
+        }
+      ],
+      "note": null
+    },
+    {
+      "sourceId": "rsdcmf-website",
+      "institutionId": "mfi-022",
+      "committedUrl": "https://www.rsdcmf.com/branches",
+      "host": "www.rsdcmf.com",
+      "sitemapVia": null,
+      "sitemapsRead": [],
+      "sitemapAnomaly": null,
+      "locsScanned": 0,
+      "candidatesKept": [
+        {
+          "url": "https://www.rsdcmf.com/branches",
+          "path": "/branches",
+          "score": 3,
+          "why": "core branch token in \"branches\"",
+          "via": "site nav"
+        },
+        {
+          "url": "https://www.rsdcmf.com/our-compliance-officer",
+          "path": "/our-compliance-officer",
+          "score": 1,
+          "why": "weak location token, off-topic-free",
+          "via": "site nav"
+        }
+      ],
+      "verified": [
+        {
+          "url": "https://www.rsdcmf.com/branches",
+          "httpStatus": 200,
+          "bytes": 36964,
+          "contentHash": "e6fbd76729f4c7847db4ba82581d06f4aad9e8ae1cf9f4989b7ba235a6bdbf77",
+          "snapshotId": "snap-m34disc-cab72892fb18",
+          "score": 3,
+          "why": "core branch token in \"branches\"",
+          "via": "site nav",
+          "verdict": "VERIFIED_BRANCH_DIRECTORY",
+          "shape": "BRANCH_DIRECTORY_TABLE",
+          "dryRunBranchNames": 2,
+          "parserOutput": {
+            "quality": "CLEAN",
+            "distinct": 2,
+            "topName": "Branch Networks",
+            "topCount": 1
+          },
+          "titleSample": "Branch Networks --> --> --> Call Us: 071-438513/419013 गृह मन्त्रालयको प्रतिवन्धित सूची UN Sanction List Caree"
+        }
+      ],
+      "note": null
+    },
+    {
+      "sourceId": "slbsl-website",
+      "institutionId": "mfi-023",
+      "committedUrl": "https://www.slbsl.com.np/branchDetails.html",
+      "host": "www.slbsl.com.np",
+      "sitemapVia": null,
+      "sitemapsRead": [],
+      "sitemapAnomaly": null,
+      "locsScanned": 0,
+      "candidatesKept": [
+        {
+          "url": "https://www.slbsl.com.np/branchDetails.html",
+          "path": "/branchDetails.html",
+          "score": 3,
+          "why": "core branch token in \"branchDetails.html\"",
+          "via": "site nav"
+        },
+        {
+          "url": "https://www.slbsl.com.np/networkLocation.html",
+          "path": "/networkLocation.html",
+          "score": 1,
+          "why": "link label \"Our Network Location\"",
+          "via": "site nav"
+        }
+      ],
+      "verified": [
+        {
+          "url": "https://www.slbsl.com.np/branchDetails.html",
+          "httpStatus": 200,
+          "bytes": 57507,
+          "contentHash": "30165fd558ba24bce84ad9df7f345ff5e6eca1eef8f44032b09b88a33ce69f87",
+          "snapshotId": "snap-m34disc-29bf2721e898",
+          "score": 3,
+          "why": "core branch token in \"branchDetails.html\"",
+          "via": "site nav",
+          "verdict": "BRANCH_INTENT_NO_STRUCTURE",
+          "shape": "SINGLE_LOCATION_CONTACT",
+          "dryRunBranchNames": 1,
+          "parserOutput": {
+            "quality": "CLEAN",
+            "distinct": 1,
+            "topName": "Our Branch Contact Details",
+            "topCount": 1
+          },
+          "titleSample": "Samudayik Laghubitta Bittiya Sanstha Limited --> --> Welcome to Samudayik Laghubitta Bittiya Sanstha Ltd. Home"
+        }
+      ],
+      "note": null
+    },
+    {
+      "sourceId": "nationalmicrofinance-website",
+      "institutionId": "mfi-024",
+      "committedUrl": "https://nationalmicrofinance.com.np/contact-us",
+      "host": "nationalmicrofinance.com.np",
+      "sitemapVia": null,
+      "sitemapsRead": [],
+      "sitemapAnomaly": null,
+      "locsScanned": 0,
+      "candidatesKept": [],
+      "verified": [],
+      "note": null
+    },
+    {
+      "sourceId": "gblbs-website",
+      "institutionId": "mfi-025",
+      "committedUrl": "https://www.gblbs.com.np",
+      "host": "www.gblbs.com.np",
+      "sitemapVia": null,
+      "sitemapsRead": [],
+      "sitemapAnomaly": null,
+      "locsScanned": 0,
+      "candidatesKept": [
+        {
+          "url": "https://www.gblbs.com.np/branch.html",
+          "path": "/branch.html",
+          "score": 3,
+          "why": "core branch token in \"branch.html\"",
+          "via": "site nav"
+        }
+      ],
+      "verified": [
+        {
+          "url": "https://www.gblbs.com.np/branch.html",
+          "httpStatus": 200,
+          "bytes": 68923,
+          "contentHash": "73cee7ccb389f9f624c0fdd5ddfce9c6f7fb3c05d1c2c76be09b9909c521b88a",
+          "snapshotId": "snap-m34disc-88738a9a616e",
+          "score": 3,
+          "why": "core branch token in \"branch.html\"",
+          "via": "site nav",
+          "verdict": "VERIFIED_BRANCH_DIRECTORY",
+          "shape": "BRANCH_DIRECTORY_TABLE",
+          "dryRunBranchNames": 191,
+          "parserOutput": {
+            "quality": "CLEAN",
+            "distinct": 189,
+            "topName": "Branch Office Mahendranagar",
+            "topCount": 2
+          },
+          "titleSample": "GBLBS | Branch Offices Regulated by Nepal Rastra Bank &middot; Licensed Microfinance Institution 071-437530 in"
+        }
+      ],
+      "note": null
+    },
+    {
+      "sourceId": "unnatislbs-website",
+      "institutionId": "mfi-027",
+      "committedUrl": "https://unnatislbs.com.np/branches-map",
+      "host": "unnatislbs.com.np",
+      "sitemapVia": null,
+      "sitemapsRead": [],
+      "sitemapAnomaly": null,
+      "locsScanned": 0,
+      "candidatesKept": [
+        {
+          "url": "https://unnatislbs.com.np/branches-map",
+          "path": "/branches-map",
+          "score": 3,
+          "why": "core branch token in \"branches-map\"",
+          "via": "site nav"
+        }
+      ],
+      "verified": [
+        {
+          "url": "https://unnatislbs.com.np/branches-map",
+          "httpStatus": 200,
+          "bytes": 10775,
+          "contentHash": "6319cf82ee95e52ceb177c1a5e7768895f15a2a30d4a21b4f914828a581d95b3",
+          "snapshotId": "snap-m34disc-fa70db5832fc",
+          "score": 3,
+          "why": "core branch token in \"branches-map\"",
+          "via": "site nav",
+          "verdict": "NOT_A_BRANCH_PAGE",
+          "shape": "NOT_A_BRANCH_PAGE",
+          "dryRunBranchNames": 0,
+          "parserOutput": {
+            "quality": "NONE",
+            "distinct": 0,
+            "topName": null,
+            "topCount": 0
+          },
+          "titleSample": "Update : Central Office : Email : Customer Care : / Working Hours: Sun - Thu ( 09.30am to 5.30pm ) Pages Branc"
+        }
+      ],
+      "note": null
+    },
+    {
+      "sourceId": "nadeplaghubitta-website",
+      "institutionId": "mfi-028",
+      "committedUrl": "https://www.nadeplaghubitta.com/contact",
+      "host": "www.nadeplaghubitta.com",
+      "sitemapVia": "robots.txt",
+      "sitemapsRead": [
+        "https://www.nadeplaghubitta.com/wp-sitemap.xml",
+        "https://www.nadeplaghubitta.com/wp-sitemap-posts-page-1.xml",
+        "https://www.nadeplaghubitta.com/wp-sitemap-users-1.xml"
+      ],
+      "sitemapAnomaly": null,
+      "locsScanned": 22,
+      "candidatesKept": [
+        {
+          "url": "https://www.nadeplaghubitta.com/our-branches/",
+          "path": "/our-branches/",
+          "score": 3,
+          "why": "core branch token in \"our-branches\"",
+          "via": "child of https://www.nadeplaghubitta.com/wp-sitemap.xml"
+        }
+      ],
+      "verified": [
+        {
+          "url": "https://www.nadeplaghubitta.com/our-branches/",
+          "httpStatus": 200,
+          "bytes": 127589,
+          "contentHash": "031696988cfbb48cedff87352cde1ca9d5b5b2fd440b539d52b89179d738e0fc",
+          "snapshotId": "snap-m34disc-581e57cb767f",
+          "score": 3,
+          "why": "core branch token in \"our-branches\"",
+          "via": "child of https://www.nadeplaghubitta.com/wp-sitemap.xml",
+          "verdict": "VERIFIED_BRANCH_DIRECTORY",
+          "shape": "BRANCH_DIRECTORY_TABLE",
+          "dryRunBranchNames": 89,
+          "parserOutput": {
+            "quality": "CLEAN",
+            "distinct": 89,
+            "topName": "Area Office Birtamod, Jhapa",
+            "topCount": 1
+          },
+          "titleSample": "Our Branches &#8211; nadeplaghubitta Skip to content Home Company Info Introduction Vision Mission Objectives "
+        }
+      ],
+      "note": null
+    },
+    {
+      "sourceId": "supportmicrofinance-website",
+      "institutionId": "mfi-029",
+      "committedUrl": "https://www.supportmicrofinance.com.np/branch",
+      "host": "www.supportmicrofinance.com.np",
+      "sitemapVia": "robots.txt",
+      "sitemapsRead": [
+        "https://supportmicrofinance.com.np/sitemap.xml"
+      ],
+      "sitemapAnomaly": null,
+      "locsScanned": 14,
+      "candidatesKept": [
+        {
+          "url": "https://supportmicrofinance.com.np/branch",
+          "path": "/branch",
+          "score": 3,
+          "why": "core branch token in \"branch\"",
+          "via": "robots.txt"
+        },
+        {
+          "url": "https://www.supportmicrofinance.com.np/branch",
+          "path": "/branch",
+          "score": 3,
+          "why": "core branch token in \"branch\"",
+          "via": "site nav"
+        }
+      ],
+      "verified": [
+        {
+          "url": "https://supportmicrofinance.com.np/branch",
+          "httpStatus": 200,
+          "bytes": 25177,
+          "contentHash": "003600eb12db7d57a6adcd6a57365cecfa15eeeddd8096995041ea23f07f619e",
+          "snapshotId": "snap-m34disc-ff811d4312d4",
+          "score": 3,
+          "why": "core branch token in \"branch\"",
+          "via": "robots.txt",
+          "verdict": "VERIFIED_BRANCH_DIRECTORY",
+          "shape": "BRANCH_DIRECTORY_TABLE",
+          "dryRunBranchNames": 14,
+          "parserOutput": {
+            "quality": "CLEAN",
+            "distinct": 12,
+            "topName": "Branch Network",
+            "topCount": 2
+          },
+          "titleSample": "supportmicrofinance 025-588177 | 025-588178 Itahari-4, Sunsari, Nepal smicrofinance7@gmail.com EN | ने Toggle "
+        }
+      ],
+      "note": null
+    },
+    {
+      "sourceId": "sampadalaghubitta-website",
+      "institutionId": "mfi-036",
+      "committedUrl": "https://www.sampadalaghubitta.com.np/branches",
+      "host": "www.sampadalaghubitta.com.np",
+      "sitemapVia": null,
+      "sitemapsRead": [],
+      "sitemapAnomaly": null,
+      "locsScanned": 0,
+      "candidatesKept": [
+        {
+          "url": "https://www.sampadalaghubitta.com.np/branches",
+          "path": "/branches",
+          "score": 3,
+          "why": "core branch token in \"branches\"",
+          "via": "site nav"
+        }
+      ],
+      "verified": [
+        {
+          "url": "https://www.sampadalaghubitta.com.np/branches",
+          "httpStatus": 200,
+          "bytes": 288622,
+          "contentHash": "88e3ead958f00d0d772bc37d6836d02b2614de643505d5eb315fc3e829e7c52c",
+          "snapshotId": "snap-m34disc-db738ad109a1",
+          "score": 3,
+          "why": "core branch token in \"branches\"",
+          "via": "site nav",
+          "verdict": "VERIFIED_BRANCH_DIRECTORY",
+          "shape": "BRANCH_DIRECTORY_TABLE",
+          "dryRunBranchNames": 71,
+          "parserOutput": {
+            "quality": "CLEAN",
+            "distinct": 71,
+            "topName": "Branch Network",
+            "topCount": 1
+          },
+          "titleSample": "Sampada Laghubitta Bittiya Sanstha Limited info@sampadalaghubitta.com.np +977-78-595900 Base rate News & Event"
+        }
+      ],
+      "note": null
+    },
+    {
+      "sourceId": "mlbsl-website",
+      "institutionId": "mfi-038",
+      "committedUrl": "https://www.mlbsl.com.np/branches/category/branch-office",
+      "host": "www.mlbsl.com.np",
+      "sitemapVia": "probe /sitemap.xml",
+      "sitemapsRead": [
+        "https://www.mlbsl.com.np/sitemap.xml"
+      ],
+      "sitemapAnomaly": "sitemap loc points at 127.0.0.1 (dev artifact, not usable)",
+      "locsScanned": 96,
+      "candidatesKept": [
+        {
+          "url": "https://www.mlbsl.com.np/branches",
+          "path": "/branches",
+          "score": 3,
+          "why": "core branch token in \"branches\"",
+          "via": "site nav"
+        },
+        {
+          "url": "https://www.mlbsl.com.np/branches/category/head-office",
+          "path": "/branches/category/head-office",
+          "score": 3,
+          "why": "core branch token in \"head-office\"",
+          "via": "site nav"
+        },
+        {
+          "url": "https://www.mlbsl.com.np/branches/category/branch-office",
+          "path": "/branches/category/branch-office",
+          "score": 3,
+          "why": "core branch token in \"branch-office\"",
+          "via": "site nav"
+        },
+        {
+          "url": "https://www.mlbsl.com.np/branches/category/province-office",
+          "path": "/branches/category/province-office",
+          "score": 3,
+          "why": "core branch token in \"province-office\"",
+          "via": "site nav"
+        },
+        {
+          "url": "https://www.mlbsl.com.np/$%7Bbranch.google_maps_link%20||%20branch.map_location%20||",
+          "path": "/${branch.google_maps_link || branch.map_location ||",
+          "score": 3,
+          "why": "core branch token in \"${branch.google_maps_link || branch.map_location ||\"",
+          "via": "site nav"
+        },
+        {
+          "url": "https://www.mlbsl.com.np/teams/category/province-officer",
+          "path": "/teams/category/province-officer",
+          "score": 1,
+          "why": "weak location token, off-topic-free",
+          "via": "site nav"
+        }
+      ],
+      "verified": [
+        {
+          "url": "https://www.mlbsl.com.np/branches",
+          "httpStatus": 200,
+          "bytes": 944328,
+          "contentHash": "8dbea761b5d7f6bd91538428551f7828a7cd93cad9b0b61ee76b9f80f0bdfc6d",
+          "snapshotId": "snap-m34disc-275dd14e142f",
+          "score": 3,
+          "why": "core branch token in \"branches\"",
+          "via": "site nav",
+          "verdict": "BRANCH_PAGE_NEEDS_JS",
+          "shape": "BRANCH_LOCATOR_UNRENDERED",
+          "dryRunBranchNames": 1,
+          "parserOutput": {
+            "quality": "CLEAN",
+            "distinct": 1,
+            "topName": "Opening Hours Head Office",
+            "topCount": 1
+          },
+          "titleSample": "Mahila Laghubitta Bittiya Sanstha Limited EN English नेपाली MLBSL Mail Calendar EMI Calculator Interest / Base"
+        }
+      ],
+      "note": null
+    },
+    {
+      "sourceId": "uniquenepalmicrofinance-website",
+      "institutionId": "mfi-040",
+      "committedUrl": "https://uniquenepalmicrofinance.com.np",
+      "host": "uniquenepalmicrofinance.com.np",
+      "sitemapVia": null,
+      "sitemapsRead": [],
+      "sitemapAnomaly": null,
+      "locsScanned": 0,
+      "candidatesKept": [],
+      "verified": [],
+      "note": null
+    },
+    {
+      "sourceId": "ulbsl-website",
+      "institutionId": "mfi-041",
+      "committedUrl": "https://www.ulbsl.com.np/branch",
+      "host": "www.ulbsl.com.np",
+      "sitemapVia": "robots.txt",
+      "sitemapsRead": [],
+      "sitemapAnomaly": null,
+      "locsScanned": 0,
+      "candidatesKept": [
+        {
+          "url": "https://www.ulbsl.com.np/branch",
+          "path": "/branch",
+          "score": 3,
+          "why": "core branch token in \"branch\"",
+          "via": "site nav"
+        },
+        {
+          "url": "https://www.ulbsl.com.np/karkadobranch@ulbsl.com.np",
+          "path": "/karkadobranch@ulbsl.com.np",
+          "score": 3,
+          "why": "core branch token in \"karkadobranch@ulbsl.com.np\"",
+          "via": "site nav"
+        },
+        {
+          "url": "https://www.ulbsl.com.np/kohalpurbranch@ulbsl.com.np",
+          "path": "/kohalpurbranch@ulbsl.com.np",
+          "score": 3,
+          "why": "core branch token in \"kohalpurbranch@ulbsl.com.np\"",
+          "via": "site nav"
+        }
+      ],
+      "verified": [
+        {
+          "url": "https://www.ulbsl.com.np/branch",
+          "httpStatus": 200,
+          "bytes": 24831,
+          "contentHash": "8a1427e3002dd7b2de4318a177130013c114d2e170621d78e1100e8041d2fc2d",
+          "snapshotId": "snap-m34disc-b505f8b6f406",
+          "score": 3,
+          "why": "core branch token in \"branch\"",
+          "via": "site nav",
+          "verdict": "BRANCH_INTENT_NO_STRUCTURE",
+          "shape": "SINGLE_LOCATION_CONTACT",
+          "dryRunBranchNames": 0,
+          "parserOutput": {
+            "quality": "NONE",
+            "distinct": 0,
+            "topName": null,
+            "topCount": 0
+          },
+          "titleSample": "Branch Sep 27, 2026 upakar.banke1@gmail.com +977-081-540744, 542053 Toggle navigation Home About Introduction "
+        }
+      ],
+      "note": null
+    },
+    {
+      "sourceId": "dhaulagiribank-website",
+      "institutionId": "mfi-042",
+      "committedUrl": "https://dhaulagiribank.com",
+      "host": "dhaulagiribank.com",
+      "sitemapVia": "robots.txt",
+      "sitemapsRead": [
+        "https://dhaulagiribank.com/sitemap.xml",
+        "https://dhaulagiribank.com/sitemap.rss"
+      ],
+      "sitemapAnomaly": null,
+      "locsScanned": 0,
+      "candidatesKept": [
+        {
+          "url": "https://dhaulagiribank.com/branch-networks/",
+          "path": "/branch-networks/",
+          "score": 3,
+          "why": "core branch token in \"branch-networks\"",
+          "via": "site nav"
+        }
+      ],
+      "verified": [
+        {
+          "url": "https://dhaulagiribank.com/branch-networks/",
+          "httpStatus": 200,
+          "bytes": 119882,
+          "contentHash": "b1c3121b525551aa859ec3f18820380e413d8ca28701fb56887f24ca32bab70e",
+          "snapshotId": "snap-m34disc-3542e2f76158",
+          "score": 3,
+          "why": "core branch token in \"branch-networks\"",
+          "via": "site nav",
+          "verdict": "VERIFIED_BRANCH_DIRECTORY",
+          "shape": "BRANCH_DIRECTORY_TABLE",
+          "dryRunBranchNames": 58,
+          "parserOutput": {
+            "quality": "CLEAN",
+            "distinct": 58,
+            "topName": "Branch Office Thada",
+            "topCount": 1
+          },
+          "titleSample": "Branch Networks - Dhaulagiri Laghubitta Bittiya Sanstha Limited Skip to content Career CIB Login विश्वमा प्रति"
+        }
+      ],
+      "note": null
+    },
+    {
+      "sourceId": "swastiklbs-website",
+      "institutionId": "mfi-045",
+      "committedUrl": "https://swastiklbs.com.np/contact-us",
+      "host": "swastiklbs.com.np",
+      "sitemapVia": "robots.txt",
+      "sitemapsRead": [
+        "https://swastiklbs.com.np/wp-sitemap.xml",
+        "https://swastiklbs.com.np/wp-sitemap-posts-post-1.xml",
+        "https://swastiklbs.com.np/wp-sitemap-posts-page-1.xml",
+        "https://swastiklbs.com.np/wp-sitemap-taxonomies-category-1.xml",
+        "https://swastiklbs.com.np/wp-sitemap-users-1.xml"
+      ],
+      "sitemapAnomaly": null,
+      "locsScanned": 38,
+      "candidatesKept": [
+        {
+          "url": "https://swastiklbs.com.np/branch/",
+          "path": "/branch/",
+          "score": 3,
+          "why": "core branch token in \"branch\"",
+          "via": "child of https://swastiklbs.com.np/wp-sitemap.xml"
+        }
+      ],
+      "verified": [],
+      "note": "verify cap reached (30); unverified"
+    },
+    {
+      "sourceId": "jeevanbikasmf-website",
+      "institutionId": "mfi-048",
+      "committedUrl": "https://jeevanbikasmf.com/contact-us",
+      "host": "jeevanbikasmf.com",
+      "sitemapVia": "robots.txt",
+      "sitemapsRead": [],
+      "sitemapAnomaly": null,
+      "locsScanned": 0,
+      "candidatesKept": [
+        {
+          "url": "https://jeevanbikasmf.com/%e0%a4%b6%e0%a4%be%e0%a4%96%e0%a4%be_%e0%a4%b8%e0%a4%82%e0%a4%9c%e0%a4%be%e0%a4%b2/",
+          "path": "/शाखा_संजाल/",
+          "score": 3,
+          "why": "core branch token in \"शाखा_संजाल\"",
+          "via": "site nav"
+        },
+        {
+          "url": "https://jeevanbikasmf.com/%E0%A4%B6%E0%A4%BE%E0%A4%96%E0%A4%BE_%E0%A4%B8%E0%A4%82%E0%A4%9C%E0%A4%BE%E0%A4%B2/",
+          "path": "/शाखा_संजाल/",
+          "score": 3,
+          "why": "core branch token in \"शाखा_संजाल\"",
+          "via": "site nav"
+        }
+      ],
+      "verified": [],
+      "note": "verify cap reached (30); unverified"
+    }
+  ]
+}

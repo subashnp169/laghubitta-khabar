@@ -1,0 +1,43 @@
+{
+  "$schema": "branch-source-registry/v1",
+  "purpose": "Controlled registry of EXTERNAL branch-evidence sources for the M3.4 branch pipeline. Official MFB sources are NOT duplicated here: they already exist as BRANCH_DIRECTORY capabilities in data/pilot/pilot-sources.json and are merged in priority order by buildBranchSourcePlan(). URLs live in this data file and in pilot-sources.json, never in parser logic.",
+  "generated_at": "2026-09-27T00:00:00.000Z",
+  "investigation": {
+    "method": "Direct fetch and format inspection, 2026-09-27. No crawl, no unrestricted discovery, no assertion written.",
+    "fetch_count": 11,
+    "fetch_note": "Bounded investigation of candidate source formats. The production budget in data/pilot/pilot-budget.json (maxFetches 18) is unchanged; these were format probes, not a production run."
+  },
+  "sources": [
+    {
+      "institution_id": "*",
+      "source_type": "NRB",
+      "url": "https://www.nrb.org.np/bank-list/",
+      "discovery_method": "MANUAL",
+      "enabled": true,
+      "expects_branch_rows": true,
+      "observed_at": "2026-09-27T00:00:00.000Z",
+      "note": "VERIFIED FORMAT. Live 2026-09-27: HTTP 200, text/html, 297 data rows, columns exactly 'S.N. | Code | Address | District | Branch Name | Open Date'. All 6 headers map semantically; 297/297 rows parse; district 297/297, address 297/297, open date 297/297; 297 distinct 8-digit codes (all prefix 11001); 0 duplicate branch names. CRITICAL POPULATION LIMIT: the list covers COMMERCIAL BANKS ONLY. Its institution dropdown holds 148 banks (Nepal Bank, Rastriya Banijya, Nabil, Everest, NIC ASIA, Himalayan Bank, Standard Chartered, ...). ZERO of the 51 pilot microfinance institutions appear, so for the current MFI universe this source yields no branch rows. Do not record 'no branches' from this absence - record 'not covered by this source'. All 8-digit codes share prefix 11001, which is the bank code space. The NRB list carries no explicit publication or 'as of' date; currency must not be inferred from it. observed_at is the fetch time, nothing more. A second NRB endpoint, /english/bfi, redirects to List-of-BFIs-Dec_2018_Eng.pdf (Dec 2018, 8 years stale, banks) and must not be used as a currency signal. The Microfinance Institutions Supervision Department page (/departments/mfd/) publishes institution-level statistics and reports only, with no branch-level list."
+    },
+    {
+      "institution_id": "*",
+      "source_type": "MEROLAGANI",
+      "url": "https://www.merolagani.com/",
+      "discovery_method": "MANUAL",
+      "enabled": true,
+      "expects_branch_rows": false,
+      "observed_at": "2026-09-27T00:00:00.000Z",
+      "note": "VERIFIED FORMAT, NOT BRANCH-LEVEL. Live 2026-09-27: HTTP 200, 408891 bytes, 18 tables, no microfinance section, 0 occurrences of the words 'Microfinance', 'Branch' or 'BFI' on the site root. merolagani.com is a NEPSE market-data site whose company pages cover listed instruments only. Nepalese microfinance institutions are not listed on NEPSE, so this source cannot supply MFI branch rows. Usable only as secondary corroboration for a listed institution's own contact details, never as a branch directory."
+    },
+    {
+      "institution_id": "*",
+      "source_type": "SHARESANSHAR",
+      "url": "https://www.sharesansar.com/company/",
+      "discovery_method": "MANUAL",
+      "enabled": true,
+      "expects_branch_rows": false,
+      "observed_at": "2026-09-27T00:00:00.000Z",
+      "note": "VERIFIED FORMAT, NOT BRANCH-LEVEL. Live 2026-09-27: HTTP 200. The site carries 15 microfinance-related instruments in its embedded company list (FMDBL First Microfinance, FOWAD Forward Microfinance, KMFL Kisan Microfinance, MERO Mero Microfinance, NMLBS National Microfinance, NSMLBSL National Summit Microfinance, OME Ome Microfinance, RRMBSL Rama Roshan, SMBPO Support Microfinance, plus promoter-share lines GMFBSPO/FMDBLP/FOWADP/KMFLPO/MEROPO). So the POPULATION is right where Mero Lagani is wrong. But the per-company pages are institution-level: /company/gblbs and /company/mero each return 0 occurrences of 'Branch' and exactly one address, one phone and one email - the company's own single contact, not a branch list. The /company/ path as a whole is not directly fetchable (HTTP 404) and must be addressed per symbol. Usable as secondary corroboration of an institution's existence, name and head-office contact; NOT a branch directory."
+    }
+  ],
+  "coverage_conclusion": "As of 2026-09-27 there is no public branch-LEVEL source that covers the 51-institution microfinance universe. Tier 2 (NRB) has the correct branch-level schema but covers banks; Tier 3 has the correct population but only institution-level detail. The M3.4 external architecture is therefore built and proven, while external branch fallback currently contributes ZERO additional microfinance coverage. Every pilot target whose official page is unusable resolves to coverage D (UNRESOLVED) - never to 'zero branches'."
+}

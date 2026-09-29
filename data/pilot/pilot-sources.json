@@ -41,9 +41,9 @@
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
-          "known_url": "https://www.nirdhan.com.np",
+          "known_url": "https://www.nirdhan.com.np/branch-network/",
           "link_type": "BRANCH_PAGE",
-          "note": "phase F backfill 2026-09-26: anchor=evidence-homepage (http 200, text/html)"
+          "note": "m34 2026-09-27: re-pointed to a structurally confirmed branch page. prior target was not a branch page [phase F backfill 2026-09-26: anchor=evidence-homepage (http 200, text/html)]. confirmed by branch-url-discovery on a repeated-address/phone row structure (branchRows>=2); branch-html-v1 dry run reads 180 names (171 distinct). snapshot snap-m34disc-d60a3faaeeb6 sha256:e176269a1f3e. source-level proven_by (nrb-bfi-mid-may-2026) unchanged: this corrects WHICH page, it does not re-prove the institution."
         },
         {
           "capability": "CAREER_PAGE",
@@ -376,9 +376,9 @@
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
-          "known_url": "https://www.aarambhachautari.com",
+          "known_url": "https://www.aarambhachautari.com/cat/branch",
           "link_type": "BRANCH_PAGE",
-          "note": "phase F backfill 2026-09-26: anchor=evidence-homepage (http 200, text/html)"
+          "note": "m34 2026-09-27: re-pointed to a structurally confirmed branch page. prior target was not a branch page [phase F backfill 2026-09-26: anchor=evidence-homepage (http 200, text/html)]. confirmed by branch-url-discovery on a repeated-address/phone row structure (branchRows>=2); branch-html-v1 dry run reads 132 names (132 distinct). snapshot snap-m34disc-a5ba2c074134 sha256:5195268b49db. source-level proven_by (nrb-bfi-mid-may-2026) unchanged: this corrects WHICH page, it does not re-prove the institution."
         },
         {
           "capability": "CAREER_PAGE",
@@ -441,9 +441,9 @@
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
-          "known_url": "https://aatmanirbhar.com.np",
+          "known_url": "https://aatmanirbhar.com.np/branch_detail_page/5",
           "link_type": "BRANCH_PAGE",
-          "note": "phase F backfill 2026-09-26: anchor=evidence-homepage (http 200, text/html)"
+          "note": "m34 2026-09-27: re-pointed to a structurally confirmed branch page. prior target was not a branch page [phase F backfill 2026-09-26: anchor=evidence-homepage (http 200, text/html)]. confirmed by branch-url-discovery on a repeated-address/phone row structure (branchRows>=2); branch-html-v1 dry run reads 17 names but output is REPEATED_HEADER (top \"Branch Manager\" x16). snapshot snap-m34disc-f42b87bcda7c sha256:7cb92906ef1e. source-level proven_by (nrb-bfi-mid-may-2026) unchanged: this corrects WHICH page, it does not re-prove the institution."
         },
         {
           "capability": "CAREER_PAGE",
@@ -506,9 +506,9 @@
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
-          "known_url": "https://ashamicrofinance.com.np",
+          "known_url": "https://ashamicrofinance.com.np/branches/",
           "link_type": "BRANCH_PAGE",
-          "note": "phase F backfill 2026-09-26: anchor=evidence-homepage (http 200, text/html)"
+          "note": "m34 2026-09-27: re-pointed to a structurally confirmed branch page. prior target was not a branch page [phase F backfill 2026-09-26: anchor=evidence-homepage (http 200, text/html)]. confirmed by branch-url-discovery on a repeated-address/phone row structure (branchRows>=2); branch-html-v1 dry run reads 132 names (132 distinct). snapshot snap-m34disc-462f3755d5a8 sha256:a481d96d9355. source-level proven_by (nrb-bfi-mid-may-2026) unchanged: this corrects WHICH page, it does not re-prove the institution."
         },
         {
           "capability": "CAREER_PAGE",
@@ -1221,9 +1221,9 @@
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
-          "known_url": "https://www.jucbank.com.np",
+          "known_url": "https://www.jucbank.com.np/categories/branch",
           "link_type": "BRANCH_PAGE",
-          "note": "phase F backfill 2026-09-26: anchor=evidence-homepage (http 200, text/html)"
+          "note": "m34 2026-09-27: re-pointed to a structurally confirmed branch page. prior target was not a branch page [phase F backfill 2026-09-26: anchor=evidence-homepage (http 200, text/html)]. confirmed by branch-url-discovery on a repeated-address/phone row structure (branchRows>=2); branch-html-v1 dry run reads 39 names (39 distinct). snapshot snap-m34disc-d040fd2a2d47 sha256:1bc04125dea1. source-level proven_by (nrb-bfi-mid-may-2026) unchanged: this corrects WHICH page, it does not re-prove the institution."
         },
         {
           "capability": "CAREER_PAGE",
@@ -1611,9 +1611,9 @@
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
-          "known_url": "https://forwardmfbank.com.np",
+          "known_url": "https://forwardmfbank.com.np/index.php/our-network/branches",
           "link_type": "BRANCH_PAGE",
-          "note": "phase F backfill 2026-09-26: anchor=evidence-homepage (http 200, text/html)"
+          "note": "m34 2026-09-27: re-pointed to a structurally confirmed branch page. prior target was not a branch page [phase F backfill 2026-09-26: anchor=evidence-homepage (http 200, text/html)]. confirmed by branch-url-discovery on a repeated-address/phone row structure (branchRows>=2); branch-html-v1 dry run reads 50 names (12 distinct). snapshot snap-m34disc-83d790684b4a sha256:0180d4f4cc6e. source-level proven_by (nrb-bfi-mid-may-2026) unchanged: this corrects WHICH page, it does not re-prove the institution."
         },
         {
           "capability": "CAREER_PAGE",
@@ -2066,9 +2066,9 @@
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
-          "known_url": "https://www.gblbs.com.np",
+          "known_url": "https://www.gblbs.com.np/branch.html",
           "link_type": "BRANCH_PAGE",
-          "note": "phase F backfill 2026-09-26: anchor=evidence-homepage (http 200, text/html)"
+          "note": "m34 2026-09-27: re-pointed to a structurally confirmed branch page. prior target was not a branch page [phase F backfill 2026-09-26: anchor=evidence-homepage (http 200, text/html)]. confirmed by branch-url-discovery on a repeated-address/phone row structure (branchRows>=2); branch-html-v1 dry run reads 191 names (189 distinct). snapshot snap-m34disc-88738a9a616e sha256:73cee7ccb389. source-level proven_by (nrb-bfi-mid-may-2026) unchanged: this corrects WHICH page, it does not re-prove the institution."
         },
         {
           "capability": "CAREER_PAGE",
@@ -2268,9 +2268,9 @@
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
-          "known_url": "https://www.nadeplaghubitta.com/contact",
+          "known_url": "https://www.nadeplaghubitta.com/our-branches/",
           "link_type": "BRANCH_PAGE",
-          "note": "phase F backfill 2026-09-26: anchor=link (http ?, ?)"
+          "note": "m34 2026-09-27: re-pointed to a structurally confirmed branch page. prior target was not a branch page [phase F backfill 2026-09-26: anchor=link (http ?, ?)]. confirmed by branch-url-discovery on a repeated-address/phone row structure (branchRows>=2); branch-html-v1 dry run reads 0 names (page is a real directory the parser cannot read yet). snapshot snap-m34disc-581e57cb767f sha256:1ed150abaeae. source-level proven_by (nrb-bfi-mid-may-2026) unchanged: this corrects WHICH page, it does not re-prove the institution."
         },
         {
           "capability": "CAREER_PAGE",
@@ -2983,9 +2983,9 @@
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
-          "known_url": "https://dhaulagiribank.com",
+          "known_url": "https://dhaulagiribank.com/branch-networks/",
           "link_type": "BRANCH_PAGE",
-          "note": "phase F backfill 2026-09-26: anchor=evidence-homepage (http 200, text/html)"
+          "note": "m34 2026-09-27: re-pointed to a structurally confirmed branch page. prior target was not a branch page [phase F backfill 2026-09-26: anchor=evidence-homepage (http 200, text/html)]. confirmed by branch-url-discovery on a repeated-address/phone row structure (branchRows>=2); branch-html-v1 dry run reads 58 names (58 distinct). snapshot snap-m34disc-3542e2f76158 sha256:b1c3121b5255. source-level proven_by (nrb-bfi-mid-may-2026) unchanged: this corrects WHICH page, it does not re-prove the institution."
         },
         {
           "capability": "CAREER_PAGE",
