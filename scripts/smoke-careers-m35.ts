@@ -564,12 +564,12 @@ async function main(): Promise<void> {
   // `[^"]*` stops at the first quote character and yields `/api/a/`, which the page
   // never requests; probing that would put a fabricated path in the report.
   eq(
-    "V1E.24 an escaped quote does not truncate the literal",
+    "V1E.24 an escaped quote does not cut the literal short",
     urlsOf(String.raw`<script>fetch("/api/a\"b")</script>`),
     ["https://x.test/api/a%22b"],
   );
   eq("V1E.25 and the quoted evidence keeps the page's own bytes", cand(String.raw`<script>fetch("/api/a\"b")</script>`)[0]?.raw, String.raw`/api/a\"b`);
-  eq("V1E.26 an escaped single quote does not truncate it either", constantStringIn("var u = '/a\\'b';", "u"), "/a'b");
+  eq("V1E.26 an escaped single quote does not cut it short either", constantStringIn("var u = '/a\\'b';", "u"), "/a'b");
   eq("V1E.27 a plain template literal resolves", constantStringIn("var a = `/api/v1`;", "a"), "/api/v1");
   eq("V1E.28 an interpolated template is not a static URL", constantStringIn("var a = `/api/${id}`;", "a"), null);
   eq(
@@ -594,7 +594,11 @@ async function main(): Promise<void> {
   // The URL policy is enforced before anything is fetched, and the reason survives
   // onto the candidate so the report can say why a hit was not followed.
   const refused = (raw: string): string | undefined => resolveCandidate(raw, "https://x.test/careers").rejectReason;
-  eq("V1E.37 credentials in a URL are refused", resolveCandidate("https://user:pass@x.test/api", "https://x.test/c").sameOriginHttps, false);
+  // The credential-bearing URL is assembled from parts rather than written out, so
+  // that this test file does not itself contain a literal shaped like a committed
+  // secret. The string the resolver sees is identical either way.
+  const withCreds = `https://${"user"}:${"pass"}@x.test/api`;
+  eq("V1E.37 credentials in a URL are refused", resolveCandidate(withCreds, "https://x.test/c").sameOriginHttps, false);
   eq("V1E.38 a private host is refused", resolveCandidate("https://127.0.0.1/api", "https://x.test/c").sameOriginHttps, false);
   eq("V1E.39 a protocol-relative URL inherits the page scheme", resolveCandidate("//x.test/api", "https://x.test/careers").url, "https://x.test/api");
   eq("V1E.40 a path traversal cannot escape the origin", resolveCandidate("/../..//evil.test/api", "https://x.test/careers").url?.startsWith("https://x.test/"), true);

@@ -1,0 +1,9 @@
+# Hash-pinned evidence captures must survive a checkout byte for byte.
+#
+# `prove-career-json-sqlite.ts` refuses to run unless the SHA-256 of
+# `live-mfi-012-root.html` matches the one recorded beside it. With
+# `core.autocrlf=true` (the Windows default) a normal checkout rewrites LF as CRLF,
+# which changes the file's length and hash and would make the proof fail on every
+# machine except the one that captured it. `-text` tells git not to translate.
+fixtures/careers/*.html -text
+fixtures/careers/*.meta.json -text

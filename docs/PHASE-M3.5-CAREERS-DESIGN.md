@@ -1,10 +1,12 @@
 # M3.5 Careers / Vacancies — Design
 
 Status: **core extraction, evidence and projection implemented and proven**
-(`smoke:careers`, 126 checks). Still to do: the ~10-institution live pilot, the
-`listJobs` adapters, and the API/UI cutover that replaces the fabricated rows.
-M3.4 is FROZEN at `06bd00a` and is not touched by this design, with one
-additive exception noted under "Module layout".
+(`smoke:careers`, 324 checks; `prove:careers-json`, 158 checks). The live pilot is
+done — 29 institutions, 60 pages — and the `listJobs` adapters and the API/UI
+cutover that replaced the fabricated rows are in place. What remains is publishing,
+which needs a reviewed document or a decided ATS policy; see
+`PHASE-M3.5-FINAL-AUDIT.md`. M3.4 is FROZEN at `06bd00a` and is not touched by this
+design, with one additive exception noted under "Module layout".
 
 Two findings from implementing this design changed it, and both are recorded
 below rather than quietly folded in:

@@ -614,6 +614,12 @@ export function jobsFromAssertionRows(
       return held.confidence >= VACANCY_PUBLISHABLE ? held.value : null;
     };
 
+    // A title that two sources disagree about is still shown, because the read
+    // model has no way to identify a vacancy without one and a record nobody can
+    // name is less useful than a flagged one. It is never presented as agreed:
+    // the disagreement puts `title` in `conflicts` and the row in CONFLICT, so a
+    // consumer may not quote the wording as fact. Fields that can be omitted -
+    // deadline, location, and the rest - are genuinely suppressed instead.
     const title = publishable("title") ?? String(published.get("title")?.value ?? "");
     const sourceDocument = publishable("source_document");
     // A PDF notice is a vacancy-shaped entity whose text was never read. It has no

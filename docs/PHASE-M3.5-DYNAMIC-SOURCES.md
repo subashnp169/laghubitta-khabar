@@ -24,8 +24,8 @@ and their responses classified.
 - Population: **60 of 60 pages** — 29 primary, 31 detail — not only the pages a
   heuristic flagged. A negative result therefore covers the whole population.
 - Artifact: `data/pilot/career-dynamic-sources.json`
-- Cost: 60 page fetches, 45 first-party-script fetches, 5 endpoint probes, 13,380,635
-  bytes, leaving 3,396,581 of the declared 16,777,216. The budget is enforced in code
+- Cost: 60 page fetches, 45 first-party-script fetches, 5 endpoint probes, 12,950,506
+  bytes, leaving 3,826,710 of the declared 16,777,216. The budget is enforced in code
   (`MAX_BYTES_TOTAL = 16_777_216`), so an artifact reporting a full scan has paid for
   one.
 - Records found across the entire pilot: **0**.
@@ -134,7 +134,7 @@ failed request can never be read as "no careers page here".
 `fixtures/careers/json-v1-*.json` and `scripts/smoke-careers-m35.ts` cover empty,
 malformed, scalar, bare-array, two-array-key, missing-title, missing-deadline,
 duplicate, changed-deadline, multi-location, unexpected-field, prompt-injection, and
-markup-bearing payloads: **317 assertions, all passing** (`npm run smoke:careers`).
+markup-bearing payloads: **324 assertions, all passing** (`npm run smoke:careers`).
 
 Three findings came out of writing them:
 
@@ -187,7 +187,7 @@ maintain in exchange.
 
 What this leaves, unchanged and still correct:
 
-- the 13 unread vacancy documents stay `DOCUMENT_EVIDENCE_ONLY` — real files, read
+- the 52 unread vacancy items stay `DOCUMENT_EVIDENCE_ONLY` — real files, read
   structurally, no fabricated fields;
 - the HTML grammar stays the single path to a vacancy;
 - the fabricated rows in `src/data/jobs.ts` stay blocked, because nothing found here
@@ -209,7 +209,7 @@ visible means one of:
    plain-HTTP transport must be addressed rather than waived.
 2. **Keep the pointer** — store the "Go to Online Vacancy" link as evidence with no
    parsed fields, so the site is visibly present and honestly incomplete.
-3. **Leave it** — 19 of the 29 institutions read have no vacancy evidence at all, so
+3. **Leave it** — 15 of the 29 institutions read have no vacancy evidence at all, so
    one institution's external portal does not change the shape of the problem.
 
 Option 2 is cheap and safe and is available immediately. Option 1 is the only one

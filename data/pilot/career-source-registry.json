@@ -32,8 +32,9 @@
     "detail_pages_read": 31,
     "detail_vacancy_candidates": 0,
     "institutions_with_vacancy_evidence": 1,
-    "institutions_with_unread_vacancy_documents": 9,
-    "institutions_with_no_vacancy_evidence": 19
+    "institutions_with_unread_vacancy_documents": 14,
+    "institutions_with_no_vacancy_evidence": 15,
+    "unread_vacancy_documents_total": 52
   },
   "institution_rollup": [
     {
@@ -41,7 +42,7 @@
       "institution_name": "Nirdhan Utthan Laghubitta Bittiya Sanstha Ltd.",
       "pages_read": 2,
       "vacancy_records": 0,
-      "unread_vacancy_documents": 2,
+      "unread_vacancy_documents": 3,
       "conclusion": "VACANCY_EVIDENCE_UNREAD"
     },
     {
@@ -73,8 +74,8 @@
       "institution_name": "Sana Kisan Bikas Laghubitta Bittiya Sanstha Ltd.",
       "pages_read": 3,
       "vacancy_records": 0,
-      "unread_vacancy_documents": 0,
-      "conclusion": "NO_VACANCY_EVIDENCE"
+      "unread_vacancy_documents": 6,
+      "conclusion": "VACANCY_EVIDENCE_UNREAD"
     },
     {
       "institution_id": "mfi-006",
@@ -105,7 +106,7 @@
       "institution_name": "Suryodaya Womi Laghubitta Bittiya Sanstha Ltd.",
       "pages_read": 4,
       "vacancy_records": 1,
-      "unread_vacancy_documents": 2,
+      "unread_vacancy_documents": 5,
       "conclusion": "VACANCY_FOUND"
     },
     {
@@ -113,8 +114,8 @@
       "institution_name": "Laxmi Laghubitta Bittiya Sanstha Ltd.",
       "pages_read": 2,
       "vacancy_records": 0,
-      "unread_vacancy_documents": 0,
-      "conclusion": "NO_VACANCY_EVIDENCE"
+      "unread_vacancy_documents": 8,
+      "conclusion": "VACANCY_EVIDENCE_UNREAD"
     },
     {
       "institution_id": "mfi-014",
@@ -129,15 +130,15 @@
       "institution_name": "NMB Laghubitta Bittiya Sanstha Ltd.",
       "pages_read": 2,
       "vacancy_records": 0,
-      "unread_vacancy_documents": 0,
-      "conclusion": "NO_VACANCY_EVIDENCE"
+      "unread_vacancy_documents": 10,
+      "conclusion": "VACANCY_EVIDENCE_UNREAD"
     },
     {
       "institution_id": "mfi-017",
       "institution_name": "Forward Microfinance Laghubitta Bittiya Sanstha Ltd.",
       "pages_read": 1,
       "vacancy_records": 0,
-      "unread_vacancy_documents": 1,
+      "unread_vacancy_documents": 2,
       "conclusion": "VACANCY_EVIDENCE_UNREAD"
     },
     {
@@ -169,15 +170,15 @@
       "institution_name": "National Laghubitta Bittiya Sanstha Ltd.",
       "pages_read": 1,
       "vacancy_records": 0,
-      "unread_vacancy_documents": 0,
-      "conclusion": "NO_VACANCY_EVIDENCE"
+      "unread_vacancy_documents": 1,
+      "conclusion": "VACANCY_EVIDENCE_UNREAD"
     },
     {
       "institution_id": "mfi-029",
       "institution_name": "Support Laghubitta Bittiya Sanstha Ltd.",
       "pages_read": 1,
       "vacancy_records": 0,
-      "unread_vacancy_documents": 1,
+      "unread_vacancy_documents": 10,
       "conclusion": "VACANCY_EVIDENCE_UNREAD"
     },
     {
@@ -241,7 +242,7 @@
       "institution_name": "Swastik Laghubitta Bittiya Sanstha Ltd.",
       "pages_read": 4,
       "vacancy_records": 0,
-      "unread_vacancy_documents": 2,
+      "unread_vacancy_documents": 1,
       "conclusion": "VACANCY_EVIDENCE_UNREAD"
     },
     {

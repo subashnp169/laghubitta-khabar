@@ -1,0 +1,41 @@
+{
+  "$comment": "Byte-exact capture of one live public career page, recorded as M3.5 evidence. The closure proof re-hashes the .html file and refuses to run if the hash below does not match, so this fixture cannot be edited without detection. Live content varies between requests, so re-fetching the URL will NOT reproduce this hash; that variance is documented in docs/PHASE-M3.5-FINAL-AUDIT.md.",
+  "source_url": "https://swmfi.com.np",
+  "final_url": "https://swmfi.com.np/",
+  "institution_id": "mfi-012",
+  "observed_at": "2026-09-30T07:30:50.780Z",
+  "http_status": 200,
+  "content_type": "text/html; charset=UTF-8",
+  "bytes": 70755,
+  "sha256": "9c8a03b593a3204d33a0b5db0682eb575af3f1a3d9b61b2f327eaf68e4b59070",
+  "page_shape": "SINGLE_VACANCY_DETAIL",
+  "page_shape_reason": "one anchored record and no list structure",
+  "record_count": 1,
+  "parser_version": "careers-html-v1",
+  "parser_version_note": "careers-html-v1 is the grammar this repository parses careers pages with, and the version the closure proof re-reads these bytes under. The live pilot recorded its own snapshots under career-discovery-v1, which is the observation-only discovery pass; it asserted nothing from this page. Both names are recorded so the reader is not left guessing which one produced which claim.",
+  "parser_is_generic": true,
+  "parser_note": "This page was read by the shared careers grammar. No rule anywhere in the codebase names mfi-012, swmfi.com.np, or this notice.",
+  "records": [
+    {
+      "title": "नायव प्रमुख कार्यकारी अधिकृत पदपूर्ति सम्बन्धी सूचना !!!",
+      "application_url": "https://swmfi.com.np/storage/website/notice/%E0%A4%A8%E0%A4%BE%E0%A4%AF%E0%A4%B5_%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%AE%E0%A5%81%E0%A4%96_%E0%A4%95%E0%A4%BE%E0%A4%B0%E0%A5%8D%E0%A4%AF%E0%A4%95%E0%A4%BE%E0%A4%B0%E0%A5%80_%E0%A4%85%E0%A4%A7%E0%A4%BF%E0%A4%95%E0%A5%83%E0%A4%A4_%E0%A4%AA%E0%A4%A6%E0%A4%AA%E0%A5%82%E0%A4%B0%E0%A5%8D%E0%A4%A4%E0%A4%BF_%E0%A4%B8%E0%A4%AE%E0%A5%8D%E0%A4%AC%E0%A4%A8%E0%A5%8D%E0%A4%A7%E0%A5%80_%E0%A4%B8%E0%A5%82%E0%A4%9A%E0%A4%A8%E0%A4%BE_!!!-2026-09-30-147766.pdf",
+      "deadline": null,
+      "location": null,
+      "employment_type": null,
+      "contact_email": null,
+      "shape": "card",
+      "planned_assertions": [
+        {
+          "field": "JOB_TITLE",
+          "value": "नायव प्रमुख कार्यकारी अधिकृत पदपूर्ति सम्बन्धी सूचना !!!",
+          "confidence": 0.6
+        },
+        {
+          "field": "APPLICATION_URL",
+          "value": "https://swmfi.com.np/storage/website/notice/%E0%A4%A8%E0%A4%BE%E0%A4%AF%E0%A4%B5_%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%AE%E0%A5%81%E0%A4%96_%E0%A4%95%E0%A4%BE%E0%A4%B0%E0%A5%8D%E0%A4%AF%E0%A4%95%E0%A4%BE%E0%A4%B0%E0%A5%80_%E0%A4%85%E0%A4%A7%E0%A4%BF%E0%A4%95%E0%A5%83%E0%A4%A4_%E0%A4%AA%E0%A4%A6%E0%A4%AA%E0%A5%82%E0%A4%B0%E0%A5%8D%E0%A4%A4%E0%A4%BF_%E0%A4%B8%E0%A4%AE%E0%A5%8D%E0%A4%AC%E0%A4%A8%E0%A5%8D%E0%A4%A7%E0%A5%80_%E0%A4%B8%E0%A5%82%E0%A4%9A%E0%A4%A8%E0%A4%BE_!!!-2026-09-30-147766.pdf",
+          "confidence": 0.5
+        }
+      ]
+    }
+  ]
+}

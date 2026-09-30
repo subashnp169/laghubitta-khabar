@@ -36,18 +36,48 @@ with a title and a link and nothing else is real evidence of a real opening, and
 is not yet a publishable vacancy. It is recorded as exactly that.
 
 Every other institution that has published a recruitment has published it as a file
-this system cannot read. The registry contains 14 distinct vacancy documents across
-10 institutions, including advertisements dated July 2026, application syllabi for
-named posts, and a scanned JPG of a notice. The system's job in that situation is to
-refuse to publish a job it cannot read, and to distinguish that from an institution
-with no vacancies. It now does:
+this system cannot read. The registry contains **52 distinct unread vacancy items
+across 14 institutions** — 41 documents and 11 scanned images, deduplicated by URL
+from 55 links observed (43 document + 12 image), because three URLs are linked from
+two pages of the same institution each. They include advertisements dated July
+2026, application syllabi for named posts, and a scanned JPG of a notice. The
+system's job in that situation is to refuse to publish a job it cannot read, and to
+distinguish that from an institution with no vacancies. It now does:
 
 | Institution rollup (29 institutions) | Count |
 | --- | --- |
 | Vacancy notice read, fields not publishable | 1 |
 | Vacancies this system can read and publish | **0** |
-| Unread vacancy documents — evidence exists, fields unknown | 9 |
-| No vacancy evidence of any kind | 19 |
+| Unread vacancy items — evidence exists, fields unknown | 13 |
+| No vacancy evidence of any kind | 15 |
+
+Those two numbers were wrong until this audit. The rollup counted **pages** rather
+than documents, and only counted a page whose own status was already
+`VACANCY_DOCUMENT_UNREAD` — so a page can carry six vacancy notices and, being
+classified `CAREER_ROOT` or `RESULT_LIST` by its own text, report zero. It read as
+14 documents across 10 institutions; the true figures are 52 across 14.
+
+Four institutions moved out of "no vacancy evidence" as a result, and the reason is
+worth naming because it is not the reason one would guess:
+
+| Institution | Why the old rule saw nothing | Unread items now |
+| --- | --- | --- |
+| `mfi-005` | pages classified `CAREER_ROOT`, `RESULT_LIST`, `CAREER_PAGE_NO_CURRENT_VACANCY` | 6 |
+| `mfi-013` | `CAREER_ROOT` + `RESULT_LIST` | 8, five of them scanned images |
+| `mfi-016` | `CAREER_ROOT` + `RESULT_LIST` | 10 |
+| `mfi-024` | a single page classified `DOCUMENT_SOURCE` | 1 |
+
+Not one of them had a page whose status was `VACANCY_DOCUMENT_UNREAD`. The bug was
+never that images were invisible — that part of the rule is also wrong, and it is
+fixed, but it moved no institution in this artifact, because `mfi-001`, `mfi-045` and
+`mfi-047` do have scanned notices and were already counted. The bug was keying the
+count off a page's *classification* instead of off the *evidence it links*.
+`mfi-024` is the clearest case: one page whose whole job is to be a document source
+contributed zero, because nothing asked the page what it linked to.
+
+The count is now taken from the evidence links themselves and deduplicated by URL,
+in `scripts/run-career-pilot.ts` and, for the committed artifact, in
+`scripts/recompute-career-registry-rollup.ts`.
 
 `VACANCY_DOCUMENT_UNREAD` is the state that matters. Publishing "no current
 vacancy" for an institution whose vacancies are in an unread PDF would be a false
@@ -79,31 +109,34 @@ not 2.
 | `mfi-049` | [aatmanirbhar.com.np/career](https://aatmanirbhar.com.np/career) | 200 | `SINGLE_VACANCY_DETAIL` | `CAREER_PAGE_NO_CURRENT_VACANCY` | — |
 | `mfi-031` | [ashamicrofinance.com.np/vacancy-2](https://ashamicrofinance.com.np/vacancy-2) | 200 | `SINGLE_VACANCY_DETAIL` | `CAREER_PAGE_NO_CURRENT_VACANCY` | career portal is HTTP-only on :70, refused |
 | `mfi-002` | [www.deproscbank.com.np](https://www.deproscbank.com.np) | 200 | `CAREER_VOCABULARY_ONLY` | `CAREER_ROOT` | — |
-| `mfi-004` | [www.swbbl.com.np](https://www.swbbl.com.np) | 200 | `CAREER_CONTENT_CLIENT_LOADED` | `UNSUPPORTED` | rows fetched by script |
+| `mfi-004` | [www.swbbl.com.np](https://www.swbbl.com.np) | 200 | `CAREER_VOCABULARY_ONLY` | `CAREER_ROOT` | one career word in a menu; the `/career` detail page is read separately |
 | `mfi-005` | [www.skbbl.com.np](https://www.skbbl.com.np) | 200 | `SINGLE_VACANCY_DETAIL` | `CAREER_ROOT` | — |
 | `mfi-006` | [www.nerudemirmire.com.np/career](https://www.nerudemirmire.com.np/career) | 200 | `SINGLE_VACANCY_DETAIL` | `CAREER_PAGE_NO_CURRENT_VACANCY` | — |
 | `mfi-010` | [www.kalikabank.com.np/career](https://www.kalikabank.com.np/career) | 200 | `CAREER_VOCABULARY_ONLY` | `CAREER_PAGE_NO_CURRENT_VACANCY` | — |
 | `mfi-011` | [www.jucbank.com.np/categories/career](https://www.jucbank.com.np/categories/career) | 200 | `CAREER_VOCABULARY_ONLY` | `CAREER_PAGE_NO_CURRENT_VACANCY` | — |
-| `mfi-012` | [swmfi.com.np](https://swmfi.com.np) | 200 | `SINGLE_VACANCY_DETAIL` | `CAREER_ROOT` | — |
-| `mfi-013` | [laxmilaghu.com.np](https://laxmilaghu.com.np) | 522 | `NOT_A_CAREER_PAGE` | `UNREADABLE` | host-side 522 origin timeout |
+| `mfi-012` | [swmfi.com.np](https://swmfi.com.np) | 200 | `SINGLE_VACANCY_DETAIL` | `VACANCY_SOURCE_VERIFIED` | **the one real vacancy**; 4 more unread items behind it |
+| `mfi-013` | [laxmilaghu.com.np](https://laxmilaghu.com.np) | 200 | `SINGLE_VACANCY_DETAIL` | `CAREER_ROOT` | recovered from the 522 an earlier run saw; 422 KB, role nouns but no anchored record, 8 unread items |
 | `mfi-014` | [himalayanlaghubitta.com/page/careers/7](https://himalayanlaghubitta.com/page/careers/7) | 200 | `CAREER_CONTENT_CLIENT_LOADED` | `UNSUPPORTED` | vacancy table is populated by script |
 | `mfi-016` | [nmbmicrofinance.com](https://nmbmicrofinance.com) | 200 | `SINGLE_VACANCY_DETAIL` | `CAREER_ROOT` | — |
 | `mfi-017` | [forwardmfbank.com.np/index.php/careers](https://forwardmfbank.com.np/index.php/careers) | 200 | `CAREER_VOCABULARY_ONLY` | `VACANCY_DOCUMENT_UNREAD` | 2 unread vacancy documents |
-| `mfi-019` | [www.mslbsl.com.np/career/online-registration](https://www.mslbsl.com.np/career/online-registration) | 404 | `NOT_A_CAREER_PAGE` | `UNREADABLE` | path not found |
+| `mfi-019` | [www.mslbsl.com.np/career/online-registration](https://www.mslbsl.com.np/career/online-registration) | 404 | `UNREADABLE_BODY` | `UNREADABLE` | path not found; the body is an error page, not a career page |
 | `mfi-022` | [www.rsdcmf.com](https://www.rsdcmf.com) | 200 | `SINGLE_VACANCY_DETAIL` | `CAREER_ROOT` | — |
-| `mfi-023` | [www.slbsl.com.np/uploads/career/slbs_finalresultlist.pdf](https://www.slbsl.com.np/uploads/career/slbs_finalresultlist.pdf) | 200 | — | `DOCUMENT_SOURCE` | a result list, correctly not a vacancy |
-| `mfi-024` | [nationalmicrofinance.com.np/assets/uploads/files/career/Vacancy3.pdf](https://nationalmicrofinance.com.np/assets/uploads/files/career/Vacancy3.pdf) | 200 | — | `DOCUMENT_SOURCE` | 1 unread vacancy document |
-| `mfi-029` | [www.supportmicrofinance.com.np/career](https://www.supportmicrofinance.com.np/career) | 200 | `CAREER_CONTENT_CLIENT_LOADED` | `UNSUPPORTED` | 7 unread vacancy documents |
+| `mfi-023` | [www.slbsl.com.np/uploads/career/slbs_finalresultlist.pdf](https://www.slbsl.com.np/uploads/career/slbs_finalresultlist.pdf) | 200 | `DOCUMENT_NOT_HTML` | `DOCUMENT_SOURCE` | a result list, correctly not a vacancy |
+| `mfi-024` | [nationalmicrofinance.com.np/assets/uploads/files/career/Vacancy3.pdf](https://nationalmicrofinance.com.np/assets/uploads/files/career/Vacancy3.pdf) | 200 | `DOCUMENT_NOT_HTML` | `DOCUMENT_SOURCE` | 1 unread vacancy document |
+| `mfi-029` | [www.supportmicrofinance.com.np/career](https://www.supportmicrofinance.com.np/career) | 200 | `CAREER_VOCABULARY_ONLY` | `VACANCY_DOCUMENT_UNREAD` | 10 unread vacancy documents |
 | `mfi-035` | [swabhimaanlaghubitta.com.np/careers](https://swabhimaanlaghubitta.com.np/careers) | 200 | `SINGLE_VACANCY_DETAIL` | `CAREER_PAGE_NO_CURRENT_VACANCY` | — |
 | `mfi-038` | [www.mlbsl.com.np](https://www.mlbsl.com.np) | 200 | `SINGLE_VACANCY_DETAIL` | `CAREER_ROOT` | — |
 | `mfi-040` | [uniquenepalmicrofinance.com.np/career](https://uniquenepalmicrofinance.com.np/career) | 200 | `SINGLE_VACANCY_DETAIL` | `CAREER_PAGE_NO_CURRENT_VACANCY` | — |
-| `mfi-041` | [www.ulbsl.com.np](https://www.ulbsl.com.np) | 200 | `CAREER_CONTENT_CLIENT_LOADED` | `UNSUPPORTED` | rows fetched by script |
+| `mfi-041` | [www.ulbsl.com.np](https://www.ulbsl.com.np) | 200 | `CAREER_VOCABULARY_ONLY` | `CAREER_ROOT` | one career word in a menu; the `/career` detail page is read separately |
 | `mfi-042` | [dhaulagiribank.com](https://dhaulagiribank.com) | 200 | `CAREER_VOCABULARY_ONLY` | `CAREER_ROOT` | — |
 | `mfi-045` | [swastiklbs.com.np/vacancy](https://swastiklbs.com.np/vacancy) | 200 | `CAREER_VOCABULARY_ONLY` | `VACANCY_DOCUMENT_UNREAD` | notice is a scanned JPG |
 | `mfi-048` | [jeevanbikasmf.com/career](https://jeevanbikasmf.com/career) | 200 | `CAREER_VOCABULARY_ONLY` | `CAREER_PAGE_NO_CURRENT_VACANCY` | — |
 
-Detail pages: 14 `CAREER_PAGE_NO_CURRENT_VACANCY`, 7 `UNSUPPORTED`, 6
-`VACANCY_DOCUMENT_UNREAD`, 2 `RESULT_LIST`, 1 `UNREADABLE`.
+Detail pages (31 read): 16 `CAREER_PAGE_NO_CURRENT_VACANCY`, 9 `VACANCY_DOCUMENT_UNREAD`,
+2 `UNSUPPORTED`, 3 `RESULT_LIST`, 1 `UNREADABLE`. Shapes: 14 `CAREER_VOCABULARY_ONLY`,
+11 `SINGLE_VACANCY_DETAIL`, 2 `CAREER_CONTENT_CLIENT_LOADED`, 3
+`RECRUITMENT_RESULT_PAGE`, 1 `UNREADABLE_BODY`. No detail page produced a vacancy
+record, which is why the single real vacancy came from a career root.
 
 ## Evidence that exists but cannot be published
 
@@ -125,8 +158,9 @@ Document roles are read from the URL and are distinguishable without opening a
 single file: `VACANCY`, `RESULT`, `FORM`, `ROUTINE`. `slbsl_finalresultlist.pdf` and
 `Short List of Internal Vacancy.pdf` are results, not openings; they are excluded
 from vacancy evidence. `application_syllabus-*.pdf` and `Internal Vacancy Form.pdf`
-are forms, not openings. That distinction is why the pilot does not report 26 open
-vacancies.
+are forms, not openings. That distinction is why the pilot reports no open vacancies
+at all: the 52 unread items it found are counted as evidence, not as openings, and
+none of them has been read well enough to say what it opens.
 
 ## Four findings that changed the system
 
@@ -185,7 +219,7 @@ sector**, because this sector publishes vacancies as files. Shipping that empty
 state while the rest of the site shows invented jobs would be worse than the status
 quo, so the API/UI cutover is not the next step — the decision about documents is.
 
-Three things can be done with the 26 retained documents, and only the first is
+Three things can be done with the 52 retained unread items, and only the first is
 mechanical:
 
 1. **Retain and show the evidence.** A `DOCUMENT_EVIDENCE_ONLY` projection can link
@@ -213,9 +247,18 @@ inferred from a document.
 ```sh
 node node_modules/typescript/bin/tsc --noEmit   # 0 errors
 npm run smoke:careers                            # 324 passed, 0 failed
-npx tsx scripts/run-career-pilot.ts
+npm run prove:careers-json                       # 158/158, includes the real mfi-012 record
+npm run check:discipline                         # no violations
+npx tsx scripts/run-career-pilot.ts              # re-crawls; a new run is a new observation
+npm run recompute:career-registry                # offline: reapplies the rollup rule to the committed artifact
 M35_SCOPE=all npx tsx scripts/inspect-dynamic-career-sources.ts
 ```
+
+`run-career-pilot.ts` fetches live pages, so re-running it produces a *different*
+artifact — that is what makes the observation record worth keeping. The rollup
+correction described above is applied to the committed registry by
+`recompute:career-registry`, which reads the file, recomputes only the derived
+per-institution totals, and copies every observation field through untouched.
 
 Every failure above is a permanent regression case in `scripts/smoke-careers-m35.ts`,
 recorded with the real URL that produced it.

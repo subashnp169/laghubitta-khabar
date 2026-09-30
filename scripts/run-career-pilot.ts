@@ -627,13 +627,42 @@ async function main(): Promise<void> {
    * institution: an institution is a vacancy source if ANY page of its own
    * produced a vacancy record.
    */
-  const byInstitution = new Map<string, { name: string | null; pages: number; records: number; unread: number }>();
+  const byInstitution = new Map<
+    string,
+    { name: string | null; pages: number; records: number; unread: number; unreadUrls: Set<string> }
+  >();
+  /**
+   * The unread vacancy evidence a page carries, whether or not its own status says so.
+   *
+   * A page can hold unread vacancy notices and still be classified by what its
+   * text proved - a career root that happens to link three notices is a career
+   * root, not a page whose only finding is an unread document. Counting evidence
+   * only where the status happened to be VACANCY_DOCUMENT_UNREAD therefore loses
+   * real evidence, and counting one per page reports a page count in a field
+   * whose name says documents. Both are wrong, so the count is taken from the
+   * links themselves and deduplicated by URL.
+   *
+   * A scanned notice image counts. It is exactly as unreadable as a PDF, and a
+   * page whose only vacancy evidence is a JPG is not an institution with no
+   * vacancies. Detail entries already store documents and images together;
+   * primary entries keep them apart, so both are consulted here.
+   */
+  const vacancyDocumentUrls = (page: Entry | DetailEntry): string[] => {
+    const detail = (page as DetailEntry).unread_vacancy_documents;
+    if (detail) return detail;
+    const primary = page as Entry;
+    return [
+      ...(primary.vacancy_document_links ?? []),
+      ...(primary.image_links ?? []).filter((u) => classifyDocumentLink(u) === "VACANCY"),
+    ];
+  };
+
   const bump = (id: string | null, name: string | null, page: Entry | DetailEntry) => {
     if (!id) return;
-    const cur = byInstitution.get(id) ?? { name, pages: 0, records: 0, unread: 0 };
+    const cur = byInstitution.get(id) ?? { name, pages: 0, records: 0, unread: 0, unreadUrls: new Set<string>() };
     cur.pages++;
     cur.records += page.vacancy_candidates;
-    if (page.status === "VACANCY_DOCUMENT_UNREAD") cur.unread++;
+    for (const u of vacancyDocumentUrls(page)) cur.unreadUrls.add(u);
     byInstitution.set(id, cur);
   };
   for (const e of entries) bump(e.institution_id, e.institution_name, e);
@@ -644,9 +673,9 @@ async function main(): Promise<void> {
       institution_name: v.name,
       pages_read: v.pages,
       vacancy_records: v.records,
-      unread_vacancy_documents: v.unread,
+      unread_vacancy_documents: v.unreadUrls.size,
       conclusion:
-        v.records > 0 ? "VACANCY_FOUND" : v.unread > 0 ? "VACANCY_EVIDENCE_UNREAD" : "NO_VACANCY_EVIDENCE",
+        v.records > 0 ? "VACANCY_FOUND" : v.unreadUrls.size > 0 ? "VACANCY_EVIDENCE_UNREAD" : "NO_VACANCY_EVIDENCE",
     }))
     .sort((a, b) => (a.institution_id < b.institution_id ? -1 : 1));
 
@@ -680,7 +709,12 @@ async function main(): Promise<void> {
     detail_pages_read: detailEntries.length,
     detail_vacancy_candidates: detailEntries.reduce((n, d) => n + d.vacancy_candidates, 0),
     institutions_with_vacancy_evidence: rollup.filter((r) => r.conclusion === "VACANCY_FOUND").length,
-    institutions_with_unread_vacancy_documents: rollup.filter((r) => r.conclusion === "VACANCY_EVIDENCE_UNREAD").length,
+    // Counted from the documents themselves, not from the conclusion: an
+    // institution whose own page also carried a readable vacancy still has
+    // unread notices behind it, and hiding that behind its conclusion would
+    // understate how much is known only as a file nobody has read.
+    institutions_with_unread_vacancy_documents: rollup.filter((r) => r.unread_vacancy_documents > 0).length,
+    unread_vacancy_documents_total: rollup.reduce((n, r) => n + r.unread_vacancy_documents, 0),
     institutions_with_no_vacancy_evidence: rollup.filter((r) => r.conclusion === "NO_VACANCY_EVIDENCE").length,
   };
 
