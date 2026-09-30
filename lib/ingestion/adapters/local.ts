@@ -378,6 +378,18 @@ export class LocalSqliteEvidenceWriter implements EvidenceWriter {
     status?: "STALE" | "CONFLICT" | "REJECTED";
     reason?: string;
   }): Promise<boolean> {
+    // Read the row first so the audit entry can name what was retired, not just
+    // that something was. Without this the reason a value stopped being current is
+    // lost the moment the row is closed out, and "why did this change?" is
+    // unanswerable from the database afterwards.
+    const prior = this.db
+      .prepare(
+        `SELECT entity_type, entity_id, field_name, value, source_id
+           FROM data_assertions WHERE id = ?`,
+      )
+      .get(input.id) as
+      | { entity_type: string; entity_id: string; field_name: string; value: string; source_id: string }
+      | undefined;
     const res = this.db
       .prepare(
         `UPDATE data_assertions
@@ -385,7 +397,26 @@ export class LocalSqliteEvidenceWriter implements EvidenceWriter {
           WHERE id = ? AND valid_to IS NULL`,
       )
       .run(input.validTo, input.status ?? "STALE", input.id);
-    if (res.changes > 0) return true;
+    if (res.changes > 0) {
+      if (input.reason) {
+        await this.appendAudit({
+          action: "ASSERTION_SUPERSEDED",
+          targetType: "DATA_ASSERTION",
+          targetId: input.id,
+          beforeJson: JSON.stringify({
+            reason: input.reason,
+            valid_to: input.validTo,
+            status: input.status ?? "STALE",
+            entityType: prior?.entity_type ?? null,
+            entityId: prior?.entity_id ?? null,
+            fieldName: prior?.field_name ?? null,
+            retiredValue: prior?.value ?? null,
+            sourceId: prior?.source_id ?? null,
+          }),
+        });
+      }
+      return true;
+    }
     if (input.reason) {
       await this.appendAudit({
         action: "ASSERTION_SUPERSEDE_SKIPPED",
@@ -393,6 +424,71 @@ export class LocalSqliteEvidenceWriter implements EvidenceWriter {
         targetId: input.id,
         afterJson: JSON.stringify({ reason: input.reason, valid_to: input.validTo }),
       });
+    }
+    return false;
+  }
+
+  /**
+   * EXT-M3.5 - re-open a superseded assertion whose value has come back.
+   *
+   * `saveAssertion` de-duplicates on the semantic identity (entity, field,
+   * source, value), so a reverted value cannot be written again: the insert is
+   * ignored and the field is left with no current claim. This restores the row
+   * and re-points it at the snapshot that most recently carried the value.
+   *
+   * The `valid_to IS NOT NULL` guard means this can only ever act on a
+   * superseded row. Calling it on a current assertion changes nothing.
+   */
+  async reviveAssertion(input: {
+    id: string;
+    observedAt: string;
+    sourceSnapshotId: string;
+    confidence: number;
+  }): Promise<boolean> {
+    // Read the row first for the same reason supersedeAssertion does: a claim that
+    // comes back to life is a lifecycle change, and a lifecycle change that is not on
+    // the record cannot be told apart later from a row that was never retired.
+    const prior = this.db
+      .prepare(
+        `SELECT entity_type, entity_id, field_name, value, source_id, valid_to
+           FROM data_assertions WHERE id = ?`,
+      )
+      .get(input.id) as
+      | { entity_type: string; entity_id: string; field_name: string; value: string; source_id: string; valid_to: string | null }
+      | undefined;
+    const res = this.db
+      .prepare(
+        `UPDATE data_assertions
+            SET valid_to = NULL,
+                observed_at = ?,
+                source_snapshot_id = ?,
+                confidence = ?,
+                verification_status = 'UNVERIFIED'
+          WHERE id = ? AND valid_to IS NOT NULL`,
+      )
+      .run(input.observedAt, input.sourceSnapshotId, input.confidence, input.id);
+    if (res.changes > 0) {
+      await this.appendAudit({
+        action: "ASSERTION_REVIVED",
+        targetType: "DATA_ASSERTION",
+        targetId: input.id,
+        beforeJson: JSON.stringify({
+          reason: "the same source reported this value again, so the retirement is reversed rather than a duplicate row written",
+          retired_at: prior?.valid_to ?? null,
+          entityType: prior?.entity_type ?? null,
+          entityId: prior?.entity_id ?? null,
+          fieldName: prior?.field_name ?? null,
+          value: prior?.value ?? null,
+          sourceId: prior?.source_id ?? null,
+        }),
+        afterJson: JSON.stringify({
+          observed_at: input.observedAt,
+          source_snapshot_id: input.sourceSnapshotId,
+          confidence: input.confidence,
+          verification_status: "UNVERIFIED",
+        }),
+      });
+      return true;
     }
     return false;
   }

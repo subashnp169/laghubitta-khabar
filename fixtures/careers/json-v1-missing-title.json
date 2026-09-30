@@ -1,0 +1,12 @@
+{
+  "$comment": "A posting whose position cell is blank. Location and deadline are present and readable, but with nothing to name the role there is no vacancy to assert: a record with an empty title would be a vacancy called \"\".",
+  "case": "missing-position-title",
+  "payload": {
+    "data": [
+      {
+        "id": 44,
+        "body": "<table><thead><tr><th>Position</th><th>Location</th><th>Employment Type</th><th>Last date to apply</th></tr></thead><tbody><tr><td></td><td>Kathmandu</td><td>Full time</td><td>2026-09-10</td></tr></tbody></table>"
+      }
+    ]
+  }
+}

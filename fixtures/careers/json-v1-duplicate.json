@@ -1,0 +1,20 @@
+{
+  "$comment": "The same posting listed three times: twice byte-identical, and once under a different id but the same role, location and deadline. Deduplication is on the vacancy's identity, not on the row id, so three rows collapse to one vacancy - otherwise a repeated listing would inflate the count and, on a later run, look like a change.",
+  "case": "duplicate-postings",
+  "payload": {
+    "data": [
+      {
+        "id": 51,
+        "body": "<table><thead><tr><th>Position</th><th>Location</th><th>Employment Type</th><th>Last date to apply</th></tr></thead><tbody><tr><td>Microfinance Officer</td><td>Rupandehi</td><td>Full time</td><td>2026-10-01</td></tr></tbody></table>"
+      },
+      {
+        "id": 51,
+        "body": "<table><thead><tr><th>Position</th><th>Location</th><th>Employment Type</th><th>Last date to apply</th></tr></thead><tbody><tr><td>Microfinance Officer</td><td>Rupandehi</td><td>Full time</td><td>2026-10-01</td></tr></tbody></table>"
+      },
+      {
+        "id": 52,
+        "body": "<table><thead><tr><th>Position</th><th>Location</th><th>Employment Type</th><th>Last date to apply</th></tr></thead><tbody><tr><td>Microfinance Officer</td><td>Rupandehi</td><td>Full time</td><td>2026-10-01</td></tr></tbody></table>"
+      }
+    ]
+  }
+}

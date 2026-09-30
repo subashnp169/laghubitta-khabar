@@ -1,0 +1,13 @@
+{
+  "$comment": "The same posting with its last date to apply moved. Used to prove that a changed field revives an assertion on an existing vacancy rather than creating a second one.",
+  "case": "changed-deadline",
+  "payload": {
+    "pagecontent": [
+      {
+        "id": 31,
+        "date": "2026-08-04",
+        "description": "<h2>Vacancy Announcement 2083</h2><table><thead><tr><th>Position</th><th>Location</th><th>Employment Type</th><th>Last date to apply</th></tr></thead><tbody><tr><td>Trainee Assistant</td><td>Kathmandu</td><td>Full time</td><td>2083-06-15</td></tr></tbody></table>"
+      }
+    ]
+  }
+}

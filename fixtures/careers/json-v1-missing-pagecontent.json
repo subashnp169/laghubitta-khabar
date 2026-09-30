@@ -1,0 +1,8 @@
+{
+  "$comment": "A response that is valid JSON but carries no content array at all - the shape an error handler or an empty result set returns. The array key the contract expects is simply absent, so nothing can be read and the mapper must not treat the absence as a statement that no vacancy exists.",
+  "case": "missing-content-array",
+  "payload": {
+    "meta": { "total": 0, "generated": "2026-08-04T00:00:00Z" },
+    "status": "ok"
+  }
+}

@@ -211,6 +211,25 @@ export interface EvidenceWriter {
    * byte-identical one, and to re-point assertions at it.
    */
   findSnapshotByContentHash(sourceId: string, contentHash: string): Promise<string | null>;
+  /**
+   * Make a SUPERSEDED assertion current again, for a value that has come back.
+   *
+   * An assertion's identity is (entity, field, source, value), so a value that
+   * reverts — Credit, then Risk, then Credit again — resolves to the row that
+   * was already written and closed out. Re-inserting it is a no-op against
+   * `INSERT OR IGNORE`, which would leave the field with no current claim at all
+   * and silently drop it from the read model. Reviving is the only correct
+   * outcome: the same claim is true again, observed later.
+   *
+   * Optional. A writer that cannot revive returns false, and the caller falls
+   * back to inserting, which is correct for a claim never seen before.
+   */
+  reviveAssertion?(input: {
+    id: string;
+    observedAt: string;
+    sourceSnapshotId: string;
+    confidence: number;
+  }): Promise<boolean>;
 }
 
 /** One stored assertion, as the deterministic lookup returns it. */

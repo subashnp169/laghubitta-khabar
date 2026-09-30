@@ -1,0 +1,15 @@
+{
+  "$comment": "Sanitised fixture for the generic same-origin JSON envelope mapper. Field names and structure are those observed on a live public career endpoint; the values are invented for testing and describe no real institution or vacancy. No credentials, cookies, tokens or session data are present, and none may be added.",
+  "case": "off-site-link-only",
+  "payload": {
+    "pagecontent": [
+      {
+        "mainlocation_id": 7,
+        "date": "2025-10-16",
+        "sublocation_id": 17,
+        "id": 9,
+        "description": "<p><a href=\"http://example-portal.invalid/vacancy\" target=\"_blank\">Go to Online Vacancy</a><br />&nbsp;</p>"
+      }
+    ]
+  }
+}

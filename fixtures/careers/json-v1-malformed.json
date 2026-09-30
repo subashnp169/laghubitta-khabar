@@ -1,0 +1,7 @@
+{
+  "$comment": "Deliberately invalid JSON: a trailing comma before the closing bracket. A real endpoint returns this on an error path, and the pipeline must fail at the parser rather than guess at what was meant. Nothing may read this file expecting a payload.",
+  "case": "malformed-json",
+  "payload": [
+    { "id": 1, "body": "<p>incomplete</p>" },
+  ]
+}

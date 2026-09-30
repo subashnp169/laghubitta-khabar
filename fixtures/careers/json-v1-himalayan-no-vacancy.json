@@ -1,0 +1,15 @@
+{
+  "$comment": "Sanitised copy of the shape observed on a live same-origin public career endpoint, which returns one array whose items carry their content as an HTML string. This particular item contains no vacancy: its whole content is a paragraph linking to a third-party recruitment portal, over plain HTTP and on a different site. The mapper must return zero vacancies, record the off-site destination without following it, and say that the vacancy is published elsewhere. It is not evidence that the institution has no vacancies. No credentials, cookies, tokens or session data are present, and none may be added.",
+  "case": "live-shape-links-off-site-no-vacancy",
+  "payload": {
+    "pagecontent": [
+      {
+        "id": 17,
+        "date": "2026-03-11",
+        "mainlocation_id": 3,
+        "sublocation_id": 9,
+        "description": "<p>For further information and application, please visit <a href=\"http://himalayanlaghubitta.rigojobs.com/vacancy/detail/17\">our recruitment portal</a>.</p>"
+      }
+    ]
+  }
+}

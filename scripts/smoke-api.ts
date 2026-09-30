@@ -4,13 +4,17 @@
 //   01 collection envelope + pagination defaults/clamps
 //   02 filters: ?q= by name/alias, ?province=, ?status=
 //   03 single resource + 404 error envelope + UNVERIFIED meta
-//   04 sub-resources: documents (NRB-linked), events, jobs (name-prefix rule)
+//   04 sub-resources: documents (NRB-linked), events, jobs (evidence-keyed slug)
 //   05 empty Phase B/C collections (honest total: 0)
 //   06 search grouped + validation (missing q → 422), method guard (405)
+//   07 vacancies are evidence-derived: the module is generated, every row names
+//      its source, and no institution can be credited with a vacancy not keyed to it
 // ============================================================================
 
 // Fixture-only test harness reading JSON with unchecked shape access.
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { handleApiRequest } from "../lib/api/handler";
 import { parsePagination } from "../lib/api/contract";
 import { institutions } from "../src/data/institutions";
@@ -129,6 +133,56 @@ const post = request("POST", "/api/institutions");
 ok(post.status === 405 && post.body.error.code === "METHOD_NOT_ALLOWED", "only GET supported");
 const bad = request("GET", "/api/not-a-route");
 ok(bad.status === 404 && bad.body.error.code === "NOT_FOUND", "unknown route → 404");
+
+// 07 vacancies are evidence, never content
+console.log("smoke:api — vacancies come from evidence only");
+const jobsSource = readFileSync(join(__dirname, "..", "src", "data", "jobs.ts"), "utf8");
+ok(
+  jobsSource.includes("GENERATED FILE"),
+  "src/data/jobs.ts declares itself generated, so a hand-written row is visible in review",
+);
+ok(
+  !/title:\s*"(?:Branch Manager|Credit Officer|Risk Manager|Internal Auditor|IT Officer|Relationship Manager|Compliance Officer|Microfinance Trainer|Data Analyst)"/.test(jobsSource),
+  "no hand-written vacancy titles survive in the jobs module",
+);
+// Whatever the module holds, every row must carry the provenance fields the
+// generator writes. A row without them came from somewhere other than evidence. The
+// counts are taken from the array body only, so the `Job` interface above it — which
+// also mentions these field names — cannot satisfy the check on its own.
+const jobsBody = (jobsSource.match(/export const jobs: Job\[\] = \[([\s\S]*?)\];/) ?? ["", ""])[1];
+const rowCount = jobsBody.split(/\n {2}\{/).filter((s) => s.trim().length > 0).length;
+ok(rowCount === (jobsBody.match(/^ {4}id: /gm) ?? []).length, "every job row in the module is counted the same way");
+ok((jobsBody.match(/sourceName: /g) ?? []).length === rowCount, "every job row names the source it was observed from");
+ok((jobsBody.match(/lastSeenAt: /g) ?? []).length === rowCount, "every job row records when it was last seen");
+ok((jobsBody.match(/status: /g) ?? []).length === rowCount, "every job row carries a lifecycle status");
+ok(
+  !/institution: "(?!.*not observed)/.test(jobsBody) || rowCount === 0,
+  "an institution name is either observed from the source or explicitly marked unobserved",
+);
+let jobsEmpty = true;
+for (const inst of institutions) {
+  const r = request("GET", `/api/institutions/${inst.slug}/jobs`);
+  if (r.status !== 200) {
+    ok(false, `institution jobs route for ${inst.slug} returns 200`);
+    jobsEmpty = false;
+    break;
+  }
+  // An institution with no evidence behind it must report no vacancies. The old
+  // implementation matched jobs to institutions by name prefix, which is how ten
+  // invented postings were attributed to named MFIs.
+  const rows = r.body.data as { slug?: string }[];
+  if (rows.some((row) => !row.slug || !row.slug.startsWith(`${inst.slug}-`))) {
+    ok(false, `every job returned for ${inst.slug} is keyed to that institution's slug`);
+    jobsEmpty = false;
+    break;
+  }
+}
+ok(jobsEmpty, `no institution returns a vacancy that is not keyed to its own slug (${institutions.length} checked)`);
+const unknownJobs = request("GET", "/api/institutions/definitely-not-an-mfi/jobs");
+ok(
+  unknownJobs.status === 404 && unknownJobs.body.error.code === "NOT_FOUND",
+  "unknown institution jobs route → 404",
+);
 
 console.log(`\nsmoke:api: ${passed} passed, ${failed} failed`);
 if (failed > 0) process.exit(1);

@@ -1,0 +1,16 @@
+{
+  "$comment": "A well-formed envelope whose table is a header row plus a data row: the shape the HTML grammar reads. Values are invented for testing and describe no real institution or vacancy. No credentials, cookies, tokens or session data are present, and none may be added.",
+  "case": "valid-single-posting",
+  "payload": {
+    "data": [
+      {
+        "id": 31,
+        "title": "Trainee Assistant",
+        "location": "Kathmandu",
+        "posted": "2026-08-04",
+        "deadline": "2026-09-20",
+        "body": "<h2>Vacancy Announcement</h2><table><thead><tr><th>Position</th><th>Location</th><th>Employment Type</th><th>Last date to apply</th></tr></thead><tbody><tr><td>Trainee Assistant</td><td>Kathmandu</td><td>Full time</td><td>2026-09-20</td></tr></tbody></table>"
+      }
+    ]
+  }
+}

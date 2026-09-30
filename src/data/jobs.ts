@@ -1,14 +1,34 @@
-import { Job } from "@/types";
+// GENERATED FILE - do not edit. Run `npm run build:jobs` to rebuild.
+//
+// no vacancy published yet as of 2026-09-30: the M3.5 discovery pass parsed real pages and is recorded in data/pilot/career-source-registry.json, but it asserts no vacancy
+//
+// Every entry is a projection of a current, non-rejected VACANCY assertion row in
+// data/pilot/evidence/pilot-careers-2026-09-29.db, and such a row exists only if
+// evidence was fetched from an institution's own site and then published. No code
+// path in this project can invent one. Do not add a row by hand: nothing downstream
+// would be able to tell it from a real one.
+//
+// An empty list here has more than one possible reason, and the note above says
+// which one applies. It is not the same as "nothing was found": the M3.5 discovery
+// pass does parse real pages and records every candidate it sees, including the
+// titles and counts, in data/pilot/career-source-registry.json. What it has never
+// done is publish one. So read "no assertions" as "nothing published yet".
 
-export const jobs: Job[] = [
-  { id: "1", title: "Branch Manager", institution: "Nirdhan Utthan Laghubitta", location: "Kathmandu", type: "Full-time", deadline: "2026-08-15", description: "Oversee branch operations, loan portfolio management and team leadership.", slug: "branch-manager-nirdhan" },
-  { id: "2", title: "Credit Officer", institution: "Deprosc Laghubitta", location: "Chitwan", type: "Full-time", deadline: "2026-08-20", description: "Loan assessment, disbursement and recovery in rural areas.", slug: "credit-officer-deprosc" },
-  { id: "3", title: "Risk Manager", institution: "Chhimek Laghubitta", location: "Kathmandu", type: "Full-time", deadline: "2026-08-30", description: "Enterprise risk management, NPL monitoring and mitigation strategies.", slug: "risk-manager-chhimek" },
-  { id: "4", title: "Internal Auditor", institution: "Sana Kisan Bikas Laghubitta", location: "Lalitpur", type: "Full-time", deadline: "2026-09-05", description: "Conduct internal audits across branch network.", slug: "internal-auditor-sana-kisan" },
-  { id: "5", title: "IT Officer", institution: "First Microfinance Laghubitta", location: "Kathmandu", type: "Full-time", deadline: "2026-08-25", description: "Manage IT infrastructure and digital banking systems.", slug: "it-officer-first-microfinance" },
-  { id: "6", title: "Relationship Manager", institution: "NMB Laghubitta", location: "Pokhara", type: "Full-time", deadline: "2026-09-10", description: "Client acquisition and relationship management.", slug: "relationship-manager-nmb" },
-  { id: "7", title: "Compliance Officer", institution: "Global IME Laghubitta", location: "Pokhara", type: "Full-time", deadline: "2026-08-28", description: "Regulatory compliance and NRB reporting.", slug: "compliance-officer-global-ime" },
-  { id: "8", title: "Branch Manager", institution: "Forward Microfinance", location: "Sunsari", type: "Full-time", deadline: "2026-09-15", description: "Branch operations and target achievement.", slug: "branch-manager-forward" },
-  { id: "9", title: "Microfinance Trainer", institution: "Mero Microfinance", location: "Nuwakot", type: "Contract", deadline: "2026-08-22", description: "Train field staff on microfinance operations.", slug: "microfinance-trainer-mero" },
-  { id: "10", title: "Data Analyst", institution: "RSDC Laghubitta", location: "Butwal", type: "Full-time", deadline: "2026-09-20", description: "Data-driven portfolio analysis and reporting.", slug: "data-analyst-rsdc" },
-];
+export interface Job {
+  id: string;
+  title: string;
+  institution: string;
+  location: string;
+  type: string;
+  deadline: string | null;
+  description: string;
+  slug: string;
+  status: string;
+  sourceName: string | null;
+  lastSeenAt: string;
+}
+
+/** What this build was based on, shown by the page so the empty case is legible. */
+export const jobsProvenance: string = "no vacancy published yet as of 2026-09-30: the M3.5 discovery pass parsed real pages and is recorded in data/pilot/career-source-registry.json, but it asserts no vacancy";
+
+export const jobs: Job[] = [];

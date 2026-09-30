@@ -1,0 +1,13 @@
+{
+  "$comment": "A posting that really is in the payload, as a table. Proves the mapper can reach a record through the same HTML grammar an HTML page uses, and that a deadline in a cell under a Deadline header is structurally assertable.",
+  "case": "one-vacancy-table",
+  "payload": {
+    "pagecontent": [
+      {
+        "id": 31,
+        "date": "2026-08-04",
+        "description": "<h2>Vacancy Announcement 2083</h2><table><thead><tr><th>Position</th><th>Location</th><th>Employment Type</th><th>Last date to apply</th></tr></thead><tbody><tr><td>Trainee Assistant</td><td>Kathmandu</td><td>Full time</td><td>2083-05-30</td></tr></tbody></table>"
+      }
+    ]
+  }
+}

@@ -87,9 +87,35 @@ function eventsByInst(inst: Institution): NrbRegulatoryEvent[] {
     .sort((a, b) => ((a.occurredAt ?? "") < (b.occurredAt ?? "") ? 1 : -1));
 }
 
+/**
+ * Vacancies for an institution, from the generated evidence module.
+ *
+ * Matching is on the institution slug that the generator recorded from the
+ * `ingestion_sources` -> `institutions` join, not on a name prefix. A prefix match
+ * is how a fabricated "Branch Manager at Nirdhan Utthan Laghubitta" row ended up on
+ * an institution's page: the row existed, and its institution field merely started
+ * with the same words. Slug matching can only return a row that was actually
+ * observed from that institution's own site, because that is where the slug came
+ * from.
+ */
 function jobsByInst(inst: Institution): Job[] {
-  const full = inst.name.toLowerCase();
-  return jobs.filter((j) => full.startsWith(j.institution.toLowerCase())).sort((a, b) => a.id.localeCompare(b.id));
+  const prefix = `${inst.slug}-`;
+  return jobs
+    .filter((j) => j.slug.startsWith(prefix))
+    .map((j) => ({
+      id: j.id,
+      title: j.title,
+      institution: j.institution,
+      location: j.location,
+      type: j.type,
+      // The API envelope types `deadline` as a required string, so an unobserved
+      // deadline becomes empty rather than a guessed date. The public page renders
+      // null as "No deadline observed".
+      deadline: j.deadline ?? "",
+      description: j.description,
+      slug: j.slug,
+    }))
+    .sort((a, b) => a.id.localeCompare(b.id));
 }
 
 function lookup(inst: Institution): InstLookup {

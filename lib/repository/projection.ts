@@ -342,8 +342,418 @@ export function branchAssertionHistory(
           ? a.observed_at < b.observed_at
             ? -1
             : 1
-          : a.field_name < b.field_name
-            ? -1
-            : 1,
+        : a.field_name < b.field_name
+          ? -1
+          : 1,
     );
+}
+
+// ============================================================================
+// Vacancy evidence projection (M3.5) — pure, provider-agnostic read model.
+//
+// The rules, and the reasons they are stricter than the branch projection:
+//
+//   - A vacancy is a distinct `entity_id` group. Identity is
+//     `<institution>|<normalized title>|<normalized location>` and the URL,
+//     the source and the dates are deliberately NOT part of it. A notice that
+//     moves to a new URL, or gets reposted with a new date, is the same vacancy
+//     with a changed field; a notice that changes its title or location is a
+//     different one. That is a design decision, and the fixtures test it rather
+//     than this function asserting it is right.
+//   - A field is published only at confidence >= 0.5. A deadline recovered from
+//     prose is stored at 0.45 and is deliberately NOT published as `deadline`; it
+//     surfaces as `deadline_evidence` with its raw text, so a reader can see that
+//     a deadline exists without the system claiming to know the date.
+//   - A document (a PDF notice) is a vacancy-shaped entity with no fields. It
+//     appears with `kind: "document"` and its link, never with invented contents.
+//   - Lifecycle is derived, never asserted:
+//       ACTIVE            a supported deadline is in the future, or none is known
+//       EXPIRED           a supported deadline is in the past
+//       CLOSED            an explicit closure marker was asserted
+//       NOT_LISTED        previously seen, absent from the latest listing
+//       SOURCE_UNAVAILABLE  the source itself could not be read
+//     A failed fetch is SOURCE_UNAVAILABLE, never CLOSED, and a vacancy missing
+//     from one listing is NOT_LISTED, never CLOSED.
+// ============================================================================
+
+import type { JobDto } from "./types";
+
+/** Raw vacancy evidence row, as the repository adapters hand to the projection. */
+export interface VacancyAssertionRecord {
+  entity_id: string;
+  institution_id: string;
+  institution_slug: string;
+  institution_name: string;
+  field_name: string;
+  value: string;
+  source_id: string;
+  source_name?: string | null;
+  observed_at: string;
+  valid_to: string | null;
+  verification_status: string;
+  confidence: number | null;
+}
+
+/**
+ * Vacancy field name -> JobDto property. The uppercase names are the assertion
+ * vocabulary written by lib/ingestion/career-evidence.ts; the lowercase names
+ * are the same fields as the pre-M3.5 JSON API path wrote them, so both a new
+ * careers run and an older fixture reach the same read model.
+ */
+const VACANCY_FIELD_ALIASES: Readonly<Record<string, string>> = {
+  JOB_TITLE: "title",
+  VACANCY_TITLE: "title",
+  job_title: "title",
+  title: "title",
+  LOCATION: "location",
+  VACANCY_LOCATION: "location",
+  location: "location",
+  EMPLOYMENT_TYPE: "type",
+  VACANCY_EMPLOYMENT_TYPE: "type",
+  employment_type: "type",
+  job_type: "type",
+  PUBLISHED_DATE: "posted_at",
+  VACANCY_PUBLISHED_DATE: "posted_at",
+  published_date: "posted_at",
+  posted_at: "posted_at",
+  DEADLINE: "deadline",
+  VACANCY_DEADLINE: "deadline",
+  deadline: "deadline",
+  APPLICATION_URL: "application_url",
+  VACANCY_APPLICATION_URL: "application_url",
+  application_url: "application_url",
+  CONTACT_EMAIL: "contact_email",
+  VACANCY_CONTACT_EMAIL: "contact_email",
+  contact_email: "contact_email",
+  DEPARTMENT: "department",
+  VACANCY_DEPARTMENT: "department",
+  department: "department",
+  REQUIREMENTS: "requirements",
+  VACANCY_REQUIREMENTS: "requirements",
+  requirements: "requirements",
+  EDUCATION: "education",
+  VACANCY_EDUCATION: "education",
+  education: "education",
+  EXPERIENCE: "experience",
+  VACANCY_EXPERIENCE: "experience",
+  experience: "experience",
+  APPLICATION_METHOD: "application_method",
+  VACANCY_APPLICATION_METHOD: "application_method",
+  application_method: "application_method",
+  SOURCE_DOCUMENT: "source_document",
+  VACANCY_SOURCE_DOCUMENT: "source_document",
+  source_document: "source_document",
+  /** An explicit closure marker, when a source publishes one. Never inferred. */
+  VACANCY_STATUS_CLOSED: "closed_marker",
+};
+
+/** The confidence at or above which a stored value is published as a fact. */
+const VACANCY_PUBLISHABLE = 0.5;
+
+/**
+ * Lifecycle, as a read model. Deliberately separate from `JobDto.is_active`,
+ * which collapses every non-active state into one boolean and therefore cannot
+ * distinguish "the deadline passed" from "the source is down" from "we stopped
+ * seeing it". Callers that need to explain themselves use this.
+ */
+export type VacancyStatus =
+  | "ACTIVE"
+  | "EXPIRED"
+  | "CLOSED"
+  | "NOT_LISTED"
+  | "UNKNOWN"
+  | "CONFLICT"
+  | "SOURCE_UNAVAILABLE";
+
+/** How a vacancy was evidenced, which changes what may be said about it. */
+export type VacancyKind = "POSTING" | "DOCUMENT";
+
+/**
+ * A vacancy as the read model exposes it. Extends JobDto additively: `JobDto`
+ * stays frozen and every existing consumer keeps working, while the careers
+ * detail a reader needs lives in the extra fields.
+ */
+export interface VacancyDto extends JobDto {
+  institution_id: string;
+  institution_slug: string;
+  institution_name: string;
+  status: VacancyStatus;
+  kind: VacancyKind;
+  department: string | null;
+  requirements: string | null;
+  education: string | null;
+  experience: string | null;
+  application_method: string | null;
+  application_url: string | null;
+  contact_email: string | null;
+  source_document: string | null;
+  /**
+   * A deadline that was read from page text at 0.45 and is therefore not
+   * published as `deadline`. Present so a reader can see that the notice
+   * mentions one, with the raw text and no claimed date.
+   */
+  deadline_evidence: string | null;
+  /** Set when two sources disagree on a published field of this vacancy. */
+  conflicts: string[];
+  last_seen_at: string;
+  source_name: string | null;
+}
+
+function isVacancyRow(r: VacancyAssertionRecord): boolean {
+  return Object.prototype.hasOwnProperty.call(VACANCY_FIELD_ALIASES, String(r.field_name));
+}
+
+function vacancyRetired(r: VacancyAssertionRecord): boolean {
+  return r.valid_to !== null && r.valid_to !== undefined;
+}
+
+function vacancyEffectiveStatus(statuses: string[], conflict: boolean): VerificationStatus {
+  if (conflict) return "CONFLICT";
+  if (statuses.includes("HUMAN_VERIFIED")) return "HUMAN_VERIFIED";
+  if (statuses.includes("AUTO_VERIFIED")) return "AUTO_VERIFIED";
+  return "UNVERIFIED";
+}
+
+export interface VacancyProjectionOptions {
+  /** Open vacancy conflicts as `<entity_id>|<field_name>` keys. */
+  openConflictKeys?: ReadonlySet<string>;
+  /**
+   * `now` for lifecycle evaluation. Injected rather than read from the clock so
+   * a test can place a deadline on either side of it and get a stable answer.
+   */
+  now?: string;
+  /**
+   * Entity ids observed in the most recent listing. A vacancy that was seen in an
+   * earlier run but is absent here is NOT_LISTED — distinct from a vacancy that
+   * was never seen, and never CLOSED.
+   */
+  listedEntityIds?: ReadonlySet<string>;
+  /**
+   * Sources whose most recent fetch failed. A vacancy whose only source is in
+   * here is SOURCE_UNAVAILABLE, because nothing was learned about it, which is
+   * not the same as it being closed.
+   */
+  unavailableSourceIds?: ReadonlySet<string>;
+}
+
+/**
+ * Project ACTIVE vacancy evidence into VacancyDto[].
+ *
+ * Deterministic order: institution, then deadline (soonest first, undated
+ * last), then title, then id.
+ */
+export function jobsFromAssertionRows(
+  rows: VacancyAssertionRecord[],
+  opts: VacancyProjectionOptions = {},
+): VacancyDto[] {
+  const open = opts.openConflictKeys ?? new Set<string>();
+  const listed = opts.listedEntityIds;
+  const unavailable = opts.unavailableSourceIds ?? new Set<string>();
+  const now = opts.now ?? new Date(0).toISOString().slice(0, 10);
+
+  const byEntity = new Map<string, VacancyAssertionRecord[]>();
+  for (const r of rows) {
+    if (!isVacancyRow(r)) continue;
+    if (String(r.verification_status) === "REJECTED") continue;
+    if (vacancyRetired(r)) continue;
+    const bucket = byEntity.get(r.entity_id);
+    if (bucket) bucket.push(r);
+    else byEntity.set(r.entity_id, [r]);
+  }
+
+  const out: VacancyDto[] = [];
+  for (const [entityId, bucket] of byEntity) {
+    const first = bucket[0];
+
+    // A field with several current values from one source is ambiguous. When the
+    // values differ, none of them is published and the ambiguity is reported.
+    const published = new Map<string, { value: string; confidence: number }>();
+    const conflictedFields = new Set<string>();
+    // A closure marker is not a field value, so it is tracked beside `published`
+    // rather than inside it. Reading it back out of `published` cannot work:
+    // the loop below deliberately skips it, so `published` never holds one.
+    let closedMarker = false;
+
+    for (const r of bucket) {
+      const prop = VACANCY_FIELD_ALIASES[String(r.field_name)];
+      const value = String(r.value).trim();
+      if (!value) continue;
+      if (prop === "closed_marker") {
+        closedMarker = true;
+        continue;
+      }
+
+      const known = published.get(prop);
+      if (known && known.value !== value) {
+        conflictedFields.add(prop);
+        continue;
+      }
+      if (!known) published.set(prop, { value, confidence: r.confidence ?? 0 });
+    }
+
+    // The disputes this record is carrying, which are two different things and must
+    // not be collapsed into one:
+    //   - a field where sources currently disagree, found in the rows above;
+    //   - a field with an open conflict row the caller has read out of
+    //     data_conflicts, which is a dispute a human has not resolved yet and which
+    //     may still be recorded after the sources have since converged.
+    // Neither is invented here: both are read from something that exists. A caller
+    // that knows nothing about conflict rows still gets the disagreements it can see.
+    const conflicts: string[] = [...conflictedFields];
+    for (const key of open) {
+      if (!key.startsWith(`${entityId}|`)) continue;
+      const fieldName = key.slice(entityId.length + 1);
+      const prop = VACANCY_FIELD_ALIASES[fieldName];
+      if (prop && prop !== "closed_marker" && !conflicts.includes(prop)) conflicts.push(prop);
+    }
+
+    const publishable = (prop: string): string | null => {
+      if (conflictedFields.has(prop)) return null;
+      const held = published.get(prop);
+      if (!held) return null;
+      return held.confidence >= VACANCY_PUBLISHABLE ? held.value : null;
+    };
+
+    const title = publishable("title") ?? String(published.get("title")?.value ?? "");
+    const sourceDocument = publishable("source_document");
+    // A PDF notice is a vacancy-shaped entity whose text was never read. It has no
+    // asserted title, so the display title is the document's own filename. That is
+    // a fact about the file, not a claim about what is inside it, and the read
+    // model marks it `kind: "DOCUMENT"` so no caller can mistake it for a posting
+    // with extracted fields.
+    const kind: VacancyKind = sourceDocument !== null && !publishable("title") ? "DOCUMENT" : "POSTING";
+    const displayTitle = title || (sourceDocument ? documentFileName(sourceDocument) : "");
+    // Nothing to show and no document: there is no vacancy here.
+    if (!displayTitle) continue;
+
+    const deadline = publishable("deadline");
+    const deadlineRaw = published.get("deadline");
+    const deadlineEvidence =
+      deadline === null && deadlineRaw && deadlineRaw.confidence < VACANCY_PUBLISHABLE
+        ? deadlineRaw.value
+        : null;
+
+    const lastSeenAt = bucket.reduce((max, r) => (r.observed_at > max ? r.observed_at : max), "");
+    const sourceIds = [...new Set(bucket.map((r) => r.source_id))];
+    const statuses = bucket.map((r) => String(r.verification_status));
+    const conflict = conflictedFields.size > 0 || conflicts.length > 0;
+
+    const status = resolveVacancyStatus({
+      deadline,
+      closed: closedMarker,
+      listed: listed === undefined ? true : listed.has(entityId),
+      // Only a live disagreement makes the record contradictory. A conflict row that
+      // is still open after the sources converged is reported in `conflicts` and must
+      // not keep the vacancy permanently out of the active set.
+      conflicted: conflictedFields.size > 0,
+      sources: sourceIds,
+      unavailable,
+      now,
+    });
+
+    const meta: SourceMeta = {
+      source: first.source_id,
+      last_verified_at: lastSeenAt || null,
+      verification_status: vacancyEffectiveStatus(statuses, conflict),
+    };
+
+    out.push({
+      id: entityId,
+      title: displayTitle,
+      location: publishable("location"),
+      type: publishable("type"),
+      posted_at: publishable("posted_at"),
+      deadline,
+      // is_active is JobDto's coarse boolean: anything still open. A caller that
+      // needs to say WHY uses `status`.
+      is_active: status === "ACTIVE",
+      meta,
+      institution_id: first.institution_id,
+      institution_slug: first.institution_slug,
+      institution_name: first.institution_name,
+      status,
+      kind,
+      department: publishable("department"),
+      requirements: publishable("requirements"),
+      education: publishable("education"),
+      experience: publishable("experience"),
+      application_method: publishable("application_method"),
+      application_url: publishable("application_url"),
+      contact_email: publishable("contact_email"),
+      source_document: sourceDocument,
+      deadline_evidence: deadlineEvidence,
+      conflicts: [...new Set([...conflicts, ...conflictedFields])].sort(),
+      last_seen_at: lastSeenAt,
+      source_name: first.source_name ?? null,
+    });
+  }
+
+  out.sort((a, b) => {
+    if (a.institution_name !== b.institution_name) return a.institution_name < b.institution_name ? -1 : 1;
+    // Undated vacancies sort after dated ones, then soonest deadline first.
+    if (a.deadline !== b.deadline) {
+      if (a.deadline === null) return 1;
+      if (b.deadline === null) return -1;
+      return a.deadline < b.deadline ? -1 : 1;
+    }
+    if (a.title !== b.title) return a.title < b.title ? -1 : 1;
+    return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
+  });
+  return out;
+}
+
+/**
+ * The lifecycle rule, isolated so it can be tested on its own and so the reason
+ * for a status is never lost.
+ *
+ * Precedence matters. An explicit closure marker outranks a date, because a
+ * source that says "closed" knows more than a date we inferred. Unavailability
+ * outranks everything else, because a source we could not read told us nothing
+ * this run and its absence is not information about the vacancy. NOT_LISTED is
+ * only reachable when a listing was actually observed, so an entity that was
+ * never listed cannot be reported as having been removed.
+ */
+function resolveVacancyStatus(input: {
+  deadline: string | null;
+  closed: boolean;
+  listed: boolean;
+  conflicted: boolean;
+  sources: string[];
+  unavailable: ReadonlySet<string>;
+  now: string;
+}): VacancyStatus {
+  if (input.closed) return "CLOSED";
+  const anyReadable = input.sources.some((s) => !input.unavailable.has(s));
+  if (!anyReadable) return "SOURCE_UNAVAILABLE";
+  if (!input.listed) return "NOT_LISTED";
+  // Two sources currently disagree on a published field of this vacancy. The record
+  // contradicts itself, so it cannot be presented as a healthy open vacancy, and no
+  // disputed value is published for it. It is not CLOSED either: a dispute about a
+  // field says nothing about whether the vacancy is still advertised.
+  if (input.conflicted) return "CONFLICT";
+  // No known deadline means we cannot say it is over, so it stays open.
+  if (input.deadline === null) return "ACTIVE";
+  // ISO dates compare correctly as strings; both sides are YYYY-MM-DD.
+  return input.deadline < input.now ? "EXPIRED" : "ACTIVE";
+}
+
+/** The file name of a document URL, or the URL itself when it has none. */
+function documentFileName(url: string): string {
+  try {
+    const last = new URL(url).pathname.split("/").filter(Boolean).pop();
+    return last ? decodeURIComponent(last) : url;
+  } catch {
+    return url;
+  }
+}
+
+/** Slug for vacancy routes, derived from the identity key. */
+export function vacancySlug(institutionSlug: string, entityId: string): string {
+  const tail = entityId.split("|").slice(1).join("-");
+  const slug = `${institutionSlug}-${tail}`
+    .replace(/[^a-z0-9]+/gi, "-")
+    .replace(/-{2,}/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .toLowerCase();
+  return slug.slice(0, 120);
 }

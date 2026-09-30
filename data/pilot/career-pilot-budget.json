@@ -1,0 +1,26 @@
+{
+  "$schema": "career-pilot-budget/v1",
+  "note": "M3.5 career/vacancy RESEARCH budget. Deliberately SEPARATE from data/pilot/pilot-budget.json, whose defaults.maxFetches:18 is the frozen production crawl budget and is NOT changed by M3.5. This file bounds a one-off live research pass whose only output is a source registry and an evidence database under data/pilot/. Bounds exist so the pilot proves the pipeline instead of becoming a crawler.",
+  "phase": "M3.5",
+  "shared": {
+    "maxRedirects": 5,
+    "maxRetries": 1,
+    "timeoutMs": 20000,
+    "minIntervalMs": 250,
+    "maxRuntimeMs": 900000
+  },
+  "phases": {
+    "primary": {
+      "note": "The 29 CAREER_PAGE URLs located in pilot-sources.json. Each is fetched once, analysed, and recorded in the registry. This is the pass that decides each source's status.",
+      "maxTargets": 29,
+      "maxFetches": 29,
+      "maxBytes": 5242880
+    },
+    "detail": {
+      "note": "Same-host career sub-pages linked from the primary pages. Added after the primary pass showed that most institutions publish openings on a /careers sub-page rather than the located root, so a root-only pass cannot honestly conclude 'no current vacancy'. Capped per source so one site cannot consume the run.",
+      "maxFetchesPerSource": 3,
+      "maxFetches": 90,
+      "maxBytes": 6291456
+    }
+  }
+}

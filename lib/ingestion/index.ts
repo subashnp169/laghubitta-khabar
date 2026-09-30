@@ -187,3 +187,79 @@ export {
   type InstitutionMatchMethod,
   type OfficialBranchSourceRef,
 } from "./branch-external";
+
+// M3.5 extension: generic career/vacancy discovery. Additive only; nothing
+// above this line is re-exported, renamed or re-signed.
+export {
+  CAREER_DISCOVERY_THRESHOLD,
+  CAREER_HREF_HINTS,
+  careerLinkEvidence,
+  discoverCareerTargets,
+  extractCareerLinks,
+  isCareerCandidate,
+  isRootUrl,
+  classifyDocumentLink,
+  type CareerDiscoveryInput,
+  type CareerDiscoveryTarget,
+  type CareerEvidence,
+  type CareerLink,
+  type DocumentRole,
+  type LinkRole,
+} from "./career-discovery";
+
+// M3.5 extension: the vacancy grammar. Additive only; nothing above this line is
+// re-exported, renamed or re-signed.
+export {
+  CLIENT_SHELL_INDICATORS_MIN,
+  CLIENT_SHELL_TEXT_MAX,
+  DEPARTMENT,
+  EMPLOYMENT_TYPE,
+  JOB_ROLE_RE,
+  JOB_TITLE,
+  SOURCE_DOCUMENT,
+  UNREADABLE_TEXT_MAX,
+  analyzeCareerPage,
+  classifyCareerShape,
+  hasPlausibleDate,
+  DEADLINE_MARKER_RE,
+  isAssertableApplicationUrl,
+  isAssertableJobTitle,
+  isValidEmail,
+  parseEmploymentType,
+  parseIsoDate,
+  parseVacancyCards,
+  parseVacancyDetail,
+  parseVacancyJson,
+  parseVacancyList,
+  parseVacancyTable,
+  titleRejection,
+  vacancyFingerprint,
+  vacancyId,
+  vacancyIdentityKey,
+  vacancySlug,
+  type CareerPageAnalysis,
+  type CareerShape,
+  type CareerShapeCounts,
+  type DeadlineSupport,
+  type TitleRejection,
+  type VacancyField,
+  type VacancyRecord,
+} from "./careers";
+
+// M3.5 extension: evidence planning and application. Additive only.
+export {
+  CAREER_JSON_PARSER_VERSION,
+  CAREER_PARSER_VERSION,
+  PUBLISHABLE_CONFIDENCE,
+  VACANCY_ENTITY_TYPE,
+  applyVacancyDocument,
+  applyVacancyEvidence,
+  isPublishableAssertion,
+  planVacancyDocumentEvidence,
+  planVacancyEvidence,
+  type ApplyContext,
+  type AppliedVacancy,
+  type PlannedAssertion,
+  type PlannedVacancy,
+  type VacancyWriteStatus,
+} from "./career-evidence";

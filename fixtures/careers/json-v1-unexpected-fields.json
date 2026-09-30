@@ -1,0 +1,25 @@
+{
+  "$comment": "A valid posting carrying many fields the mapper has never heard of: an apply URL, a salary note, tags, a featured flag, a legacy id and an internal cost code. The record must come only from the structurally anchored table, and none of the extra fields may leak into an assertion - particularly apply_url, which points off-site and must not become a followed link.",
+  "case": "unexpected-extra-fields",
+  "payload": {
+    "data": [
+      {
+        "id": 71,
+        "title": "Accounts Assistant",
+        "location": "Chitwan",
+        "deadline": "2026-11-01",
+        "body": "<table><thead><tr><th>Position</th><th>Location</th><th>Employment Type</th><th>Last date to apply</th></tr></thead><tbody><tr><td>Accounts Assistant</td><td>Chitwan</td><td>Full time</td><td>2026-11-01</td></tr></tbody></table>",
+        "salary": "not disclosed",
+        "category": "finance",
+        "tags": ["accounts", "assistant"],
+        "apply_url": "https://jobs.example.invalid/apply/71",
+        "internal_cost_code": "FIN-2026-0042",
+        "ranking_score": 0.87,
+        "featured": true,
+        "legacy_id": "old-71",
+        "notes": "a field that exists and is ignored"
+      }
+    ],
+    "pagination": { "page": 1, "per_page": 20, "total_pages": 1 }
+  }
+}

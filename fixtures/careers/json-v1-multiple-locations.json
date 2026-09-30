@@ -1,0 +1,12 @@
+{
+  "$comment": "One posting covering several districts in a single location cell. The cell is kept whole rather than split: three districts in one cell are one posting at three locations, and splitting it would invent two postings that nobody published.",
+  "case": "multiple-locations-one-posting",
+  "payload": {
+    "data": [
+      {
+        "id": 61,
+        "body": "<table><thead><tr><th>Position</th><th>Location</th><th>Employment Type</th><th>Last date to apply</th></tr></thead><tbody><tr><td>Field Officer</td><td>Rupandehi, Palpa and Arghakhanchi</td><td>Full time</td><td>2026-10-15</td></tr></tbody></table>"
+      }
+    ]
+  }
+}
