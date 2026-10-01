@@ -24,15 +24,17 @@ import type { PersonDto, SourceMeta, VerificationStatus } from "./types";
 
 /** Raw person evidence row as the adapters/generators hand to the projection. */
 export interface PersonAssertionRecord {
-  institution_id: string;
-  institution_slug: string;
-  institution_name: string;
-  field_name: string;
-  value: string;
-  source_id: string;
-  observed_at: string;
-  verification_status: string;
-  confidence: number | null;
+    institution_id: string;
+    institution_slug: string;
+    institution_name: string;
+    field_name: string;
+    value: string;
+    source_id: string;
+    /** Raw URL of the page this observation came from, when one is known. */
+    source_url?: string | null;
+    observed_at: string;
+    verification_status: string;
+    confidence: number | null;
 }
 
 /** Deterministic slug for people routes: <institution-slug>-<name-slug>. */
@@ -108,18 +110,40 @@ export function peopleFromAssertionRows(
     else people.set(key, [r]);
   }
 
+  // How many distinct people this institution currently lists in each role
+  // field. A role slot is not single-occupancy: an institution can list several
+  // directors or a joint chief executive, and the read model must show that
+  // honestly rather than implying only one of the names is real.
+  const roleHolders = new Map<string, Set<string>>();
+  for (const [key, bucket] of people) {
+    const [institutionId, name] = key.split("|");
+    for (const field of new Set(bucket.map((r) => String(r.field_name).toLowerCase()))) {
+      const slot = `${institutionId}|${field}`;
+      const names = roleHolders.get(slot);
+      if (names) names.add(name);
+      else roleHolders.set(slot, new Set([name]));
+    }
+  }
+
   const out: PersonDto[] = [];
   for (const [key, bucket] of people) {
     const [institutionId, name] = key.split("|");
     const first = bucket[0];
     const statuses = bucket.map((r) => String(r.verification_status));
     const roleFields = [...new Set(bucket.map((r) => String(r.field_name).toLowerCase()))];
+    // Only an OPEN CONFLICT — a genuine disagreement between two independent
+    // sources over the same field — degrades a record to CONFLICT. Several
+    // names from ONE source under one heading is a multi-holder role, not a
+    // contradiction, and must not make the record look less trustworthy than
+    // the evidence actually is. The caller decides which keys are real
+    // conflicts; the key set is trusted here by design.
     const conflict = roleFields.some((f) => open.has(`${institutionId}|${f}`));
     const lastVerified = bucket.reduce((max, r) => (r.observed_at > max ? r.observed_at : max), "");
     const source = first.source_id;
     const meta: SourceMeta = {
       source,
       sources: distinctSources(bucket),
+      source_url: first.source_url ?? null,
       last_verified_at: lastVerified || null,
       verification_status: effectiveStatus(statuses, conflict),
     };
@@ -129,7 +153,13 @@ export function peopleFromAssertionRows(
       .map((field) => {
         const sinceRows = bucket.filter((r) => String(r.field_name).toLowerCase() === field);
         const since = sinceRows.reduce((min, r) => (r.observed_at < min ? r.observed_at : min), sinceRows[0]?.observed_at ?? "");
-        return { title: peopleRoleFieldTitle(field), committee: null, is_current: true, since: since || null };
+        return {
+          title: peopleRoleFieldTitle(field),
+          committee: null,
+          is_current: true,
+          since: since || null,
+          shared_by: roleHolders.get(`${institutionId}|${field}`)?.size ?? 1,
+        };
       });
 
     out.push({
@@ -181,6 +211,8 @@ export interface BranchAssertionRecord {
   field_name: string;
   value: string;
   source_id: string;
+  /** Raw URL of the page this observation came from, when one is known. */
+  source_url?: string | null;
   observed_at: string;
   valid_to: string | null;
   verification_status: string;
@@ -298,12 +330,13 @@ export function branchesFromAssertionRows(
       address: pick("address"),
       phone: pick("phone"),
       established_on: pick("established_on"),
-      meta: {
-        source: first.source_id,
-        sources: distinctSources(bucket),
-        last_verified_at: lastVerified || null,
-        verification_status: effectiveStatus(statuses, conflict),
-      },
+        meta: {
+          source: first.source_id,
+          sources: distinctSources(bucket),
+          source_url: first.source_url ?? null,
+          last_verified_at: lastVerified || null,
+          verification_status: effectiveStatus(statuses, conflict),
+        },
     });
   }
 
@@ -408,6 +441,8 @@ export interface VacancyAssertionRecord {
   value: string;
   source_id: string;
   source_name?: string | null;
+  /** Raw URL of the page this observation came from, when one is known. */
+  source_url?: string | null;
   observed_at: string;
   valid_to: string | null;
   verification_status: string;
@@ -677,12 +712,13 @@ export function jobsFromAssertionRows(
       now,
     });
 
-    const meta: SourceMeta = {
-      source: first.source_id,
-      sources: distinctSources(bucket),
-      last_verified_at: lastSeenAt || null,
-      verification_status: vacancyEffectiveStatus(statuses, conflict),
-    };
+      const meta: SourceMeta = {
+        source: first.source_id,
+        sources: distinctSources(bucket),
+        source_url: first.source_url ?? null,
+        last_verified_at: lastSeenAt || null,
+        verification_status: vacancyEffectiveStatus(statuses, conflict),
+      };
 
     out.push({
       id: entityId,

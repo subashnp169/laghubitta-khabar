@@ -110,11 +110,41 @@ ok(
 // Pick an institution that actually has published leadership. institutions[0] may
 // have none, which would silently skip the person-detail assertions below and let a
 // broken person route pass unnoticed.
-const leadershipSlug =
+const leadershipSlugForAudit =
   institutions.find((i) => {
     const res = request("GET", `/api/institutions/${i.slug}/leadership?limit=1`);
     return res.status === 200 && res.body.data.length > 0;
   })?.slug ?? institutions[0].slug;
+
+// Source transparency: every published person must carry the raw, followable URL
+// of the page the evidence came from, not just an opaque source id. A fabricated
+// or empty link is worse than none, so the shape is checked, not just presence.
+const leadershipAll = request("GET", `/api/institutions/${leadershipSlugForAudit}/leadership?limit=100`);
+ok(
+  leadershipAll.body.data.every((p: any) => typeof p.meta.source_url === "string" && /^https?:\/\//.test(p.meta.source_url)),
+  "every person exposes a raw http(s) source_url for its evidence",
+);
+ok(
+  leadershipAll.body.data.every((p: any) => p.meta.source_url === null || p.meta.source_url.includes("//")),
+  "source_url is either a real absolute URL or null, never a bare path",
+);
+const withSharedRole = leadershipAll.body.data.filter((p: any) => p.positions.some((x: any) => x.shared_by > 1));
+ok(
+  withSharedRole.length > 0,
+  "multi-holder roles are represented (a source listing several names in one slot)",
+);
+ok(
+  leadershipAll.body.data.every((p: any) => p.positions.every((x: any) => Number.isInteger(x.shared_by) && x.shared_by >= 1)),
+  "every position reports how many people share that role slot",
+);
+ok(
+  withSharedRole.every((p: any) => p.meta.verification_status !== "CONFLICT"),
+  "a multi-holder role is NOT reported as a conflict (one source listing several names is not a contradiction)",
+);
+ok(
+  leadershipAll.body.data.every((p: any) => p.positions.length > 0),
+  "every person still has at least one role — no name is dropped to satisfy a single-slot role",
+);
 ok(
   institutions.some((i) => {
     const res = request("GET", `/api/institutions/${i.slug}/leadership?limit=1`);
@@ -122,13 +152,23 @@ ok(
   }),
   "at least one institution has published leadership",
 );
-const knownSlug = request("GET", `/api/institutions/${leadershipSlug}/leadership`).body.data[0]?.slug;
+const knownSlug = request("GET", `/api/institutions/${leadershipSlugForAudit}/leadership`).body.data[0]?.slug;
 ok(typeof knownSlug === "string" && knownSlug.length > 0, "a published person is reachable from leadership");
 if (knownSlug) {
   const person = request("GET", `/api/people/${knownSlug}`);
   ok(person.status === 200 && person.body.data.slug === knownSlug, "person detail resolves by slug");
-    ok(person.body.meta && person.body.meta.source && Array.isArray(person.body.meta.sources), "person detail carries resource meta");
-
+  ok(
+    person.body.meta && person.body.meta.source && Array.isArray(person.body.meta.sources),
+    "person detail carries resource meta",
+  );
+  ok(
+    person.body.data.meta.source_url === person.body.meta.source_url,
+    "person detail envelope meta and record meta agree on source_url",
+  );
+  ok(
+    person.body.data.meta.source_url === null || /^https?:\/\//.test(person.body.data.meta.source_url),
+    "person detail source_url is a real absolute URL or null",
+  );
 } else {
   const person = request("GET", "/api/people/nobody-here");
   ok(person.status === 404 && person.body.error.code === "NOT_FOUND", "unknown person → 404");

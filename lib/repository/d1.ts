@@ -62,11 +62,15 @@ function metaFor(rows: D1ResultRow[]): SourceMeta {
     // Corroboration is derived from every source that owns an observation
     // backing this record, not from the first row. One entry = single source;
     // two or more = corroborated by that many independent sources.
-    sources: [...new Set(rows.map((r) => String(r.source || "unknown")))].sort(),
-    last_verified_at: (v?.last_verified_at as string) ?? null,
-    verification_status: "AUTO_VERIFIED",
-  };
-}
+      sources: [...new Set(rows.map((r) => String(r.source || "unknown")))].sort(),
+      // Null when the sub-query had no source_url column to map. Reported as
+      // unknown rather than omitted so a consumer can tell the difference
+      // between "no URL recorded" and "older payload".
+      source_url: typeof v?.source_url === "string" && /^https?:\/\//i.test(v.source_url) ? v.source_url : null,
+      last_verified_at: (v?.last_verified_at as string) ?? null,
+      verification_status: "AUTO_VERIFIED",
+    };
+  }
 
 function mapInstitutionRow(r: D1ResultRow): InstitutionSummary {
   return {

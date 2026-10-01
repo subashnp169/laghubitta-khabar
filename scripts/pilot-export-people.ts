@@ -42,9 +42,10 @@ interface PersonAssertionLiteral {
   institution_slug: string;
   institution_name: string;
   field_name: string;
-  value: string;
-  source_id: string;
-  observed_at: string;
+    value: string;
+    source_id: string;
+    source_url: string | null;
+    observed_at: string;
   verification_status: string;
   confidence: number | null;
 }
@@ -143,12 +144,20 @@ function main(): void {
   // against a placeholder. Nothing is invented: unresolved stays unresolved.
   // ---------------------------------------------------------------------------
   const pilotSourcesPath = join(process.cwd(), "data", "pilot", "pilot-sources.json");
-  const pilotSources: { id: string; institution_id: string; publisher?: string; domain?: string }[] = existsSync(
+  const pilotSources: { id: string; institution_id: string; url?: string | null; publisher?: string; domain?: string }[] = existsSync(
     pilotSourcesPath,
   )
     ? ((JSON.parse(readFileSync(pilotSourcesPath, "utf8")) as { sources?: unknown }).sources ??
         (JSON.parse(readFileSync(pilotSourcesPath, "utf8")) as unknown[])) as never
     : [];
+
+  // The raw, followable URL for a source id, so the published DTO can point a
+  // reader at the page the claim came from. Returns null when the source has no
+  // registered URL — unknown provenance is reported, never guessed at.
+  const sourceUrlById = (sourceId: string): string | null => {
+    const url = pilotSources.find((s) => s.id === sourceId)?.url;
+    return typeof url === "string" && /^https?:\/\//i.test(url) ? url : null;
+  };
 
   // Normalised comparison form: drop the legal-form noise ("... Bittiya Sanstha
   // Ltd.") so "X Laghubitta Bittiya Sanstha Limited" and "... Sanstha Ltd."
@@ -228,6 +237,7 @@ function main(): void {
       field_name: String(r.field_name),
       value: String(r.value),
       source_id: sourceId,
+      source_url: sourceUrlById(sourceId),
       observed_at: String(r.observed_at),
       verification_status: String(r.verification_status),
       confidence: num(r.confidence),
@@ -241,12 +251,21 @@ function main(): void {
       a.observed_at.localeCompare(b.observed_at),
   );
 
+  // Only a genuine CROSS-SOURCE disagreement is a conflict. A single source
+  // listing several names under one role heading is a multi-holder role, not a
+  // contradiction — flagging that as a conflict made a perfectly honest source
+  // look self-contradictory and pushed records to CONFLICT for no reason.
+  // `source_a_id <> source_b_id` is the discriminator: two independent sources
+  // disagreeing is the only thing that can contradict.
   const conflictRows = db
     .prepare(
       `SELECT a.source_id, a.field_name FROM data_conflicts c
          JOIN data_assertions a
            ON a.entity_id = c.entity_id AND a.field_name = c.field_name AND a.source_id = c.source_a_id
-        WHERE c.resolution_status = 'OPEN' AND c.entity_type = 'institution' AND c.field_name LIKE 'people_%'
+        WHERE c.resolution_status = 'OPEN'
+          AND c.entity_type = 'institution'
+          AND c.field_name LIKE 'people_%'
+          AND c.source_a_id <> c.source_b_id
         GROUP BY a.source_id, a.field_name
         ORDER BY a.source_id, a.field_name`,
     )

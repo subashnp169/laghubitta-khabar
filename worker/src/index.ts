@@ -155,7 +155,7 @@ async function handleSearch(sp: URLSearchParams, repo: D1InstitutionRepository) 
   const groups = await repo.search(query);
   return single(
     { query, groups },
-    { source: "institution+alias index", sources: ["institution+alias index"], last_verified_at: null, verification_status: "AUTO_VERIFIED" },
+      { source: "institution+alias index", sources: ["institution+alias index"], source_url: null, last_verified_at: null, verification_status: "AUTO_VERIFIED" },
   );
 }
 

@@ -25,6 +25,7 @@ D1 / local DB
   "meta": {
     "source": "nrb-bfi-mid-may-2026",
     "sources": ["nrb-bfi-mid-may-2026"],
+    "source_url": null,
     "last_verified_at": "2026-06-20",
     "verification_status": "VERIFIED"
   }
@@ -36,6 +37,39 @@ payload, sorted, and is the public expression of **corroboration**: two or more
 entries mean independent sources assert the same normalized claim, derived from
 source-owned observations rather than from merged claims. `meta.source` remains
 the first-published owning source, for single-value attribution.
+
+`meta.source_url` is the raw, followable URL of that primary source, so a consumer
+can open the evidence rather than trust a bare identifier. It is `null` whenever no
+URL is known for the source — including when `source` names an evidence *document*
+rather than a web page. A source URL is never synthesised, guessed, or substituted
+with the institution's website: an absent link is reported as absent.
+
+### Roles are multi-holder, not single-slot
+
+`PersonDto.positions[].shared_by` is the number of distinct people the institution
+currently lists in that same role field, including that person.
+
+A role slot is not single-occupancy. An institution can list several directors,
+several board members, or a joint chief executive, and the read model publishes
+every name the source gave. Without `shared_by` a client sees two people both
+titled `Chief Executive Officer` and reasonably concludes the data is broken.
+
+`shared_by` is a derived count of published rows. It is **not** a claim that the
+office is shared — when it is greater than 1 the source listed several names under
+one heading and the reason is unknown. That is reported, not resolved, and the names
+are never dropped to make a slot fit one person.
+
+### `CONFLICT` means cross-source disagreement only
+
+`verification_status: "CONFLICT"` is reserved for a genuine disagreement between
+two **independent sources** over the same field. Several names from **one** source
+under one heading is a multi-holder role, not a contradiction, and does not degrade
+the record.
+
+This distinction matters: treating a single source's multi-name listing as a
+conflict made honest source data look self-contradictory and pushed records to
+`CONFLICT` for no evidentiary reason. A record with `sources.length === 1` cannot
+be in cross-source conflict at all.
 
 **Collection**
 

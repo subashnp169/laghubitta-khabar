@@ -77,9 +77,10 @@ function summaryOf(i: MasterFile["institutions"][number]): InstitutionSummary {
     official_phone: i.official_phone,
     logo_url: i.logo_url,
     meta: {
-      source: i.source_id,
-      sources: [i.source_id],
-      last_verified_at: i.last_verified_at,
+        source: i.source_id,
+        sources: [i.source_id],
+        source_url: typeof i.official_website === "string" && /^https?:\/\//i.test(i.official_website) ? i.official_website : null,
+        last_verified_at: i.last_verified_at,
       verification_status: "AUTO_VERIFIED",
     },
   };

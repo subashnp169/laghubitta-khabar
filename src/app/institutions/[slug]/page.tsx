@@ -26,6 +26,28 @@ function statusBadge(status: string) {
   return STATUS_BADGE[status] ?? { label: status, cls: "bg-slate-100 text-slate-600", title: "" };
 }
 
+/**
+ * Role titles for one person. A role the source lists several people in is
+ * rendered in the plural ("Chief Executive Officers") so a row does not claim an
+ * exclusive office that the source never described. The names themselves are
+ * always all shown; nothing is dropped to make the title fit.
+ */
+function roleLabels(person: PersonDto): string {
+  return person.positions
+    .map((pos) =>
+      pos.shared_by > 1 && pos.title.endsWith("Officer")
+        ? pos.title.replace(/Officer$/, "Officers")
+        : pos.title,
+    )
+    .join(", ");
+}
+
+/** Short, factual note about a role the source filled with more than one name. */
+function sharedRoleNote(person: PersonDto): string {
+  const worst = Math.max(...person.positions.map((pos) => pos.shared_by));
+  return `${worst} listed`;
+}
+
 export async function generateStaticParams() {
   return institutions.map((inst) => ({ slug: inst.slug }));
 }
@@ -128,29 +150,60 @@ export default async function InstitutionPage({ params }: { params: Promise<{ sl
           </span>
         </div>
 
-        {leadership.length === 0 ? (
-          <p className="text-xs text-slate-400">
-            No leadership has been extracted for this institution yet. We publish nothing until a source shows it.
-          </p>
-        ) : (
-          <ul className="divide-y divide-slate-100">
-            {leadership.map((p) => {
-              const badge = statusBadge(p.meta.verification_status);
-              return (
-                <li key={p.id} className="py-2 flex flex-wrap items-baseline gap-x-2 gap-y-1">
-                  <span className="text-sm text-slate-800 font-medium">{p.name}</span>
-                  <span className="text-xs text-slate-500">{p.positions.map((x) => x.title).join(", ")}</span>
-                  <span
-                    title={badge.title}
-                    className={`text-[10px] font-semibold px-1.5 py-0.5 rounded ${badge.cls}`}
-                  >
-                    {badge.label}
-                  </span>
-                </li>
-              );
-            })}
-          </ul>
-        )}
+          {leadership.length === 0 ? (
+            <p className="text-xs text-slate-400">
+              No leadership has been extracted for this institution yet. We publish nothing until a source shows it.
+            </p>
+          ) : (
+            <>
+              <ul className="divide-y divide-slate-100">
+                {leadership.map((p) => {
+                  const badge = statusBadge(p.meta.verification_status);
+                  return (
+                    <li key={p.id} className="py-2 flex flex-wrap items-baseline gap-x-2 gap-y-1">
+                      <span className="text-sm text-slate-800 font-medium">{p.name}</span>
+                      <span className="text-xs text-slate-500">{roleLabels(p)}</span>
+                      {p.positions.some((x) => x.shared_by > 1) && (
+                        <span
+                          title="This source lists more than one person under this role. We publish every name it gave; we do not know which the source intends."
+                          className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-slate-100 text-slate-600"
+                        >
+                          {sharedRoleNote(p)}
+                        </span>
+                      )}
+                      <span
+                        title={badge.title}
+                        className={`text-[10px] font-semibold px-1.5 py-0.5 rounded ${badge.cls}`}
+                      >
+                        {badge.label}
+                      </span>
+                    </li>
+                  );
+                })}
+              </ul>
+
+              {leadership.some((p) => p.meta.source_url) && (
+                <p className="text-[10px] text-slate-400 mt-3">
+                  Source:{" "}
+                  {leadership[0].meta.source_url ? (
+                    <a
+                      href={leadership[0].meta.source_url}
+                      target="_blank"
+                      rel="noopener noreferrer nofollow"
+                      className="text-mfi-600 hover:underline break-all"
+                    >
+                      {leadership[0].meta.source_url}
+                    </a>
+                  ) : (
+                    <span>not recorded</span>
+                  )}
+                  {leadership.some((p) => p.meta.source !== leadership[0].meta.source) && (
+                    <> · {new Set(leadership.map((p) => p.meta.source)).size} distinct sources</>
+                  )}
+                </p>
+              )}
+            </>
+          )}
 
         <p className="text-[10px] text-slate-400 mt-3">
           Roles are extracted from source evidence, not confirmed by a second source. Anything with a conflict is flagged.

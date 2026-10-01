@@ -162,12 +162,17 @@ function summaryFor({ inst, source, links, events }: InstLookup): InstitutionSum
 export function metaFor(inst: Institution): ApiMeta {
   const id = inst.evidence.identity;
   const source = id?.sourceId ?? "nrb-bfi-mid-may-2026";
-  return {
-    source,
-    sources: [source],
-    last_verified_at: id?.verifiedOn ?? null,
-    verification_status: "UNVERIFIED",
-  };
+    return {
+      source,
+      sources: [source],
+      // Deliberately null. `source` here is an evidence-document reference (an
+      // NRB filing), not a web page, so there is no raw URL to follow. The
+      // institution's official website is a different thing entirely; pairing
+      // the two would assert the website is where this evidence came from.
+      source_url: null,
+      last_verified_at: id?.verifiedOn ?? null,
+      verification_status: "UNVERIFIED",
+    };
 }
 
 function detailFor(l: InstLookup): InstitutionDetail {
@@ -325,9 +330,10 @@ export function getPerson(
     body: {
       data: person,
       meta: {
-        source: person.meta.source,
-        sources: person.meta.sources,
-        last_verified_at: person.meta.last_verified_at,
+          source: person.meta.source,
+          sources: person.meta.sources,
+          source_url: person.meta.source_url,
+          last_verified_at: person.meta.last_verified_at,
         verification_status: person.meta.verification_status,
       },
     },
@@ -364,7 +370,7 @@ export function search(query: { q?: string | null }): { status: number; body: Re
         query: q,
         groups: matches,
       },
-      meta: { source: "generated-modules", sources: ["generated-modules"], last_verified_at: null, verification_status: "UNVERIFIED" },
+        meta: { source: "generated-modules", sources: ["generated-modules"], source_url: null, last_verified_at: null, verification_status: "UNVERIFIED" },
     },
   };
 }

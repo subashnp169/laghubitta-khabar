@@ -12,6 +12,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_director",
     "value": "Anamika Kunwar",
     "source_id": "gilb-website",
+    "source_url": "https://gilb.com.np",
     "observed_at": "2026-09-27T06:22:34.237Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -23,6 +24,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_chair",
     "value": "Buddhi Akela",
     "source_id": "gilb-website",
+    "source_url": "https://gilb.com.np",
     "observed_at": "2026-09-27T06:22:34.237Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -34,6 +36,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_board",
     "value": "Gokul Pandey",
     "source_id": "gilb-website",
+    "source_url": "https://gilb.com.np",
     "observed_at": "2026-09-27T06:22:34.237Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -45,6 +48,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_ceo",
     "value": "Hari Krishna Joshi",
     "source_id": "gilb-website",
+    "source_url": "https://gilb.com.np",
     "observed_at": "2026-09-27T06:22:34.237Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -56,6 +60,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_board",
     "value": "Jaya Narayan Sharma",
     "source_id": "gilb-website",
+    "source_url": "https://gilb.com.np",
     "observed_at": "2026-09-27T06:22:34.237Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -67,6 +72,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_board",
     "value": "Kishor Jung Thakuri",
     "source_id": "gilb-website",
+    "source_url": "https://gilb.com.np",
     "observed_at": "2026-09-27T06:22:34.237Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -78,6 +84,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_board",
     "value": "Manoj Shrestha",
     "source_id": "gilb-website",
+    "source_url": "https://gilb.com.np",
     "observed_at": "2026-09-27T06:22:34.237Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -89,6 +96,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_director",
     "value": "Min Prasad Gyawali",
     "source_id": "gilb-website",
+    "source_url": "https://gilb.com.np",
     "observed_at": "2026-09-27T06:22:34.237Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -100,6 +108,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_board",
     "value": "Padam Bdr. Ghimire",
     "source_id": "gilb-website",
+    "source_url": "https://gilb.com.np",
     "observed_at": "2026-09-27T06:22:34.237Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -111,6 +120,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_board",
     "value": "Rishav Subedi",
     "source_id": "gilb-website",
+    "source_url": "https://gilb.com.np",
     "observed_at": "2026-09-27T06:22:34.237Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -122,6 +132,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_director",
     "value": "Rupendra Wagle",
     "source_id": "gilb-website",
+    "source_url": "https://gilb.com.np",
     "observed_at": "2026-09-27T06:22:34.237Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -133,6 +144,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_director",
     "value": "Sajani Nepal",
     "source_id": "gilb-website",
+    "source_url": "https://gilb.com.np",
     "observed_at": "2026-09-27T06:22:34.237Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -144,6 +156,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_board",
     "value": "Shamsher Bdr. Nepali",
     "source_id": "gilb-website",
+    "source_url": "https://gilb.com.np",
     "observed_at": "2026-09-27T06:22:34.237Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -155,6 +168,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_board",
     "value": "Shree Ram Pokhrel",
     "source_id": "gilb-website",
+    "source_url": "https://gilb.com.np",
     "observed_at": "2026-09-27T06:22:34.237Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -166,6 +180,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_ceo",
     "value": "Shree Ram Pokhrel",
     "source_id": "gilb-website",
+    "source_url": "https://gilb.com.np",
     "observed_at": "2026-09-27T06:22:34.237Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -177,6 +192,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_board",
     "value": "Sudip Acharya",
     "source_id": "gilb-website",
+    "source_url": "https://gilb.com.np",
     "observed_at": "2026-09-27T06:22:34.237Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -188,6 +204,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_director",
     "value": "Sushovan Devkota",
     "source_id": "gilb-website",
+    "source_url": "https://gilb.com.np",
     "observed_at": "2026-09-27T06:22:34.237Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -199,6 +216,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_board",
     "value": "Yati Raj Poudel",
     "source_id": "gilb-website",
+    "source_url": "https://gilb.com.np",
     "observed_at": "2026-09-27T06:22:34.237Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -210,6 +228,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_director",
     "value": "Dr. Bamadev Sigdel",
     "source_id": "mslbsl-website",
+    "source_url": "https://www.mslbsl.com.np",
     "observed_at": "2026-09-27T06:22:48.319Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -221,6 +240,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_director",
     "value": "Mr. Bhupati Raj Pandey",
     "source_id": "mslbsl-website",
+    "source_url": "https://www.mslbsl.com.np",
     "observed_at": "2026-09-27T06:22:48.319Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -232,6 +252,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_chair",
     "value": "Mr. Mohan Hari Acharya",
     "source_id": "mslbsl-website",
+    "source_url": "https://www.mslbsl.com.np",
     "observed_at": "2026-09-27T06:22:48.319Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -243,6 +264,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_director",
     "value": "Mr. Nimanand Kadel",
     "source_id": "mslbsl-website",
+    "source_url": "https://www.mslbsl.com.np",
     "observed_at": "2026-09-27T06:22:48.319Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -254,6 +276,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_director",
     "value": "Mr. Shree Prasad Chaudhary",
     "source_id": "mslbsl-website",
+    "source_url": "https://www.mslbsl.com.np",
     "observed_at": "2026-09-27T06:22:48.319Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -265,6 +288,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_director",
     "value": "Mr. Shyam Kant Chanudhary",
     "source_id": "mslbsl-website",
+    "source_url": "https://www.mslbsl.com.np",
     "observed_at": "2026-09-27T06:22:48.319Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -276,6 +300,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_chair",
     "value": "Mr. Kshitij Khadka",
     "source_id": "nationalmicrofinance-website",
+    "source_url": "https://nationalmicrofinance.com.np",
     "observed_at": "2026-09-27T06:22:54.529Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -287,6 +312,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_director",
     "value": "Mr. Narendra Chhatkuli",
     "source_id": "nationalmicrofinance-website",
+    "source_url": "https://nationalmicrofinance.com.np",
     "observed_at": "2026-09-27T06:22:54.529Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -298,6 +324,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_director",
     "value": "Mr. Pradit Kumar Regmi",
     "source_id": "nationalmicrofinance-website",
+    "source_url": "https://nationalmicrofinance.com.np",
     "observed_at": "2026-09-27T06:22:54.529Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -309,6 +336,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_director",
     "value": "Mr. Ram Kumar Timalsina",
     "source_id": "nationalmicrofinance-website",
+    "source_url": "https://nationalmicrofinance.com.np",
     "observed_at": "2026-09-27T06:22:54.529Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -320,6 +348,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_ceo",
     "value": "Dr. Madan Ghimire",
     "source_id": "samata-website",
+    "source_url": "https://www.samata.org.np",
     "observed_at": "2026-09-27T06:22:50.834Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -331,6 +360,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_director",
     "value": "Mr. Bhakta Ram Khadka",
     "source_id": "samata-website",
+    "source_url": "https://www.samata.org.np",
     "observed_at": "2026-09-27T06:22:50.834Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -342,6 +372,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_ceo",
     "value": "Mr. Dev Singh Bist",
     "source_id": "samata-website",
+    "source_url": "https://www.samata.org.np",
     "observed_at": "2026-09-27T06:22:50.834Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -353,6 +384,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_chair",
     "value": "Mr. DM Thebe Limbu",
     "source_id": "samata-website",
+    "source_url": "https://www.samata.org.np",
     "observed_at": "2026-09-27T06:22:50.834Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -364,6 +396,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_director",
     "value": "Mr. Kishor Sherpa",
     "source_id": "samata-website",
+    "source_url": "https://www.samata.org.np",
     "observed_at": "2026-09-27T06:22:50.834Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -375,6 +408,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_director",
     "value": "Mr. Niranjan Prasad Neupane",
     "source_id": "samata-website",
+    "source_url": "https://www.samata.org.np",
     "observed_at": "2026-09-27T06:22:50.834Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -386,6 +420,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_director",
     "value": "Mr. Rajeshwar Pd. Acharya",
     "source_id": "samata-website",
+    "source_url": "https://www.samata.org.np",
     "observed_at": "2026-09-27T06:22:50.834Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -397,6 +432,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_director",
     "value": "Mr. Umesh Basnet",
     "source_id": "samata-website",
+    "source_url": "https://www.samata.org.np",
     "observed_at": "2026-09-27T06:22:50.834Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -408,6 +444,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_director",
     "value": "Mrs. Anupa Ojha",
     "source_id": "samata-website",
+    "source_url": "https://www.samata.org.np",
     "observed_at": "2026-09-27T06:22:50.834Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -419,6 +456,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_director",
     "value": "Ananta Kumar shrestha",
     "source_id": "swmfi-website",
+    "source_url": "https://swmfi.com.np",
     "observed_at": "2026-09-27T06:21:58.668Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -430,6 +468,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_director",
     "value": "Bindiya Shrestha Pradhan",
     "source_id": "swmfi-website",
+    "source_url": "https://swmfi.com.np",
     "observed_at": "2026-09-27T06:21:58.668Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -441,6 +480,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_director",
     "value": "Dadhiram Poudel",
     "source_id": "swmfi-website",
+    "source_url": "https://swmfi.com.np",
     "observed_at": "2026-09-27T06:21:58.668Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -452,6 +492,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_director",
     "value": "Kamal Bhandari",
     "source_id": "swmfi-website",
+    "source_url": "https://swmfi.com.np",
     "observed_at": "2026-09-27T06:21:58.668Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -463,6 +504,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_chair",
     "value": "Lekha Nath Khaniya",
     "source_id": "swmfi-website",
+    "source_url": "https://swmfi.com.np",
     "observed_at": "2026-09-27T06:21:58.668Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -474,6 +516,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_director",
     "value": "Madhav Prasad Bhatta",
     "source_id": "swmfi-website",
+    "source_url": "https://swmfi.com.np",
     "observed_at": "2026-09-27T06:21:58.668Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -485,6 +528,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_board",
     "value": "Mr. Bikash Kumar Chaudhary",
     "source_id": "swbbl-website",
+    "source_url": "https://www.swbbl.com.np",
     "observed_at": "2026-09-27T06:21:47.451Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -496,6 +540,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_director",
     "value": "Mr. Bishnu Pd. Tripathi",
     "source_id": "swbbl-website",
+    "source_url": "https://www.swbbl.com.np",
     "observed_at": "2026-09-27T06:21:47.451Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -507,6 +552,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_board",
     "value": "Mr. Chandra Bahadur Thapa",
     "source_id": "swbbl-website",
+    "source_url": "https://www.swbbl.com.np",
     "observed_at": "2026-09-27T06:21:47.451Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -518,6 +564,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_ceo",
     "value": "Mr. Chandra Mani Chaulagai",
     "source_id": "swbbl-website",
+    "source_url": "https://www.swbbl.com.np",
     "observed_at": "2026-09-27T06:21:47.451Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -529,6 +576,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_board",
     "value": "Mr. Dol nath Tripathi",
     "source_id": "swbbl-website",
+    "source_url": "https://www.swbbl.com.np",
     "observed_at": "2026-09-27T06:21:47.451Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -540,6 +588,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_board",
     "value": "Mr. Gyanendra Kumar Singh",
     "source_id": "swbbl-website",
+    "source_url": "https://www.swbbl.com.np",
     "observed_at": "2026-09-27T06:21:47.451Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -551,6 +600,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_director",
     "value": "Mr. Jayendra Bikram Shah",
     "source_id": "swbbl-website",
+    "source_url": "https://www.swbbl.com.np",
     "observed_at": "2026-09-27T06:21:47.451Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -562,6 +612,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_board",
     "value": "Mr. Krishna Khanal",
     "source_id": "swbbl-website",
+    "source_url": "https://www.swbbl.com.np",
     "observed_at": "2026-09-27T06:21:47.451Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -573,6 +624,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_ceo",
     "value": "Mr. Narendra Singh Bista",
     "source_id": "swbbl-website",
+    "source_url": "https://www.swbbl.com.np",
     "observed_at": "2026-09-27T06:21:47.451Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -584,6 +636,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_ceo",
     "value": "Mr. Nil Kantha Poudel",
     "source_id": "swbbl-website",
+    "source_url": "https://www.swbbl.com.np",
     "observed_at": "2026-09-27T06:21:47.451Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -595,6 +648,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_ceo",
     "value": "Mr. Pratap Narayan Shrestha",
     "source_id": "swbbl-website",
+    "source_url": "https://www.swbbl.com.np",
     "observed_at": "2026-09-27T06:21:47.451Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -606,6 +660,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_director",
     "value": "Mr. Rabin Kumar Shrestha",
     "source_id": "swbbl-website",
+    "source_url": "https://www.swbbl.com.np",
     "observed_at": "2026-09-27T06:21:47.451Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -617,6 +672,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_board",
     "value": "Mr. Rajendra Dhital",
     "source_id": "swbbl-website",
+    "source_url": "https://www.swbbl.com.np",
     "observed_at": "2026-09-27T06:21:47.451Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -628,6 +684,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_director",
     "value": "Mr. Rajendra Prasad Adhikari",
     "source_id": "swbbl-website",
+    "source_url": "https://www.swbbl.com.np",
     "observed_at": "2026-09-27T06:21:47.451Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -639,6 +696,7 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_board",
     "value": "Mr. Shanta Bahadur Sharki",
     "source_id": "swbbl-website",
+    "source_url": "https://www.swbbl.com.np",
     "observed_at": "2026-09-27T06:21:47.451Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
@@ -650,27 +708,11 @@ export const peopleAssertions: (PersonAssertionRecord & { confidence: number | n
     "field_name": "people_chair",
     "value": "Prof. Dr. Kushum Shakya",
     "source_id": "swbbl-website",
+    "source_url": "https://www.swbbl.com.np",
     "observed_at": "2026-09-27T06:21:47.451Z",
     "verification_status": "UNVERIFIED",
     "confidence": 0.55
   }
 ];
 
-export const openPeopleConflicts: { institution_id: string; field_name: string }[] = [
-  {
-    "institution_id": "mfi-018",
-    "field_name": "people_ceo"
-  },
-  {
-    "institution_id": "mfi-021",
-    "field_name": "people_ceo"
-  },
-  {
-    "institution_id": "mfi-029",
-    "field_name": "people_ceo"
-  },
-  {
-    "institution_id": "mfi-004",
-    "field_name": "people_ceo"
-  }
-];
+export const openPeopleConflicts: { institution_id: string; field_name: string }[] = [];

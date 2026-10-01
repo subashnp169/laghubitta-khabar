@@ -35,8 +35,21 @@ export interface SourceMeta {
   // Required rather than optional on purpose: when the read model was dropping
   // every source but the first, the loss was silent and no type flagged it.
   // Making the field mandatory means a missing derivation is a compile error.
-  sources: string[];
-  last_verified_at: string | null;
+    sources: string[];
+    // The raw, clickable URL of the primary source that owns this record's
+    // first-published observation.
+    //
+    // `source` above is a stable identifier (e.g. "gilb-website") that is safe
+    // to key on but useless to a reader: it cannot be followed. `source_url` is
+    // that identifier resolved to the page the evidence actually came from, so a
+    // reader can go and check the claim instead of trusting the label.
+    //
+    // Nullable rather than required-non-null on purpose. A record whose source
+    // has no registered URL must report "unknown provenance" rather than carry
+    // a plausible-looking link that nobody verified. Never fabricate a URL to
+    // fill this in.
+    source_url: string | null;
+    last_verified_at: string | null;
   verification_status: VerificationStatus;
 }
 
@@ -127,14 +140,34 @@ export interface InstitutionDetail extends InstitutionSummary {
   go_slug: string; // /go/{id}/website
 }
 
+export interface PersonPositionDto {
+    title: string;
+    committee: string | null;
+    is_current: boolean;
+    since: string | null;
+    // How many distinct people this institution currently lists in THIS SAME
+    // role field, including this person.
+    //
+    // A role slot is not single-occupancy by default: an institution can
+    // legitimately list several directors, several board members, or a joint
+    // chief executive. Without this count a reader sees two people both
+    // titled "Chief Executive Officer" and reasonably concludes the data is
+    // broken. With it, the listing reads as what the source actually said.
+    //
+    // This is a derived count of published rows, not a claim that the office is
+    // shared. When it is greater than 1 the source listed several names under
+    // one heading and we do not know why — that is reported, not resolved.
+    shared_by: number;
+}
+
 export interface PersonDto {
-  id: string;
-  slug: string;
-  name: string;
-  institution_id: string;
-  institution_slug: string;
-  positions: { title: string; committee: string | null; is_current: boolean; since: string | null }[];
-  meta: SourceMeta;
+    id: string;
+    slug: string;
+    name: string;
+    institution_id: string;
+    institution_slug: string;
+    positions: PersonPositionDto[];
+    meta: SourceMeta;
 }
 
 export interface BranchDto {
