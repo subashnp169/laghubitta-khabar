@@ -4,6 +4,7 @@ import { institutions, getInstitutionBySlug } from "@/data/institutions";
 import { crawlSources, crawlSummary } from "@/data/pilot";
 import { nrbInstitutionLinks, nrbRegulatoryEvents } from "@/data/nrb";
 import { institutionLeadership, institutionBranches } from "../../../../lib/api/repository";
+import { jobs } from "@/data/jobs";
 import type { BranchDto, PersonDto } from "../../../../lib/repository/types";
 import Link from "next/link";
 
@@ -97,6 +98,15 @@ export default async function InstitutionPage({ params }: { params: Promise<{ sl
     branchesResponse.status === 200 && "pagination" in branchesResponse.body
       ? branchesResponse.body.pagination?.total ?? publishedBranches.length
       : publishedBranches.length;
+
+  // Published vacancies come from the validated vacancy read model (M3.5), never
+  // from the legacy crawl summary. Slug-prefix matching is the same filter the
+  // API uses: a job can only match when its slug was built from this institution's
+  // own slug, which in turn only happens when the evidence resolved to this
+  // institution.
+  const vacancyList = jobs.filter((j) => j.slug.startsWith(`${inst.slug}-`));
+  const vacancyPostingCount = vacancyList.filter((j) => j.kind === "POSTING").length;
+  const vacancyNoticeCount = vacancyList.filter((j) => j.kind === "DOCUMENT").length;
 
   return (
     <div className="max-w-[1000px] mx-auto px-4 py-8">
@@ -279,6 +289,64 @@ export default async function InstitutionPage({ params }: { params: Promise<{ sl
         </p>
       </div>
 
+      <div className="mb-6">
+        <div className="bg-white rounded-xl border border-slate-200 p-4">
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="font-bold text-sm text-slate-700">Vacancies</h2>
+            <span className="text-[10px] text-slate-400">
+              {vacancyList.length === 0
+                ? "nothing published from source evidence"
+                : `${vacancyList.length} record(s) from source evidence · ${vacancyPostingCount} parsed posting(s)${vacancyNoticeCount > 0 ? ` · ${vacancyNoticeCount} unread notice(s)` : ""} · all UNVERIFIED`}
+            </span>
+          </div>
+
+          {vacancyList.length === 0 ? (
+            <p className="text-xs text-slate-400">
+              No vacancies have been published for this institution yet. We publish nothing until a source shows it.
+            </p>
+          ) : (
+            <ul className="space-y-2">
+              {vacancyList.map((job) =>
+                job.kind === "POSTING" ? (
+                  <li key={job.id} className="py-1">
+                    <div className="text-sm text-slate-800 font-medium">{job.title}</div>
+                    {job.location !== "(location not observed)" && (
+                      <div className="text-xs text-slate-500">{job.location}</div>
+                    )}
+                    {job.deadline && <div className="text-xs text-slate-500">Deadline: {job.deadline}</div>}
+                  </li>
+                ) : (
+                  <li key={job.id} className="py-1 border-b border-slate-100 last:border-0">
+                    <div className="flex items-center gap-2">
+                      <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-amber-50 text-amber-700">unread notice</span>
+                      {job.sourceDocument ? (
+                        <a
+                          href={job.sourceDocument}
+                          target="_blank"
+                          rel="noopener noreferrer nofollow"
+                          className="text-sm text-blue-600 hover:underline break-all"
+                        >
+                          {job.title}
+                        </a>
+                      ) : (
+                        <span className="text-sm text-slate-700">{job.title}</span>
+                      )}
+                    </div>
+                    <p className="text-[10px] text-slate-400 mt-0.5">
+                      Linked on the institution&apos;s career page; this system has not read the document.
+                    </p>
+                  </li>
+                ),
+              )}
+            </ul>
+          )}
+
+          <p className="text-[10px] text-slate-400 mt-3">
+            Vacancy records are extracted from source evidence and are UNVERIFIED until a human confirms them. A linked notice is shown as what it is: a document whose contents were never read.
+          </p>
+        </div>
+      </div>
+
       {crawl && (
                   <span className="inline-flex items-center gap-1 ml-2 text-[10px] font-semibold px-1.5 py-0.5 rounded-full bg-blue-50 text-blue-700">crawl-verified</span>
                 )}
@@ -424,12 +492,18 @@ export default async function InstitutionPage({ params }: { params: Promise<{ sl
               </ul>
             </div>
             <div>
-              <div className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold mb-2">Vacancies <span className="normal-case text-slate-400">({crawl.vacancyCount} extracted)</span></div>
+              <div className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold mb-2">Vacancies <span className="normal-case text-slate-400">({vacancyList.length} published)</span></div>
               <ul className="space-y-1">
-                {crawl.vacancyTitles.map((v) => (
-                  <li key={v} className="text-xs text-slate-600">{v}</li>
+                {vacancyList.slice(0, 6).map((v) => (
+                  <li key={v.id} className="text-xs text-slate-600 flex items-center gap-1.5">
+                    {v.kind === "DOCUMENT" && <span className="inline-block w-1.5 h-1.5 rounded-sm bg-amber-500 shrink-0" title="unread notice linked on the career page" />}
+                    <span className="truncate">{v.title}</span>
+                  </li>
                 ))}
-                {crawl.vacancyTitles.length === 0 && <li className="text-xs text-slate-400">None extracted</li>}
+                {vacancyList.length > 6 && (
+                  <li className="text-xs text-slate-400">+{vacancyList.length - 6} more in the Vacancies panel</li>
+                )}
+                {vacancyList.length === 0 && <li className="text-xs text-slate-400">None published</li>}
               </ul>
             </div>
             <div>

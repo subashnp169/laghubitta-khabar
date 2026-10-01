@@ -239,10 +239,19 @@ ok(rowCount === (jobsBody.match(/^ {4}id: /gm) ?? []).length, "every job row in 
 ok((jobsBody.match(/sourceName: /g) ?? []).length === rowCount, "every job row names the source it was observed from");
 ok((jobsBody.match(/lastSeenAt: /g) ?? []).length === rowCount, "every job row records when it was last seen");
 ok((jobsBody.match(/status: /g) ?? []).length === rowCount, "every job row carries a lifecycle status");
-ok(
-  !/institution: "(?!.*not observed)/.test(jobsBody) || rowCount === 0,
-  "an institution name is either observed from the source or explicitly marked unobserved",
-);
+// An institution column is only ever one of two things: a name from the public
+// registry the evidence resolved to, or the explicit "(institution name not
+// observed)" marker. Anything else is an invented attribution.
+const observedNames = new Set(institutions.map((i) => i.name));
+const namedJobRows = [...jobsBody.matchAll(/^ {4}institution: ("[^"]*"),$/gm)].map((m) => m[1]);
+const inventedInstitution =
+  rowCount > 0 &&
+  namedJobRows.some(
+    (v) =>
+      v !== '"(institution name not observed)"' &&
+      !observedNames.has(JSON.parse(v)),
+  );
+ok(!inventedInstitution, "an institution name is either observed from the source or explicitly marked unobserved");
 let jobsEmpty = true;
 for (const inst of institutions) {
   const r = request("GET", `/api/institutions/${inst.slug}/jobs`);

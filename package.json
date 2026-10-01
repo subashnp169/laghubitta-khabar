@@ -27,6 +27,7 @@
     "smoke:careers": "tsx scripts/smoke-careers-m35.ts",
     "prove:careers-json": "tsx scripts/prove-career-json-sqlite.ts",
     "build:jobs": "tsx scripts/build-jobs-module.ts",
+    "apply:careers": "tsx scripts/run-career-apply.ts",
     "recompute:career-registry": "tsx scripts/recompute-career-registry-rollup.ts",
 "build:m34-audit": "tsx scripts/build-m34-final-audit.ts",
     "pilot": "tsx scripts/run-pilot.ts",

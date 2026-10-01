@@ -3,6 +3,7 @@
 - **Release 1 commit:** `90e3a3e` (deployed, Pages build `success`); post-launch P1 cycle `aab0836`; person detail pages `1aeba04`
 - **Release 2 commit:** `a3da05d` (deployed, Pages build `success`); people pipeline pass-2 export; see "Fixed in Release 2"
 - **Release 3 commit:** `b21da3b` (branch release; Pages build `success`, live sweep OK); 1331 branch names across 13 institutions from 14 verified branch-directory sources; see "Fixed in Release 3"
+- **Release 4 commit:** _pending_ (careers evidence application release): 37 vacancy records (1 parsed posting + 36 unread vacancy notices across 14 institutions) published from `data/pilot/evidence/pilot-careers-ext-2026-10-01.db`; see "Fixed in Release 4"
 - **Live URL:** https://subashnp169.github.io/laghubitta-khabar
 - **Release 3 live state (post-deploy sweep):** 13/13 branch-publishing institution pages render the Branch panel with count + names + source URL; institutions without verified branch pages show the honest `No branches have been extracted` state; deploy covers branch commits `b21da3b` + `73a2866`
 - **Release 2 live state (post-deploy sweep):** 108 people / 13 institutions / 13 sources; all UNVERIFIED, all `sources.length === 1`, 0 CONFLICT; 51/51 institution pages HTTP 200; 13/13 person pages HTTP 200; all 108 names render on their institution pages
@@ -11,6 +12,22 @@
 
 Priority key: **P0** publicly false/dangerous · **P1** publicly misleading · **P2** coverage ·
 **P3** UX · **P4** enhancement. Only P0/P1 interrupt normal roadmap work.
+
+---
+
+## Fixed in Release 4 (careers evidence application)
+
+| Issue | Sev | Resolution |
+|---|---|---|
+| Careers dataset empty; institution pages showed stale `crawl.vacancyCount`/`crawl.vacancyTitles` from the legacy crawl summary | P2 | New `scripts/run-career-apply.ts` (re-fetches the 60 career registry targets, plans `VACANCY` assertions with `planVacancyEvidence` and unread-document evidence with `planVacancyDocumentEvidence`, writes to local SQLite, audits provenance) → `src/data/jobs.ts` (37 records: 1 parsed posting + 36 unread vacancy notices) via `build-jobs-module.ts`. Institution page reads the vacancy read model from evidence; the crawl widget now shows published vacancy records |
+| A vacancy whose contents were never read could look like a fully parsed job | P0 | DOCUMENT records render as explicit `unread notice` badges with a hard link to the source document and "this system has not read the document" copy on `/jobs` and institution pages; only the swmfi `DCEO` posting renders deadline/location. No deadline/location is ever invented for a document record |
+| Document-entity assertions for the same URL could collapse onto one entity id but differ per institution | P1 | Identity is `vacancyId(institutionId, title, location)` for postings and the document URL for documents, so a linked notice is one entity per URL and never merges across institutions |
+| An institution name in a job row could be invented rather than observed | P0 | `smoke:api` now asserts every `institution:` value is either a name from the public registry or the explicit `(institution name not observed)` marker (`scripts/smoke-api.ts`) |
+| First apply run crashed after all 60 fetches (report `values` SQL keyword) | P3 | Fixed and re-run; second run proved idempotency — every assertion UNCHANGED, no new snapshots, no report drift |
+| Career registry rollup double-counted unread documents | P2 | `recompute-career-registry-rollup.ts` reports `unread_vacancy_documents_total`; the apply pass asserts one `SOURCE_DOCUMENT` assertion per distinct document URL observed (36 of 37 vacancy records) |
+| Evidence DB and budget guards | P2 | Evidence DB stays gitignored; committed truth is the report JSON + generated module. Apply pass budget (career-pilot-budget.json) unchanged; asha's non-HTTPS career link was fetched per policy — recorded FETCH_FAILED, no vacancy invented |
+
+Budget note: the apply pass fetches its targets once per run. It was deliberately run twice (run 1 crashed at audit after all fetches; run 2 re-ran idempotently) — each single run stayed within the frozen career budget; total dev-spend of ~120 apply fetches over the two runs is charged to development, not production, and no further apply runs are planned until evidence needs refreshing.
 
 ---
 
@@ -41,7 +58,7 @@ Priority key: **P0** publicly false/dangerous · **P1** publicly misleading · *
   source), not extraction work. Sources remain evidence-only by design.
 - 38/51 institutions still have no published people. Source URLs exist but were never crawled.
 - 38/51 institutions still have no published branches (1331 names across the 13 institutions whose branch-directory pages are verified AND resolve to the public registry).
-- Careers dataset remains empty; pages show honest `None extracted`.
+- 36/51 institutions still have no published vacancy records; the 14 institutions whose career pages or linked notices were observed are published (see "Fixed in Release 4"). Asha's career link is a non-HTTPS host (`:70`) the controlled fetcher refuses, so it records a fetch failure rather than any vacancy.
 - `people_branches` never appears in extracted data despite being an expected field.
 - Branch attributes (district/place/address/phone) are evidence-only at 0.45 (below the 0.5 assertion gate) and are never published; branch pages show names + count + source only. Confirmed districts will appear once attributes clear the gate with a human verification path.
 

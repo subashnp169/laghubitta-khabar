@@ -9,9 +9,12 @@
  *
  * "Fetched" and "published" are separate, and this build keys on the second. The
  * M3.5 discovery pass fetches and parses every page in the pilot and writes down
- * what it found, but it is observation-only by design and asserts nothing — so a
- * page can be parsed and still contribute no row here. The empty list is therefore
- * reported with that reason rather than as an absence of findings.
+ * what it found, but it is observation-only by design and asserts nothing; the
+ * evidence application pass (scripts/run-career-apply.ts) then re-fetches the
+ * pages the registry recorded and writes the VACANCY assertions this build reads
+ * into a dated evidence database. A page that was parsed but whose fetch landed
+ * no assertion contributes no row here — so an empty list is reported with that
+ * reason rather than as an absence of findings.
  *
  * That matters because the file this replaces was a hand-written list of ten
  * plausible-looking postings — with invented titles, institutions, locations and
@@ -37,11 +40,11 @@ interface Db {
 }
 const Database = require("better-sqlite3") as new (p: string) => Db;
 
-const DB_PATH = join(__dirname, "..", "data", "pilot", "evidence", "pilot-careers-2026-09-29.db");
+const DB_PATH = join(__dirname, "..", "data", "pilot", "evidence", "pilot-careers-ext-2026-10-01.db");
 const OUT_PATH = join(__dirname, "..", "src", "data", "jobs.ts");
 
 /** `now` for lifecycle decisions, injected so a rebuild is reproducible. */
-const AS_OF = process.env.M35_AS_OF ?? "2026-09-30";
+const AS_OF = process.env.M35_AS_OF ?? "2026-10-01";
 
 /**
  * A vacancy assertion knows which source observed it; the source knows which
@@ -89,6 +92,8 @@ interface PublicJob {
   status: string;
   sourceName: string | null;
   lastSeenAt: string;
+  kind: "POSTING" | "DOCUMENT";
+  sourceDocument: string | null;
 }
 
 function toPublicJob(d: VacancyDto, institutionName: string): PublicJob {
@@ -107,6 +112,11 @@ function toPublicJob(d: VacancyDto, institutionName: string): PublicJob {
     status: d.status,
     sourceName: d.source_name,
     lastSeenAt: d.last_seen_at,
+    // A DOCUMENT record is a vacancy-shaped notice whose contents were never
+    // read; a POSTING is a parsed record. The page must not present them as the
+    // same thing, so both labels travel with the row.
+    kind: d.kind,
+    sourceDocument: d.source_document,
   };
 }
 
@@ -145,6 +155,8 @@ function render(j: PublicJob): string {
     `    status: ${JSON.stringify(j.status)},`,
     `    sourceName: ${JSON.stringify(j.sourceName)},`,
     `    lastSeenAt: ${JSON.stringify(j.lastSeenAt)},`,
+    `    kind: ${JSON.stringify(j.kind)},`,
+    `    sourceDocument: ${JSON.stringify(j.sourceDocument)},`,
     "  },",
   ].join("\n");
 }
@@ -156,16 +168,17 @@ function header(jobs: PublicJob[], note: string): string {
 // ${note}
 //
 // Every entry is a projection of a current, non-rejected VACANCY assertion row in
-// data/pilot/evidence/pilot-careers-2026-09-29.db, and such a row exists only if
+// data/pilot/evidence/pilot-careers-ext-2026-10-01.db, and such a row exists only if
 // evidence was fetched from an institution's own site and then published. No code
 // path in this project can invent one. Do not add a row by hand: nothing downstream
 // would be able to tell it from a real one.
 //
 // An empty list here has more than one possible reason, and the note above says
-// which one applies. It is not the same as "nothing was found": the M3.5 discovery
-// pass does parse real pages and records every candidate it sees, including the
-// titles and counts, in data/pilot/career-source-registry.json. What it has never
-// done is publish one. So read "no assertions" as "nothing published yet".
+// which one applies. It is not the same as "nothing was found": the M3.5 pipeline
+// does parse real pages and records every candidate it sees, including the titles
+// and counts, in data/pilot/career-source-registry.json, and the evidence
+// application pass asserts unread vacancy documents it actually observed. So read
+// "no assertions" as "nothing published yet".
 
 export interface Job {
   id: string;
@@ -179,6 +192,10 @@ export interface Job {
   status: string;
   sourceName: string | null;
   lastSeenAt: string;
+  /** POSTING = a record parsed out of a page; DOCUMENT = an unread notice link. */
+  kind: "POSTING" | "DOCUMENT";
+  /** The observed URL of the vacancy notice, when the record is a document. */
+  sourceDocument: string | null;
 }
 
 /** What this build was based on, shown by the page so the empty case is legible. */
@@ -205,10 +222,12 @@ function main(): void {
       now: AS_OF,
     });
     const jobs = dtos.map((d) => toPublicJob(d, d.institution_name));
+    const postings = dtos.filter((d) => d.kind === "POSTING").length;
+    const documents = dtos.filter((d) => d.kind === "DOCUMENT").length;
     const note =
       dtos.length === 0
         ? `no vacancy published yet as of ${AS_OF}: the M3.5 discovery pass parsed real pages and is recorded in data/pilot/career-source-registry.json, but it asserts no vacancy`
-        : `${dtos.length} current vacancy assertion(s) as of ${AS_OF}`;
+        : `${dtos.length} current vacancy record(s) as of ${AS_OF} (${postings} parsed posting(s)${documents > 0 ? `, ${documents} unread vacancy notice(s) linked on institution career pages` : ""}); all UNVERIFIED`;
     writeFileSync(OUT_PATH, header(jobs, note), "utf8");
     console.log(`build:jobs — ${note}`);
   } finally {
