@@ -2,7 +2,7 @@
 
 - **Release 1 commit:** `90e3a3e` (deployed, Pages build `success`); post-launch P1 cycle `aab0836`; person detail pages `1aeba04`
 - **Release 2 commit:** `a3da05d` (deployed, Pages build `success`); people pipeline pass-2 export; see "Fixed in Release 2"
-- **Release 3 commit:** branches release (announcement + build `success`); 1331 branch names across 13 institutions from 14 verified branch-directory sources; see "Fixed in Release 3"
+- **Release 3 commit:** `b21da3b` (branch release; live sweep pending — see "Live state" below); 1331 branch names across 13 institutions from 14 verified branch-directory sources; see "Fixed in Release 3"
 - **Live URL:** https://subashnp169.github.io/laghubitta-khabar
 - **Release 2 live state (post-deploy sweep):** 108 people / 13 institutions / 13 sources; all UNVERIFIED, all `sources.length === 1`, 0 CONFLICT; 51/51 institution pages HTTP 200; 13/13 person pages HTTP 200; all 108 names render on their institution pages
 - **Sweep (Release 1):** 51/51 institution pages HTTP 200, 45 honest `None published`, 0 P0 leaks
