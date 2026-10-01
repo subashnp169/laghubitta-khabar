@@ -1,9 +1,9 @@
 # Live Data Issues — People coverage release
 
 - **Release 1 commit:** `90e3a3e` (deployed, Pages build `success`); post-launch P1 cycle `aab0836`; person detail pages `1aeba04`
-- **Release 2 (this file):** people pipeline pass-2 export; see "Fixed in this release"
+- **Release 2 commit:** `a3da05d` (deployed, Pages build `success`); people pipeline pass-2 export; see "Fixed in Release 2"
 - **Live URL:** https://subashnp169.github.io/laghubitta-khabar
-- **Release 2 live state (pre-deploy audit):** 108 people / 13 institutions / 13 sources; all UNVERIFIED, all `sources.length === 1`, 0 CONFLICT
+- **Release 2 live state (post-deploy sweep):** 108 people / 13 institutions / 13 sources; all UNVERIFIED, all `sources.length === 1`, 0 CONFLICT; 51/51 institution pages HTTP 200; 13/13 person pages HTTP 200; all 108 names render on their institution pages
 - **Sweep (Release 1):** 51/51 institution pages HTTP 200, 45 honest `None published`, 0 P0 leaks
 - **Collected from:** live page fetch after deployment + deterministic export audit (`src/data/people.ts`)
 
