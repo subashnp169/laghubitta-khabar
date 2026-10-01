@@ -94,24 +94,41 @@ console.log("smoke:api — M3.3 leadership + person routes");
 const leadership = request("GET", `/api/institutions/${slug}/leadership`);
 ok(leadership.status === 200 && Array.isArray(leadership.body.data), "leadership is a real collection (not an empty-phase stub)");
 ok(
-  leadership.body.pagination.total === leadership.body.data.length &&
-    leadership.body.data.every((p: any) => p.institutionSlug === slug && p.id.startsWith("person-") && typeof p.slug === "string" && Array.isArray(p.positions)),
+      leadership.body.pagination.total === leadership.body.data.length &&
+      leadership.body.data.every((p: any) => p.institution_slug === slug && p.id.startsWith("person-") && typeof p.slug === "string" && Array.isArray(p.positions)),
   "leadership items are PersonDto with institution scoping + deterministic id/slug",
 );
 ok(
-  leadership.body.data.every((p: any) => ["UNVERIFIED", "HUMAN_VERIFIED", "AUTO_VERIFIED", "CONFLICT"].includes(p.meta.verification_status) && typeof p.meta.source_id === "string"),
-  "every person carries an honest verification status + source",
-);
+      leadership.body.data.every((p: any) => ["UNVERIFIED", "HUMAN_VERIFIED", "AUTO_VERIFIED", "CONFLICT"].includes(p.meta.verification_status) && typeof p.meta.source === "string" && Array.isArray(p.meta.sources) && p.meta.sources.length >= 1 && typeof p.meta.last_verified_at === "string"),
+      "every person carries an honest verification status + source",
+    );
 const paginated = request("GET", `/api/institutions/${slug}/leadership?limit=1`);
 ok(
   paginated.status === 200 && paginated.body.data.length <= 1 && paginated.body.pagination.limit === 1,
   "leadership honours pagination",
 );
-const knownSlug = leadership.body.data[0]?.slug;
+// Pick an institution that actually has published leadership. institutions[0] may
+// have none, which would silently skip the person-detail assertions below and let a
+// broken person route pass unnoticed.
+const leadershipSlug =
+  institutions.find((i) => {
+    const res = request("GET", `/api/institutions/${i.slug}/leadership?limit=1`);
+    return res.status === 200 && res.body.data.length > 0;
+  })?.slug ?? institutions[0].slug;
+ok(
+  institutions.some((i) => {
+    const res = request("GET", `/api/institutions/${i.slug}/leadership?limit=1`);
+    return res.status === 200 && res.body.data.length > 0;
+  }),
+  "at least one institution has published leadership",
+);
+const knownSlug = request("GET", `/api/institutions/${leadershipSlug}/leadership`).body.data[0]?.slug;
+ok(typeof knownSlug === "string" && knownSlug.length > 0, "a published person is reachable from leadership");
 if (knownSlug) {
   const person = request("GET", `/api/people/${knownSlug}`);
   ok(person.status === 200 && person.body.data.slug === knownSlug, "person detail resolves by slug");
-  ok(person.body.meta?.resource === `people:${knownSlug}`, "person detail carries resource meta");
+    ok(person.body.meta && person.body.meta.source && Array.isArray(person.body.meta.sources), "person detail carries resource meta");
+
 } else {
   const person = request("GET", "/api/people/nobody-here");
   ok(person.status === 404 && person.body.error.code === "NOT_FOUND", "unknown person → 404");

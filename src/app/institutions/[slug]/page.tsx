@@ -3,7 +3,28 @@ import { notFound } from "next/navigation";
 import { institutions, getInstitutionBySlug } from "@/data/institutions";
 import { crawlSources, crawlSummary } from "@/data/pilot";
 import { nrbInstitutionLinks, nrbRegulatoryEvents } from "@/data/nrb";
+import { institutionLeadership } from "../../../../lib/api/repository";
+import type { PersonDto } from "../../../../lib/repository/types";
 import Link from "next/link";
+
+const STATUS_BADGE: Record<string, { label: string; cls: string; title: string }> = {
+  CONFLICT: {
+    label: "Conflict",
+    cls: "bg-amber-50 text-amber-700",
+    title: "Sources disagree about this role. The person is listed; the attribution is not confirmed.",
+  },
+  UNVERIFIED: {
+    label: "Unverified",
+    cls: "bg-slate-100 text-slate-600",
+    title: "Extracted from a source snapshot that has not been independently confirmed yet.",
+  },
+  AUTO_VERIFIED: { label: "Auto-verified", cls: "bg-blue-50 text-blue-700", title: "Matched automatically across sources." },
+  HUMAN_VERIFIED: { label: "Verified", cls: "bg-green-50 text-nrb-700", title: "Confirmed by a human reviewer." },
+};
+
+function statusBadge(status: string) {
+  return STATUS_BADGE[status] ?? { label: status, cls: "bg-slate-100 text-slate-600", title: "" };
+}
 
 export async function generateStaticParams() {
   return institutions.map((inst) => ({ slug: inst.slug }));
@@ -28,6 +49,19 @@ export default async function InstitutionPage({ params }: { params: Promise<{ sl
   const nrbClassLinks = nrbLinksFor.filter((l) => l.linkType === "CLASS" || l.linkType === "LICENSE");
   const nrbMatchedDocs = nrbLinksFor.filter((l) => l.nrbDocumentId);
   const nrbEvents = nrbRegulatoryEvents.filter((e) => e.institutionId === inst.id);
+
+  // Published leadership comes from the validated People read model, not from the
+  // legacy crawl summary. The crawl widget's peopleNames is 0 for every institution
+  // and must never be shown as an "extracted" count for public leadership.
+  const leadershipResponse = institutionLeadership(inst.slug, {});
+  const leadership =
+    leadershipResponse.status === 200 && "data" in leadershipResponse.body
+      ? (leadershipResponse.body.data as PersonDto[])
+      : [];
+  const leadershipTotal =
+    leadershipResponse.status === 200 && "pagination" in leadershipResponse.body
+      ? leadershipResponse.body.pagination?.total ?? leadership.length
+      : leadership.length;
 
   return (
     <div className="max-w-[1000px] mx-auto px-4 py-8">
@@ -86,7 +120,44 @@ export default async function InstitutionPage({ params }: { params: Promise<{ sl
                 ) : (
                   <span className="text-slate-400">Not available</span>
                 )}
-                {crawl && (
+      <div className="bg-white rounded-xl border border-slate-200 p-4 mb-6">
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="font-bold text-sm text-slate-700">Leadership</h2>
+          <span className="text-[10px] text-slate-400">
+            {leadershipTotal} {leadershipTotal === 1 ? "person" : "people"} extracted from source evidence
+          </span>
+        </div>
+
+        {leadership.length === 0 ? (
+          <p className="text-xs text-slate-400">
+            No leadership has been extracted for this institution yet. We publish nothing until a source shows it.
+          </p>
+        ) : (
+          <ul className="divide-y divide-slate-100">
+            {leadership.map((p) => {
+              const badge = statusBadge(p.meta.verification_status);
+              return (
+                <li key={p.id} className="py-2 flex flex-wrap items-baseline gap-x-2 gap-y-1">
+                  <span className="text-sm text-slate-800 font-medium">{p.name}</span>
+                  <span className="text-xs text-slate-500">{p.positions.map((x) => x.title).join(", ")}</span>
+                  <span
+                    title={badge.title}
+                    className={`text-[10px] font-semibold px-1.5 py-0.5 rounded ${badge.cls}`}
+                  >
+                    {badge.label}
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+        )}
+
+        <p className="text-[10px] text-slate-400 mt-3">
+          Roles are extracted from source evidence, not confirmed by a second source. Anything with a conflict is flagged.
+        </p>
+      </div>
+
+      {crawl && (
                   <span className="inline-flex items-center gap-1 ml-2 text-[10px] font-semibold px-1.5 py-0.5 rounded-full bg-blue-50 text-blue-700">crawl-verified</span>
                 )}
               </dd>
@@ -207,12 +278,15 @@ export default async function InstitutionPage({ params }: { params: Promise<{ sl
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div>
-              <div className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold mb-2">Leadership <span className="normal-case text-slate-400">({crawl.peopleCount} extracted)</span></div>
+              <div className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold mb-2">Leadership <span className="normal-case text-slate-400">({leadershipTotal} published)</span></div>
               <ul className="space-y-1">
-                {crawl.peopleNames.map((p) => (
-                  <li key={p} className="text-xs text-slate-600">{p}</li>
+                {leadership.slice(0, 6).map((p) => (
+                  <li key={p.id} className="text-xs text-slate-600">{p.name}</li>
                 ))}
-                {crawl.peopleNames.length === 0 && <li className="text-xs text-slate-400">None extracted</li>}
+                {leadershipTotal > leadership.slice(0, 6).length && (
+                  <li className="text-xs text-slate-400">+{leadershipTotal - leadership.slice(0, 6).length} more below</li>
+                )}
+                {leadershipTotal === 0 && <li className="text-xs text-slate-400">None published</li>}
               </ul>
             </div>
             <div>
