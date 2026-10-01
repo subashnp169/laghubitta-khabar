@@ -2,8 +2,9 @@
 
 - **Release 1 commit:** `90e3a3e` (deployed, Pages build `success`); post-launch P1 cycle `aab0836`; person detail pages `1aeba04`
 - **Release 2 commit:** `a3da05d` (deployed, Pages build `success`); people pipeline pass-2 export; see "Fixed in Release 2"
-- **Release 3 commit:** `b21da3b` (branch release; live sweep pending — see "Live state" below); 1331 branch names across 13 institutions from 14 verified branch-directory sources; see "Fixed in Release 3"
+- **Release 3 commit:** `b21da3b` (branch release; Pages build `success`, live sweep OK); 1331 branch names across 13 institutions from 14 verified branch-directory sources; see "Fixed in Release 3"
 - **Live URL:** https://subashnp169.github.io/laghubitta-khabar
+- **Release 3 live state (post-deploy sweep):** 13/13 branch-publishing institution pages render the Branch panel with count + names + source URL; institutions without verified branch pages show the honest `No branches have been extracted` state; deploy covers branch commits `b21da3b` + `73a2866`
 - **Release 2 live state (post-deploy sweep):** 108 people / 13 institutions / 13 sources; all UNVERIFIED, all `sources.length === 1`, 0 CONFLICT; 51/51 institution pages HTTP 200; 13/13 person pages HTTP 200; all 108 names render on their institution pages
 - **Sweep (Release 1):** 51/51 institution pages HTTP 200, 45 honest `None published`, 0 P0 leaks
 - **Collected from:** live page fetch after deployment + deterministic export audit (`src/data/people.ts`, `src/data/branches.ts`)
