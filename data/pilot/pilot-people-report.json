@@ -1,11 +1,11 @@
 {
   "$schema": "pilot-people-evidence/v1",
-  "generated_at": "2026-09-27T06:25:23.946Z",
-  "db_path": "data/pilot/evidence/pilot-people-2026-09-27-ext-c-pass1.db",
+  "generated_at": "2026-10-01T08:05:54.304Z",
+  "db_path": "data/pilot/evidence/pilot-people-ext-c-pass2.db",
   "pilot_universe": 51,
   "people_declared": 2,
   "people_not_discovered": 49,
-  "repeat": true,
+  "repeat": false,
   "diagnose": false,
   "results": [
     {
@@ -22,15 +22,15 @@
       "capability": "PEOPLE",
       "http": 200,
       "evidence": "EXTRACTED",
-      "extracted": 57,
-      "assertions": 3,
-      "distinctPeople": 3,
+      "extracted": 6,
+      "assertions": 16,
+      "distinctPeople": 16,
       "statuses": {
-        "UNCHANGED": 3
+        "CHANGED": 3
       },
       "jsRendered": false,
       "status": "HEALTHY",
-      "detail": "UNCHANGED:https://www.nirdhan.com.np/about ; UNCHANGED:https://www.nirdhan.com.np/about-us ; UNCHANGED:https://www.nirdhan.com.np/about-us/board-of-directors"
+      "detail": "CHANGED:https://www.nirdhan.com.np/about ; CHANGED:https://www.nirdhan.com.np/about-us ; CHANGED:https://www.nirdhan.com.np/about-us/board-of-directors"
     },
     {
       "institution": "mfi-047",
@@ -44,15 +44,15 @@
       "capability": "PEOPLE",
       "http": 200,
       "evidence": "EXTRACTED",
-      "extracted": 57,
+      "extracted": 7,
       "assertions": 0,
       "distinctPeople": 0,
       "statuses": {
-        "UNCHANGED": 1
+        "CHANGED": 1
       },
       "jsRendered": false,
       "status": "HEALTHY",
-      "detail": "UNCHANGED:https://www.matribhumimf.com.np/team/board"
+      "detail": "CHANGED:https://www.matribhumimf.com.np/team/board"
     },
     {
       "institution": "mfi-049",
@@ -66,7 +66,7 @@
       "capability": "PEOPLE",
       "http": 200,
       "evidence": "EXTRACTED",
-      "extracted": 58,
+      "extracted": 8,
       "assertions": 0,
       "distinctPeople": 0,
       "statuses": {
@@ -88,15 +88,15 @@
       "capability": "PEOPLE",
       "http": 200,
       "evidence": "EXTRACTED",
-      "extracted": 58,
-      "assertions": 0,
-      "distinctPeople": 0,
+      "extracted": 10,
+      "assertions": 7,
+      "distinctPeople": 7,
       "statuses": {
-        "UNCHANGED": 1
+        "CHANGED": 1
       },
       "jsRendered": false,
       "status": "HEALTHY",
-      "detail": "UNCHANGED:https://ashamicrofinance.com.np/board-of-directors"
+      "detail": "CHANGED:https://ashamicrofinance.com.np/board-of-directors"
     },
     {
       "institution": "mfi-043",
@@ -111,15 +111,15 @@
       "capability": "PEOPLE",
       "http": 200,
       "evidence": "EXTRACTED",
-      "extracted": 58,
-      "assertions": 0,
-      "distinctPeople": 0,
+      "extracted": 14,
+      "assertions": 8,
+      "distinctPeople": 8,
       "statuses": {
-        "UNCHANGED": 2
+        "CHANGED": 2
       },
       "jsRendered": false,
       "status": "HEALTHY",
-      "detail": "UNCHANGED:https://cycnlbsl.org.np/board-of-directors ; UNCHANGED:https://cycnlbsl.org.np/management-team"
+      "detail": "CHANGED:https://cycnlbsl.org.np/board-of-directors ; CHANGED:https://cycnlbsl.org.np/management-team"
     },
     {
       "institution": "mfi-004",
@@ -134,15 +134,15 @@
       "capability": "PEOPLE",
       "http": 200,
       "evidence": "EXTRACTED",
-      "extracted": 58,
-      "assertions": 18,
-      "distinctPeople": 17,
+      "extracted": 18,
+      "assertions": 12,
+      "distinctPeople": 11,
       "statuses": {
-        "UNCHANGED": 2
+        "CHANGED": 2
       },
       "jsRendered": false,
       "status": "HEALTHY",
-      "detail": "UNCHANGED:https://www.swbbl.com.np/board-management/board-of-directors ; UNCHANGED:https://www.swbbl.com.np/board-management/management-teams"
+      "detail": "CHANGED:https://www.swbbl.com.np/board-management/board-of-directors ; CHANGED:https://www.swbbl.com.np/board-management/management-teams"
     },
     {
       "institution": "mfi-005",
@@ -157,15 +157,15 @@
       "capability": "PEOPLE",
       "http": 200,
       "evidence": "EXTRACTED",
-      "extracted": 58,
+      "extracted": 20,
       "assertions": 0,
       "distinctPeople": 0,
       "statuses": {
-        "UNCHANGED": 2
+        "CHANGED": 2
       },
       "jsRendered": false,
       "status": "HEALTHY",
-      "detail": "UNCHANGED:https://www.skbbl.com.np/board-of-directors ; UNCHANGED:https://www.skbbl.com.np/team"
+      "detail": "CHANGED:https://www.skbbl.com.np/board-of-directors ; CHANGED:https://www.skbbl.com.np/team"
     },
     {
       "institution": "mfi-006",
@@ -180,15 +180,15 @@
       "capability": "PEOPLE",
       "http": 200,
       "evidence": "EXTRACTED",
-      "extracted": 58,
-      "assertions": 0,
-      "distinctPeople": 0,
+      "extracted": 23,
+      "assertions": 5,
+      "distinctPeople": 5,
       "statuses": {
-        "UNCHANGED": 2
+        "CHANGED": 2
       },
       "jsRendered": false,
       "status": "HEALTHY",
-      "detail": "UNCHANGED:https://www.nerudemirmire.com.np/board ; UNCHANGED:https://www.nerudemirmire.com.np/management"
+      "detail": "CHANGED:https://www.nerudemirmire.com.np/board ; CHANGED:https://www.nerudemirmire.com.np/management"
     },
     {
       "institution": "mfi-010",
@@ -203,15 +203,15 @@
       "capability": "PEOPLE",
       "http": 200,
       "evidence": "EXTRACTED",
-      "extracted": 58,
-      "assertions": 0,
-      "distinctPeople": 0,
+      "extracted": 27,
+      "assertions": 9,
+      "distinctPeople": 9,
       "statuses": {
-        "UNCHANGED": 2
+        "CHANGED": 2
       },
       "jsRendered": false,
       "status": "HEALTHY",
-      "detail": "UNCHANGED:https://www.kalikabank.com.np/board ; UNCHANGED:https://www.kalikabank.com.np/management"
+      "detail": "CHANGED:https://www.kalikabank.com.np/board ; CHANGED:https://www.kalikabank.com.np/management"
     },
     {
       "institution": "mfi-012",
@@ -225,15 +225,15 @@
       "capability": "PEOPLE",
       "http": 200,
       "evidence": "EXTRACTED",
-      "extracted": 58,
+      "extracted": 29,
       "assertions": 6,
       "distinctPeople": 6,
       "statuses": {
-        "UNCHANGED": 1
+        "CHANGED": 1
       },
       "jsRendered": false,
       "status": "HEALTHY",
-      "detail": "UNCHANGED:https://swmfi.com.np/board-of-directors"
+      "detail": "CHANGED:https://swmfi.com.np/board-of-directors"
     },
     {
       "institution": "mfi-013",
@@ -249,15 +249,15 @@
       "capability": "PEOPLE",
       "http": 200,
       "evidence": "EXTRACTED",
-      "extracted": 58,
-      "assertions": 0,
-      "distinctPeople": 0,
+      "extracted": 35,
+      "assertions": 7,
+      "distinctPeople": 7,
       "statuses": {
-        "UNCHANGED": 3
+        "CHANGED": 3
       },
       "jsRendered": false,
       "status": "HEALTHY",
-      "detail": "UNCHANGED:https://laxmilaghu.com.np/about-us/board-of-directors ; UNCHANGED:https://laxmilaghu.com.np/board-management/board-of-directors ; UNCHANGED:https://laxmilaghu.com.np/board-of-directors"
+      "detail": "CHANGED:https://laxmilaghu.com.np/about-us/board-of-directors ; CHANGED:https://laxmilaghu.com.np/board-management/board-of-directors ; CHANGED:https://laxmilaghu.com.np/board-of-directors"
     },
     {
       "institution": "mfi-014",
@@ -271,15 +271,15 @@
       "capability": "PEOPLE",
       "http": 200,
       "evidence": "EXTRACTED",
-      "extracted": 58,
-      "assertions": 0,
-      "distinctPeople": 0,
+      "extracted": 37,
+      "assertions": 7,
+      "distinctPeople": 7,
       "statuses": {
-        "UNCHANGED": 1
+        "CHANGED": 1
       },
       "jsRendered": false,
       "status": "HEALTHY",
-      "detail": "UNCHANGED:https://himalayanlaghubitta.com/page/aboutus/2/boardofdirectors/5"
+      "detail": "CHANGED:https://himalayanlaghubitta.com/page/aboutus/2/boardofdirectors/5"
     },
     {
       "institution": "mfi-018",
@@ -295,15 +295,15 @@
       "capability": "PEOPLE",
       "http": 200,
       "evidence": "EXTRACTED",
-      "extracted": 58,
+      "extracted": 42,
       "assertions": 18,
       "distinctPeople": 17,
       "statuses": {
-        "UNCHANGED": 3
+        "CHANGED": 3
       },
       "jsRendered": false,
       "status": "HEALTHY",
-      "detail": "UNCHANGED:https://gilb.com.np/about-us ; UNCHANGED:https://gilb.com.np/board ; UNCHANGED:https://gilb.com.np/management-team"
+      "detail": "CHANGED:https://gilb.com.np/about-us ; CHANGED:https://gilb.com.np/board ; CHANGED:https://gilb.com.np/management-team"
     },
     {
       "institution": "mfi-019",
@@ -317,15 +317,15 @@
       "capability": "PEOPLE",
       "http": 200,
       "evidence": "EXTRACTED",
-      "extracted": 58,
+      "extracted": 44,
       "assertions": 6,
       "distinctPeople": 6,
       "statuses": {
-        "UNCHANGED": 1
+        "CHANGED": 1
       },
       "jsRendered": false,
       "status": "HEALTHY",
-      "detail": "UNCHANGED:https://www.mslbsl.com.np/about-us/board-of-directors"
+      "detail": "CHANGED:https://www.mslbsl.com.np/about-us/board-of-directors"
     },
     {
       "institution": "mfi-021",
@@ -340,15 +340,15 @@
       "capability": "PEOPLE",
       "http": 200,
       "evidence": "EXTRACTED",
-      "extracted": 58,
+      "extracted": 48,
       "assertions": 9,
       "distinctPeople": 9,
       "statuses": {
-        "UNCHANGED": 2
+        "CHANGED": 2
       },
       "jsRendered": false,
       "status": "HEALTHY",
-      "detail": "UNCHANGED:https://www.samata.org.np/about-us/board-director ; UNCHANGED:https://www.samata.org.np/about-us/management-team"
+      "detail": "CHANGED:https://www.samata.org.np/about-us/board-director ; CHANGED:https://www.samata.org.np/about-us/management-team"
     },
     {
       "institution": "mfi-024",
@@ -363,15 +363,15 @@
       "capability": "PEOPLE",
       "http": 200,
       "evidence": "EXTRACTED",
-      "extracted": 58,
-      "assertions": 4,
-      "distinctPeople": 4,
+      "extracted": 50,
+      "assertions": 5,
+      "distinctPeople": 5,
       "statuses": {
-        "UNCHANGED": 2
+        "CHANGED": 2
       },
       "jsRendered": false,
       "status": "HEALTHY",
-      "detail": "UNCHANGED:https://nationalmicrofinance.com.np/board-of-directors ; UNCHANGED:https://nationalmicrofinance.com.np/management-team"
+      "detail": "CHANGED:https://nationalmicrofinance.com.np/board-of-directors ; CHANGED:https://nationalmicrofinance.com.np/management-team"
     },
     {
       "institution": "mfi-026",
@@ -385,15 +385,15 @@
       "capability": "PEOPLE",
       "http": 200,
       "evidence": "EXTRACTED",
-      "extracted": 58,
+      "extracted": 51,
       "assertions": 0,
       "distinctPeople": 0,
       "statuses": {
-        "UNCHANGED": 1
+        "CHANGED": 1
       },
       "jsRendered": false,
       "status": "HEALTHY",
-      "detail": "UNCHANGED:https://weannepal.com/board-of-directors"
+      "detail": "CHANGED:https://weannepal.com/board-of-directors"
     },
     {
       "institution": "mfi-027",
@@ -407,15 +407,15 @@
       "capability": "PEOPLE",
       "http": 200,
       "evidence": "EXTRACTED",
-      "extracted": 58,
+      "extracted": 52,
       "assertions": 0,
       "distinctPeople": 0,
       "statuses": {
-        "UNCHANGED": 1
+        "CHANGED": 1
       },
       "jsRendered": false,
       "status": "HEALTHY",
-      "detail": "UNCHANGED:https://unnatislbs.com.np/board-of-directors"
+      "detail": "CHANGED:https://unnatislbs.com.np/board-of-directors"
     },
     {
       "institution": "mfi-028",
@@ -427,15 +427,15 @@
       "capability": "PEOPLE",
       "http": 200,
       "evidence": "EXTRACTED",
-      "extracted": 58,
+      "extracted": 53,
       "assertions": 0,
       "distinctPeople": 0,
       "statuses": {
-        "UNCHANGED": 1
+        "CHANGED": 1
       },
       "jsRendered": false,
       "status": "HEALTHY",
-      "detail": "UNCHANGED:https://www.nadeplaghubitta.com/board-of-directors"
+      "detail": "CHANGED:https://www.nadeplaghubitta.com/board-of-directors"
     },
     {
       "institution": "mfi-029",
@@ -450,15 +450,15 @@
       "capability": "PEOPLE",
       "http": 200,
       "evidence": "EXTRACTED",
-      "extracted": 58,
+      "extracted": 57,
       "assertions": 11,
       "distinctPeople": 11,
       "statuses": {
-        "UNCHANGED": 2
+        "CHANGED": 2
       },
       "jsRendered": false,
       "status": "HEALTHY",
-      "detail": "UNCHANGED:https://www.supportmicrofinance.com.np/board ; UNCHANGED:https://www.supportmicrofinance.com.np/team"
+      "detail": "CHANGED:https://www.supportmicrofinance.com.np/board ; CHANGED:https://www.supportmicrofinance.com.np/team"
     },
     {
       "institution": "mfi-035",
@@ -474,15 +474,15 @@
       "capability": "PEOPLE",
       "http": 200,
       "evidence": "EXTRACTED",
-      "extracted": 58,
-      "assertions": 0,
-      "distinctPeople": 0,
+      "extracted": 63,
+      "assertions": 6,
+      "distinctPeople": 6,
       "statuses": {
-        "UNCHANGED": 3
+        "CHANGED": 3
       },
       "jsRendered": false,
       "status": "HEALTHY",
-      "detail": "UNCHANGED:https://swabhimaanlaghubitta.com.np/board ; UNCHANGED:https://swabhimaanlaghubitta.com.np/board-management/board-of-directors ; UNCHANGED:https://swabhimaanlaghubitta.com.np/board-of-directors"
+      "detail": "CHANGED:https://swabhimaanlaghubitta.com.np/board ; CHANGED:https://swabhimaanlaghubitta.com.np/board-management/board-of-directors ; CHANGED:https://swabhimaanlaghubitta.com.np/board-of-directors"
     },
     {
       "institution": "mfi-040",
@@ -496,9 +496,9 @@
       "capability": "PEOPLE",
       "http": 200,
       "evidence": "EXTRACTED",
-      "extracted": 59,
-      "assertions": 0,
-      "distinctPeople": 0,
+      "extracted": 65,
+      "assertions": 6,
+      "distinctPeople": 6,
       "statuses": {
         "CHANGED": 1
       },
@@ -518,15 +518,15 @@
       "capability": "PEOPLE",
       "http": 200,
       "evidence": "EXTRACTED",
-      "extracted": 59,
+      "extracted": 66,
       "assertions": 0,
       "distinctPeople": 0,
       "statuses": {
-        "UNCHANGED": 1
+        "CHANGED": 1
       },
       "jsRendered": false,
       "status": "HEALTHY",
-      "detail": "UNCHANGED:https://www.ulbsl.com.np/board"
+      "detail": "CHANGED:https://www.ulbsl.com.np/board"
     },
     {
       "institution": "mfi-042",
@@ -540,15 +540,15 @@
       "capability": "PEOPLE",
       "http": 200,
       "evidence": "EXTRACTED",
-      "extracted": 59,
-      "assertions": 0,
-      "distinctPeople": 0,
+      "extracted": 68,
+      "assertions": 2,
+      "distinctPeople": 2,
       "statuses": {
-        "UNCHANGED": 1
+        "CHANGED": 1
       },
       "jsRendered": false,
       "status": "HEALTHY",
-      "detail": "UNCHANGED:https://dhaulagiribank.com/management-team"
+      "detail": "CHANGED:https://dhaulagiribank.com/management-team"
     },
     {
       "institution": "mfi-045",
@@ -563,15 +563,15 @@
       "capability": "PEOPLE",
       "http": 200,
       "evidence": "EXTRACTED",
-      "extracted": 59,
-      "assertions": 16,
-      "distinctPeople": 16,
+      "extracted": 72,
+      "assertions": 6,
+      "distinctPeople": 6,
       "statuses": {
-        "UNCHANGED": 2
+        "CHANGED": 2
       },
       "jsRendered": false,
       "status": "HEALTHY",
-      "detail": "UNCHANGED:https://swastiklbs.com.np/board-of-directors ; UNCHANGED:https://swastiklbs.com.np/management-team"
+      "detail": "CHANGED:https://swastiklbs.com.np/board-of-directors ; CHANGED:https://swastiklbs.com.np/management-team"
     },
     {
       "institution": "mfi-003",
@@ -1044,35 +1044,35 @@
   ],
   "shapes": [],
   "audit": {
-    "assertionsTotal": 91,
-    "assertionsUnverified": 91,
-    "distinctPeople": 89,
+    "assertionsTotal": 146,
+    "assertionsUnverified": 146,
+    "distinctPeople": 144,
     "byField": [
       {
         "field_name": "people_director",
-        "n": 41,
-        "people": 41
-      },
-      {
-        "field_name": "people_ceo",
-        "n": 21,
-        "people": 21
+        "n": 86,
+        "people": 86
       },
       {
         "field_name": "people_board",
-        "n": 21,
-        "people": 21
+        "n": 25,
+        "people": 25
+      },
+      {
+        "field_name": "people_ceo",
+        "n": 19,
+        "people": 19
       },
       {
         "field_name": "people_chair",
-        "n": 8,
-        "people": 8
+        "n": 16,
+        "people": 16
       }
     ],
     "byStatus": [
       {
         "verification_status": "UNVERIFIED",
-        "n": 91
+        "n": 146
       }
     ],
     "byConfidence": [
@@ -1082,7 +1082,7 @@
       },
       {
         "confidence": 0.55,
-        "n": 86
+        "n": 141
       },
       {
         "confidence": 0.6,
@@ -1093,12 +1093,39 @@
     "snapshotFieldsMissing": [],
     "snapshots": [
       {
-        "source_id": "gilb-website",
+        "source_id": "asha-website",
         "http_status": 200,
         "mime_type": "text/html; charset=UTF-8",
         "extraction_status": "EXTRACTED",
         "parser_version": "people-html-v2",
-        "fetched_at": "2026-09-27T06:22:43.043Z",
+        "fetched_at": "2026-10-01T08:03:20.321Z",
+        "hash_len": 64
+      },
+      {
+        "source_id": "cyc-website",
+        "http_status": 200,
+        "mime_type": "text/html; charset=UTF-8",
+        "extraction_status": "EXTRACTED",
+        "parser_version": "people-html-v2",
+        "fetched_at": "2026-10-01T08:03:29.164Z",
+        "hash_len": 64
+      },
+      {
+        "source_id": "cyc-website",
+        "http_status": 200,
+        "mime_type": "text/html; charset=UTF-8",
+        "extraction_status": "EXTRACTED",
+        "parser_version": "people-html-v2",
+        "fetched_at": "2026-10-01T08:03:31.826Z",
+        "hash_len": 64
+      },
+      {
+        "source_id": "dhaulagiribank-website",
+        "http_status": 200,
+        "mime_type": "text/html; charset=UTF-8",
+        "extraction_status": "EXTRACTED",
+        "parser_version": "people-html-v2",
+        "fetched_at": "2026-10-01T08:05:44.762Z",
         "hash_len": 64
       },
       {
@@ -1107,7 +1134,7 @@
         "mime_type": "text/html; charset=UTF-8",
         "extraction_status": "EXTRACTED",
         "parser_version": "people-html-v2",
-        "fetched_at": "2026-09-27T06:22:45.584Z",
+        "fetched_at": "2026-10-01T08:04:46.440Z",
         "hash_len": 64
       },
       {
@@ -1116,7 +1143,70 @@
         "mime_type": "text/html; charset=UTF-8",
         "extraction_status": "EXTRACTED",
         "parser_version": "people-html-v2",
-        "fetched_at": "2026-09-27T06:22:48.179Z",
+        "fetched_at": "2026-10-01T08:04:49.872Z",
+        "hash_len": 64
+      },
+      {
+        "source_id": "gilb-website",
+        "http_status": 200,
+        "mime_type": "text/html; charset=UTF-8",
+        "extraction_status": "EXTRACTED",
+        "parser_version": "people-html-v2",
+        "fetched_at": "2026-10-01T08:04:53.464Z",
+        "hash_len": 64
+      },
+      {
+        "source_id": "himalayanlaghubitta-website",
+        "http_status": 200,
+        "mime_type": "text/html; charset=utf-8",
+        "extraction_status": "EXTRACTED",
+        "parser_version": "people-html-v2",
+        "fetched_at": "2026-10-01T08:04:36.412Z",
+        "hash_len": 64
+      },
+      {
+        "source_id": "kalikabank-website",
+        "http_status": 200,
+        "mime_type": "text/html; charset=UTF-8",
+        "extraction_status": "EXTRACTED",
+        "parser_version": "people-html-v2",
+        "fetched_at": "2026-10-01T08:03:39.775Z",
+        "hash_len": 64
+      },
+      {
+        "source_id": "kalikabank-website",
+        "http_status": 200,
+        "mime_type": "text/html; charset=UTF-8",
+        "extraction_status": "EXTRACTED",
+        "parser_version": "people-html-v2",
+        "fetched_at": "2026-10-01T08:03:40.202Z",
+        "hash_len": 64
+      },
+      {
+        "source_id": "laxmilaghu-website",
+        "http_status": 200,
+        "mime_type": "text/html; charset=UTF-8",
+        "extraction_status": "EXTRACTED",
+        "parser_version": "people-html-v2",
+        "fetched_at": "2026-10-01T08:04:28.849Z",
+        "hash_len": 64
+      },
+      {
+        "source_id": "laxmilaghu-website",
+        "http_status": 200,
+        "mime_type": "text/html; charset=UTF-8",
+        "extraction_status": "EXTRACTED",
+        "parser_version": "people-html-v2",
+        "fetched_at": "2026-10-01T08:04:31.742Z",
+        "hash_len": 64
+      },
+      {
+        "source_id": "laxmilaghu-website",
+        "http_status": 200,
+        "mime_type": "text/html; charset=UTF-8",
+        "extraction_status": "EXTRACTED",
+        "parser_version": "people-html-v2",
+        "fetched_at": "2026-10-01T08:04:35.552Z",
         "hash_len": 64
       },
       {
@@ -1125,7 +1215,7 @@
         "mime_type": "text/html; charset=utf-8",
         "extraction_status": "EXTRACTED",
         "parser_version": "people-html-v2",
-        "fetched_at": "2026-09-27T06:22:50.637Z",
+        "fetched_at": "2026-10-01T08:04:55.132Z",
         "hash_len": 64
       },
       {
@@ -1134,7 +1224,7 @@
         "mime_type": "text/html; charset=UTF-8",
         "extraction_status": "EXTRACTED",
         "parser_version": "people-html-v2",
-        "fetched_at": "2026-09-27T06:22:57.420Z",
+        "fetched_at": "2026-10-01T08:05:08.469Z",
         "hash_len": 64
       },
       {
@@ -1143,7 +1233,25 @@
         "mime_type": "text/html; charset=UTF-8",
         "extraction_status": "EXTRACTED",
         "parser_version": "people-html-v2",
-        "fetched_at": "2026-09-27T06:22:58.456Z",
+        "fetched_at": "2026-10-01T08:05:09.148Z",
+        "hash_len": 64
+      },
+      {
+        "source_id": "nerudemirmire-website",
+        "http_status": 200,
+        "mime_type": "text/html; charset=UTF-8",
+        "extraction_status": "EXTRACTED",
+        "parser_version": "people-html-v2",
+        "fetched_at": "2026-10-01T08:03:38.207Z",
+        "hash_len": 64
+      },
+      {
+        "source_id": "nerudemirmire-website",
+        "http_status": 200,
+        "mime_type": "text/html; charset=UTF-8",
+        "extraction_status": "EXTRACTED",
+        "parser_version": "people-html-v2",
+        "fetched_at": "2026-10-01T08:03:38.449Z",
         "hash_len": 64
       },
       {
@@ -1152,7 +1260,7 @@
         "mime_type": "text/html; charset=UTF-8",
         "extraction_status": "EXTRACTED",
         "parser_version": "people-html-v2",
-        "fetched_at": "2026-09-27T06:21:26.288Z",
+        "fetched_at": "2026-10-01T08:03:09.481Z",
         "hash_len": 64
       },
       {
@@ -1161,7 +1269,7 @@
         "mime_type": "text/html; charset=UTF-8",
         "extraction_status": "EXTRACTED",
         "parser_version": "people-html-v2",
-        "fetched_at": "2026-09-27T06:21:27.377Z",
+        "fetched_at": "2026-10-01T08:03:11.250Z",
         "hash_len": 64
       },
       {
@@ -1170,7 +1278,7 @@
         "mime_type": "text/html; charset=UTF-8",
         "extraction_status": "EXTRACTED",
         "parser_version": "people-html-v2",
-        "fetched_at": "2026-09-27T06:21:28.386Z",
+        "fetched_at": "2026-10-01T08:03:13.066Z",
         "hash_len": 64
       },
       {
@@ -1179,7 +1287,7 @@
         "mime_type": "text/html; charset=UTF-8",
         "extraction_status": "EXTRACTED",
         "parser_version": "people-html-v2",
-        "fetched_at": "2026-09-27T06:22:53.546Z",
+        "fetched_at": "2026-10-01T08:05:02.191Z",
         "hash_len": 64
       },
       {
@@ -1188,7 +1296,7 @@
         "mime_type": "text/html; charset=UTF-8",
         "extraction_status": "EXTRACTED",
         "parser_version": "people-html-v2",
-        "fetched_at": "2026-09-27T06:22:54.111Z",
+        "fetched_at": "2026-10-01T08:05:04.123Z",
         "hash_len": 64
       },
       {
@@ -1197,7 +1305,7 @@
         "mime_type": "text/html; charset=UTF-8",
         "extraction_status": "EXTRACTED",
         "parser_version": "people-html-v2",
-        "fetched_at": "2026-09-27T06:23:21.197Z",
+        "fetched_at": "2026-10-01T08:05:29.596Z",
         "hash_len": 64
       },
       {
@@ -1206,7 +1314,34 @@
         "mime_type": "text/html; charset=UTF-8",
         "extraction_status": "EXTRACTED",
         "parser_version": "people-html-v2",
-        "fetched_at": "2026-09-27T06:23:21.775Z",
+        "fetched_at": "2026-10-01T08:05:30.014Z",
+        "hash_len": 64
+      },
+      {
+        "source_id": "swabhimaanlaghubitta-website",
+        "http_status": 200,
+        "mime_type": "text/html; charset=UTF-8",
+        "extraction_status": "EXTRACTED",
+        "parser_version": "people-html-v2",
+        "fetched_at": "2026-10-01T08:05:34.907Z",
+        "hash_len": 64
+      },
+      {
+        "source_id": "swabhimaanlaghubitta-website",
+        "http_status": 200,
+        "mime_type": "text/html; charset=UTF-8",
+        "extraction_status": "EXTRACTED",
+        "parser_version": "people-html-v2",
+        "fetched_at": "2026-10-01T08:05:36.586Z",
+        "hash_len": 64
+      },
+      {
+        "source_id": "swabhimaanlaghubitta-website",
+        "http_status": 200,
+        "mime_type": "text/html; charset=UTF-8",
+        "extraction_status": "EXTRACTED",
+        "parser_version": "people-html-v2",
+        "fetched_at": "2026-10-01T08:05:38.109Z",
         "hash_len": 64
       },
       {
@@ -1215,7 +1350,7 @@
         "mime_type": "text/html; charset=UTF-8",
         "extraction_status": "EXTRACTED",
         "parser_version": "people-html-v2",
-        "fetched_at": "2026-09-27T06:23:38.650Z",
+        "fetched_at": "2026-10-01T08:05:50.775Z",
         "hash_len": 64
       },
       {
@@ -1224,7 +1359,7 @@
         "mime_type": "text/html; charset=UTF-8",
         "extraction_status": "EXTRACTED",
         "parser_version": "people-html-v2",
-        "fetched_at": "2026-09-27T06:23:39.849Z",
+        "fetched_at": "2026-10-01T08:05:54.153Z",
         "hash_len": 64
       },
       {
@@ -1233,7 +1368,7 @@
         "mime_type": "text/html; charset=UTF-8",
         "extraction_status": "EXTRACTED",
         "parser_version": "people-html-v2",
-        "fetched_at": "2026-09-27T06:21:48.960Z",
+        "fetched_at": "2026-10-01T08:03:33.212Z",
         "hash_len": 64
       },
       {
@@ -1242,7 +1377,7 @@
         "mime_type": "text/html; charset=UTF-8",
         "extraction_status": "EXTRACTED",
         "parser_version": "people-html-v2",
-        "fetched_at": "2026-09-27T06:21:49.638Z",
+        "fetched_at": "2026-10-01T08:03:33.912Z",
         "hash_len": 64
       },
       {
@@ -1251,20 +1386,233 @@
         "mime_type": "text/html; charset=UTF-8",
         "extraction_status": "EXTRACTED",
         "parser_version": "people-html-v2",
-        "fetched_at": "2026-09-27T06:22:02.105Z",
+        "fetched_at": "2026-10-01T08:03:43.246Z",
+        "hash_len": 64
+      },
+      {
+        "source_id": "uniquenepalmicrofinance-website",
+        "http_status": 200,
+        "mime_type": "text/html; charset=UTF-8",
+        "extraction_status": "EXTRACTED",
+        "parser_version": "people-html-v2",
+        "fetched_at": "2026-10-01T08:05:39.691Z",
         "hash_len": 64
       }
     ],
     "assertions": [
+      {
+        "source_id": "asha-website",
+        "field_name": "people_chair",
+        "value": "Bishnu Mani Gautam",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:03:18.514Z",
+        "source_snapshot_id": "snap-mup8ywso-68",
+        "content_hash": "c2f01b5838b6bd41b80bb7bf56f7ee33cfc04dcaa8a94193557997330da8e3a4",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "asha-website",
+        "field_name": "people_director",
+        "value": "Abinash Silwal",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:03:18.514Z",
+        "source_snapshot_id": "snap-mup8ywso-68",
+        "content_hash": "c2f01b5838b6bd41b80bb7bf56f7ee33cfc04dcaa8a94193557997330da8e3a4",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "asha-website",
+        "field_name": "people_director",
+        "value": "Hemanta Pokharel",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:03:18.514Z",
+        "source_snapshot_id": "snap-mup8ywso-68",
+        "content_hash": "c2f01b5838b6bd41b80bb7bf56f7ee33cfc04dcaa8a94193557997330da8e3a4",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "asha-website",
+        "field_name": "people_director",
+        "value": "Hemanta Poudel",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:03:18.514Z",
+        "source_snapshot_id": "snap-mup8ywso-68",
+        "content_hash": "c2f01b5838b6bd41b80bb7bf56f7ee33cfc04dcaa8a94193557997330da8e3a4",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "asha-website",
+        "field_name": "people_director",
+        "value": "Kabita Pokhrel",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:03:18.514Z",
+        "source_snapshot_id": "snap-mup8ywso-68",
+        "content_hash": "c2f01b5838b6bd41b80bb7bf56f7ee33cfc04dcaa8a94193557997330da8e3a4",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "asha-website",
+        "field_name": "people_director",
+        "value": "Sandip Jung Karki",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:03:18.514Z",
+        "source_snapshot_id": "snap-mup8ywso-68",
+        "content_hash": "c2f01b5838b6bd41b80bb7bf56f7ee33cfc04dcaa8a94193557997330da8e3a4",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "asha-website",
+        "field_name": "people_director",
+        "value": "Vijaya Kumar Chhetri",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:03:18.514Z",
+        "source_snapshot_id": "snap-mup8ywso-68",
+        "content_hash": "c2f01b5838b6bd41b80bb7bf56f7ee33cfc04dcaa8a94193557997330da8e3a4",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "cyc-website",
+        "field_name": "people_ceo",
+        "value": "BABURAM KUNWAR",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:03:20.414Z",
+        "source_snapshot_id": "snap-mup8z5oe-85",
+        "content_hash": "098e78e053258742e75dafd66ae5bc05c3495f681fec74293d3e287af550db57",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "cyc-website",
+        "field_name": "people_ceo",
+        "value": "RADHESHYAM SHRESTHA",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:03:20.414Z",
+        "source_snapshot_id": "snap-mup8z5oe-85",
+        "content_hash": "098e78e053258742e75dafd66ae5bc05c3495f681fec74293d3e287af550db57",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "cyc-website",
+        "field_name": "people_chair",
+        "value": "Gopal Kumar Sharma",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:03:20.414Z",
+        "source_snapshot_id": "snap-mup8z3mp-78",
+        "content_hash": "e5a123d087a27ca57a402de9a1154441c23a7c041ca30f4217ad76465a16dcbf",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "cyc-website",
+        "field_name": "people_director",
+        "value": "Dilip Paudel",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:03:20.414Z",
+        "source_snapshot_id": "snap-mup8z3mp-78",
+        "content_hash": "e5a123d087a27ca57a402de9a1154441c23a7c041ca30f4217ad76465a16dcbf",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "cyc-website",
+        "field_name": "people_director",
+        "value": "Dr. Tarun Paudel",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:03:20.414Z",
+        "source_snapshot_id": "snap-mup8z3mp-78",
+        "content_hash": "e5a123d087a27ca57a402de9a1154441c23a7c041ca30f4217ad76465a16dcbf",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "cyc-website",
+        "field_name": "people_director",
+        "value": "Laxman Khadka Chhetri",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:03:20.414Z",
+        "source_snapshot_id": "snap-mup8z3mp-78",
+        "content_hash": "e5a123d087a27ca57a402de9a1154441c23a7c041ca30f4217ad76465a16dcbf",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "cyc-website",
+        "field_name": "people_director",
+        "value": "Rajendra Regmi",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:03:20.414Z",
+        "source_snapshot_id": "snap-mup8z3mp-78",
+        "content_hash": "e5a123d087a27ca57a402de9a1154441c23a7c041ca30f4217ad76465a16dcbf",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "cyc-website",
+        "field_name": "people_director",
+        "value": "Suman Gharti Chhetri",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:03:20.414Z",
+        "source_snapshot_id": "snap-mup8z3mp-78",
+        "content_hash": "e5a123d087a27ca57a402de9a1154441c23a7c041ca30f4217ad76465a16dcbf",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "dhaulagiribank-website",
+        "field_name": "people_ceo",
+        "value": "Mr. Hem Raj Joshi",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:05:41.690Z",
+        "source_snapshot_id": "snap-mup92095-386",
+        "content_hash": "eb649f4fb6a256f9623d6c9db3716397ca5b62c7b4dbc5bf44dc0c4f0785f4d4",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "dhaulagiribank-website",
+        "field_name": "people_ceo",
+        "value": "Mr. Min Prasad Joshi",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:05:41.690Z",
+        "source_snapshot_id": "snap-mup92095-386",
+        "content_hash": "eb649f4fb6a256f9623d6c9db3716397ca5b62c7b4dbc5bf44dc0c4f0785f4d4",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
       {
         "source_id": "gilb-website",
         "field_name": "people_board",
         "value": "Gokul Pandey",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:22:34.237Z",
-        "source_snapshot_id": "snap-mujfm5pd-194",
-        "content_hash": "25dc1af87e423bc2f616e4790be59e10891577264b1ed3fdfa07d135fa2e32c9",
+        "observed_at": "2026-10-01T08:04:36.531Z",
+        "source_snapshot_id": "snap-mup90twp-228",
+        "content_hash": "7be3864985c058cae9c5e7cc6606e9d5f94cb1ab8e0a1217cd5f3838c89fef4e",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -1274,9 +1622,9 @@
         "value": "Jaya Narayan Sharma",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:22:34.237Z",
-        "source_snapshot_id": "snap-mujfm5pd-194",
-        "content_hash": "25dc1af87e423bc2f616e4790be59e10891577264b1ed3fdfa07d135fa2e32c9",
+        "observed_at": "2026-10-01T08:04:36.531Z",
+        "source_snapshot_id": "snap-mup90twp-228",
+        "content_hash": "7be3864985c058cae9c5e7cc6606e9d5f94cb1ab8e0a1217cd5f3838c89fef4e",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -1286,9 +1634,9 @@
         "value": "Kishor Jung Thakuri",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:22:34.237Z",
-        "source_snapshot_id": "snap-mujfm5pd-194",
-        "content_hash": "25dc1af87e423bc2f616e4790be59e10891577264b1ed3fdfa07d135fa2e32c9",
+        "observed_at": "2026-10-01T08:04:36.531Z",
+        "source_snapshot_id": "snap-mup90twp-228",
+        "content_hash": "7be3864985c058cae9c5e7cc6606e9d5f94cb1ab8e0a1217cd5f3838c89fef4e",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -1298,9 +1646,9 @@
         "value": "Manoj Shrestha",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:22:34.237Z",
-        "source_snapshot_id": "snap-mujfm5pd-194",
-        "content_hash": "25dc1af87e423bc2f616e4790be59e10891577264b1ed3fdfa07d135fa2e32c9",
+        "observed_at": "2026-10-01T08:04:36.531Z",
+        "source_snapshot_id": "snap-mup90twp-228",
+        "content_hash": "7be3864985c058cae9c5e7cc6606e9d5f94cb1ab8e0a1217cd5f3838c89fef4e",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -1310,9 +1658,9 @@
         "value": "Padam Bdr. Ghimire",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:22:34.237Z",
-        "source_snapshot_id": "snap-mujfm5pd-194",
-        "content_hash": "25dc1af87e423bc2f616e4790be59e10891577264b1ed3fdfa07d135fa2e32c9",
+        "observed_at": "2026-10-01T08:04:36.531Z",
+        "source_snapshot_id": "snap-mup90twp-228",
+        "content_hash": "7be3864985c058cae9c5e7cc6606e9d5f94cb1ab8e0a1217cd5f3838c89fef4e",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -1322,9 +1670,9 @@
         "value": "Rishav Subedi",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:22:34.237Z",
-        "source_snapshot_id": "snap-mujfm5pd-194",
-        "content_hash": "25dc1af87e423bc2f616e4790be59e10891577264b1ed3fdfa07d135fa2e32c9",
+        "observed_at": "2026-10-01T08:04:36.531Z",
+        "source_snapshot_id": "snap-mup90twp-228",
+        "content_hash": "7be3864985c058cae9c5e7cc6606e9d5f94cb1ab8e0a1217cd5f3838c89fef4e",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -1334,9 +1682,9 @@
         "value": "Shamsher Bdr. Nepali",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:22:34.237Z",
-        "source_snapshot_id": "snap-mujfm5pd-194",
-        "content_hash": "25dc1af87e423bc2f616e4790be59e10891577264b1ed3fdfa07d135fa2e32c9",
+        "observed_at": "2026-10-01T08:04:36.531Z",
+        "source_snapshot_id": "snap-mup90twp-228",
+        "content_hash": "7be3864985c058cae9c5e7cc6606e9d5f94cb1ab8e0a1217cd5f3838c89fef4e",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -1346,9 +1694,9 @@
         "value": "Shree Ram Pokhrel",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:22:34.237Z",
-        "source_snapshot_id": "snap-mujfm3rg-187",
-        "content_hash": "059c48e342df4c092ac5d1c454e3f1d64e2726a02db762887e4ac669355ce40e",
+        "observed_at": "2026-10-01T08:04:36.531Z",
+        "source_snapshot_id": "snap-mup90r9d-221",
+        "content_hash": "65ebf7dd3cca196274291b3b408c8842bab75e1d5854629cf1a68661db1c0d0f",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -1358,9 +1706,9 @@
         "value": "Sudip Acharya",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:22:34.237Z",
-        "source_snapshot_id": "snap-mujfm5pd-194",
-        "content_hash": "25dc1af87e423bc2f616e4790be59e10891577264b1ed3fdfa07d135fa2e32c9",
+        "observed_at": "2026-10-01T08:04:36.531Z",
+        "source_snapshot_id": "snap-mup90twp-228",
+        "content_hash": "7be3864985c058cae9c5e7cc6606e9d5f94cb1ab8e0a1217cd5f3838c89fef4e",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -1370,9 +1718,9 @@
         "value": "Yati Raj Poudel",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:22:34.237Z",
-        "source_snapshot_id": "snap-mujfm5pd-194",
-        "content_hash": "25dc1af87e423bc2f616e4790be59e10891577264b1ed3fdfa07d135fa2e32c9",
+        "observed_at": "2026-10-01T08:04:36.531Z",
+        "source_snapshot_id": "snap-mup90twp-228",
+        "content_hash": "7be3864985c058cae9c5e7cc6606e9d5f94cb1ab8e0a1217cd5f3838c89fef4e",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -1382,9 +1730,9 @@
         "value": "Hari Krishna Joshi",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:22:34.237Z",
-        "source_snapshot_id": "snap-mujfm5pd-194",
-        "content_hash": "25dc1af87e423bc2f616e4790be59e10891577264b1ed3fdfa07d135fa2e32c9",
+        "observed_at": "2026-10-01T08:04:36.531Z",
+        "source_snapshot_id": "snap-mup90twp-228",
+        "content_hash": "7be3864985c058cae9c5e7cc6606e9d5f94cb1ab8e0a1217cd5f3838c89fef4e",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -1394,9 +1742,9 @@
         "value": "Shree Ram Pokhrel",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:22:34.237Z",
-        "source_snapshot_id": "snap-mujfm5pd-194",
-        "content_hash": "25dc1af87e423bc2f616e4790be59e10891577264b1ed3fdfa07d135fa2e32c9",
+        "observed_at": "2026-10-01T08:04:36.531Z",
+        "source_snapshot_id": "snap-mup90twp-228",
+        "content_hash": "7be3864985c058cae9c5e7cc6606e9d5f94cb1ab8e0a1217cd5f3838c89fef4e",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -1406,9 +1754,9 @@
         "value": "Buddhi Akela",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:22:34.237Z",
-        "source_snapshot_id": "snap-mujfm3rg-187",
-        "content_hash": "059c48e342df4c092ac5d1c454e3f1d64e2726a02db762887e4ac669355ce40e",
+        "observed_at": "2026-10-01T08:04:36.531Z",
+        "source_snapshot_id": "snap-mup90r9d-221",
+        "content_hash": "65ebf7dd3cca196274291b3b408c8842bab75e1d5854629cf1a68661db1c0d0f",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -1418,9 +1766,9 @@
         "value": "Anamika Kunwar",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:22:34.237Z",
-        "source_snapshot_id": "snap-mujfm3rg-187",
-        "content_hash": "059c48e342df4c092ac5d1c454e3f1d64e2726a02db762887e4ac669355ce40e",
+        "observed_at": "2026-10-01T08:04:36.531Z",
+        "source_snapshot_id": "snap-mup90r9d-221",
+        "content_hash": "65ebf7dd3cca196274291b3b408c8842bab75e1d5854629cf1a68661db1c0d0f",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -1430,9 +1778,9 @@
         "value": "Min Prasad Gyawali",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:22:34.237Z",
-        "source_snapshot_id": "snap-mujfm3rg-187",
-        "content_hash": "059c48e342df4c092ac5d1c454e3f1d64e2726a02db762887e4ac669355ce40e",
+        "observed_at": "2026-10-01T08:04:36.531Z",
+        "source_snapshot_id": "snap-mup90r9d-221",
+        "content_hash": "65ebf7dd3cca196274291b3b408c8842bab75e1d5854629cf1a68661db1c0d0f",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -1442,9 +1790,9 @@
         "value": "Rupendra Wagle",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:22:34.237Z",
-        "source_snapshot_id": "snap-mujfm3rg-187",
-        "content_hash": "059c48e342df4c092ac5d1c454e3f1d64e2726a02db762887e4ac669355ce40e",
+        "observed_at": "2026-10-01T08:04:36.531Z",
+        "source_snapshot_id": "snap-mup90r9d-221",
+        "content_hash": "65ebf7dd3cca196274291b3b408c8842bab75e1d5854629cf1a68661db1c0d0f",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -1454,9 +1802,9 @@
         "value": "Sajani Nepal",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:22:34.237Z",
-        "source_snapshot_id": "snap-mujfm3rg-187",
-        "content_hash": "059c48e342df4c092ac5d1c454e3f1d64e2726a02db762887e4ac669355ce40e",
+        "observed_at": "2026-10-01T08:04:36.531Z",
+        "source_snapshot_id": "snap-mup90r9d-221",
+        "content_hash": "65ebf7dd3cca196274291b3b408c8842bab75e1d5854629cf1a68661db1c0d0f",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -1466,9 +1814,285 @@
         "value": "Sushovan Devkota",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:22:34.237Z",
-        "source_snapshot_id": "snap-mujfm3rg-187",
-        "content_hash": "059c48e342df4c092ac5d1c454e3f1d64e2726a02db762887e4ac669355ce40e",
+        "observed_at": "2026-10-01T08:04:36.531Z",
+        "source_snapshot_id": "snap-mup90r9d-221",
+        "content_hash": "65ebf7dd3cca196274291b3b408c8842bab75e1d5854629cf1a68661db1c0d0f",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "himalayanlaghubitta-website",
+        "field_name": "people_chair",
+        "value": "Mr. Bijaya Man Nakarmi",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:04:35.646Z",
+        "source_snapshot_id": "snap-mup90jih-210",
+        "content_hash": "54ecaacb4bc0cfcb83c2f28da53d39aee084322e9257d3f07778c107b96c3d7d",
+        "mime_type": "text/html; charset=utf-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "himalayanlaghubitta-website",
+        "field_name": "people_director",
+        "value": "Mr. Krishna Prasad Adhikari",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:04:35.646Z",
+        "source_snapshot_id": "snap-mup90jih-210",
+        "content_hash": "54ecaacb4bc0cfcb83c2f28da53d39aee084322e9257d3f07778c107b96c3d7d",
+        "mime_type": "text/html; charset=utf-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "himalayanlaghubitta-website",
+        "field_name": "people_director",
+        "value": "Mr. Rudra Prasad Dahal",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:04:35.646Z",
+        "source_snapshot_id": "snap-mup90jih-210",
+        "content_hash": "54ecaacb4bc0cfcb83c2f28da53d39aee084322e9257d3f07778c107b96c3d7d",
+        "mime_type": "text/html; charset=utf-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "himalayanlaghubitta-website",
+        "field_name": "people_director",
+        "value": "Mr. Saroj Shrestha",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:04:35.646Z",
+        "source_snapshot_id": "snap-mup90jih-210",
+        "content_hash": "54ecaacb4bc0cfcb83c2f28da53d39aee084322e9257d3f07778c107b96c3d7d",
+        "mime_type": "text/html; charset=utf-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "himalayanlaghubitta-website",
+        "field_name": "people_director",
+        "value": "Mr. Shiba Prasad Chaulagain",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:04:35.646Z",
+        "source_snapshot_id": "snap-mup90jih-210",
+        "content_hash": "54ecaacb4bc0cfcb83c2f28da53d39aee084322e9257d3f07778c107b96c3d7d",
+        "mime_type": "text/html; charset=utf-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "himalayanlaghubitta-website",
+        "field_name": "people_director",
+        "value": "Mr. Subasan Harsha Bajracharya",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:04:35.646Z",
+        "source_snapshot_id": "snap-mup90jih-210",
+        "content_hash": "54ecaacb4bc0cfcb83c2f28da53d39aee084322e9257d3f07778c107b96c3d7d",
+        "mime_type": "text/html; charset=utf-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "himalayanlaghubitta-website",
+        "field_name": "people_director",
+        "value": "Ms. Sunita Acharya",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:04:35.646Z",
+        "source_snapshot_id": "snap-mup90jih-210",
+        "content_hash": "54ecaacb4bc0cfcb83c2f28da53d39aee084322e9257d3f07778c107b96c3d7d",
+        "mime_type": "text/html; charset=utf-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "kalikabank-website",
+        "field_name": "people_ceo",
+        "value": "Diwas Dhakal",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:03:38.563Z",
+        "source_snapshot_id": "snap-mup8zc5n-153",
+        "content_hash": "5155ea9cf9ef046d3ce4da58fda546e2969bae9d280459c321d86fb080d65f12",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "kalikabank-website",
+        "field_name": "people_ceo",
+        "value": "Phanindra Pandey",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:03:38.563Z",
+        "source_snapshot_id": "snap-mup8zc5n-153",
+        "content_hash": "5155ea9cf9ef046d3ce4da58fda546e2969bae9d280459c321d86fb080d65f12",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "kalikabank-website",
+        "field_name": "people_chair",
+        "value": "Chandra Bahadur Chhetri",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:03:38.563Z",
+        "source_snapshot_id": "snap-mup8zbte-146",
+        "content_hash": "55259e5bec144f9414d4285f3932079abcbdca03d935fd6377d716c4332f47f5",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "kalikabank-website",
+        "field_name": "people_director",
+        "value": "Basanta Bahadur Thapa",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:03:38.563Z",
+        "source_snapshot_id": "snap-mup8zbte-146",
+        "content_hash": "55259e5bec144f9414d4285f3932079abcbdca03d935fd6377d716c4332f47f5",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "kalikabank-website",
+        "field_name": "people_director",
+        "value": "Bishwa Raj Nepal",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:03:38.563Z",
+        "source_snapshot_id": "snap-mup8zbte-146",
+        "content_hash": "55259e5bec144f9414d4285f3932079abcbdca03d935fd6377d716c4332f47f5",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "kalikabank-website",
+        "field_name": "people_director",
+        "value": "Chandra Bahadur Basnet",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:03:38.563Z",
+        "source_snapshot_id": "snap-mup8zbte-146",
+        "content_hash": "55259e5bec144f9414d4285f3932079abcbdca03d935fd6377d716c4332f47f5",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "kalikabank-website",
+        "field_name": "people_director",
+        "value": "Ganesh Paudel",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:03:38.563Z",
+        "source_snapshot_id": "snap-mup8zbte-146",
+        "content_hash": "55259e5bec144f9414d4285f3932079abcbdca03d935fd6377d716c4332f47f5",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "kalikabank-website",
+        "field_name": "people_director",
+        "value": "Rama Kumari Sharma",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:03:38.563Z",
+        "source_snapshot_id": "snap-mup8zbte-146",
+        "content_hash": "55259e5bec144f9414d4285f3932079abcbdca03d935fd6377d716c4332f47f5",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "kalikabank-website",
+        "field_name": "people_director",
+        "value": "Yukta Bahadur Subedi",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:03:38.563Z",
+        "source_snapshot_id": "snap-mup8zbte-146",
+        "content_hash": "55259e5bec144f9414d4285f3932079abcbdca03d935fd6377d716c4332f47f5",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "laxmilaghu-website",
+        "field_name": "people_board",
+        "value": "Amit Sharma",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:03:43.424Z",
+        "source_snapshot_id": "snap-mup90dp2-173",
+        "content_hash": "7aa324893e46b14215ae31ec47d820a6dd5bb8a3d6386e470baa92c8619e503d",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "laxmilaghu-website",
+        "field_name": "people_board",
+        "value": "Ganesh Bhattarai",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:03:43.424Z",
+        "source_snapshot_id": "snap-mup90dp2-173",
+        "content_hash": "7aa324893e46b14215ae31ec47d820a6dd5bb8a3d6386e470baa92c8619e503d",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "laxmilaghu-website",
+        "field_name": "people_board",
+        "value": "MONICA KUNWAR",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:03:43.424Z",
+        "source_snapshot_id": "snap-mup90dp2-173",
+        "content_hash": "7aa324893e46b14215ae31ec47d820a6dd5bb8a3d6386e470baa92c8619e503d",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "laxmilaghu-website",
+        "field_name": "people_board",
+        "value": "NAVIN UPADHAYAY",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:03:43.424Z",
+        "source_snapshot_id": "snap-mup90dp2-173",
+        "content_hash": "7aa324893e46b14215ae31ec47d820a6dd5bb8a3d6386e470baa92c8619e503d",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "laxmilaghu-website",
+        "field_name": "people_board",
+        "value": "Sabina UpadhyayA",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:03:43.424Z",
+        "source_snapshot_id": "snap-mup90dp2-173",
+        "content_hash": "7aa324893e46b14215ae31ec47d820a6dd5bb8a3d6386e470baa92c8619e503d",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "laxmilaghu-website",
+        "field_name": "people_ceo",
+        "value": "Sundar Prasad Shrestha",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:03:43.424Z",
+        "source_snapshot_id": "snap-mup90dp2-173",
+        "content_hash": "7aa324893e46b14215ae31ec47d820a6dd5bb8a3d6386e470baa92c8619e503d",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "laxmilaghu-website",
+        "field_name": "people_director",
+        "value": "SURAJ SHRESTHA",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:03:43.424Z",
+        "source_snapshot_id": "snap-mup90dp2-173",
+        "content_hash": "7aa324893e46b14215ae31ec47d820a6dd5bb8a3d6386e470baa92c8619e503d",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -1478,8 +2102,8 @@
         "value": "Mr. Mohan Hari Acharya",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:22:48.319Z",
-        "source_snapshot_id": "snap-mujfm9lr-210",
+        "observed_at": "2026-10-01T08:04:53.545Z",
+        "source_snapshot_id": "snap-mup90xz6-244",
         "content_hash": "3aae81373c9d1eab92171ad8557a9e0b8d6a4cb95561199f8ea862436017f600",
         "mime_type": "text/html; charset=utf-8",
         "source_grade": "A"
@@ -1490,8 +2114,8 @@
         "value": "Dr. Bamadev Sigdel",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:22:48.319Z",
-        "source_snapshot_id": "snap-mujfm9lr-210",
+        "observed_at": "2026-10-01T08:04:53.545Z",
+        "source_snapshot_id": "snap-mup90xz6-244",
         "content_hash": "3aae81373c9d1eab92171ad8557a9e0b8d6a4cb95561199f8ea862436017f600",
         "mime_type": "text/html; charset=utf-8",
         "source_grade": "A"
@@ -1502,8 +2126,8 @@
         "value": "Mr. Bhupati Raj Pandey",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:22:48.319Z",
-        "source_snapshot_id": "snap-mujfm9lr-210",
+        "observed_at": "2026-10-01T08:04:53.545Z",
+        "source_snapshot_id": "snap-mup90xz6-244",
         "content_hash": "3aae81373c9d1eab92171ad8557a9e0b8d6a4cb95561199f8ea862436017f600",
         "mime_type": "text/html; charset=utf-8",
         "source_grade": "A"
@@ -1514,8 +2138,8 @@
         "value": "Mr. Nimanand Kadel",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:22:48.319Z",
-        "source_snapshot_id": "snap-mujfm9lr-210",
+        "observed_at": "2026-10-01T08:04:53.545Z",
+        "source_snapshot_id": "snap-mup90xz6-244",
         "content_hash": "3aae81373c9d1eab92171ad8557a9e0b8d6a4cb95561199f8ea862436017f600",
         "mime_type": "text/html; charset=utf-8",
         "source_grade": "A"
@@ -1526,8 +2150,8 @@
         "value": "Mr. Shree Prasad Chaudhary",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:22:48.319Z",
-        "source_snapshot_id": "snap-mujfm9lr-210",
+        "observed_at": "2026-10-01T08:04:53.545Z",
+        "source_snapshot_id": "snap-mup90xz6-244",
         "content_hash": "3aae81373c9d1eab92171ad8557a9e0b8d6a4cb95561199f8ea862436017f600",
         "mime_type": "text/html; charset=utf-8",
         "source_grade": "A"
@@ -1538,8 +2162,8 @@
         "value": "Mr. Shyam Kant Chanudhary",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:22:48.319Z",
-        "source_snapshot_id": "snap-mujfm9lr-210",
+        "observed_at": "2026-10-01T08:04:53.545Z",
+        "source_snapshot_id": "snap-mup90xz6-244",
         "content_hash": "3aae81373c9d1eab92171ad8557a9e0b8d6a4cb95561199f8ea862436017f600",
         "mime_type": "text/html; charset=utf-8",
         "source_grade": "A"
@@ -1550,9 +2174,9 @@
         "value": "Mr. Kshitij Khadka",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:22:54.529Z",
-        "source_snapshot_id": "snap-mujfmeum-237",
-        "content_hash": "d2e5418bc1ec1dfae796e9371f99c040bf767ab3cccea67853af98244aecc4d5",
+        "observed_at": "2026-10-01T08:05:04.275Z",
+        "source_snapshot_id": "snap-mup91890-271",
+        "content_hash": "17d0fd6f6afb21a445568c6553db714d8e786edaf1bfcd41bec9dc1b2f523009",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -1562,9 +2186,9 @@
         "value": "Mr. Narendra Chhatkuli",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:22:54.529Z",
-        "source_snapshot_id": "snap-mujfmeum-237",
-        "content_hash": "d2e5418bc1ec1dfae796e9371f99c040bf767ab3cccea67853af98244aecc4d5",
+        "observed_at": "2026-10-01T08:05:04.275Z",
+        "source_snapshot_id": "snap-mup91890-271",
+        "content_hash": "17d0fd6f6afb21a445568c6553db714d8e786edaf1bfcd41bec9dc1b2f523009",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -1574,9 +2198,9 @@
         "value": "Mr. Pradit Kumar Regmi",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:22:54.529Z",
-        "source_snapshot_id": "snap-mujfmeum-237",
-        "content_hash": "d2e5418bc1ec1dfae796e9371f99c040bf767ab3cccea67853af98244aecc4d5",
+        "observed_at": "2026-10-01T08:05:04.275Z",
+        "source_snapshot_id": "snap-mup91890-271",
+        "content_hash": "17d0fd6f6afb21a445568c6553db714d8e786edaf1bfcd41bec9dc1b2f523009",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -1586,9 +2210,165 @@
         "value": "Mr. Ram Kumar Timalsina",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:22:54.529Z",
-        "source_snapshot_id": "snap-mujfmeum-237",
-        "content_hash": "d2e5418bc1ec1dfae796e9371f99c040bf767ab3cccea67853af98244aecc4d5",
+        "observed_at": "2026-10-01T08:05:04.275Z",
+        "source_snapshot_id": "snap-mup91890-271",
+        "content_hash": "17d0fd6f6afb21a445568c6553db714d8e786edaf1bfcd41bec9dc1b2f523009",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "nationalmicrofinance-website",
+        "field_name": "people_director",
+        "value": "Mr.Pramod Acharya",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:05:04.275Z",
+        "source_snapshot_id": "snap-mup91890-271",
+        "content_hash": "17d0fd6f6afb21a445568c6553db714d8e786edaf1bfcd41bec9dc1b2f523009",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "nerudemirmire-website",
+        "field_name": "people_chair",
+        "value": "Raj Kumar Rai",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:03:37.047Z",
+        "source_snapshot_id": "snap-mup8zalp-129",
+        "content_hash": "304b0a09636f720b54a58f75d439d9f028478545fa114eaac8d816ca0d9a81fe",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "nerudemirmire-website",
+        "field_name": "people_director",
+        "value": "Bhanu Bhakta Dabadi",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:03:37.047Z",
+        "source_snapshot_id": "snap-mup8zalp-129",
+        "content_hash": "304b0a09636f720b54a58f75d439d9f028478545fa114eaac8d816ca0d9a81fe",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "nerudemirmire-website",
+        "field_name": "people_director",
+        "value": "Ganesh Prasad Acharya",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:03:37.047Z",
+        "source_snapshot_id": "snap-mup8zalp-129",
+        "content_hash": "304b0a09636f720b54a58f75d439d9f028478545fa114eaac8d816ca0d9a81fe",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "nerudemirmire-website",
+        "field_name": "people_director",
+        "value": "Sanju Ghimire",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:03:37.047Z",
+        "source_snapshot_id": "snap-mup8zalp-129",
+        "content_hash": "304b0a09636f720b54a58f75d439d9f028478545fa114eaac8d816ca0d9a81fe",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "nerudemirmire-website",
+        "field_name": "people_director",
+        "value": "Santosh Phuyal",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:03:37.047Z",
+        "source_snapshot_id": "snap-mup8zalp-129",
+        "content_hash": "304b0a09636f720b54a58f75d439d9f028478545fa114eaac8d816ca0d9a81fe",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "nirdhan-website",
+        "field_name": "people_board",
+        "value": "Mr. Narayan Prasad Neupane",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:03:04.892Z",
+        "source_snapshot_id": "snap-mup8ypsy-14",
+        "content_hash": "1700ffa69aed4255f6982a6eca6cfc2fd162a307f4c4839fbf3d3ff8471b8b34",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "nirdhan-website",
+        "field_name": "people_board",
+        "value": "Ms. Kalpana Gautam",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:03:04.892Z",
+        "source_snapshot_id": "snap-mup8ypsy-14",
+        "content_hash": "1700ffa69aed4255f6982a6eca6cfc2fd162a307f4c4839fbf3d3ff8471b8b34",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "nirdhan-website",
+        "field_name": "people_board",
+        "value": "Ms. Rita Regmi",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:03:04.892Z",
+        "source_snapshot_id": "snap-mup8ypsy-14",
+        "content_hash": "1700ffa69aed4255f6982a6eca6cfc2fd162a307f4c4839fbf3d3ff8471b8b34",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "nirdhan-website",
+        "field_name": "people_board",
+        "value": "Ms. Samita Niroula",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:03:04.892Z",
+        "source_snapshot_id": "snap-mup8ypsy-14",
+        "content_hash": "1700ffa69aed4255f6982a6eca6cfc2fd162a307f4c4839fbf3d3ff8471b8b34",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "nirdhan-website",
+        "field_name": "people_ceo",
+        "value": "Mr. Gokarna Prasad Upadhaya",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:03:04.892Z",
+        "source_snapshot_id": "snap-mup8ypsy-14",
+        "content_hash": "1700ffa69aed4255f6982a6eca6cfc2fd162a307f4c4839fbf3d3ff8471b8b34",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "nirdhan-website",
+        "field_name": "people_ceo",
+        "value": "Mr. Narayan Bahadur Karki",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:03:04.892Z",
+        "source_snapshot_id": "snap-mup8ypsy-14",
+        "content_hash": "1700ffa69aed4255f6982a6eca6cfc2fd162a307f4c4839fbf3d3ff8471b8b34",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "nirdhan-website",
+        "field_name": "people_chair",
+        "value": "Mr. Janardan Dev Pant",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:03:04.892Z",
+        "source_snapshot_id": "snap-mup8yofy-7",
+        "content_hash": "2133230914951401c68c858f675857a6f389d73206578d48e7ca1ccf22900b69",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -1598,9 +2378,9 @@
         "value": "Currency Conversion",
         "verification_status": "UNVERIFIED",
         "confidence": 0.6,
-        "observed_at": "2026-09-27T06:21:23.016Z",
-        "source_snapshot_id": "snap-mujfkgj5-7",
-        "content_hash": "dc927b7e98d6f332a8fe72907fecb94f1b4b9f786632287f6ba852c08b2243f9",
+        "observed_at": "2026-10-01T08:03:04.892Z",
+        "source_snapshot_id": "snap-mup8yofy-7",
+        "content_hash": "2133230914951401c68c858f675857a6f389d73206578d48e7ca1ccf22900b69",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -1610,9 +2390,81 @@
         "value": "Local Bodies Outreach",
         "verification_status": "UNVERIFIED",
         "confidence": 0.6,
-        "observed_at": "2026-09-27T06:21:23.016Z",
-        "source_snapshot_id": "snap-mujfkgj5-7",
-        "content_hash": "dc927b7e98d6f332a8fe72907fecb94f1b4b9f786632287f6ba852c08b2243f9",
+        "observed_at": "2026-10-01T08:03:04.892Z",
+        "source_snapshot_id": "snap-mup8yofy-7",
+        "content_hash": "2133230914951401c68c858f675857a6f389d73206578d48e7ca1ccf22900b69",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "nirdhan-website",
+        "field_name": "people_director",
+        "value": "Mr. Devendra Bahadur Raut",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:03:04.892Z",
+        "source_snapshot_id": "snap-mup8yofy-7",
+        "content_hash": "2133230914951401c68c858f675857a6f389d73206578d48e7ca1ccf22900b69",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "nirdhan-website",
+        "field_name": "people_director",
+        "value": "Mr. Hari Krishna Pant",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:03:04.892Z",
+        "source_snapshot_id": "snap-mup8yofy-7",
+        "content_hash": "2133230914951401c68c858f675857a6f389d73206578d48e7ca1ccf22900b69",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "nirdhan-website",
+        "field_name": "people_director",
+        "value": "Mr. Krishna Kumar Pradhan",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:03:04.892Z",
+        "source_snapshot_id": "snap-mup8yofy-7",
+        "content_hash": "2133230914951401c68c858f675857a6f389d73206578d48e7ca1ccf22900b69",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "nirdhan-website",
+        "field_name": "people_director",
+        "value": "Mr. Niraj Kumar Basnet Danil",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:03:04.892Z",
+        "source_snapshot_id": "snap-mup8yofy-7",
+        "content_hash": "2133230914951401c68c858f675857a6f389d73206578d48e7ca1ccf22900b69",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "nirdhan-website",
+        "field_name": "people_director",
+        "value": "Mr. Top Bahadur Rayamajhi",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:03:04.892Z",
+        "source_snapshot_id": "snap-mup8yofy-7",
+        "content_hash": "2133230914951401c68c858f675857a6f389d73206578d48e7ca1ccf22900b69",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "nirdhan-website",
+        "field_name": "people_director",
+        "value": "Ms Samrita Tiwari",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:03:04.892Z",
+        "source_snapshot_id": "snap-mup8yofy-7",
+        "content_hash": "2133230914951401c68c858f675857a6f389d73206578d48e7ca1ccf22900b69",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -1622,9 +2474,9 @@
         "value": "Working Districts",
         "verification_status": "UNVERIFIED",
         "confidence": 0.6,
-        "observed_at": "2026-09-27T06:21:23.016Z",
-        "source_snapshot_id": "snap-mujfkgj5-7",
-        "content_hash": "dc927b7e98d6f332a8fe72907fecb94f1b4b9f786632287f6ba852c08b2243f9",
+        "observed_at": "2026-10-01T08:03:04.892Z",
+        "source_snapshot_id": "snap-mup8yofy-7",
+        "content_hash": "2133230914951401c68c858f675857a6f389d73206578d48e7ca1ccf22900b69",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -1634,9 +2486,9 @@
         "value": "Dr. Madan Ghimire",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:22:50.834Z",
-        "source_snapshot_id": "snap-mujfmchd-227",
-        "content_hash": "d3d6e23074fab0ecad5ac90ca445d924293240e1c86604128f0e37c3ba21262b",
+        "observed_at": "2026-10-01T08:04:55.322Z",
+        "source_snapshot_id": "snap-mup914ws-261",
+        "content_hash": "970589d89f2999f22d4613c957c43a4d7b64f39c1147049b0defa63ef77dbf1b",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -1646,9 +2498,9 @@
         "value": "Mr. Dev Singh Bist",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:22:50.834Z",
-        "source_snapshot_id": "snap-mujfmchd-227",
-        "content_hash": "d3d6e23074fab0ecad5ac90ca445d924293240e1c86604128f0e37c3ba21262b",
+        "observed_at": "2026-10-01T08:04:55.322Z",
+        "source_snapshot_id": "snap-mup914ws-261",
+        "content_hash": "970589d89f2999f22d4613c957c43a4d7b64f39c1147049b0defa63ef77dbf1b",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -1658,9 +2510,9 @@
         "value": "Mr. DM Thebe Limbu",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:22:50.834Z",
-        "source_snapshot_id": "snap-mujfmbuy-220",
-        "content_hash": "fa1678639c9d986a482b9abbd9d9ad9e0bc993608a22326d8eb91181e68efb9c",
+        "observed_at": "2026-10-01T08:04:55.322Z",
+        "source_snapshot_id": "snap-mup913f4-254",
+        "content_hash": "72dd5b7a854576ad071238561ece7b1aa4c0f7dffecf5b565b424a064b664ed3",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -1670,9 +2522,9 @@
         "value": "Mr. Bhakta Ram Khadka",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:22:50.834Z",
-        "source_snapshot_id": "snap-mujfmbuy-220",
-        "content_hash": "fa1678639c9d986a482b9abbd9d9ad9e0bc993608a22326d8eb91181e68efb9c",
+        "observed_at": "2026-10-01T08:04:55.322Z",
+        "source_snapshot_id": "snap-mup913f4-254",
+        "content_hash": "72dd5b7a854576ad071238561ece7b1aa4c0f7dffecf5b565b424a064b664ed3",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -1682,9 +2534,9 @@
         "value": "Mr. Kishor Sherpa",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:22:50.834Z",
-        "source_snapshot_id": "snap-mujfmbuy-220",
-        "content_hash": "fa1678639c9d986a482b9abbd9d9ad9e0bc993608a22326d8eb91181e68efb9c",
+        "observed_at": "2026-10-01T08:04:55.322Z",
+        "source_snapshot_id": "snap-mup913f4-254",
+        "content_hash": "72dd5b7a854576ad071238561ece7b1aa4c0f7dffecf5b565b424a064b664ed3",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -1694,9 +2546,9 @@
         "value": "Mr. Niranjan Prasad Neupane",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:22:50.834Z",
-        "source_snapshot_id": "snap-mujfmbuy-220",
-        "content_hash": "fa1678639c9d986a482b9abbd9d9ad9e0bc993608a22326d8eb91181e68efb9c",
+        "observed_at": "2026-10-01T08:04:55.322Z",
+        "source_snapshot_id": "snap-mup913f4-254",
+        "content_hash": "72dd5b7a854576ad071238561ece7b1aa4c0f7dffecf5b565b424a064b664ed3",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -1706,9 +2558,9 @@
         "value": "Mr. Rajeshwar Pd. Acharya",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:22:50.834Z",
-        "source_snapshot_id": "snap-mujfmbuy-220",
-        "content_hash": "fa1678639c9d986a482b9abbd9d9ad9e0bc993608a22326d8eb91181e68efb9c",
+        "observed_at": "2026-10-01T08:04:55.322Z",
+        "source_snapshot_id": "snap-mup913f4-254",
+        "content_hash": "72dd5b7a854576ad071238561ece7b1aa4c0f7dffecf5b565b424a064b664ed3",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -1718,9 +2570,9 @@
         "value": "Mr. Umesh Basnet",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:22:50.834Z",
-        "source_snapshot_id": "snap-mujfmbuy-220",
-        "content_hash": "fa1678639c9d986a482b9abbd9d9ad9e0bc993608a22326d8eb91181e68efb9c",
+        "observed_at": "2026-10-01T08:04:55.322Z",
+        "source_snapshot_id": "snap-mup913f4-254",
+        "content_hash": "72dd5b7a854576ad071238561ece7b1aa4c0f7dffecf5b565b424a064b664ed3",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -1730,9 +2582,9 @@
         "value": "Mrs. Anupa Ojha",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:22:50.834Z",
-        "source_snapshot_id": "snap-mujfmbuy-220",
-        "content_hash": "fa1678639c9d986a482b9abbd9d9ad9e0bc993608a22326d8eb91181e68efb9c",
+        "observed_at": "2026-10-01T08:04:55.322Z",
+        "source_snapshot_id": "snap-mup913f4-254",
+        "content_hash": "72dd5b7a854576ad071238561ece7b1aa4c0f7dffecf5b565b424a064b664ed3",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -1742,8 +2594,8 @@
         "value": "𝐌𝐫.𝐃𝐢𝐥𝐥𝐢𝐫𝐚𝐦 𝐏𝐨𝐤𝐡𝐚𝐫𝐞𝐥",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:23:16.214Z",
-        "source_snapshot_id": "snap-mujfmxsc-288",
+        "observed_at": "2026-10-01T08:05:26.035Z",
+        "source_snapshot_id": "snap-mup91ovj-322",
         "content_hash": "8474098db80c6f3788edb416a5b663f6df66d5598d442b370c9a7cf9cca747d9",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
@@ -1754,8 +2606,8 @@
         "value": "𝐌𝐫.𝐑𝐚𝐣𝐞𝐧𝐝𝐫𝐚 𝐏𝐚𝐡𝐚𝐝𝐢",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:23:16.214Z",
-        "source_snapshot_id": "snap-mujfmxsc-288",
+        "observed_at": "2026-10-01T08:05:26.035Z",
+        "source_snapshot_id": "snap-mup91ovj-322",
         "content_hash": "8474098db80c6f3788edb416a5b663f6df66d5598d442b370c9a7cf9cca747d9",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
@@ -1766,8 +2618,8 @@
         "value": "𝐌𝐫.𝐒𝐚𝐧𝐣𝐚𝐲 𝐊𝐮𝐦𝐚𝐫 𝐂𝐡𝐚𝐮𝐝𝐡𝐚𝐫𝐲",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:23:16.214Z",
-        "source_snapshot_id": "snap-mujfmxsc-288",
+        "observed_at": "2026-10-01T08:05:26.035Z",
+        "source_snapshot_id": "snap-mup91ovj-322",
         "content_hash": "8474098db80c6f3788edb416a5b663f6df66d5598d442b370c9a7cf9cca747d9",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
@@ -1778,8 +2630,8 @@
         "value": "𝐌𝐫.𝐁𝐢𝐬𝐡𝐧𝐮 𝐊𝐚𝐧𝐭 𝐂𝐡𝐚𝐮𝐝𝐡𝐚𝐫𝐲",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:23:16.214Z",
-        "source_snapshot_id": "snap-mujfmxsc-288",
+        "observed_at": "2026-10-01T08:05:26.035Z",
+        "source_snapshot_id": "snap-mup91ovj-322",
         "content_hash": "8474098db80c6f3788edb416a5b663f6df66d5598d442b370c9a7cf9cca747d9",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
@@ -1790,8 +2642,8 @@
         "value": "𝐌𝐫.𝐌𝐚𝐡𝐞𝐬𝐡 𝐊𝐮𝐦𝐚𝐫 𝐂𝐡𝐚𝐮𝐝𝐡𝐚𝐫𝐢",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:23:16.214Z",
-        "source_snapshot_id": "snap-mujfmxsc-288",
+        "observed_at": "2026-10-01T08:05:26.035Z",
+        "source_snapshot_id": "snap-mup91ovj-322",
         "content_hash": "8474098db80c6f3788edb416a5b663f6df66d5598d442b370c9a7cf9cca747d9",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
@@ -1802,8 +2654,8 @@
         "value": "𝐌𝐫.𝐌𝐚𝐡𝐞𝐬𝐡 𝐊𝐮𝐦𝐚𝐫 𝐏𝐨𝐤𝐡𝐚𝐫𝐞𝐥",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:23:16.214Z",
-        "source_snapshot_id": "snap-mujfmx6p-281",
+        "observed_at": "2026-10-01T08:05:26.035Z",
+        "source_snapshot_id": "snap-mup91ojt-315",
         "content_hash": "3357926f19d9198c712cbcc037fd95d6cfbc8e4283dd459ccdf8fbc9106fb664",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
@@ -1814,8 +2666,8 @@
         "value": "𝐌𝐫. 𝐇𝐚𝐫𝐬𝐡𝐚 𝐌𝐚𝐡𝐞𝐬𝐡𝐰𝐨𝐫𝐢",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:23:16.214Z",
-        "source_snapshot_id": "snap-mujfmx6p-281",
+        "observed_at": "2026-10-01T08:05:26.035Z",
+        "source_snapshot_id": "snap-mup91ojt-315",
         "content_hash": "3357926f19d9198c712cbcc037fd95d6cfbc8e4283dd459ccdf8fbc9106fb664",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
@@ -1826,8 +2678,8 @@
         "value": "𝐌𝐫.𝐃𝐢𝐯𝐲𝐚 𝐏𝐫𝐚𝐬𝐚𝐝 𝐊𝐨𝐢𝐫𝐚𝐥𝐚",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:23:16.214Z",
-        "source_snapshot_id": "snap-mujfmx6p-281",
+        "observed_at": "2026-10-01T08:05:26.035Z",
+        "source_snapshot_id": "snap-mup91ojt-315",
         "content_hash": "3357926f19d9198c712cbcc037fd95d6cfbc8e4283dd459ccdf8fbc9106fb664",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
@@ -1838,8 +2690,8 @@
         "value": "𝐌𝐫.𝐆𝐨𝐯𝐢𝐧𝐝𝐚 𝐋𝐚𝐥 𝐊𝐚𝐫𝐧𝐚",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:23:16.214Z",
-        "source_snapshot_id": "snap-mujfmx6p-281",
+        "observed_at": "2026-10-01T08:05:26.035Z",
+        "source_snapshot_id": "snap-mup91ojt-315",
         "content_hash": "3357926f19d9198c712cbcc037fd95d6cfbc8e4283dd459ccdf8fbc9106fb664",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
@@ -1850,8 +2702,8 @@
         "value": "𝐌𝐫.𝐇𝐨𝐦 𝐒𝐡𝐚𝐧𝐤𝐚𝐫 𝐃𝐚𝐡𝐚𝐥",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:23:16.214Z",
-        "source_snapshot_id": "snap-mujfmx6p-281",
+        "observed_at": "2026-10-01T08:05:26.035Z",
+        "source_snapshot_id": "snap-mup91ojt-315",
         "content_hash": "3357926f19d9198c712cbcc037fd95d6cfbc8e4283dd459ccdf8fbc9106fb664",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
@@ -1862,33 +2714,81 @@
         "value": "𝐌𝐫𝐬.𝐓𝐚𝐫𝐚 𝐃𝐞𝐯𝐢 𝐁𝐡𝐚𝐭𝐭𝐚𝐫𝐚𝐢",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:23:16.214Z",
-        "source_snapshot_id": "snap-mujfmx6p-281",
+        "observed_at": "2026-10-01T08:05:26.035Z",
+        "source_snapshot_id": "snap-mup91ojt-315",
         "content_hash": "3357926f19d9198c712cbcc037fd95d6cfbc8e4283dd459ccdf8fbc9106fb664",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
       {
-        "source_id": "swastiklbs-website",
-        "field_name": "people_ceo",
-        "value": "Amresh Kumar Mahato",
+        "source_id": "swabhimaanlaghubitta-website",
+        "field_name": "people_chair",
+        "value": "Krishna Prasad Aryal",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:23:36.090Z",
-        "source_snapshot_id": "snap-mujfnbm4-357",
-        "content_hash": "53aa4f6843b64c7edeae909a1881cd383cbdf0d12b4f34be87f1f8bc3d8798e5",
+        "observed_at": "2026-10-01T08:05:30.863Z",
+        "source_snapshot_id": "snap-mup91so5-333",
+        "content_hash": "80177602d23eca0e2f63a16b415db883d34125efa42002f53344d81898f5ea32",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
       {
-        "source_id": "swastiklbs-website",
-        "field_name": "people_ceo",
-        "value": "Bhagvani Sah",
+        "source_id": "swabhimaanlaghubitta-website",
+        "field_name": "people_director",
+        "value": "Devidutta Gyawali",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:23:36.090Z",
-        "source_snapshot_id": "snap-mujfnbm4-357",
-        "content_hash": "53aa4f6843b64c7edeae909a1881cd383cbdf0d12b4f34be87f1f8bc3d8798e5",
+        "observed_at": "2026-10-01T08:05:30.863Z",
+        "source_snapshot_id": "snap-mup91so5-333",
+        "content_hash": "80177602d23eca0e2f63a16b415db883d34125efa42002f53344d81898f5ea32",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "swabhimaanlaghubitta-website",
+        "field_name": "people_director",
+        "value": "Giriraj Pathak",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:05:30.863Z",
+        "source_snapshot_id": "snap-mup91so5-333",
+        "content_hash": "80177602d23eca0e2f63a16b415db883d34125efa42002f53344d81898f5ea32",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "swabhimaanlaghubitta-website",
+        "field_name": "people_director",
+        "value": "Janak Raj Dhungana",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:05:30.863Z",
+        "source_snapshot_id": "snap-mup91so5-333",
+        "content_hash": "80177602d23eca0e2f63a16b415db883d34125efa42002f53344d81898f5ea32",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "swabhimaanlaghubitta-website",
+        "field_name": "people_director",
+        "value": "Kabiraj Timilsina",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:05:30.863Z",
+        "source_snapshot_id": "snap-mup91so5-333",
+        "content_hash": "80177602d23eca0e2f63a16b415db883d34125efa42002f53344d81898f5ea32",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "swabhimaanlaghubitta-website",
+        "field_name": "people_director",
+        "value": "Kush Sudan Singh",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:05:30.863Z",
+        "source_snapshot_id": "snap-mup91so5-333",
+        "content_hash": "80177602d23eca0e2f63a16b415db883d34125efa42002f53344d81898f5ea32",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -1898,105 +2798,9 @@
         "value": "Dhirendra Lal Karn",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:23:36.090Z",
-        "source_snapshot_id": "snap-mujfnbm4-357",
-        "content_hash": "53aa4f6843b64c7edeae909a1881cd383cbdf0d12b4f34be87f1f8bc3d8798e5",
-        "mime_type": "text/html; charset=UTF-8",
-        "source_grade": "A"
-      },
-      {
-        "source_id": "swastiklbs-website",
-        "field_name": "people_ceo",
-        "value": "Ganesh Gurung",
-        "verification_status": "UNVERIFIED",
-        "confidence": 0.55,
-        "observed_at": "2026-09-27T06:23:36.090Z",
-        "source_snapshot_id": "snap-mujfnbm4-357",
-        "content_hash": "53aa4f6843b64c7edeae909a1881cd383cbdf0d12b4f34be87f1f8bc3d8798e5",
-        "mime_type": "text/html; charset=UTF-8",
-        "source_grade": "A"
-      },
-      {
-        "source_id": "swastiklbs-website",
-        "field_name": "people_ceo",
-        "value": "Rahul Shah",
-        "verification_status": "UNVERIFIED",
-        "confidence": 0.55,
-        "observed_at": "2026-09-27T06:23:36.090Z",
-        "source_snapshot_id": "snap-mujfnbm4-357",
-        "content_hash": "53aa4f6843b64c7edeae909a1881cd383cbdf0d12b4f34be87f1f8bc3d8798e5",
-        "mime_type": "text/html; charset=UTF-8",
-        "source_grade": "A"
-      },
-      {
-        "source_id": "swastiklbs-website",
-        "field_name": "people_ceo",
-        "value": "Ramesh Lal Karn",
-        "verification_status": "UNVERIFIED",
-        "confidence": 0.55,
-        "observed_at": "2026-09-27T06:23:36.090Z",
-        "source_snapshot_id": "snap-mujfnbm4-357",
-        "content_hash": "53aa4f6843b64c7edeae909a1881cd383cbdf0d12b4f34be87f1f8bc3d8798e5",
-        "mime_type": "text/html; charset=UTF-8",
-        "source_grade": "A"
-      },
-      {
-        "source_id": "swastiklbs-website",
-        "field_name": "people_ceo",
-        "value": "Ranjan Kumar Kushwaha",
-        "verification_status": "UNVERIFIED",
-        "confidence": 0.55,
-        "observed_at": "2026-09-27T06:23:36.090Z",
-        "source_snapshot_id": "snap-mujfnbm4-357",
-        "content_hash": "53aa4f6843b64c7edeae909a1881cd383cbdf0d12b4f34be87f1f8bc3d8798e5",
-        "mime_type": "text/html; charset=UTF-8",
-        "source_grade": "A"
-      },
-      {
-        "source_id": "swastiklbs-website",
-        "field_name": "people_ceo",
-        "value": "Sangita Karki",
-        "verification_status": "UNVERIFIED",
-        "confidence": 0.55,
-        "observed_at": "2026-09-27T06:23:36.090Z",
-        "source_snapshot_id": "snap-mujfnbm4-357",
-        "content_hash": "53aa4f6843b64c7edeae909a1881cd383cbdf0d12b4f34be87f1f8bc3d8798e5",
-        "mime_type": "text/html; charset=UTF-8",
-        "source_grade": "A"
-      },
-      {
-        "source_id": "swastiklbs-website",
-        "field_name": "people_ceo",
-        "value": "Sanjiv Kumar Yadav",
-        "verification_status": "UNVERIFIED",
-        "confidence": 0.55,
-        "observed_at": "2026-09-27T06:23:36.090Z",
-        "source_snapshot_id": "snap-mujfnbm4-357",
-        "content_hash": "53aa4f6843b64c7edeae909a1881cd383cbdf0d12b4f34be87f1f8bc3d8798e5",
-        "mime_type": "text/html; charset=UTF-8",
-        "source_grade": "A"
-      },
-      {
-        "source_id": "swastiklbs-website",
-        "field_name": "people_ceo",
-        "value": "Santosh Kumar Sah",
-        "verification_status": "UNVERIFIED",
-        "confidence": 0.55,
-        "observed_at": "2026-09-27T06:23:36.090Z",
-        "source_snapshot_id": "snap-mujfnbm4-357",
-        "content_hash": "53aa4f6843b64c7edeae909a1881cd383cbdf0d12b4f34be87f1f8bc3d8798e5",
-        "mime_type": "text/html; charset=UTF-8",
-        "source_grade": "A"
-      },
-      {
-        "source_id": "swastiklbs-website",
-        "field_name": "people_ceo",
-        "value": "Toyanath Pokhrel",
-        "verification_status": "UNVERIFIED",
-        "confidence": 0.55,
-        "observed_at": "2026-09-27T06:23:36.090Z",
-        "source_snapshot_id": "snap-mujfnbm4-357",
-        "content_hash": "53aa4f6843b64c7edeae909a1881cd383cbdf0d12b4f34be87f1f8bc3d8798e5",
+        "observed_at": "2026-10-01T08:05:44.857Z",
+        "source_snapshot_id": "snap-mup927ht-403",
+        "content_hash": "e94dc24b03abfde2f5f71b1f46625caa264a2af61db1dcbcdb07c8ba95001fb3",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -2006,9 +2810,9 @@
         "value": "Satya Narayan Jha",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:23:36.090Z",
-        "source_snapshot_id": "snap-mujfnanr-350",
-        "content_hash": "cae1dbf5ec78fbce9c176efe80db7265d71c25e11e7247880f24503a2fe45a53",
+        "observed_at": "2026-10-01T08:05:44.857Z",
+        "source_snapshot_id": "snap-mup924w5-396",
+        "content_hash": "40d6660f621d4cd074b5acebc089c2236f4862c0213140c10ce32f2ee6d9dd51",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -2018,9 +2822,9 @@
         "value": "Binodanand Jha",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:23:36.090Z",
-        "source_snapshot_id": "snap-mujfnanr-350",
-        "content_hash": "cae1dbf5ec78fbce9c176efe80db7265d71c25e11e7247880f24503a2fe45a53",
+        "observed_at": "2026-10-01T08:05:44.857Z",
+        "source_snapshot_id": "snap-mup924w5-396",
+        "content_hash": "40d6660f621d4cd074b5acebc089c2236f4862c0213140c10ce32f2ee6d9dd51",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -2030,9 +2834,9 @@
         "value": "Dr. Pramod Kumar Jha",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:23:36.090Z",
-        "source_snapshot_id": "snap-mujfnanr-350",
-        "content_hash": "cae1dbf5ec78fbce9c176efe80db7265d71c25e11e7247880f24503a2fe45a53",
+        "observed_at": "2026-10-01T08:05:44.857Z",
+        "source_snapshot_id": "snap-mup924w5-396",
+        "content_hash": "40d6660f621d4cd074b5acebc089c2236f4862c0213140c10ce32f2ee6d9dd51",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -2042,9 +2846,9 @@
         "value": "Jeetendra Jha",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:23:36.090Z",
-        "source_snapshot_id": "snap-mujfnanr-350",
-        "content_hash": "cae1dbf5ec78fbce9c176efe80db7265d71c25e11e7247880f24503a2fe45a53",
+        "observed_at": "2026-10-01T08:05:44.857Z",
+        "source_snapshot_id": "snap-mup924w5-396",
+        "content_hash": "40d6660f621d4cd074b5acebc089c2236f4862c0213140c10ce32f2ee6d9dd51",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -2054,9 +2858,9 @@
         "value": "Sudhansu Shekhar Jha",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:23:36.090Z",
-        "source_snapshot_id": "snap-mujfnanr-350",
-        "content_hash": "cae1dbf5ec78fbce9c176efe80db7265d71c25e11e7247880f24503a2fe45a53",
+        "observed_at": "2026-10-01T08:05:44.857Z",
+        "source_snapshot_id": "snap-mup924w5-396",
+        "content_hash": "40d6660f621d4cd074b5acebc089c2236f4862c0213140c10ce32f2ee6d9dd51",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -2066,57 +2870,9 @@
         "value": "Internal Web",
         "verification_status": "UNVERIFIED",
         "confidence": 0.5,
-        "observed_at": "2026-09-27T06:21:47.451Z",
-        "source_snapshot_id": "snap-mujfkyph-82",
-        "content_hash": "748234da1c3e48c6093b7d48867f67fa99fb6ca8028d72c27a4352a734af7940",
-        "mime_type": "text/html; charset=UTF-8",
-        "source_grade": "A"
-      },
-      {
-        "source_id": "swbbl-website",
-        "field_name": "people_board",
-        "value": "Mr. Bikash Kumar Chaudhary",
-        "verification_status": "UNVERIFIED",
-        "confidence": 0.55,
-        "observed_at": "2026-09-27T06:21:47.451Z",
-        "source_snapshot_id": "snap-mujfkyph-82",
-        "content_hash": "748234da1c3e48c6093b7d48867f67fa99fb6ca8028d72c27a4352a734af7940",
-        "mime_type": "text/html; charset=UTF-8",
-        "source_grade": "A"
-      },
-      {
-        "source_id": "swbbl-website",
-        "field_name": "people_board",
-        "value": "Mr. Chandra Bahadur Thapa",
-        "verification_status": "UNVERIFIED",
-        "confidence": 0.55,
-        "observed_at": "2026-09-27T06:21:47.451Z",
-        "source_snapshot_id": "snap-mujfkyph-82",
-        "content_hash": "748234da1c3e48c6093b7d48867f67fa99fb6ca8028d72c27a4352a734af7940",
-        "mime_type": "text/html; charset=UTF-8",
-        "source_grade": "A"
-      },
-      {
-        "source_id": "swbbl-website",
-        "field_name": "people_board",
-        "value": "Mr. Dol nath Tripathi",
-        "verification_status": "UNVERIFIED",
-        "confidence": 0.55,
-        "observed_at": "2026-09-27T06:21:47.451Z",
-        "source_snapshot_id": "snap-mujfkyph-82",
-        "content_hash": "748234da1c3e48c6093b7d48867f67fa99fb6ca8028d72c27a4352a734af7940",
-        "mime_type": "text/html; charset=UTF-8",
-        "source_grade": "A"
-      },
-      {
-        "source_id": "swbbl-website",
-        "field_name": "people_board",
-        "value": "Mr. Gyanendra Kumar Singh",
-        "verification_status": "UNVERIFIED",
-        "confidence": 0.55,
-        "observed_at": "2026-09-27T06:21:47.451Z",
-        "source_snapshot_id": "snap-mujfkyph-82",
-        "content_hash": "748234da1c3e48c6093b7d48867f67fa99fb6ca8028d72c27a4352a734af7940",
+        "observed_at": "2026-10-01T08:03:31.895Z",
+        "source_snapshot_id": "snap-mup8z7ag-102",
+        "content_hash": "0858ab846bf0c1e2113fed35a5c5b5cce90d1a887ec24d6fbf986ba38e475615",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -2126,9 +2882,9 @@
         "value": "Mr. Krishna Khanal",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:21:47.451Z",
-        "source_snapshot_id": "snap-mujfkyph-82",
-        "content_hash": "748234da1c3e48c6093b7d48867f67fa99fb6ca8028d72c27a4352a734af7940",
+        "observed_at": "2026-10-01T08:03:31.895Z",
+        "source_snapshot_id": "snap-mup8z7ag-102",
+        "content_hash": "0858ab846bf0c1e2113fed35a5c5b5cce90d1a887ec24d6fbf986ba38e475615",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -2138,21 +2894,9 @@
         "value": "Mr. Rajendra Dhital",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:21:47.451Z",
-        "source_snapshot_id": "snap-mujfkyph-82",
-        "content_hash": "748234da1c3e48c6093b7d48867f67fa99fb6ca8028d72c27a4352a734af7940",
-        "mime_type": "text/html; charset=UTF-8",
-        "source_grade": "A"
-      },
-      {
-        "source_id": "swbbl-website",
-        "field_name": "people_board",
-        "value": "Mr. Shanta Bahadur Sharki",
-        "verification_status": "UNVERIFIED",
-        "confidence": 0.55,
-        "observed_at": "2026-09-27T06:21:47.451Z",
-        "source_snapshot_id": "snap-mujfkyph-82",
-        "content_hash": "748234da1c3e48c6093b7d48867f67fa99fb6ca8028d72c27a4352a734af7940",
+        "observed_at": "2026-10-01T08:03:31.895Z",
+        "source_snapshot_id": "snap-mup8z7ag-102",
+        "content_hash": "0858ab846bf0c1e2113fed35a5c5b5cce90d1a887ec24d6fbf986ba38e475615",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -2162,9 +2906,9 @@
         "value": "Mr. Chandra Mani Chaulagai",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:21:47.451Z",
-        "source_snapshot_id": "snap-mujfkyph-82",
-        "content_hash": "748234da1c3e48c6093b7d48867f67fa99fb6ca8028d72c27a4352a734af7940",
+        "observed_at": "2026-10-01T08:03:31.895Z",
+        "source_snapshot_id": "snap-mup8z7ag-102",
+        "content_hash": "0858ab846bf0c1e2113fed35a5c5b5cce90d1a887ec24d6fbf986ba38e475615",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -2174,9 +2918,9 @@
         "value": "Mr. Narendra Singh Bista",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:21:47.451Z",
-        "source_snapshot_id": "snap-mujfkyph-82",
-        "content_hash": "748234da1c3e48c6093b7d48867f67fa99fb6ca8028d72c27a4352a734af7940",
+        "observed_at": "2026-10-01T08:03:31.895Z",
+        "source_snapshot_id": "snap-mup8z7ag-102",
+        "content_hash": "0858ab846bf0c1e2113fed35a5c5b5cce90d1a887ec24d6fbf986ba38e475615",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -2186,21 +2930,9 @@
         "value": "Mr. Nil Kantha Poudel",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:21:47.451Z",
-        "source_snapshot_id": "snap-mujfkyph-82",
-        "content_hash": "748234da1c3e48c6093b7d48867f67fa99fb6ca8028d72c27a4352a734af7940",
-        "mime_type": "text/html; charset=UTF-8",
-        "source_grade": "A"
-      },
-      {
-        "source_id": "swbbl-website",
-        "field_name": "people_ceo",
-        "value": "Mr. Pratap Narayan Shrestha",
-        "verification_status": "UNVERIFIED",
-        "confidence": 0.55,
-        "observed_at": "2026-09-27T06:21:47.451Z",
-        "source_snapshot_id": "snap-mujfkyph-82",
-        "content_hash": "748234da1c3e48c6093b7d48867f67fa99fb6ca8028d72c27a4352a734af7940",
+        "observed_at": "2026-10-01T08:03:31.895Z",
+        "source_snapshot_id": "snap-mup8z7ag-102",
+        "content_hash": "0858ab846bf0c1e2113fed35a5c5b5cce90d1a887ec24d6fbf986ba38e475615",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -2210,9 +2942,9 @@
         "value": "Prof. Dr. Kushum Shakya",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:21:47.451Z",
-        "source_snapshot_id": "snap-mujfky36-75",
-        "content_hash": "b877ada6f459c025217bece7dc44271d2d2f851ff7583cbbf65be5c4fb7f3331",
+        "observed_at": "2026-10-01T08:03:31.895Z",
+        "source_snapshot_id": "snap-mup8z6r2-95",
+        "content_hash": "4d2c07e22f6d4ad5d976d6918beaed135b5e6f6d07c6a123516f86e3d571227c",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -2222,9 +2954,9 @@
         "value": "Internal Web",
         "verification_status": "UNVERIFIED",
         "confidence": 0.5,
-        "observed_at": "2026-09-27T06:21:47.451Z",
-        "source_snapshot_id": "snap-mujfky36-75",
-        "content_hash": "b877ada6f459c025217bece7dc44271d2d2f851ff7583cbbf65be5c4fb7f3331",
+        "observed_at": "2026-10-01T08:03:31.895Z",
+        "source_snapshot_id": "snap-mup8z6r2-95",
+        "content_hash": "4d2c07e22f6d4ad5d976d6918beaed135b5e6f6d07c6a123516f86e3d571227c",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -2234,9 +2966,9 @@
         "value": "Mr. Bishnu Pd. Tripathi",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:21:47.451Z",
-        "source_snapshot_id": "snap-mujfky36-75",
-        "content_hash": "b877ada6f459c025217bece7dc44271d2d2f851ff7583cbbf65be5c4fb7f3331",
+        "observed_at": "2026-10-01T08:03:31.895Z",
+        "source_snapshot_id": "snap-mup8z6r2-95",
+        "content_hash": "4d2c07e22f6d4ad5d976d6918beaed135b5e6f6d07c6a123516f86e3d571227c",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -2246,9 +2978,9 @@
         "value": "Mr. Jayendra Bikram Shah",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:21:47.451Z",
-        "source_snapshot_id": "snap-mujfky36-75",
-        "content_hash": "b877ada6f459c025217bece7dc44271d2d2f851ff7583cbbf65be5c4fb7f3331",
+        "observed_at": "2026-10-01T08:03:31.895Z",
+        "source_snapshot_id": "snap-mup8z6r2-95",
+        "content_hash": "4d2c07e22f6d4ad5d976d6918beaed135b5e6f6d07c6a123516f86e3d571227c",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -2258,9 +2990,9 @@
         "value": "Mr. Rabin Kumar Shrestha",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:21:47.451Z",
-        "source_snapshot_id": "snap-mujfky36-75",
-        "content_hash": "b877ada6f459c025217bece7dc44271d2d2f851ff7583cbbf65be5c4fb7f3331",
+        "observed_at": "2026-10-01T08:03:31.895Z",
+        "source_snapshot_id": "snap-mup8z6r2-95",
+        "content_hash": "4d2c07e22f6d4ad5d976d6918beaed135b5e6f6d07c6a123516f86e3d571227c",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -2270,9 +3002,9 @@
         "value": "Mr. Rajendra Prasad Adhikari",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:21:47.451Z",
-        "source_snapshot_id": "snap-mujfky36-75",
-        "content_hash": "b877ada6f459c025217bece7dc44271d2d2f851ff7583cbbf65be5c4fb7f3331",
+        "observed_at": "2026-10-01T08:03:31.895Z",
+        "source_snapshot_id": "snap-mup8z6r2-95",
+        "content_hash": "4d2c07e22f6d4ad5d976d6918beaed135b5e6f6d07c6a123516f86e3d571227c",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -2282,9 +3014,9 @@
         "value": "Lekha Nath Khaniya",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:21:58.668Z",
-        "source_snapshot_id": "snap-mujfl86f-142",
-        "content_hash": "57b17c39430e03992d4543b60e28212b2bcaef39d1086d3aecd604eab559a51e",
+        "observed_at": "2026-10-01T08:03:40.683Z",
+        "source_snapshot_id": "snap-mup8zeib-162",
+        "content_hash": "3aef8ebceb171b991ed65c4d28097833233690c655d76d673678df674592375e",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -2294,9 +3026,9 @@
         "value": "Ananta Kumar shrestha",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:21:58.668Z",
-        "source_snapshot_id": "snap-mujfl86f-142",
-        "content_hash": "57b17c39430e03992d4543b60e28212b2bcaef39d1086d3aecd604eab559a51e",
+        "observed_at": "2026-10-01T08:03:40.683Z",
+        "source_snapshot_id": "snap-mup8zeib-162",
+        "content_hash": "3aef8ebceb171b991ed65c4d28097833233690c655d76d673678df674592375e",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -2306,9 +3038,9 @@
         "value": "Bindiya Shrestha Pradhan",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:21:58.668Z",
-        "source_snapshot_id": "snap-mujfl86f-142",
-        "content_hash": "57b17c39430e03992d4543b60e28212b2bcaef39d1086d3aecd604eab559a51e",
+        "observed_at": "2026-10-01T08:03:40.683Z",
+        "source_snapshot_id": "snap-mup8zeib-162",
+        "content_hash": "3aef8ebceb171b991ed65c4d28097833233690c655d76d673678df674592375e",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -2318,9 +3050,9 @@
         "value": "Dadhiram Poudel",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:21:58.668Z",
-        "source_snapshot_id": "snap-mujfl86f-142",
-        "content_hash": "57b17c39430e03992d4543b60e28212b2bcaef39d1086d3aecd604eab559a51e",
+        "observed_at": "2026-10-01T08:03:40.683Z",
+        "source_snapshot_id": "snap-mup8zeib-162",
+        "content_hash": "3aef8ebceb171b991ed65c4d28097833233690c655d76d673678df674592375e",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -2330,9 +3062,9 @@
         "value": "Kamal Bhandari",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:21:58.668Z",
-        "source_snapshot_id": "snap-mujfl86f-142",
-        "content_hash": "57b17c39430e03992d4543b60e28212b2bcaef39d1086d3aecd604eab559a51e",
+        "observed_at": "2026-10-01T08:03:40.683Z",
+        "source_snapshot_id": "snap-mup8zeib-162",
+        "content_hash": "3aef8ebceb171b991ed65c4d28097833233690c655d76d673678df674592375e",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       },
@@ -2342,625 +3074,669 @@
         "value": "Madhav Prasad Bhatta",
         "verification_status": "UNVERIFIED",
         "confidence": 0.55,
-        "observed_at": "2026-09-27T06:21:58.668Z",
-        "source_snapshot_id": "snap-mujfl86f-142",
-        "content_hash": "57b17c39430e03992d4543b60e28212b2bcaef39d1086d3aecd604eab559a51e",
+        "observed_at": "2026-10-01T08:03:40.683Z",
+        "source_snapshot_id": "snap-mup8zeib-162",
+        "content_hash": "3aef8ebceb171b991ed65c4d28097833233690c655d76d673678df674592375e",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "uniquenepalmicrofinance-website",
+        "field_name": "people_chair",
+        "value": "Mr. Shiv Bahadur Chaudhary",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:05:38.240Z",
+        "source_snapshot_id": "snap-mup91wcd-368",
+        "content_hash": "072c5a33e20f6d50f0a3c3e0373e328a5d28cbe98b5b9f670edcdf98cce65163",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "uniquenepalmicrofinance-website",
+        "field_name": "people_director",
+        "value": "Miss. Balika Chaudhary",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:05:38.240Z",
+        "source_snapshot_id": "snap-mup91wcd-368",
+        "content_hash": "072c5a33e20f6d50f0a3c3e0373e328a5d28cbe98b5b9f670edcdf98cce65163",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "uniquenepalmicrofinance-website",
+        "field_name": "people_director",
+        "value": "Mr. Jagat Ram Tharu Chaudhary",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:05:38.240Z",
+        "source_snapshot_id": "snap-mup91wcd-368",
+        "content_hash": "072c5a33e20f6d50f0a3c3e0373e328a5d28cbe98b5b9f670edcdf98cce65163",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "uniquenepalmicrofinance-website",
+        "field_name": "people_director",
+        "value": "Mr. Prabhakar Mishra",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:05:38.240Z",
+        "source_snapshot_id": "snap-mup91wcd-368",
+        "content_hash": "072c5a33e20f6d50f0a3c3e0373e328a5d28cbe98b5b9f670edcdf98cce65163",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "uniquenepalmicrofinance-website",
+        "field_name": "people_director",
+        "value": "Mr. Puran Prasad Chaudhary",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:05:38.240Z",
+        "source_snapshot_id": "snap-mup91wcd-368",
+        "content_hash": "072c5a33e20f6d50f0a3c3e0373e328a5d28cbe98b5b9f670edcdf98cce65163",
+        "mime_type": "text/html; charset=UTF-8",
+        "source_grade": "A"
+      },
+      {
+        "source_id": "uniquenepalmicrofinance-website",
+        "field_name": "people_director",
+        "value": "Mr. Sant Ram Dharkatuwa Tharu",
+        "verification_status": "UNVERIFIED",
+        "confidence": 0.55,
+        "observed_at": "2026-10-01T08:05:38.240Z",
+        "source_snapshot_id": "snap-mup91wcd-368",
+        "content_hash": "072c5a33e20f6d50f0a3c3e0373e328a5d28cbe98b5b9f670edcdf98cce65163",
         "mime_type": "text/html; charset=UTF-8",
         "source_grade": "A"
       }
     ],
     "validationResults": [
       {
-        "target_id": "snap-mujfkgj5-7",
-        "rule_id": "r-people-directory",
-        "status": "PASS",
-        "message": "4 people name(s) extracted (UNVERIFIED)",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfkgj5-7",
-        "rule_id": "r-people-staff-directory",
-        "status": "PASS",
-        "message": "not a staff directory",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfkhcx-14",
-        "rule_id": "r-people-directory",
-        "status": "PASS",
-        "message": "1 people name(s) extracted (UNVERIFIED)",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfkhcx-14",
-        "rule_id": "r-people-staff-directory",
-        "status": "PASS",
-        "message": "not a staff directory",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfki53-21",
-        "rule_id": "r-people-directory",
-        "status": "PASS",
-        "message": "1 people name(s) extracted (UNVERIFIED)",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfki53-21",
-        "rule_id": "r-people-staff-directory",
-        "status": "PASS",
-        "message": "not a staff directory",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfkjgh-30",
-        "rule_id": "r-people-directory",
-        "status": "PENDING",
-        "message": "no people evidence on this snapshot",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfkjgh-30",
-        "rule_id": "r-people-staff-directory",
-        "status": "PASS",
-        "message": "not a staff directory",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfkkde-39",
-        "rule_id": "r-people-directory",
-        "status": "PENDING",
-        "message": "no people evidence on this snapshot",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfkkde-39",
-        "rule_id": "r-people-staff-directory",
-        "status": "PASS",
-        "message": "not a staff directory",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfkmbd-48",
-        "rule_id": "r-people-directory",
-        "status": "PENDING",
-        "message": "no people evidence on this snapshot",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfkmbd-48",
-        "rule_id": "r-people-staff-directory",
-        "status": "PASS",
-        "message": "not a staff directory",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfkvnu-58",
-        "rule_id": "r-people-directory",
-        "status": "PENDING",
-        "message": "no people evidence on this snapshot",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfkvnu-58",
-        "rule_id": "r-people-staff-directory",
-        "status": "PASS",
-        "message": "not a staff directory",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfkwsi-65",
-        "rule_id": "r-people-directory",
-        "status": "PENDING",
-        "message": "no people evidence on this snapshot",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfkwsi-65",
-        "rule_id": "r-people-staff-directory",
-        "status": "PASS",
-        "message": "not a staff directory",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfky36-75",
-        "rule_id": "r-people-directory",
-        "status": "PASS",
-        "message": "6 people name(s) extracted (UNVERIFIED)",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfky36-75",
-        "rule_id": "r-people-staff-directory",
-        "status": "PASS",
-        "message": "not a staff directory",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfkyph-82",
-        "rule_id": "r-people-directory",
-        "status": "PASS",
-        "message": "12 people name(s) extracted (UNVERIFIED)",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfkyph-82",
-        "rule_id": "r-people-staff-directory",
-        "status": "PASS",
-        "message": "not a staff directory",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfkzwa-92",
-        "rule_id": "r-people-directory",
-        "status": "PENDING",
-        "message": "no people evidence on this snapshot",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfkzwa-92",
-        "rule_id": "r-people-staff-directory",
-        "status": "PASS",
-        "message": "not a staff directory",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfl044-99",
-        "rule_id": "r-people-directory",
-        "status": "PENDING",
-        "message": "no people evidence on this snapshot",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfl044-99",
-        "rule_id": "r-people-staff-directory",
-        "status": "PASS",
-        "message": "not a staff directory",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfl1r0-109",
-        "rule_id": "r-people-directory",
-        "status": "PENDING",
-        "message": "no people evidence on this snapshot",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfl1r0-109",
-        "rule_id": "r-people-staff-directory",
-        "status": "PASS",
-        "message": "not a staff directory",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfl228-116",
-        "rule_id": "r-people-directory",
-        "status": "PENDING",
-        "message": "no people evidence on this snapshot",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfl228-116",
-        "rule_id": "r-people-staff-directory",
-        "status": "PASS",
-        "message": "not a staff directory",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfl4u4-126",
-        "rule_id": "r-people-directory",
-        "status": "PENDING",
-        "message": "no people evidence on this snapshot",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfl4u4-126",
-        "rule_id": "r-people-staff-directory",
-        "status": "PASS",
-        "message": "not a staff directory",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfl54y-133",
-        "rule_id": "r-people-directory",
-        "status": "PENDING",
-        "message": "no people evidence on this snapshot",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfl54y-133",
-        "rule_id": "r-people-staff-directory",
-        "status": "PASS",
-        "message": "not a staff directory",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfl86f-142",
-        "rule_id": "r-people-directory",
-        "status": "PASS",
-        "message": "6 people name(s) extracted (UNVERIFIED)",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfl86f-142",
-        "rule_id": "r-people-staff-directory",
-        "status": "PASS",
-        "message": "not a staff directory",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujflt3t-153",
-        "rule_id": "r-people-directory",
-        "status": "PENDING",
-        "message": "no people evidence on this snapshot",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujflt3t-153",
-        "rule_id": "r-people-staff-directory",
-        "status": "PASS",
-        "message": "not a staff directory",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfluda-160",
-        "rule_id": "r-people-directory",
-        "status": "PENDING",
-        "message": "no people evidence on this snapshot",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfluda-160",
-        "rule_id": "r-people-staff-directory",
-        "status": "PASS",
-        "message": "not a staff directory",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujflv8q-167",
-        "rule_id": "r-people-directory",
-        "status": "PENDING",
-        "message": "no people evidence on this snapshot",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujflv8q-167",
-        "rule_id": "r-people-staff-directory",
-        "status": "PASS",
-        "message": "not a staff directory",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujflwqs-176",
-        "rule_id": "r-people-directory",
-        "status": "PENDING",
-        "message": "no people evidence on this snapshot",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujflwqs-176",
-        "rule_id": "r-people-staff-directory",
-        "status": "PASS",
-        "message": "not a staff directory",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfm3rg-187",
-        "rule_id": "r-people-directory",
-        "status": "PASS",
-        "message": "7 people name(s) extracted (UNVERIFIED)",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfm3rg-187",
-        "rule_id": "r-people-staff-directory",
-        "status": "PASS",
-        "message": "not a staff directory",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfm5pd-194",
+        "target_id": "snap-mup8yofy-7",
         "rule_id": "r-people-directory",
         "status": "PASS",
         "message": "11 people name(s) extracted (UNVERIFIED)",
         "n": 1
       },
       {
-        "target_id": "snap-mujfm5pd-194",
+        "target_id": "snap-mup8yofy-7",
         "rule_id": "r-people-staff-directory",
         "status": "PASS",
         "message": "not a staff directory",
         "n": 1
       },
       {
-        "target_id": "snap-mujfm7pk-201",
+        "target_id": "snap-mup8ypsy-14",
+        "rule_id": "r-people-directory",
+        "status": "PASS",
+        "message": "14 people name(s) extracted (UNVERIFIED)",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup8ypsy-14",
+        "rule_id": "r-people-staff-directory",
+        "status": "PASS",
+        "message": "not a staff directory",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup8yr7f-28",
+        "rule_id": "r-people-directory",
+        "status": "PASS",
+        "message": "14 people name(s) extracted (UNVERIFIED)",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup8yr7f-28",
+        "rule_id": "r-people-staff-directory",
+        "status": "PASS",
+        "message": "not a staff directory",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup8yugl-50",
         "rule_id": "r-people-directory",
         "status": "PENDING",
         "message": "no people evidence on this snapshot",
         "n": 1
       },
       {
-        "target_id": "snap-mujfm7pk-201",
+        "target_id": "snap-mup8yugl-50",
         "rule_id": "r-people-staff-directory",
         "status": "PASS",
         "message": "not a staff directory",
         "n": 1
       },
       {
-        "target_id": "snap-mujfm9lr-210",
+        "target_id": "snap-mup8yvb0-59",
         "rule_id": "r-people-directory",
-        "status": "PASS",
-        "message": "6 people name(s) extracted (UNVERIFIED)",
+        "status": "PENDING",
+        "message": "no people evidence on this snapshot",
         "n": 1
       },
       {
-        "target_id": "snap-mujfm9lr-210",
+        "target_id": "snap-mup8yvb0-59",
         "rule_id": "r-people-staff-directory",
         "status": "PASS",
         "message": "not a staff directory",
         "n": 1
       },
       {
-        "target_id": "snap-mujfmbuy-220",
+        "target_id": "snap-mup8ywso-68",
         "rule_id": "r-people-directory",
         "status": "PASS",
         "message": "7 people name(s) extracted (UNVERIFIED)",
         "n": 1
       },
       {
-        "target_id": "snap-mujfmbuy-220",
+        "target_id": "snap-mup8ywso-68",
         "rule_id": "r-people-staff-directory",
         "status": "PASS",
         "message": "not a staff directory",
         "n": 1
       },
       {
-        "target_id": "snap-mujfmchd-227",
+        "target_id": "snap-mup8z3mp-78",
+        "rule_id": "r-people-directory",
+        "status": "PASS",
+        "message": "6 people name(s) extracted (UNVERIFIED)",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup8z3mp-78",
+        "rule_id": "r-people-staff-directory",
+        "status": "PASS",
+        "message": "not a staff directory",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup8z5oe-85",
         "rule_id": "r-people-directory",
         "status": "PASS",
         "message": "2 people name(s) extracted (UNVERIFIED)",
         "n": 1
       },
       {
-        "target_id": "snap-mujfmchd-227",
+        "target_id": "snap-mup8z5oe-85",
         "rule_id": "r-people-staff-directory",
         "status": "PASS",
         "message": "not a staff directory",
         "n": 1
       },
       {
-        "target_id": "snap-mujfmeum-237",
-        "rule_id": "r-people-directory",
-        "status": "PASS",
-        "message": "4 people name(s) extracted (UNVERIFIED)",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfmeum-237",
-        "rule_id": "r-people-staff-directory",
-        "status": "PASS",
-        "message": "not a staff directory",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfmfn1-244",
-        "rule_id": "r-people-directory",
-        "status": "PENDING",
-        "message": "no people evidence on this snapshot",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfmfn1-244",
-        "rule_id": "r-people-staff-directory",
-        "status": "PENDING",
-        "message": "general staff directory: 205 name+role entr(ies) held as future-candidate evidence, not asserted as M3.3 leadership",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfmi59-253",
-        "rule_id": "r-people-directory",
-        "status": "PENDING",
-        "message": "no people evidence on this snapshot",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfmi59-253",
-        "rule_id": "r-people-staff-directory",
-        "status": "PASS",
-        "message": "not a staff directory",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfmijy-262",
-        "rule_id": "r-people-directory",
-        "status": "PENDING",
-        "message": "no people evidence on this snapshot",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfmijy-262",
-        "rule_id": "r-people-staff-directory",
-        "status": "PASS",
-        "message": "not a staff directory",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfmt7r-271",
-        "rule_id": "r-people-directory",
-        "status": "PENDING",
-        "message": "no people evidence on this snapshot",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfmt7r-271",
-        "rule_id": "r-people-staff-directory",
-        "status": "PASS",
-        "message": "not a staff directory",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfmx6p-281",
+        "target_id": "snap-mup8z6r2-95",
         "rule_id": "r-people-directory",
         "status": "PASS",
         "message": "6 people name(s) extracted (UNVERIFIED)",
         "n": 1
       },
       {
-        "target_id": "snap-mujfmx6p-281",
+        "target_id": "snap-mup8z6r2-95",
         "rule_id": "r-people-staff-directory",
         "status": "PASS",
         "message": "not a staff directory",
         "n": 1
       },
       {
-        "target_id": "snap-mujfmxsc-288",
+        "target_id": "snap-mup8z7ag-102",
+        "rule_id": "r-people-directory",
+        "status": "PASS",
+        "message": "6 people name(s) extracted (UNVERIFIED)",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup8z7ag-102",
+        "rule_id": "r-people-staff-directory",
+        "status": "PASS",
+        "message": "not a staff directory",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup8z957-112",
+        "rule_id": "r-people-directory",
+        "status": "PENDING",
+        "message": "no people evidence on this snapshot",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup8z957-112",
+        "rule_id": "r-people-staff-directory",
+        "status": "PASS",
+        "message": "not a staff directory",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup8z9jn-119",
+        "rule_id": "r-people-directory",
+        "status": "PENDING",
+        "message": "no people evidence on this snapshot",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup8z9jn-119",
+        "rule_id": "r-people-staff-directory",
+        "status": "PASS",
+        "message": "not a staff directory",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup8zalp-129",
         "rule_id": "r-people-directory",
         "status": "PASS",
         "message": "5 people name(s) extracted (UNVERIFIED)",
         "n": 1
       },
       {
-        "target_id": "snap-mujfmxsc-288",
+        "target_id": "snap-mup8zalp-129",
         "rule_id": "r-people-staff-directory",
         "status": "PASS",
         "message": "not a staff directory",
         "n": 1
       },
       {
-        "target_id": "snap-mujfn0mk-299",
+        "target_id": "snap-mup8zash-136",
         "rule_id": "r-people-directory",
         "status": "PENDING",
         "message": "no people evidence on this snapshot",
         "n": 1
       },
       {
-        "target_id": "snap-mujfn0mk-299",
+        "target_id": "snap-mup8zash-136",
         "rule_id": "r-people-staff-directory",
         "status": "PASS",
         "message": "not a staff directory",
         "n": 1
       },
       {
-        "target_id": "snap-mujfn1su-306",
-        "rule_id": "r-people-directory",
-        "status": "PENDING",
-        "message": "no people evidence on this snapshot",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfn1su-306",
-        "rule_id": "r-people-staff-directory",
-        "status": "PASS",
-        "message": "not a staff directory",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfn2z1-313",
-        "rule_id": "r-people-directory",
-        "status": "PENDING",
-        "message": "no people evidence on this snapshot",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfn2z1-313",
-        "rule_id": "r-people-staff-directory",
-        "status": "PASS",
-        "message": "not a staff directory",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfn4lr-322",
-        "rule_id": "r-people-directory",
-        "status": "PENDING",
-        "message": "no people evidence on this snapshot",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfn4lr-322",
-        "rule_id": "r-people-staff-directory",
-        "status": "PASS",
-        "message": "not a staff directory",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfn77o-331",
-        "rule_id": "r-people-directory",
-        "status": "PENDING",
-        "message": "no people evidence on this snapshot",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfn77o-331",
-        "rule_id": "r-people-staff-directory",
-        "status": "PASS",
-        "message": "not a staff directory",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfn8lx-340",
-        "rule_id": "r-people-directory",
-        "status": "PENDING",
-        "message": "no people evidence on this snapshot",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfn8lx-340",
-        "rule_id": "r-people-staff-directory",
-        "status": "PASS",
-        "message": "not a staff directory",
-        "n": 1
-      },
-      {
-        "target_id": "snap-mujfnanr-350",
+        "target_id": "snap-mup8zbte-146",
         "rule_id": "r-people-directory",
         "status": "PASS",
-        "message": "5 people name(s) extracted (UNVERIFIED)",
+        "message": "7 people name(s) extracted (UNVERIFIED)",
         "n": 1
       },
       {
-        "target_id": "snap-mujfnanr-350",
+        "target_id": "snap-mup8zbte-146",
         "rule_id": "r-people-staff-directory",
         "status": "PASS",
         "message": "not a staff directory",
         "n": 1
       },
       {
-        "target_id": "snap-mujfnbm4-357",
+        "target_id": "snap-mup8zc5n-153",
+        "rule_id": "r-people-directory",
+        "status": "PASS",
+        "message": "2 people name(s) extracted (UNVERIFIED)",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup8zc5n-153",
+        "rule_id": "r-people-staff-directory",
+        "status": "PASS",
+        "message": "not a staff directory",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup8zeib-162",
+        "rule_id": "r-people-directory",
+        "status": "PASS",
+        "message": "6 people name(s) extracted (UNVERIFIED)",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup8zeib-162",
+        "rule_id": "r-people-staff-directory",
+        "status": "PASS",
+        "message": "not a staff directory",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup90dp2-173",
+        "rule_id": "r-people-directory",
+        "status": "PASS",
+        "message": "7 people name(s) extracted (UNVERIFIED)",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup90dp2-173",
+        "rule_id": "r-people-staff-directory",
+        "status": "PASS",
+        "message": "not a staff directory",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup90fxd-180",
+        "rule_id": "r-people-directory",
+        "status": "PASS",
+        "message": "7 people name(s) extracted (UNVERIFIED)",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup90fxd-180",
+        "rule_id": "r-people-staff-directory",
+        "status": "PASS",
+        "message": "not a staff directory",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup90iup-194",
+        "rule_id": "r-people-directory",
+        "status": "PASS",
+        "message": "7 people name(s) extracted (UNVERIFIED)",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup90iup-194",
+        "rule_id": "r-people-staff-directory",
+        "status": "PASS",
+        "message": "not a staff directory",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup90jih-210",
+        "rule_id": "r-people-directory",
+        "status": "PASS",
+        "message": "7 people name(s) extracted (UNVERIFIED)",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup90jih-210",
+        "rule_id": "r-people-staff-directory",
+        "status": "PASS",
+        "message": "not a staff directory",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup90r9d-221",
+        "rule_id": "r-people-directory",
+        "status": "PASS",
+        "message": "7 people name(s) extracted (UNVERIFIED)",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup90r9d-221",
+        "rule_id": "r-people-staff-directory",
+        "status": "PASS",
+        "message": "not a staff directory",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup90twp-228",
         "rule_id": "r-people-directory",
         "status": "PASS",
         "message": "11 people name(s) extracted (UNVERIFIED)",
         "n": 1
       },
       {
-        "target_id": "snap-mujfnbm4-357",
+        "target_id": "snap-mup90twp-228",
         "rule_id": "r-people-staff-directory",
         "status": "PASS",
         "message": "not a staff directory",
         "n": 1
       },
       {
-        "target_id": "snap-mujfnpn3-27",
+        "target_id": "snap-mup90wo9-235",
         "rule_id": "r-people-directory",
         "status": "PENDING",
         "message": "no people evidence on this snapshot",
         "n": 1
       },
       {
-        "target_id": "snap-mujfnpn3-27",
+        "target_id": "snap-mup90wo9-235",
         "rule_id": "r-people-staff-directory",
         "status": "PASS",
         "message": "not a staff directory",
         "n": 1
       },
       {
-        "target_id": "snap-mujfpec4-214",
+        "target_id": "snap-mup90xz6-244",
+        "rule_id": "r-people-directory",
+        "status": "PASS",
+        "message": "6 people name(s) extracted (UNVERIFIED)",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup90xz6-244",
+        "rule_id": "r-people-staff-directory",
+        "status": "PASS",
+        "message": "not a staff directory",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup913f4-254",
+        "rule_id": "r-people-directory",
+        "status": "PASS",
+        "message": "7 people name(s) extracted (UNVERIFIED)",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup913f4-254",
+        "rule_id": "r-people-staff-directory",
+        "status": "PASS",
+        "message": "not a staff directory",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup914ws-261",
+        "rule_id": "r-people-directory",
+        "status": "PASS",
+        "message": "2 people name(s) extracted (UNVERIFIED)",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup914ws-261",
+        "rule_id": "r-people-staff-directory",
+        "status": "PASS",
+        "message": "not a staff directory",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup91890-271",
+        "rule_id": "r-people-directory",
+        "status": "PASS",
+        "message": "5 people name(s) extracted (UNVERIFIED)",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup91890-271",
+        "rule_id": "r-people-staff-directory",
+        "status": "PASS",
+        "message": "not a staff directory",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup918t0-278",
         "rule_id": "r-people-directory",
         "status": "PENDING",
         "message": "no people evidence on this snapshot",
         "n": 1
       },
       {
-        "target_id": "snap-mujfpec4-214",
+        "target_id": "snap-mup918t0-278",
+        "rule_id": "r-people-staff-directory",
+        "status": "PENDING",
+        "message": "general staff directory: 205 name+role entr(ies) held as future-candidate evidence, not asserted as M3.3 leadership",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup91bli-287",
+        "rule_id": "r-people-directory",
+        "status": "PENDING",
+        "message": "no people evidence on this snapshot",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup91bli-287",
+        "rule_id": "r-people-staff-directory",
+        "status": "PASS",
+        "message": "not a staff directory",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup91c2k-296",
+        "rule_id": "r-people-directory",
+        "status": "PENDING",
+        "message": "no people evidence on this snapshot",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup91c2k-296",
+        "rule_id": "r-people-staff-directory",
+        "status": "PASS",
+        "message": "not a staff directory",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup91lrf-305",
+        "rule_id": "r-people-directory",
+        "status": "PENDING",
+        "message": "no people evidence on this snapshot",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup91lrf-305",
+        "rule_id": "r-people-staff-directory",
+        "status": "PASS",
+        "message": "not a staff directory",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup91ojt-315",
+        "rule_id": "r-people-directory",
+        "status": "PASS",
+        "message": "6 people name(s) extracted (UNVERIFIED)",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup91ojt-315",
+        "rule_id": "r-people-staff-directory",
+        "status": "PASS",
+        "message": "not a staff directory",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup91ovj-322",
+        "rule_id": "r-people-directory",
+        "status": "PASS",
+        "message": "5 people name(s) extracted (UNVERIFIED)",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup91ovj-322",
+        "rule_id": "r-people-staff-directory",
+        "status": "PASS",
+        "message": "not a staff directory",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup91so5-333",
+        "rule_id": "r-people-directory",
+        "status": "PASS",
+        "message": "6 people name(s) extracted (UNVERIFIED)",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup91so5-333",
+        "rule_id": "r-people-staff-directory",
+        "status": "PASS",
+        "message": "not a staff directory",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup91txw-340",
+        "rule_id": "r-people-directory",
+        "status": "PASS",
+        "message": "6 people name(s) extracted (UNVERIFIED)",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup91txw-340",
+        "rule_id": "r-people-staff-directory",
+        "status": "PASS",
+        "message": "not a staff directory",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup91v4d-353",
+        "rule_id": "r-people-directory",
+        "status": "PASS",
+        "message": "6 people name(s) extracted (UNVERIFIED)",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup91v4d-353",
+        "rule_id": "r-people-staff-directory",
+        "status": "PASS",
+        "message": "not a staff directory",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup91wcd-368",
+        "rule_id": "r-people-directory",
+        "status": "PASS",
+        "message": "6 people name(s) extracted (UNVERIFIED)",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup91wcd-368",
+        "rule_id": "r-people-staff-directory",
+        "status": "PASS",
+        "message": "not a staff directory",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup91xt6-377",
+        "rule_id": "r-people-directory",
+        "status": "PENDING",
+        "message": "no people evidence on this snapshot",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup91xt6-377",
+        "rule_id": "r-people-staff-directory",
+        "status": "PASS",
+        "message": "not a staff directory",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup92095-386",
+        "rule_id": "r-people-directory",
+        "status": "PASS",
+        "message": "2 people name(s) extracted (UNVERIFIED)",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup92095-386",
+        "rule_id": "r-people-staff-directory",
+        "status": "PASS",
+        "message": "not a staff directory",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup924w5-396",
+        "rule_id": "r-people-directory",
+        "status": "PASS",
+        "message": "5 people name(s) extracted (UNVERIFIED)",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup924w5-396",
+        "rule_id": "r-people-staff-directory",
+        "status": "PASS",
+        "message": "not a staff directory",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup927ht-403",
+        "rule_id": "r-people-directory",
+        "status": "PASS",
+        "message": "1 people name(s) extracted (UNVERIFIED)",
+        "n": 1
+      },
+      {
+        "target_id": "snap-mup927ht-403",
         "rule_id": "r-people-staff-directory",
         "status": "PASS",
         "message": "not a staff directory",
@@ -3214,256 +3990,6 @@
         "items_found": 2,
         "items_changed": 0,
         "items_new": 2,
-        "items_failed": 0,
-        "error_count": 0,
-        "parser_version": "people-html-v2"
-      },
-      {
-        "ingestion_source_id": "nirdhan-website",
-        "status": "SUCCESS",
-        "items_found": 3,
-        "items_changed": 0,
-        "items_new": 0,
-        "items_failed": 0,
-        "error_count": 0,
-        "parser_version": "people-html-v2"
-      },
-      {
-        "ingestion_source_id": "matribhumi-website",
-        "status": "SUCCESS",
-        "items_found": 1,
-        "items_changed": 0,
-        "items_new": 0,
-        "items_failed": 0,
-        "error_count": 0,
-        "parser_version": "people-html-v2"
-      },
-      {
-        "ingestion_source_id": "aatmanirbhar-website",
-        "status": "SUCCESS",
-        "items_found": 1,
-        "items_changed": 0,
-        "items_new": 1,
-        "items_failed": 0,
-        "error_count": 0,
-        "parser_version": "people-html-v2"
-      },
-      {
-        "ingestion_source_id": "asha-website",
-        "status": "SUCCESS",
-        "items_found": 1,
-        "items_changed": 0,
-        "items_new": 0,
-        "items_failed": 0,
-        "error_count": 0,
-        "parser_version": "people-html-v2"
-      },
-      {
-        "ingestion_source_id": "cyc-website",
-        "status": "SUCCESS",
-        "items_found": 2,
-        "items_changed": 0,
-        "items_new": 0,
-        "items_failed": 0,
-        "error_count": 0,
-        "parser_version": "people-html-v2"
-      },
-      {
-        "ingestion_source_id": "swbbl-website",
-        "status": "SUCCESS",
-        "items_found": 2,
-        "items_changed": 0,
-        "items_new": 0,
-        "items_failed": 0,
-        "error_count": 0,
-        "parser_version": "people-html-v2"
-      },
-      {
-        "ingestion_source_id": "skbbl-website",
-        "status": "SUCCESS",
-        "items_found": 2,
-        "items_changed": 0,
-        "items_new": 0,
-        "items_failed": 0,
-        "error_count": 0,
-        "parser_version": "people-html-v2"
-      },
-      {
-        "ingestion_source_id": "nerudemirmire-website",
-        "status": "SUCCESS",
-        "items_found": 2,
-        "items_changed": 0,
-        "items_new": 0,
-        "items_failed": 0,
-        "error_count": 0,
-        "parser_version": "people-html-v2"
-      },
-      {
-        "ingestion_source_id": "kalikabank-website",
-        "status": "SUCCESS",
-        "items_found": 2,
-        "items_changed": 0,
-        "items_new": 0,
-        "items_failed": 0,
-        "error_count": 0,
-        "parser_version": "people-html-v2"
-      },
-      {
-        "ingestion_source_id": "swmfi-website",
-        "status": "SUCCESS",
-        "items_found": 1,
-        "items_changed": 0,
-        "items_new": 0,
-        "items_failed": 0,
-        "error_count": 0,
-        "parser_version": "people-html-v2"
-      },
-      {
-        "ingestion_source_id": "laxmilaghu-website",
-        "status": "SUCCESS",
-        "items_found": 3,
-        "items_changed": 0,
-        "items_new": 0,
-        "items_failed": 0,
-        "error_count": 0,
-        "parser_version": "people-html-v2"
-      },
-      {
-        "ingestion_source_id": "himalayanlaghubitta-website",
-        "status": "SUCCESS",
-        "items_found": 1,
-        "items_changed": 0,
-        "items_new": 0,
-        "items_failed": 0,
-        "error_count": 0,
-        "parser_version": "people-html-v2"
-      },
-      {
-        "ingestion_source_id": "gilb-website",
-        "status": "SUCCESS",
-        "items_found": 3,
-        "items_changed": 0,
-        "items_new": 0,
-        "items_failed": 0,
-        "error_count": 0,
-        "parser_version": "people-html-v2"
-      },
-      {
-        "ingestion_source_id": "mslbsl-website",
-        "status": "SUCCESS",
-        "items_found": 1,
-        "items_changed": 0,
-        "items_new": 0,
-        "items_failed": 0,
-        "error_count": 0,
-        "parser_version": "people-html-v2"
-      },
-      {
-        "ingestion_source_id": "samata-website",
-        "status": "SUCCESS",
-        "items_found": 2,
-        "items_changed": 0,
-        "items_new": 0,
-        "items_failed": 0,
-        "error_count": 0,
-        "parser_version": "people-html-v2"
-      },
-      {
-        "ingestion_source_id": "nationalmicrofinance-website",
-        "status": "SUCCESS",
-        "items_found": 2,
-        "items_changed": 0,
-        "items_new": 0,
-        "items_failed": 0,
-        "error_count": 0,
-        "parser_version": "people-html-v2"
-      },
-      {
-        "ingestion_source_id": "weannepal-website",
-        "status": "SUCCESS",
-        "items_found": 1,
-        "items_changed": 0,
-        "items_new": 0,
-        "items_failed": 0,
-        "error_count": 0,
-        "parser_version": "people-html-v2"
-      },
-      {
-        "ingestion_source_id": "unnatislbs-website",
-        "status": "SUCCESS",
-        "items_found": 1,
-        "items_changed": 0,
-        "items_new": 0,
-        "items_failed": 0,
-        "error_count": 0,
-        "parser_version": "people-html-v2"
-      },
-      {
-        "ingestion_source_id": "nadeplaghubitta-website",
-        "status": "SUCCESS",
-        "items_found": 1,
-        "items_changed": 0,
-        "items_new": 0,
-        "items_failed": 0,
-        "error_count": 0,
-        "parser_version": "people-html-v2"
-      },
-      {
-        "ingestion_source_id": "supportmicrofinance-website",
-        "status": "SUCCESS",
-        "items_found": 2,
-        "items_changed": 0,
-        "items_new": 0,
-        "items_failed": 0,
-        "error_count": 0,
-        "parser_version": "people-html-v2"
-      },
-      {
-        "ingestion_source_id": "swabhimaanlaghubitta-website",
-        "status": "SUCCESS",
-        "items_found": 3,
-        "items_changed": 0,
-        "items_new": 0,
-        "items_failed": 0,
-        "error_count": 0,
-        "parser_version": "people-html-v2"
-      },
-      {
-        "ingestion_source_id": "uniquenepalmicrofinance-website",
-        "status": "SUCCESS",
-        "items_found": 1,
-        "items_changed": 0,
-        "items_new": 1,
-        "items_failed": 0,
-        "error_count": 0,
-        "parser_version": "people-html-v2"
-      },
-      {
-        "ingestion_source_id": "ulbsl-website",
-        "status": "SUCCESS",
-        "items_found": 1,
-        "items_changed": 0,
-        "items_new": 0,
-        "items_failed": 0,
-        "error_count": 0,
-        "parser_version": "people-html-v2"
-      },
-      {
-        "ingestion_source_id": "dhaulagiribank-website",
-        "status": "SUCCESS",
-        "items_found": 1,
-        "items_changed": 0,
-        "items_new": 0,
-        "items_failed": 0,
-        "error_count": 0,
-        "parser_version": "people-html-v2"
-      },
-      {
-        "ingestion_source_id": "swastiklbs-website",
-        "status": "SUCCESS",
-        "items_found": 2,
-        "items_changed": 0,
-        "items_new": 0,
         "items_failed": 0,
         "error_count": 0,
         "parser_version": "people-html-v2"

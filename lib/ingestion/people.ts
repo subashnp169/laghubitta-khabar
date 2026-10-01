@@ -350,9 +350,25 @@ interface HeadingElement {
  * or three elements deep (container > widget > h4), and a flat regex would let
  * the outer <div> swallow the inner heading entirely.
  */
-function headingElements(html: string): HeadingElement[] {
+/**
+ * "heading"        - the original heading-style scan.
+ * "headingOrRoleText" - additionally treat an element as a candidate when its own
+ *                       short text is a role from the existing vocabulary. Used
+ *                       only by the container-roster pairing pass.
+ */
+type HeadingScanMode = "heading" | "headingOrRoleText";
+
+/** Longest text still treated as a bare designation rather than prose. A card
+ *  designation commonly carries its appointing body, e.g. "Director,
+ *  Representative from Rastriya Banijya Bank" - long enough that a prose
+ *  sentence threshold would silently drop the role. The safety burden stays on
+ *  the pairing pass, which only accepts the role when the same container holds
+ *  exactly one name that already passed nameLike. */
+const ROLE_TEXT_MAX = 100;
+
+function headingElements(html: string, mode: HeadingScanMode = "heading"): HeadingElement[] {
   const out: HeadingElement[] = [];
-  const stack: Array<{ tag: string; start: number; contentStart: number; candidate: boolean }> = [];
+  const stack: Array<{ tag: string; start: number; contentStart: number; candidate: boolean; attrs: string }> = [];
   const re = /<(\/?)([a-z][a-z0-9]*)\b([^>]*)>/gi;
   let m: RegExpExecArray | null;
   while ((m = re.exec(html)) !== null) {
@@ -364,6 +380,18 @@ function headingElements(html: string): HeadingElement[] {
       }
       if (idx === -1) continue; // stray close tag
       const opened = stack.splice(idx, 1)[0];
+      if (!opened.candidate && mode === "headingOrRoleText") {
+        // A designation is very often a bare <span> with no heading/title token
+        // in its class, e.g. himalayanlaghubitta.com renders
+        //   <h5>Mr. Bijaya Man Nakarmi</h5><span class="text-medium">Chairman</span>
+        // The name is a real heading but the role is not, so the pairing pass
+        // could never see a role and the whole roster was silently dropped.
+        // Rather than trust markup, trust the existing role vocabulary: an
+        // element only qualifies when its own short text IS a role we already
+        // recognise. This adds no new role words and invents nothing.
+        const text = cleanCell(html.slice(opened.contentStart, m.index));
+        opened.candidate = text.length > 0 && text.length <= ROLE_TEXT_MAX && peopleRoleFamily(text) !== null;
+      }
       if (opened.candidate) {
         out.push({ start: opened.start, end: m.index, text: cleanCell(html.slice(opened.contentStart, m.index)) });
       }
@@ -375,6 +403,7 @@ function headingElements(html: string): HeadingElement[] {
       start: m.index,
       contentStart: re.lastIndex,
       candidate: /^h[1-6]$/.test(tag) || /\b(heading|title)\b/i.test(attrs),
+      attrs,
     });
   }
   return out;
@@ -421,7 +450,13 @@ function containerNodes(html: string): ContainerNode[] {
 function pickContainerRoster(blockHtml: string): PersonPick[] {
   const headings = headingElements(blockHtml);
   const nameEls = headings.filter((h) => h.text && nameLike(h.text) && peopleRoleFamily(h.text) === null);
-  const roleEls = headings.filter((h) => h.text && peopleRoleFamily(h.text) !== null);
+  // Roles are scanned with the widened mode because a designation is frequently a
+  // bare <span> carrying no heading/title token. The name side deliberately keeps
+  // the strict heading scan: a name must still look like a heading-styled element,
+  // so this cannot turn arbitrary body text into a person.
+  const roleEls = headingElements(blockHtml, "headingOrRoleText").filter(
+    (h) => h.text && peopleRoleFamily(h.text) !== null,
+  );
   if (nameEls.length === 0 || roleEls.length === 0) return [];
 
   const nodes = containerNodes(blockHtml);
@@ -436,6 +471,19 @@ function pickContainerRoster(blockHtml: string): PersonPick[] {
     let role: PeopleCapability | null = null;
     let roleText = "";
     for (const node of ancestors) {
+      // A container may resolve a role for a name ONLY when it holds that one
+      // name. A row/grid container that wraps ten name cards also contains a
+      // neighbour's "Chief Executive Officer" span, so letting it pair everyone
+      // with that single role would turn department heads into CEOs. The
+      // "exactly one name" rule is what distinguishes a per-person widget from a
+      // whole-list container: a named card carries its own designation, a shared
+      // row does not. Distinct names are counted: a page builder often wraps a
+      // name in a heading AND a heading-titled widget div, so one person appears
+      // as several stack frames; those collapse to one name.
+      const distinctNamesInside = new Set(
+        nameEls.filter((n) => n.start >= node.start && n.end <= node.end).map((n) => n.text.toLocaleLowerCase().replace(/\s+/g, " ").trim()),
+      );
+      if (distinctNamesInside.size !== 1) continue;
       const hit = roleEls
         .filter((r) => r.start >= node.start && r.end <= node.end && (r.end <= nameEl.start || r.start >= nameEl.end))
         .sort(

@@ -1,10 +1,11 @@
-# Live Data Issues — MVP Release 1
+# Live Data Issues — People coverage release
 
-- **Release commit:** `90e3a3e` (deployed, Pages build `success`)
+- **Release 1 commit:** `90e3a3e` (deployed, Pages build `success`); post-launch P1 cycle `aab0836`; person detail pages `1aeba04`
+- **Release 2 (this file):** people pipeline pass-2 export; see "Fixed in this release"
 - **Live URL:** https://subashnp169.github.io/laghubitta-khabar
-- **Live state verified:** 58 people / 6 institutions / 6 sources; 50 UNVERIFIED, 8 CONFLICT
-- **Sweep:** 51/51 institution pages HTTP 200, 45 honest `None published`, 0 P0 leaks
-- **Collected from:** live page fetch after deployment
+- **Release 2 live state (pre-deploy audit):** 108 people / 13 institutions / 13 sources; all UNVERIFIED, all `sources.length === 1`, 0 CONFLICT
+- **Sweep (Release 1):** 51/51 institution pages HTTP 200, 45 honest `None published`, 0 P0 leaks
+- **Collected from:** live page fetch after deployment + deterministic export audit (`src/data/people.ts`)
 
 Priority key: **P0** publicly false/dangerous · **P1** publicly misleading · **P2** coverage ·
 **P3** UX · **P4** enhancement. Only P0/P1 interrupt normal roadmap work.
@@ -13,9 +14,30 @@ Priority key: **P0** publicly false/dangerous · **P1** publicly misleading · *
 
 ## Open issues
 
-### P2 — Coverage
+### P1 — Publicly misleading
 
-- 45/51 institutions have no published people. Source URLs exist but were never crawled.
+- `swabalamban-laghubitta-bittiya-sanstha-ltd` publishes 4 staff as leadership. The
+  swbbl management-team page pairs each name with a designation, but the `ROLE_FAMILIES`
+  vocabulary matches the substrings "general manager"→CEO and "management"→BOARD, so
+  department phrases and deputy/assistant-GM titles read as officers:
+  - `Mr. Chandra Mani Chaulagai` — "Acting Deputy General Manager(DGM) , Information Officer" → `people_ceo`
+  - `Mr. Nil Kantha Poudel` — "Acting Assistant General Manager(AGM)" → `people_ceo`
+  - `Mr. Rajendra Dhital` — department "Human Resource Management and Training Dept" → `people_board`
+  - `Mr. Krishna Khanal` — department "Services and Asset Management Dept." → `people_board`
+  These 4 rows existed in the deployed Release 1 data (pre-existing). The pass-2 export
+  additionally removed 6 genuine staff from swbbl ("Senior Manager"/"Divisional Manager"
+  titles that match no family), so the published set is strictly closer to the page than
+  before. Fix = tighten `ROLE_FAMILIES` (deny deputy/assistant/acting-prefixed GM and
+  department-phrase matches), add fixtures, re-run pipeline.
+
+## P2 — Coverage
+
+- `uniquenepalmicrofinance-website` (6 people) and `dhaulagiribank-website` (2 people)
+  crawled and stored in evidence but excluded from public output: they have no identity in
+  the public registry `src/data/institutions.ts`, so the exporter's publisher-name identity
+  resolution cannot resolve them. Shipping them requires registry coverage (an NRB-ordered
+  source), not extraction work. Sources remain evidence-only by design.
+- 38/51 institutions still have no published people. Source URLs exist but were never crawled.
 - Branch and Careers datasets remain empty; pages show honest `None extracted`.
 - `people_branches` never appears in extracted data despite being an expected field.
 
@@ -48,6 +70,18 @@ Priority key: **P0** publicly false/dangerous · **P1** publicly misleading · *
 | `smoke:api` person-detail assertions were data-driven and silently skipped when `institutions[0]` had no people | P1 | Now selects an institution that actually has leadership |
 
 ---
+
+## Fixed in Release 2 (pass-2 people pipeline)
+
+| Issue | Sev | Resolution |
+|---|---|---|
+| 45/51 institutions had zero published people | P2 | Pass-2 crawl (`pilot-people-ext-c-pass2.db`, 25 in-scope sources) → 108 people across 13 institutions; exporter identity-resolves publisher name against the public registry (`identityKey`) |
+| swbbl published 6 staff as `people_board`/`people_ceo` (Senior Manager, Divisional Manager titles) | P1 | New extractor container rule + `classifyPeoplePage()` dropped them; only genuine leadership pages survive |
+| Extractors over-fired on multi-person grids (one "Chief Executive Officer" span labeling 9 department heads) | P0 | `pickContainerRoster()` one-distinct-name rule; `ROLE_TEXT_MAX` 40→100; names stay on strict heading scan |
+| 10 same-source pseudo-conflicts created by the pass-2 run | P0 | Exporter keeps only cross-source conflicts (`source_a_id <> source_b_id`); 0 published CONFLICT rows |
+| `uniquenepalmicrofinance`/`dhaulagiribank`/`cyc`/`swastiklbs` crawled but unresolvable to public registry identities | P0 | Sources retained as evidence-only; dropped from public output (see Open issues) |
+| Mathematical-bold Unicode supportmicrofinance names collided onto one id/slug | P0 | Excluded as not individually addressable; retained in evidence |
+| 5 navigation/feature labels read as people (`Internal Web`, `Currency Conversion`, etc.) | P0 | Fail-closed denylist in the exporter; retained in evidence |
 
 ## Fixed in post-launch P1 cycle
 
