@@ -12,9 +12,10 @@ import { crawlSources } from "@/data/pilot";
 import { nrbDocuments, nrbInstitutionLinks, nrbRegulatoryEvents } from "@/data/nrb";
 import { jobs } from "@/data/jobs";
 import { documents } from "@/data/documents";
+import { financials, type FinancialRecord } from "@/data/financials";
 import { allPublishedPeople } from "../repository/static-people";
 import { allPublishedBranches } from "../repository/static-branches";
-import type { BranchDto, PersonDto } from "../repository/types";
+import type { BranchDto, FinancialReportDto, InterestRateDto, PersonDto, SourceMeta } from "../repository/types";
 import { slicePage, parsePagination, errorEnvelope, type ApiMeta, type CollectionEnvelope, type ResourceEnvelope, type ErrorEnvelope } from "./contract";
 
 export interface InstitutionSummary {
@@ -280,6 +281,106 @@ export function institutionJobs(
   if (!inst) return errorEnvelope("NOT_FOUND", `No institution with slug '${slug}'`);
   const p = parsePagination(new URLSearchParams(`${requested.page != null ? `page=${encodeURIComponent(requested.page)}` : ""}&${requested.limit != null ? `limit=${encodeURIComponent(requested.limit)}` : ""}`));
   return { status: 200, body: slicePage(jobsByInst(inst), p) };
+}
+
+// ---------------------------------------------------------------------------
+// Financial documents + interest-rate notices (Phase C) — pure projection over
+// the generated src/data/financials.ts evidence module. A record is a document
+// URL asserted from an institution's own site; its body was never read, so no
+// metric or numeric rate is ever derived here.
+// ---------------------------------------------------------------------------
+
+/** The institution module that owns a financial record, from its entity id. */
+function instForFinancial(r: FinancialRecord): Institution | undefined {
+  const m = /^financial-([^|]+)\|/.exec(r.id);
+  return m ? institutions.find((i) => i.id === m[1]) : undefined;
+}
+
+function financialMeta(r: FinancialRecord): SourceMeta {
+  return {
+    source: "generated-modules",
+    sources: ["generated-modules"],
+    source_url: r.sourceDocument ?? null,
+    last_verified_at: r.lastSeenAt,
+    verification_status: "UNVERIFIED",
+  };
+}
+
+function financialReportDto(r: FinancialRecord): FinancialReportDto {
+  const inst = instForFinancial(r);
+  return {
+    id: r.id,
+    institution: inst?.name ?? r.institution,
+    institution_slug: inst?.slug ?? "(unresolved)",
+    title: r.title,
+    report_type: r.reportType,
+    period_start: null,
+    period_end: null,
+    report_date: null,
+    metrics: {},
+    // The document URL is the evidence; JSON of a title never gets promoted
+    // into a number, so metrics stays empty even when a title looks numeric.
+    source_url: r.sourceDocument ?? null,
+    meta: financialMeta(r),
+  };
+}
+
+function interestRateDto(r: FinancialRecord): InterestRateDto {
+  const inst = instForFinancial(r);
+  return {
+    id: r.id,
+    rate_kind: r.rateKind ?? "INTEREST_RATE",
+    institution: inst?.name ?? r.institution,
+    institution_slug: inst?.slug ?? "(unresolved)",
+    title: r.title,
+    url: r.sourceDocument ?? null,
+    // The source page that linked the notice is not tracked, so there is no
+    // second, separate URL to report. Never fabricate one.
+    source_url: null,
+    rate_pct: null,
+    period_start: null,
+    period_end: null,
+    meta: financialMeta(r),
+  };
+}
+
+export function institutionFinancials(
+  slug: string,
+  requested: { page?: string | null; limit?: string | null },
+): { status: number; body: CollectionEnvelope<FinancialReportDto> | ErrorEnvelope } {
+  const inst = institutions.find((i) => i.slug === slug);
+  if (!inst) return errorEnvelope("NOT_FOUND", `No institution with slug '${slug}'`);
+  const p = parsePagination(new URLSearchParams(`${requested.page != null ? `page=${encodeURIComponent(requested.page)}` : ""}&${requested.limit != null ? `limit=${encodeURIComponent(requested.limit)}` : ""}`));
+  const reports = financials
+    .filter((r) => r.kind === "REPORT" && instForFinancial(r)?.slug === slug)
+    .map(financialReportDto)
+    .sort((a, b) => a.id.localeCompare(b.id));
+  return { status: 200, body: slicePage(reports, p) };
+}
+
+export function institutionInterestRates(
+  slug: string,
+  requested: { page?: string | null; limit?: string | null },
+): { status: number; body: CollectionEnvelope<InterestRateDto> | ErrorEnvelope } {
+  const inst = institutions.find((i) => i.slug === slug);
+  if (!inst) return errorEnvelope("NOT_FOUND", `No institution with slug '${slug}'`);
+  const p = parsePagination(new URLSearchParams(`${requested.page != null ? `page=${encodeURIComponent(requested.page)}` : ""}&${requested.limit != null ? `limit=${encodeURIComponent(requested.limit)}` : ""}`));
+  const rates = financials
+    .filter((r) => r.kind === "RATE" && instForFinancial(r)?.slug === slug)
+    .map(interestRateDto)
+    .sort((a, b) => a.id.localeCompare(b.id));
+  return { status: 200, body: slicePage(rates, p) };
+}
+
+export function allInterestRates(
+  requested: { page?: string | null; limit?: string | null },
+): { status: number; body: CollectionEnvelope<InterestRateDto> } {
+  const p = parsePagination(new URLSearchParams(`${requested.page != null ? `page=${encodeURIComponent(requested.page)}` : ""}&${requested.limit != null ? `limit=${encodeURIComponent(requested.limit)}` : ""}`));
+  const rates = financials
+    .filter((r) => r.kind === "RATE")
+    .map(interestRateDto)
+    .sort((a, b) => a.id.localeCompare(b.id));
+  return { status: 200, body: slicePage(rates, p) };
 }
 
 export function emptyPhaseEnvelope(page?: string | null, limit?: string | null): CollectionEnvelope<never> {

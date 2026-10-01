@@ -184,9 +184,12 @@ export interface BranchDto {
 
 export interface FinancialReportDto {
   id: string;
-  report_type: string;
-  period_start: string;
-  period_end: string;
+  institution: string;
+  institution_slug: string;
+  title: string;
+  report_type: string | null;
+  period_start: string | null;
+  period_end: string | null;
   report_date: string | null;
   metrics: Record<string, { reported_value: string | null; normalized_value: string | null }>;
   source_url: string | null;
@@ -231,11 +234,15 @@ export interface NewsItemDto {
 
 export interface InterestRateDto {
   id: string;
-  rate_type: string;
-  period_start: string;
-  period_end: string;
-  min_rate: number | null;
-  max_rate: number | null;
+  rate_kind: string;
+  institution: string;
+  institution_slug: string;
+  title: string;
+  url: string | null;
+  source_url: string | null;
+  rate_pct: number | null;
+  period_start: string | null;
+  period_end: string | null;
   meta: SourceMeta;
 }
 

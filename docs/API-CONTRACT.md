@@ -126,7 +126,27 @@ Branch directory. Collection envelope; empty until Phase B.
 
 ### GET /api/institutions/:slug/financials
 
-Financial snapshot + history. Collection envelope of `FinancialReport`; empty until Phase C.
+Published financial **documents** for this institution — the report PDFs (annual, quarterly,
+audited/unaudited, …) that were linked on its own site and snapshotted. Collection envelope of
+`FinancialReport`; every row carries `institution`, `institution_slug`, `title`, `report_type`
+(null when the source's naming assigned none) and a `source_url` pointing at the document.
+
+A row is a document, never its contents. The file is snapshotted and skipped, so
+`metrics` is always `{}`, `period_start`/`period_end`/`report_date` are `null`, and no number from
+a report is ever derived here — this system will not publish a figure it cannot show the bytes
+for. `meta.verification_status` is `UNVERIFIED`.
+
+Empty until a financial document has been published for the institution.
+
+### GET /api/institutions/:slug/interest-rates
+
+Interest-rate **notices** linked on this institution's own site. Collection envelope of
+`InterestRate`; every row carries `rate_kind` (BASE_RATE / SAVINGS / DEPOSIT / REMITTANCE / LOAN /
+RATE_CHANGE / INTEREST_RATE), `institution`, `institution_slug`, `title` and `url`.
+
+`rate_pct` is always `null` and `period_start`/`period_end` are always `null`: the notice body was
+never read, so no rate value is ever published. `source_url` is `null` rather than a guessed page.
+Rows are scoped to the institution whose site linked them.
 
 ### GET /api/institutions/:slug/documents
 
@@ -168,7 +188,8 @@ Free-text search across institutions, aliases, people, documents. Returns groupe
 
 ### GET /api/interest-rates
 
-Rate table with periods (`interest_rate_periods` → `interest_rates`). Collection envelope; Phase C.
+Every published interest-rate notice across all institutions. Collection envelope of
+`InterestRate`, same shape as the per-institution route above; `?page=` / `?limit=` supported.
 
 ## Not in V1
 

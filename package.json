@@ -28,6 +28,8 @@
     "prove:careers-json": "tsx scripts/prove-career-json-sqlite.ts",
     "build:jobs": "tsx scripts/build-jobs-module.ts",
     "apply:careers": "tsx scripts/run-career-apply.ts",
+    "apply:financials": "tsx scripts/run-financial-apply.ts",
+    "build:financials": "tsx scripts/build-financials-module.ts",
     "recompute:career-registry": "tsx scripts/recompute-career-registry-rollup.ts",
 "build:m34-audit": "tsx scripts/build-m34-final-audit.ts",
     "pilot": "tsx scripts/run-pilot.ts",

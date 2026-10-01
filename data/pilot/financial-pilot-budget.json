@@ -1,0 +1,32 @@
+{
+  "$schema": "financial-pilot-budget/v1",
+  "note": "Phase C financial document RESEARCH budget. Deliberately SEPARATE from data/pilot/pilot-budget.json, whose defaults.maxFetches:18 is the frozen production crawl budget and is NOT changed by Phase C. This file bounds a one-off live research pass whose only output is an evidence database and a report under data/pilot/. Bounds exist so the pilot proves the financial document pipeline instead of becoming a downloader. Documents are never read: a PDF is fetched, snapshotted with extraction status SKIPPED, and asserted as a document (URL + title + deterministic kind), exactly like a careers unread notice.",
+  "phase": "Phase C",
+  "shared": {
+    "maxRedirects": 5,
+    "maxRetries": 1,
+    "timeoutMs": 20000,
+    "minIntervalMs": 250,
+    "maxRuntimeMs": 1500000
+  },
+  "phases": {
+    "reports": {
+      "note": "The 35 REPORTS capability known_urls located in pilot-sources.json. Each is fetched once; a PDF target is itself a financial document, an HTML target is scanned for same-host PDF links and every classified link is asserted.",
+      "maxTargets": 35,
+      "maxFetches": 35,
+      "maxBytes": 6291456
+    },
+    "archive": {
+      "note": "The 26 DOCUMENT_ARCHIVE capability known_urls located in pilot-sources.json (HTML directory pages). Each is fetched and scanned for same-host financial documents.",
+      "maxTargets": 26,
+      "maxFetches": 26,
+      "maxBytes": 6291456
+    },
+    "rates": {
+      "note": "The 7 interest-rate / base-rate PDF documents already recorded as outbound_links DOCUMENT rows in the committed base evidence DB (phase-o-2026-09-26-base-51-source.db). They are re-fetched so each rate notice is asserted from a snapshot made by this pass, with public identity resolution.",
+      "maxTargets": 10,
+      "maxFetches": 10,
+      "maxBytes": 6291456
+    }
+  }
+}

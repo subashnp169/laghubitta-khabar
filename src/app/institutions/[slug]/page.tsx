@@ -5,6 +5,7 @@ import { crawlSources, crawlSummary } from "@/data/pilot";
 import { nrbInstitutionLinks, nrbRegulatoryEvents } from "@/data/nrb";
 import { institutionLeadership, institutionBranches } from "../../../../lib/api/repository";
 import { jobs } from "@/data/jobs";
+import { financials, type FinancialRecord } from "@/data/financials";
 import type { BranchDto, PersonDto } from "../../../../lib/repository/types";
 import Link from "next/link";
 
@@ -107,6 +108,15 @@ export default async function InstitutionPage({ params }: { params: Promise<{ sl
   const vacancyList = jobs.filter((j) => j.slug.startsWith(`${inst.slug}-`));
   const vacancyPostingCount = vacancyList.filter((j) => j.kind === "POSTING").length;
   const vacancyNoticeCount = vacancyList.filter((j) => j.kind === "DOCUMENT").length;
+
+  // Published financial documents come from the validated Phase C evidence
+  // module, never from the legacy crawl summary (whose documentCount/titles are
+  // crawl-metrics, not published financials). Matching is on the institution id
+  // the generator resolved in the evidence database, so a record can only appear
+  // here if it was observed from this institution's own site.
+  const institutionFinancials = financials.filter((r) => (/^financial-([^|]+)\|/.exec(r.id) ?? ["", ""])[1] === inst.id);
+  const finReports = institutionFinancials.filter((r): r is FinancialRecord & { kind: "REPORT" } => r.kind === "REPORT");
+  const finRates = institutionFinancials.filter((r): r is FinancialRecord & { kind: "RATE" } => r.kind === "RATE");
 
   return (
     <div className="max-w-[1000px] mx-auto px-4 py-8">
@@ -347,6 +357,78 @@ export default async function InstitutionPage({ params }: { params: Promise<{ sl
         </div>
       </div>
 
+      <div className="bg-white rounded-xl border border-slate-200 p-4 mb-6">
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="font-bold text-sm text-slate-700">Financials</h2>
+          <span className="text-[10px] text-slate-400">
+            {institutionFinancials.length === 0
+              ? "nothing published from source evidence"
+              : `${institutionFinancials.length} document(s) from source evidence · ${finReports.length} report(s) · ${finRates.length} rate notice(s) · all UNVERIFIED`}
+          </span>
+        </div>
+
+        {institutionFinancials.length === 0 ? (
+          <p className="text-xs text-slate-400">
+            No financial documents have been published for this institution yet. We publish nothing until a source shows it.
+          </p>
+        ) : (
+          <>
+            {finReports.length > 0 && (
+              <div className="mb-3">
+                <div className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold mb-1.5">Reports</div>
+                <ul className="space-y-1.5">
+                  {finReports.map((r) => (
+                    <li key={r.id} className="flex items-center gap-2">
+                      <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 whitespace-nowrap">{r.reportType}</span>
+                      {r.sourceDocument ? (
+                        <a
+                          href={r.sourceDocument}
+                          target="_blank"
+                          rel="noopener noreferrer nofollow"
+                          className="text-sm text-blue-600 hover:underline break-all"
+                        >
+                          {r.title}
+                        </a>
+                      ) : (
+                        <span className="text-sm text-slate-700">{r.title}</span>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {finRates.length > 0 && (
+              <div>
+                <div className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold mb-1.5">Rate notices</div>
+                <ul className="space-y-1.5">
+                  {finRates.map((r) => (
+                    <li key={r.id} className="flex items-center gap-2">
+                      <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-amber-50 text-amber-700 whitespace-nowrap">{r.rateKind}</span>
+                      {r.sourceDocument ? (
+                        <a
+                          href={r.sourceDocument}
+                          target="_blank"
+                          rel="noopener noreferrer nofollow"
+                          className="text-sm text-blue-600 hover:underline break-all"
+                        >
+                          {r.title}
+                        </a>
+                      ) : (
+                        <span className="text-sm text-slate-700">{r.title}</span>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </>
+        )}
+
+        <p className="text-[10px] text-slate-400 mt-3">
+          A financial document is shown as what it is: a report or interest-rate notice linked on the institution&apos;s site. Its contents were never read, so no number from it is ever rendered.
+        </p>
+      </div>
+
       {crawl && (
                   <span className="inline-flex items-center gap-1 ml-2 text-[10px] font-semibold px-1.5 py-0.5 rounded-full bg-blue-50 text-blue-700">crawl-verified</span>
                 )}
@@ -507,12 +589,18 @@ export default async function InstitutionPage({ params }: { params: Promise<{ sl
               </ul>
             </div>
             <div>
-              <div className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold mb-2">Financial documents <span className="normal-case text-slate-400">({crawl.documentCount} extracted)</span></div>
+              <div className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold mb-2">Financials <span className="normal-case text-slate-400">({institutionFinancials.length} published)</span></div>
               <ul className="space-y-1">
-                {crawl.documentTitles.map((d) => (
-                  <li key={d} className="text-xs text-slate-600 truncate">{d}</li>
+                {institutionFinancials.slice(0, 6).map((r) => (
+                  <li key={r.id} className="text-xs text-slate-600 flex items-center gap-1.5">
+                    <span className={`inline-block w-1.5 h-1.5 rounded-sm shrink-0 ${r.kind === "RATE" ? "bg-amber-500" : "bg-blue-500"}`} title={r.kind === "RATE" ? "rate notice document" : "report document"} />
+                    <span className="truncate">{r.title}</span>
+                  </li>
                 ))}
-                {crawl.documentTitles.length === 0 && <li className="text-xs text-slate-400">None extracted</li>}
+                {institutionFinancials.length > 6 && (
+                  <li className="text-xs text-slate-400">+{institutionFinancials.length - 6} more in the Financials panel</li>
+                )}
+                {institutionFinancials.length === 0 && <li className="text-xs text-slate-400">None published</li>}
               </ul>
             </div>
           </div>

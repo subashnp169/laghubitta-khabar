@@ -5,10 +5,13 @@
 // ============================================================================
 
 import {
+  allInterestRates,
   getInstitution,
   getPerson,
   institutionDocuments,
   institutionEvents,
+  institutionFinancials,
+  institutionInterestRates,
   institutionJobs,
   institutionLeadership,
   emptyPhaseEnvelope,
@@ -35,7 +38,7 @@ function readQuery(url: string): URLSearchParams {
   return new URLSearchParams(idx >= 0 ? url.slice(idx + 1) : "");
 }
 
-const PHASE_EMPTY_ROUTES = ["branches", "financials"] as const;
+const PHASE_EMPTY_ROUTES = ["branches"] as const;
 
 export function handleApiRequest(req: ApiRequest): ApiResponse {
   const method = (req.method ?? "GET").toUpperCase();
@@ -82,8 +85,10 @@ export function handleApiRequest(req: ApiRequest): ApiResponse {
           return respond(institutionJobs(slug, requested));
         case "leadership":
           return respond(institutionLeadership(slug, requested));
+        case "financials":
+          return respond(institutionFinancials(slug, requested));
         case "interest-rates":
-          return respond({ status: 200, body: emptyPhaseEnvelope(requested.page, requested.limit) });
+          return respond(institutionInterestRates(slug, requested));
         default: {
           const leaf = segs[3];
           if (leaf && (PHASE_EMPTY_ROUTES as readonly string[]).includes(leaf))
@@ -99,7 +104,7 @@ export function handleApiRequest(req: ApiRequest): ApiResponse {
     case "search":
       return respond(search({ q: query.get("q") }));
     case "interest-rates":
-      return respond({ status: 200, body: emptyPhaseEnvelope(query.get("page"), query.get("limit")) });
+      return respond(allInterestRates({ page: query.get("page"), limit: query.get("limit") }));
     default:
       return respond(errorEnvelope("NOT_FOUND", `No such endpoint '/${segs.join("/")}'`));
   }

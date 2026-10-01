@@ -263,3 +263,23 @@ export {
   type PlannedVacancy,
   type VacancyWriteStatus,
 } from "./career-evidence";
+
+// Phase C extension: financial document evidence. Additive only.
+export {
+  DOCUMENT_TITLE,
+  DOCUMENT_TYPE,
+  FINANCIAL_ENTITY_TYPE,
+  FINANCIAL_PARSER_VERSION,
+  RATE_KIND,
+  applyFinancialDocument,
+  classifyFinancialDocument,
+  financialId,
+  planFinancialDocumentEvidence,
+  titleFromUrl,
+  type FinancialApplyContext,
+  type FinancialClassification,
+  type FinancialDocumentPlan,
+  type FinancialReportKind,
+  type FinancialWriteStatus,
+  type RateNoticeKind,
+} from "./financial-evidence";

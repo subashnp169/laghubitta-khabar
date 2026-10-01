@@ -5,10 +5,12 @@
 //   02 filters: ?q= by name/alias, ?province=, ?status=
 //   03 single resource + 404 error envelope + UNVERIFIED meta
 //   04 sub-resources: documents (NRB-linked), events, jobs (evidence-keyed slug)
-//   05 empty Phase B/C collections (honest total: 0)
+//   05 empty Phase B collections + Phase C financials/interest-rates (evidence-keyed)
 //   06 search grouped + validation (missing q → 422), method guard (405)
 //   07 vacancies are evidence-derived: the module is generated, every row names
 //      its source, and no institution can be credited with a vacancy not keyed to it
+//   08 financial documents + rate notices are evidence-derived, never content:
+//      a URL is carried, never a number, and every row names its source
 // ============================================================================
 
 // Fixture-only test harness reading JSON with unchecked shape access.
@@ -19,6 +21,7 @@ import { handleApiRequest } from "../lib/api/handler";
 import { parsePagination } from "../lib/api/contract";
 import { institutions } from "../src/data/institutions";
 import { allPublishedPeople } from "../lib/repository/static-people";
+import { financials } from "../src/data/financials";
 
 let passed = 0;
 let failed = 0;
@@ -81,14 +84,55 @@ ok(evts.status === 200 && evts.body.data.every((e: any) => e.institutionSlug ===
 const jobbed = request("GET", `/api/institutions/${slug}/jobs`);
 ok(jobbed.status === 200 && Array.isArray(jobbed.body.data), "jobs collection");
 
-// 05 honest empties
-console.log("smoke:api — honest empties");
-for (const leaf of ["branches", "financials"]) {
-  const r = request("GET", `/api/institutions/${slug}/${leaf}`);
-  ok(r.status === 200 && r.body.data.length === 0 && r.body.pagination.total === 0, `${leaf} empty until phase populated`);
+// 05 honest empties + Phase C financial evidence
+console.log("smoke:api — honest empties + Phase C financials");
+const branchEmpty = request("GET", `/api/institutions/${slug}/branches`);
+ok(branchEmpty.status === 200 && branchEmpty.body.data.length === 0 && branchEmpty.body.pagination.total === 0, "branches empty until Phase B populated");
+
+// Every financial document is a document, never a number: period/metric fields are
+// null/empty even when a title looks numeric, and metadata stays UNVERIFIED.
+const expectedRates = financials.filter((r) => r.kind === "RATE");
+const topRates = request("GET", "/api/interest-rates");
+ok(topRates.status === 200 && topRates.body.pagination.total === expectedRates.length && topRates.body.data.length === expectedRates.length, "interest-rates total equals the published rate-notice count");
+ok(topRates.body.data.every((r: any) => r.rate_pct === null && r.meta.verification_status === "UNVERIFIED"), "a rate notice never carries a numeric rate and is honestly UNVERIFIED");
+ok(topRates.body.data.every((r: any) => typeof r.rate_kind === "string" && r.rate_kind.length > 0 && typeof r.title === "string" && r.title.length > 0 && r.period_start === null && r.period_end === null), "every rate notice has a kind + title and no invented period");
+ok(topRates.body.data.every((r: any) => institutions.some((i) => i.slug === r.institution_slug)), "rate notices resolve to a real institution slug");
+ok(topRates.body.data.every((r: any) => r.meta.source_url === null || /^https?:\/\//.test(r.meta.source_url)), "rate notice source_url is a real URL or null");
+
+function financialReportRowsFor(slug: string): number {
+  return financials.filter((r) => r.kind === "REPORT" && (institutions.find((i) => i.id === (/^financial-([^|]+)/.exec(r.id) ?? ["", ""])[1])?.slug) === slug).length;
 }
-const rates = request("GET", "/api/interest-rates");
-ok(rates.status === 200 && rates.body.pagination.total === 0, "interest-rates empty until Phase C");
+const withReports = institutions
+  .map((i) => i.slug)
+  .filter((s) => financialReportRowsFor(s) > 0);
+ok(withReports.length > 0, "at least one institution has published financial report documents");
+if (withReports.length > 0) {
+  const fin = request("GET", `/api/institutions/${withReports[0]}/financials?limit=100`);
+  ok(fin.status === 200 && fin.body.pagination.total === financialReportRowsFor(withReports[0]) && fin.body.data.length === financialReportRowsFor(withReports[0]), "financials total equals the published report-document count");
+  ok(
+    fin.body.data.every((f: any) =>
+      f.report_type !== null &&
+      f.meta.verification_status === "UNVERIFIED" &&
+      f.period_start === null &&
+      f.period_end === null &&
+      typeof f.metrics === "object" &&
+      Object.keys(f.metrics).length === 0 &&
+      (f.source_url === null || /^https?:\/\//.test(f.source_url)) &&
+      f.institution_slug === withReports[0],
+    ),
+    "a financial report is a document with kind + provenance, never a metric, and is scoped to its institution",
+  );
+  const perRates = request("GET", `/api/institutions/${withReports[0]}/interest-rates?limit=100`);
+  ok(
+    perRates.status === 200 &&
+      perRates.body.data.every((r: any) => r.institution_slug === withReports[0]),
+    "per-institution interest-rates are scoped to that institution",
+  );
+}
+const unknownFin = request("GET", "/api/institutions/definitely-not-an-mfi/financials");
+ok(unknownFin.status === 404 && unknownFin.body.error.code === "NOT_FOUND", "unknown institution financials route → 404");
+const unknownRates = request("GET", "/api/institutions/definitely-not-an-mfi/interest-rates");
+ok(unknownRates.status === 404 && unknownRates.body.error.code === "NOT_FOUND", "unknown institution interest-rates route → 404");
 
 // 05b Phase M3.3 leadership is served from the same evidence read model
 console.log("smoke:api — M3.3 leadership + person routes");
@@ -275,6 +319,45 @@ const unknownJobs = request("GET", "/api/institutions/definitely-not-an-mfi/jobs
 ok(
   unknownJobs.status === 404 && unknownJobs.body.error.code === "NOT_FOUND",
   "unknown institution jobs route → 404",
+);
+
+// 08 financials are evidence, never content
+console.log("smoke:api — financial documents come from evidence only");
+const financialsSource = readFileSync(join(__dirname, "..", "src", "data", "financials.ts"), "utf8");
+ok(
+  financialsSource.includes("GENERATED FILE"),
+  "src/data/financials.ts declares itself generated, so a hand-written row is visible in review",
+);
+const financialsBody = (financialsSource.match(/export const financials: FinancialRecord\[\] = \[([\s\S]*?)\];/) ?? ["", ""])[1];
+const finRowCount = financialsBody.split(/\n {2}\{/).filter((s) => s.trim().length > 0).length;
+ok(finRowCount === (financialsBody.match(/^ {4}id: /gm) ?? []).length, "every financial row in the module is counted the same way");
+ok((financialsBody.match(/sourceName: /g) ?? []).length === finRowCount, "every financial row names the source it was observed from");
+ok((financialsBody.match(/lastSeenAt: /g) ?? []).length === finRowCount, "every financial row records when it was last seen");
+ok((financialsBody.match(/status: /g) ?? []).length === finRowCount, "every financial row carries a lifecycle status");
+// REPORT rows carry a reportType; RATE rows carry a rateKind. A row with neither
+// would be a document the classifier could not read, and this pipeline does not
+// publish those. A row that claims both kinds at once is not financial evidence,
+// it is a contradiction.
+ok(
+  financials.every((r) => (r.kind === "REPORT" ? r.reportType !== null : r.rateKind !== null)),
+  "every published financial row carries exactly the kind the source's own naming assigned",
+);
+ok(
+  financials.every((r) => r.kind === "RATE" ? r.rateKind !== null && r.reportType === null : r.rateKind === null && r.reportType !== null),
+  "no financial row claims to be both a report and a rate notice",
+);
+ok(
+  financials.every((r) => r.sourceDocument === null || /^https?:\/\//.test(r.sourceDocument)),
+  "every financial sourceDocument is a real absolute URL or null",
+);
+// No published row may resolve to no institution at all, and never to a stub id.
+ok(
+  financials.every((r) => {
+    const m = /^financial-([^|]+)\|/.exec(r.id);
+    const inst = m ? institutions.find((i) => i.id === m[1]) : undefined;
+    return inst !== undefined;
+  }),
+  "every published financial row resolves to a real institution entity id",
 );
 
 console.log(`\nsmoke:api: ${passed} passed, ${failed} failed`);
