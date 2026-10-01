@@ -1,11 +1,12 @@
-# Live Data Issues — People coverage release
+# Live Data Issues — People + Branches coverage release
 
 - **Release 1 commit:** `90e3a3e` (deployed, Pages build `success`); post-launch P1 cycle `aab0836`; person detail pages `1aeba04`
 - **Release 2 commit:** `a3da05d` (deployed, Pages build `success`); people pipeline pass-2 export; see "Fixed in Release 2"
+- **Release 3 commit:** branches release (announcement + build `success`); 1331 branch names across 13 institutions from 14 verified branch-directory sources; see "Fixed in Release 3"
 - **Live URL:** https://subashnp169.github.io/laghubitta-khabar
 - **Release 2 live state (post-deploy sweep):** 108 people / 13 institutions / 13 sources; all UNVERIFIED, all `sources.length === 1`, 0 CONFLICT; 51/51 institution pages HTTP 200; 13/13 person pages HTTP 200; all 108 names render on their institution pages
 - **Sweep (Release 1):** 51/51 institution pages HTTP 200, 45 honest `None published`, 0 P0 leaks
-- **Collected from:** live page fetch after deployment + deterministic export audit (`src/data/people.ts`)
+- **Collected from:** live page fetch after deployment + deterministic export audit (`src/data/people.ts`, `src/data/branches.ts`)
 
 Priority key: **P0** publicly false/dangerous · **P1** publicly misleading · **P2** coverage ·
 **P3** UX · **P4** enhancement. Only P0/P1 interrupt normal roadmap work.
@@ -38,8 +39,10 @@ Priority key: **P0** publicly false/dangerous · **P1** publicly misleading · *
   resolution cannot resolve them. Shipping them requires registry coverage (an NRB-ordered
   source), not extraction work. Sources remain evidence-only by design.
 - 38/51 institutions still have no published people. Source URLs exist but were never crawled.
-- Branch and Careers datasets remain empty; pages show honest `None extracted`.
+- 38/51 institutions still have no published branches (1331 names across the 13 institutions whose branch-directory pages are verified AND resolve to the public registry).
+- Careers dataset remains empty; pages show honest `None extracted`.
 - `people_branches` never appears in extracted data despite being an expected field.
+- Branch attributes (district/place/address/phone) are evidence-only at 0.45 (below the 0.5 assertion gate) and are never published; branch pages show names + count + source only. Confirmed districts will appear once attributes clear the gate with a human verification path.
 
 ## P3 — UX
 
@@ -56,6 +59,18 @@ Priority key: **P0** publicly false/dangerous · **P1** publicly misleading · *
 
 - Link people from search results once a person route exists.
 - Show `since` per position once historical snapshots accumulate.
+
+---
+
+## Fixed in Release 3 (branch directory pipeline)
+
+| Issue | Sev | Resolution |
+|---|---|---|
+| Branch datasets empty; institution pages showed stale `crawl.branchCount`/`branchNames` | P2 | New `scripts/run-pilot-branches.ts` (branch-scoped engine over the 18 structurally verified BRANCH_DIRECTORY targets) + `scripts/pilot-export-branches.ts` → `src/data/branches.ts` (1773 branch_name assertions, 0 orphans, 0 conflicts, all UNVERIFIED). Institution page reads `institutionBranches()` read model |
+| Branch names only — attributes (district/place/address/phone) still not published | P2 | Deliberate: attributes are evidence-only (0.45 < 0.5 assertion gate). Release publishes names + count + source only; `district:""` / `address:null` wherever a location was never asserted |
+| Branch assertions were institution-scoped (`entity_id = mfi-0NN`), which would collapse every branch of an institution onto one DTO | P0 | Exporter re-keys each row to `branchIdentityKey(institutionId, name)` (`<institution>|<normalized name>|-`); geo stays `-` because attributes are evidence-only. 0 duplicate slugs/ids in the projected set |
+| 4 verified sources (sampada, matribhumi, dhaulagiribank, aatmanirbhar) have no identity in the public registry | P0 | Sources retained as evidence-only; dropped from public output (same rule as people export). 442 assertions kept in evidence, not published |
+| nirdhan/asha/nadeplaghubitta/dhaulagiribank runs marked PARTIAL solely for `wp-json/oembed` link-walk failures | P3 | Only the discovered oembed feed targets failed (HTTP_ERROR); every verified BRANCH_DIRECTORY page itself fetched http 200 and extracted fully. Branches reported normally |
 
 ---
 

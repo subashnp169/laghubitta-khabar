@@ -3,8 +3,8 @@ import { notFound } from "next/navigation";
 import { institutions, getInstitutionBySlug } from "@/data/institutions";
 import { crawlSources, crawlSummary } from "@/data/pilot";
 import { nrbInstitutionLinks, nrbRegulatoryEvents } from "@/data/nrb";
-import { institutionLeadership } from "../../../../lib/api/repository";
-import type { PersonDto } from "../../../../lib/repository/types";
+import { institutionLeadership, institutionBranches } from "../../../../lib/api/repository";
+import type { BranchDto, PersonDto } from "../../../../lib/repository/types";
 import Link from "next/link";
 
 const STATUS_BADGE: Record<string, { label: string; cls: string; title: string }> = {
@@ -84,6 +84,19 @@ export default async function InstitutionPage({ params }: { params: Promise<{ sl
     leadershipResponse.status === 200 && "pagination" in leadershipResponse.body
       ? leadershipResponse.body.pagination?.total ?? leadership.length
       : leadership.length;
+
+  // Published branches come from the validated Branch read model (M3.4), never
+  // from the legacy crawl summary. The crawl widget's branchNames is stale and
+  // must not be shown as the institution's public branch list.
+  const branchesResponse = institutionBranches(inst.slug, {});
+  const publishedBranches =
+    branchesResponse.status === 200 && "data" in branchesResponse.body
+      ? (branchesResponse.body.data as BranchDto[])
+      : [];
+  const branchTotal =
+    branchesResponse.status === 200 && "pagination" in branchesResponse.body
+      ? branchesResponse.body.pagination?.total ?? publishedBranches.length
+      : publishedBranches.length;
 
   return (
     <div className="max-w-[1000px] mx-auto px-4 py-8">
@@ -212,6 +225,57 @@ export default async function InstitutionPage({ params }: { params: Promise<{ sl
 
         <p className="text-[10px] text-slate-400 mt-3">
           Roles are extracted from source evidence, not confirmed by a second source. Anything with a conflict is flagged.
+        </p>
+      </div>
+
+      <div className="bg-white rounded-xl border border-slate-200 p-4 mb-6">
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="font-bold text-sm text-slate-700">Branches</h2>
+          <span className="text-[10px] text-slate-400">
+            {branchTotal} {branchTotal === 1 ? "branch" : "branches"} published from source evidence
+          </span>
+        </div>
+
+          {publishedBranches.length === 0 ? (
+            <p className="text-xs text-slate-400">
+              No branches have been extracted for this institution yet. We publish nothing until a source shows it.
+            </p>
+          ) : (
+            <>
+              <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-1">
+                {publishedBranches.map((b) => (
+                  <li key={b.id} className="py-1 flex items-baseline gap-x-2">
+                    <span className="text-sm text-slate-700">{b.name}</span>
+                    {b.district && <span className="text-xs text-slate-400">— {b.district}</span>}
+                  </li>
+                ))}
+              </ul>
+
+              {publishedBranches.some((b) => b.meta.source_url) && (
+                <p className="text-[10px] text-slate-400 mt-3">
+                  Source:{" "}
+                  {publishedBranches[0].meta.source_url ? (
+                    <a
+                      href={publishedBranches[0].meta.source_url}
+                      target="_blank"
+                      rel="noopener noreferrer nofollow"
+                      className="text-mfi-600 hover:underline break-all"
+                    >
+                      {publishedBranches[0].meta.source_url}
+                    </a>
+                  ) : (
+                    <span>not recorded</span>
+                  )}
+                  {publishedBranches[0].meta.source && (
+                    <> · {publishedBranches[0].meta.source}</>
+                  )}
+                </p>
+              )}
+            </>
+          )}
+
+        <p className="text-[10px] text-slate-400 mt-3">
+          Branch names are extracted from source evidence, not confirmed by a second source. Locations are not published until independently confirmed.
         </p>
       </div>
 
@@ -348,12 +412,15 @@ export default async function InstitutionPage({ params }: { params: Promise<{ sl
               </ul>
             </div>
             <div>
-              <div className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold mb-2">Branches <span className="normal-case text-slate-400">({crawl.branchCount} extracted)</span></div>
+              <div className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold mb-2">Branches <span className="normal-case text-slate-400">({branchTotal} published)</span></div>
               <ul className="space-y-1">
-                {crawl.branchNames.map((b) => (
-                  <li key={b} className="text-xs text-slate-600">{b}</li>
+                {publishedBranches.slice(0, 6).map((b) => (
+                  <li key={b.id} className="text-xs text-slate-600">{b.name}</li>
                 ))}
-                {crawl.branchNames.length === 0 && <li className="text-xs text-slate-400">None extracted</li>}
+                {branchTotal > publishedBranches.slice(0, 6).length && (
+                  <li className="text-xs text-slate-400">+{branchTotal - publishedBranches.slice(0, 6).length} more above</li>
+                )}
+                {branchTotal === 0 && <li className="text-xs text-slate-400">None published</li>}
               </ul>
             </div>
             <div>

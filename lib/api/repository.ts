@@ -13,7 +13,8 @@ import { nrbDocuments, nrbInstitutionLinks, nrbRegulatoryEvents } from "@/data/n
 import { jobs } from "@/data/jobs";
 import { documents } from "@/data/documents";
 import { allPublishedPeople } from "../repository/static-people";
-import type { PersonDto } from "../repository/types";
+import { allPublishedBranches } from "../repository/static-branches";
+import type { BranchDto, PersonDto } from "../repository/types";
 import { slicePage, parsePagination, errorEnvelope, type ApiMeta, type CollectionEnvelope, type ResourceEnvelope, type ErrorEnvelope } from "./contract";
 
 export interface InstitutionSummary {
@@ -309,6 +310,24 @@ export function institutionLeadership(
   const p = parsePagination(new URLSearchParams(`${requested.page != null ? `page=${encodeURIComponent(requested.page)}` : ""}&${requested.limit != null ? `limit=${encodeURIComponent(requested.limit)}` : ""}`));
   const people = allPeople().filter((person) => person.institution_slug === slug);
   return { status: 200, body: slicePage(people, p) };
+}
+
+// Single source of truth for the published branch set, shared with any static
+// branch route. Delegating here guarantees a branch page and a future
+// `GET /institutions/{slug}/branches` can never disagree about the same record.
+function allBranches(): BranchDto[] {
+  return allPublishedBranches();
+}
+
+export function institutionBranches(
+  slug: string,
+  requested: { page?: string | null; limit?: string | null },
+): { status: number; body: CollectionEnvelope<BranchDto> | ErrorEnvelope } {
+  const inst = institutions.find((i) => i.slug === slug);
+  if (!inst) return errorEnvelope("NOT_FOUND", `No institution with slug '${slug}'`);
+  const p = parsePagination(new URLSearchParams(`${requested.page != null ? `page=${encodeURIComponent(requested.page)}` : ""}&${requested.limit != null ? `limit=${encodeURIComponent(requested.limit)}` : ""}`));
+  const branches = allBranches().filter((b) => b.slug.startsWith(`${inst.slug}-`));
+  return { status: 200, body: slicePage(branches, p) };
 }
 
 export function getPerson(

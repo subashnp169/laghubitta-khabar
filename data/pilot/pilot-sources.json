@@ -171,9 +171,9 @@
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
-          "known_url": "https://www.meromicrofinance.com/branches",
+          "known_url": "https://meromicrofinance.com/branches",
           "link_type": "BRANCH_PAGE",
-          "note": "phase F backfill 2026-09-26: anchor=link (http ?, ?)"
+          "note": "m34 2026-09-27: re-pointed to a structurally confirmed branch page. prior target was not a branch page [phase F backfill 2026-09-26: anchor=link (http ?, ?)]. confirmed by branch-url-discovery on a repeated-address/phone row structure (branchRows>=2); branch-html-v1 dry run reads 155 names (155 distinct). snapshot snap-m34disc-8773fe24d10d sha256:5185d20d6913. source-level proven_by (nrb-bfi-mid-may-2026) unchanged: this corrects WHICH page, it does not re-prove the institution."
         },
         {
           "capability": "CAREER_PAGE",
@@ -236,9 +236,9 @@
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
-          "known_url": "https://matribhumimf.com.np",
+          "known_url": "https://matribhumimf.com.np/team/branch",
           "link_type": "BRANCH_PAGE",
-          "note": "phase F backfill 2026-09-26: anchor=evidence-homepage (http 200, text/html)"
+          "note": "m34 2026-09-27: re-pointed to a structurally confirmed branch page. prior target was not a branch page [phase F backfill 2026-09-26: anchor=evidence-homepage (http 200, text/html)]. confirmed by branch-url-discovery on a repeated-address/phone row structure (branchRows>=2); branch-html-v1 dry run reads 208 names (207 distinct). snapshot snap-m34disc-30a73e9b9dea sha256:6b2d571b0334. source-level proven_by (nrb-bfi-mid-may-2026) unchanged: this corrects WHICH page, it does not re-prove the institution."
         },
         {
           "capability": "CAREER_PAGE",
@@ -831,9 +831,9 @@
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
-          "known_url": "https://www.skbbl.com.np/branch",
+          "known_url": "https://skbbl.com.np/branch",
           "link_type": "BRANCH_PAGE",
-          "note": "phase F backfill 2026-09-26: anchor=link (http ?, ?)"
+          "note": "m34 2026-09-27: re-pointed to a structurally confirmed branch page. prior target was not a branch page [phase F backfill 2026-09-26: anchor=link (http ?, ?)]. confirmed by branch-url-discovery on a repeated-address/phone row structure (branchRows>=2); branch-html-v1 dry run reads 11 names (11 distinct). snapshot snap-m34disc-32dbbd0d0e72 sha256:293aa7c18f55. source-level proven_by (nrb-bfi-mid-may-2026) unchanged: this corrects WHICH page, it does not re-prove the institution."
         },
         {
           "capability": "CAREER_PAGE",
@@ -2333,9 +2333,9 @@
         {
           "capability": "BRANCH_DIRECTORY",
           "status": "CANDIDATE",
-          "known_url": "https://www.supportmicrofinance.com.np/branch",
+          "known_url": "https://supportmicrofinance.com.np/branch",
           "link_type": "BRANCH_PAGE",
-          "note": "phase F backfill 2026-09-26: anchor=link (http ?, ?)"
+          "note": "m34 2026-09-27: re-pointed to a structurally confirmed branch page. prior target was not a branch page [phase F backfill 2026-09-26: anchor=link (http ?, ?)]. confirmed by branch-url-discovery on a repeated-address/phone row structure (branchRows>=2); branch-html-v1 dry run reads 14 names (12 distinct). snapshot snap-m34disc-ff811d4312d4 sha256:003600eb12db. source-level proven_by (nrb-bfi-mid-may-2026) unchanged: this corrects WHICH page, it does not re-prove the institution."
         },
         {
           "capability": "CAREER_PAGE",
