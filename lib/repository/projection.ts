@@ -64,6 +64,24 @@ function effectiveStatus(statuses: string[], conflict: boolean): VerificationSta
   return "UNVERIFIED";
 }
 
+/**
+ * Every distinct source that owns an observation backing one projected record,
+ * sorted so the derived set is deterministic regardless of row order.
+ *
+ * This is the corroboration primitive for the canonical source-owned
+ * observation model: because each source owns its own row, "these independent
+ * sources assert this same normalized claim" is computed from the owning-source
+ * set rather than inferred from the absence of duplicate rows. One entry means
+ * a single source; two or more means corroborated by that many sources.
+ *
+ * Rows that a source has since retracted (superseded/stale) are filtered by the
+ * caller, so a source that stopped reporting a claim is not counted as
+ * corroborating it.
+ */
+function distinctSources(rows: readonly { source_id: string }[]): string[] {
+  return [...new Set(rows.map((r) => String(r.source_id)))].sort();
+}
+
 export interface PeopleProjectionOptions {
   /** Open people conflicts as `<entity_id>|<field_name>` keys. */
   openConflictKeys?: ReadonlySet<string>;
@@ -101,6 +119,7 @@ export function peopleFromAssertionRows(
     const source = first.source_id;
     const meta: SourceMeta = {
       source,
+      sources: distinctSources(bucket),
       last_verified_at: lastVerified || null,
       verification_status: effectiveStatus(statuses, conflict),
     };
@@ -281,6 +300,7 @@ export function branchesFromAssertionRows(
       established_on: pick("established_on"),
       meta: {
         source: first.source_id,
+        sources: distinctSources(bucket),
         last_verified_at: lastVerified || null,
         verification_status: effectiveStatus(statuses, conflict),
       },
@@ -659,6 +679,7 @@ export function jobsFromAssertionRows(
 
     const meta: SourceMeta = {
       source: first.source_id,
+      sources: distinctSources(bucket),
       last_verified_at: lastSeenAt || null,
       verification_status: vacancyEffectiveStatus(statuses, conflict),
     };

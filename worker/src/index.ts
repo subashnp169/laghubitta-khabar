@@ -78,6 +78,7 @@ async function handleInstitutions(sp: URLSearchParams, repo: D1InstitutionReposi
       ...i,
       meta: {
         source: i.meta.source,
+        sources: i.meta.sources,
         last_verified_at: i.meta.last_verified_at,
         verification_status: i.meta.verification_status as VerificationStatus,
       },
@@ -154,7 +155,7 @@ async function handleSearch(sp: URLSearchParams, repo: D1InstitutionRepository) 
   const groups = await repo.search(query);
   return single(
     { query, groups },
-    { source: "institution+alias index", last_verified_at: null, verification_status: "AUTO_VERIFIED" },
+    { source: "institution+alias index", sources: ["institution+alias index"], last_verified_at: null, verification_status: "AUTO_VERIFIED" },
   );
 }
 

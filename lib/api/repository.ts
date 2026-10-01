@@ -161,8 +161,10 @@ function summaryFor({ inst, source, links, events }: InstLookup): InstitutionSum
 
 export function metaFor(inst: Institution): ApiMeta {
   const id = inst.evidence.identity;
+  const source = id?.sourceId ?? "nrb-bfi-mid-may-2026";
   return {
-    source: id?.sourceId ?? "nrb-bfi-mid-may-2026",
+    source,
+    sources: [source],
     last_verified_at: id?.verifiedOn ?? null,
     verification_status: "UNVERIFIED",
   };
@@ -324,6 +326,7 @@ export function getPerson(
       data: person,
       meta: {
         source: person.meta.source,
+        sources: person.meta.sources,
         last_verified_at: person.meta.last_verified_at,
         verification_status: person.meta.verification_status,
       },
@@ -361,7 +364,7 @@ export function search(query: { q?: string | null }): { status: number; body: Re
         query: q,
         groups: matches,
       },
-      meta: { source: "generated-modules", last_verified_at: null, verification_status: "UNVERIFIED" },
+      meta: { source: "generated-modules", sources: ["generated-modules"], last_verified_at: null, verification_status: "UNVERIFIED" },
     },
   };
 }

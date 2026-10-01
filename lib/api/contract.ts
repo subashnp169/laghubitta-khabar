@@ -6,6 +6,11 @@
 
 export interface ApiMeta {
   source: string;
+  // Every source that currently owns an observation backing the response
+  // payload, sorted. Two or more entries means the payload is corroborated by
+  // that many independent sources. Derived from source-owned observations, so
+  // it is a relationship between rows rather than a count of merged claims.
+  sources: string[];
   last_verified_at: string | null;
   verification_status: string;
 }

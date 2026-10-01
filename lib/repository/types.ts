@@ -20,7 +20,22 @@ export type CoverageStatus =
   | "CONFLICT";
 
 export interface SourceMeta {
+  // The source that owns the record's first-published observation. Kept as a
+  // single value so existing attribution consumers keep working unchanged.
   source: string;
+  // Every distinct source that currently owns an observation backing this
+  // record, sorted for determinism.
+  //
+  // This is where CORROBORATION lives. Under the canonical source-owned
+  // observation model, two sources asserting the same normalized claim produce
+  // two rows rather than one, so "these sources agree" is a DERIVED property of
+  // this set and never an absence of rows. `sources.length >= 2` means the
+  // record is corroborated by that many independent sources.
+  //
+  // Required rather than optional on purpose: when the read model was dropping
+  // every source but the first, the loss was silent and no type flagged it.
+  // Making the field mandatory means a missing derivation is a compile error.
+  sources: string[];
   last_verified_at: string | null;
   verification_status: VerificationStatus;
 }

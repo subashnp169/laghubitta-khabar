@@ -24,6 +24,7 @@ import type {
   Paged,
   PersonDto,
   SearchGroups,
+  SourceMeta,
   TimelineEventDto,
 } from "./types";
 import type { InstitutionRepository, NotFoundError } from "./contract";
@@ -52,11 +53,16 @@ function clamp(pageRaw: unknown, limitRaw: unknown): { page: number; limit: numb
   return { page, limit };
 }
 
-function metaFor(rows: D1ResultRow[]): { source: string; last_verified_at: string | null; verification_status: "AUTO_VERIFIED" } {
+function metaFor(rows: D1ResultRow[]): SourceMeta {
   const v = rows[0];
+  // Sub-queries populate these aliased columns; undefined �+' honest unmapped.
+  const source = String(v?.source || "unknown");
   return {
-    // Sub-queries populate these aliased columns; undefined → honest unmapped.
-    source: String(v?.source || "unknown"),
+    source,
+    // Corroboration is derived from every source that owns an observation
+    // backing this record, not from the first row. One entry = single source;
+    // two or more = corroborated by that many independent sources.
+    sources: [...new Set(rows.map((r) => String(r.source || "unknown")))].sort(),
     last_verified_at: (v?.last_verified_at as string) ?? null,
     verification_status: "AUTO_VERIFIED",
   };

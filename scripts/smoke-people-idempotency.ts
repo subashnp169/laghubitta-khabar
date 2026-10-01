@@ -194,6 +194,18 @@ const DUP_GROUPS = `SELECT COUNT(*) c FROM (
   SELECT entity_id, field_name, value FROM data_assertions
   WHERE field_name LIKE 'people%'
   GROUP BY entity_id, field_name, value HAVING COUNT(*) > 1)`;
+const PEOPLE_SOURCES =
+  "SELECT COUNT(DISTINCT source_id) c FROM data_assertions WHERE field_name LIKE 'people%'";
+// Corroboration under the canonical source-owned observation model: a normalized
+// claim that more than one source currently owns an observation of. It is
+// DERIVED from the owning-source set, never inferred from the absence of
+// duplicate rows, so this is the assertion that two independent sources agree.
+const CORROBORATED_GROUPS = `SELECT COUNT(*) c FROM (
+  SELECT entity_id, field_name, value FROM data_assertions
+  WHERE field_name LIKE 'people%'
+  GROUP BY entity_id, field_name, value HAVING COUNT(DISTINCT source_id) > 1)`;
+const PEOPLE_ROWS_PER_SOURCE = `SELECT source_id, COUNT(*) c FROM data_assertions
+  WHERE field_name LIKE 'people%' GROUP BY source_id ORDER BY source_id`;
 
 async function main(): Promise<void> {
   console.log("EXT-C2 semantic assertion idempotency fixtures\n");
@@ -291,14 +303,34 @@ async function main(): Promise<void> {
   const same = boardPage({ people: ["Ram Bahadur Yadav", "Binodanand Jha"] });
   await runSource(dbF, srcF1, URL_A, () => same);
   await runSource(dbF, srcF2, URL_B, () => same);
+  // Corroboration fixture: two independent sources report the same two people.
+  //
+  // Under the canonical source-owned observation model each source owns its own
+  // observation of the same normalized claim, so the two sources produce two
+  // rows and agreement is DERIVED from that row set. M3.3's requirement is
+  // unchanged: the system must recognize corroboration and preserve
+  // provenance. What changed is the encoding - provenance now lives on the rows
+  // instead of in a re-seen audit record.
   check("F1 one snapshot per source", scalar(dbF, SNAPSHOTS) === 2, `${scalar(dbF, SNAPSHOTS)}`);
-  check("F2 one semantic assertion per person", scalar(dbF, ASSERTIONS) === 2, `${scalar(dbF, ASSERTIONS)}`);
-  check("F3 no duplicate merely because the source differs", scalar(dbF, DUP_GROUPS) === 0);
-  const aud = qa(dbF, "SELECT after_json FROM audit_logs WHERE action = 'ASSERTION_RESEEN' ORDER BY created_at, id");
-  const sources = new Set(
-    aud.map((r) => (JSON.parse(String(r.after_json)) as { source_id: string }).source_id),
+  check(
+    "F2 each source owns its own observation of every person",
+    scalar(dbF, ASSERTIONS) === 4 && scalar(dbF, PEOPLE_SOURCES) === 2,
+    `${scalar(dbF, ASSERTIONS)} assertions across ${scalar(dbF, PEOPLE_SOURCES)} sources`,
   );
-  check("F4 the second source's provenance is recorded", aud.length === 2 && sources.has("src-f2"), `${aud.length} entries ${[...sources].join(",")}`);
+  check(
+    "F3 corroboration is derived from the distinct source-owned observations",
+    scalar(dbF, CORROBORATED_GROUPS) === 2,
+    `${scalar(dbF, CORROBORATED_GROUPS)} claims corroborated by more than one source`,
+  );
+  const aud = qa(dbF, "SELECT after_json FROM audit_logs WHERE action = 'ASSERTION_RESEEN' ORDER BY created_at, id");
+  const rowsPerSource = qa(dbF, PEOPLE_ROWS_PER_SOURCE);
+  check(
+    "F4 the second source's provenance is on its own row, not a ledger substitute",
+    rowsPerSource.length === 2 &&
+      rowsPerSource.every((s) => Number(s.c) === 2) &&
+      aud.length === 0,
+    `${JSON.stringify(rowsPerSource)} reseen=${aud.length}`,
+  );
   const snapsPerSource = qa(dbF, "SELECT source_id, COUNT(*) c FROM source_snapshots GROUP BY source_id");
   check("F5 both snapshots remain auditable", snapsPerSource.length === 2 && snapsPerSource.every((s) => Number(s.c) === 1), JSON.stringify(snapsPerSource));
 

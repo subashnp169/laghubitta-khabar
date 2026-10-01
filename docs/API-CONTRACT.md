@@ -24,11 +24,18 @@ D1 / local DB
   "data": {},
   "meta": {
     "source": "nrb-bfi-mid-may-2026",
+    "sources": ["nrb-bfi-mid-may-2026"],
     "last_verified_at": "2026-06-20",
     "verification_status": "VERIFIED"
   }
 }
 ```
+
+`meta.sources` lists every source that currently owns an observation backing the
+payload, sorted, and is the public expression of **corroboration**: two or more
+entries mean independent sources assert the same normalized claim, derived from
+source-owned observations rather than from merged claims. `meta.source` remains
+the first-published owning source, for single-value attribution.
 
 **Collection**
 
