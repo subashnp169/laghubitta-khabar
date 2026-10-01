@@ -161,7 +161,12 @@ export default async function InstitutionPage({ params }: { params: Promise<{ sl
                   const badge = statusBadge(p.meta.verification_status);
                   return (
                     <li key={p.id} className="py-2 flex flex-wrap items-baseline gap-x-2 gap-y-1">
-                      <span className="text-sm text-slate-800 font-medium">{p.name}</span>
+                      <Link
+                        href={`/people/${p.slug}`}
+                        className="text-sm text-slate-800 font-medium hover:underline"
+                      >
+                        {p.name}
+                      </Link>
                       <span className="text-xs text-slate-500">{roleLabels(p)}</span>
                       {p.positions.some((x) => x.shared_by > 1) && (
                         <span

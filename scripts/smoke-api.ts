@@ -18,6 +18,7 @@ import { join } from "node:path";
 import { handleApiRequest } from "../lib/api/handler";
 import { parsePagination } from "../lib/api/contract";
 import { institutions } from "../src/data/institutions";
+import { allPublishedPeople } from "../lib/repository/static-people";
 
 let passed = 0;
 let failed = 0;
@@ -175,6 +176,32 @@ if (knownSlug) {
 }
 const missingPerson = request("GET", "/api/people/definitely-not-a-person");
 ok(missingPerson.status === 404 && missingPerson.body.error.code === "NOT_FOUND", "unknown person → 404");
+
+// The static person routes call allPublishedPeople() directly while the API
+// resolves through the same helper. If those ever diverged, a person page could
+// describe someone the API cannot serve. Assert they are one set.
+const published = allPublishedPeople();
+ok(published.length > 0, "allPublishedPeople returns the published set");
+ok(
+  new Set(published.map((p) => p.slug)).size === published.length,
+  "published people have unique slugs (each gets exactly one static route)",
+);
+const apiPeople = request("GET", "/api/search?q=a").body.data.groups.people;
+ok(
+  apiPeople.every((p: any) => {
+    const local = published.find((x) => x.slug === p.slug);
+    return local && JSON.stringify(local) === JSON.stringify(p);
+  }),
+  "API search people and static-route people are byte-identical records",
+);
+const detailMismatch = published.filter(
+  (p) => JSON.stringify(request("GET", `/api/people/${p.slug}`).body.data) !== JSON.stringify(p),
+);
+ok(detailMismatch.length === 0, "every static person route matches GET /api/people/{slug} exactly");
+ok(
+  published.every((p) => p.slug !== "mfi-045" && !/^mfi-\d+$/.test(p.slug)),
+  "no person route is built from a pilot stub slug",
+);
 
 // 06 search + guard
 console.log("smoke:api — search + guard");

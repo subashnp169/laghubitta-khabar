@@ -12,8 +12,7 @@ import { crawlSources } from "@/data/pilot";
 import { nrbDocuments, nrbInstitutionLinks, nrbRegulatoryEvents } from "@/data/nrb";
 import { jobs } from "@/data/jobs";
 import { documents } from "@/data/documents";
-import { openPeopleConflicts, peopleAssertions } from "@/data/people";
-import { peopleFromAssertionRows, type PersonAssertionRecord } from "../repository/projection";
+import { allPublishedPeople } from "../repository/static-people";
 import type { PersonDto } from "../repository/types";
 import { slicePage, parsePagination, errorEnvelope, type ApiMeta, type CollectionEnvelope, type ResourceEnvelope, type ErrorEnvelope } from "./contract";
 
@@ -294,19 +293,11 @@ export function emptyPhaseEnvelope(page?: string | null, limit?: string | null):
 // adapter, and the D1 adapter all mean the same thing.
 // ---------------------------------------------------------------------------
 
-const peopleOpenConflictKeys = () =>
-  new Set(
-    openPeopleConflicts.flatMap((c) =>
-      String(c.field_name)
-        .split("|")
-        .map((field) => `${c.institution_id}|${field}`),
-    ),
-  );
-
+// Single source of truth for the published people set, shared with the static
+// person routes. Delegating here guarantees a person page and
+// `GET /api/people/{slug}` can never disagree about the same slug.
 function allPeople(): PersonDto[] {
-  return peopleFromAssertionRows(peopleAssertions as unknown as PersonAssertionRecord[], {
-    openConflictKeys: peopleOpenConflictKeys(),
-  });
+  return allPublishedPeople();
 }
 
 export function institutionLeadership(
