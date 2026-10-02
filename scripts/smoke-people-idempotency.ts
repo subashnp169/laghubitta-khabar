@@ -336,7 +336,25 @@ async function main(): Promise<void> {
 
   // ---------------------------------------------------------------- integrity
   console.log("\nintegrity");
-  check("I1 every assertion is UNVERIFIED", scalar(dbA, "SELECT COUNT(*) c FROM data_assertions WHERE verification_status <> 'UNVERIFIED'") === 0);
+  // The intent of this check is that INGESTION NEVER GRANTS VERIFICATION: only a
+  // human review may set a verified status, and nothing on this path does.
+  //
+  // It deliberately no longer asserts "every row is UNVERIFIED". Under Model B a
+  // source that stops publishing a person retires that claim instead of leaving
+  // it current, and a retired claim is correctly STALE (block D above replaces a
+  // person). STALE is a lifecycle fact, not a verification, so it is allowed here;
+  // asserting its absence would forbid the supersession the lifecycle exists to
+  // perform.
+  check(
+    "I1 ingestion never grants verification",
+    scalar(dbA, "SELECT COUNT(*) c FROM data_assertions WHERE verification_status IN ('HUMAN_VERIFIED', 'VERIFIED')") === 0,
+    `${scalar(dbA, "SELECT COUNT(*) c FROM data_assertions WHERE verification_status IN ('HUMAN_VERIFIED', 'VERIFIED')")} verified by ingestion`,
+  );
+  check(
+    "I1b the only statuses on this path are UNVERIFIED or a retired STALE",
+    scalar(dbA, "SELECT COUNT(*) c FROM data_assertions WHERE verification_status NOT IN ('UNVERIFIED', 'STALE')") === 0,
+    `${scalar(dbA, "SELECT COUNT(*) c FROM data_assertions WHERE verification_status NOT IN ('UNVERIFIED', 'STALE')")} rows with an unexpected status`,
+  );
   check("I2 no orphan assertions (snapshot present)", scalar(dbA, `SELECT COUNT(*) c FROM data_assertions a
       WHERE a.source_snapshot_id IS NOT NULL AND NOT EXISTS (SELECT 1 FROM source_snapshots s WHERE s.id = a.source_snapshot_id)`) === 0);
   check("I3 every snapshot has a hash, mime type and clock", scalar(dbA, `SELECT COUNT(*) c FROM source_snapshots

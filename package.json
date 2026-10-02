@@ -19,6 +19,7 @@
     "smoke:people-plausibility": "tsx scripts/smoke-people-plausibility.ts",
     "smoke:people-idempotency": "tsx scripts/smoke-people-idempotency.ts",
     "smoke:people-model-b": "tsx scripts/smoke-people-model-b.ts",
+    "smoke:people-lifecycle": "tsx scripts/smoke-people-lifecycle.ts",
     "smoke:people-generic-ext": "tsx scripts/smoke-people-generic-ext.ts",
     "smoke:people-discovery": "tsx scripts/smoke-people-discovery.ts",
     "smoke:structured": "tsx scripts/smoke-structured.ts",

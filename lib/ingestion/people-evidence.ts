@@ -88,6 +88,18 @@ export interface PeopleClaim {
   fieldName: string;
   value: string;
   confidence: number;
+  /**
+   * The snapshot that actually carried this claim.
+   *
+   * Optional because an observation can come from a single page, in which case
+   * the apply context's snapshot is the only one and is unambiguous. It is
+   * needed as soon as ONE observation aggregates several pages — a source's
+   * leadership roster is routinely split across /about and /board-of-directors —
+   * because then no single ctx snapshot is the true provenance of every claim,
+   * and anchoring a claim to a snapshot that never contained it would be a
+   * provenance lie. Falls back to ctx.sourceSnapshotId.
+   */
+  sourceSnapshotId?: string;
 }
 
 /** What one source observed about one institution on one page. */
@@ -115,6 +127,8 @@ export interface PeopleClaimPlan {
   fieldName: string;
   value: string;
   confidence: number;
+  /** The snapshot that carried this claim, when the observation named one. */
+  sourceSnapshotId?: string;
   /** "UNCHANGED" when this source already has this exact value current. */
   kind: "NEW" | "UNCHANGED";
   /** This source's own current claims in this slot that this value replaces. */
@@ -197,6 +211,7 @@ export async function planPeopleEvidence(
         fieldName,
         value: claim.value,
         confidence: claim.confidence,
+        sourceSnapshotId: claim.sourceSnapshotId,
         kind: unchanged ? "UNCHANGED" : "NEW",
         supersedes: unchanged ? [] : ownCurrent.filter((r) => normalizePeopleClaimValue(r.value) !== want),
         // A value that has come back: the writer's identity makes a re-insert a
@@ -234,6 +249,8 @@ export interface AppliedPeopleClaim {
   value: string;
   status: PeopleWriteStatus;
   conflicts: PeopleConflictSide[];
+  /** The snapshot the written/revived row is anchored to. */
+  sourceSnapshotId?: string;
 }
 
 export interface PeopleApplyResult {
@@ -289,6 +306,30 @@ export async function applyPeopleEvidence(
   for (const slot of plan.slots) {
     for (const w of slot.writes) {
       if (w.kind === "UNCHANGED") {
+        // The source re-stated a claim it already holds current. That is not a
+        // lifecycle change: no row is written, nothing is retired, nothing is
+        // revived. But it IS a re-sighting, and the generic engine has always
+        // recorded those in the ledger through saveAssertion's ignore path
+        // (ASSERTION_RESEEN). Returning early here would silently delete that
+        // audit trail for every people_* claim the moment apply took the path
+        // over, so the same idempotent call is made deliberately.
+        //
+        // It is safe precisely because that path is a no-op on the row: INSERT OR
+        // IGNORE writes nothing, and the stored claim keeps its ORIGINAL evidence
+        // pointer and its verification_status, so re-sighting can neither
+        // overwrite where a claim came from nor downgrade a human's review.
+        await writer.saveAssertion({
+          entityType: PEOPLE_ASSERTION_ENTITY_TYPE,
+          entityId: plan.institutionId,
+          fieldName: w.fieldName,
+          value: w.value,
+          sourceId: ctx.sourceId,
+          sourceSnapshotId: w.sourceSnapshotId ?? ctx.sourceSnapshotId,
+          observedAt: ctx.observedAt,
+          confidence: ctx.confidence ?? w.confidence,
+          // Passed for the ledger entry only; nothing writes this column.
+          verificationStatus: "UNVERIFIED",
+        });
         writes.push({ fieldName: w.fieldName, value: w.value, status: "UNCHANGED", conflicts: w.conflicts });
         continue;
       }
@@ -303,15 +344,20 @@ export async function applyPeopleEvidence(
         writes.push({ fieldName: w.fieldName, value: prior.value, status: "SUPERSEDED", conflicts: [] });
       }
 
+      // A claim is anchored to the snapshot that carried it. When one
+      // observation aggregates several pages that differs per claim, so it is
+      // resolved per claim and only falls back to the context.
+      const snapshotId = w.sourceSnapshotId ?? ctx.sourceSnapshotId;
+
       if (w.revives && writer.reviveAssertion) {
         const ok = await writer.reviveAssertion({
           id: w.revives.id,
           observedAt: ctx.observedAt,
-          sourceSnapshotId: ctx.sourceSnapshotId,
+          sourceSnapshotId: snapshotId,
           confidence: ctx.confidence ?? w.confidence,
         });
         if (ok) {
-          writes.push({ fieldName: w.fieldName, value: w.value, status: "REVIVED", conflicts: w.conflicts });
+          writes.push({ fieldName: w.fieldName, value: w.value, status: "REVIVED", conflicts: w.conflicts, sourceSnapshotId: snapshotId });
           continue;
         }
       }
@@ -322,7 +368,7 @@ export async function applyPeopleEvidence(
         fieldName: w.fieldName,
         value: w.value,
         sourceId: ctx.sourceId,
-        sourceSnapshotId: ctx.sourceSnapshotId,
+        sourceSnapshotId: snapshotId,
         observedAt: ctx.observedAt,
         confidence: ctx.confidence ?? w.confidence,
         // Writing a claim is never verification. Only a human review can set
@@ -330,7 +376,7 @@ export async function applyPeopleEvidence(
         verificationStatus: "UNVERIFIED",
       };
       await writer.saveAssertion(input);
-      writes.push({ fieldName: w.fieldName, value: w.value, status: "NEW", conflicts: w.conflicts });
+          writes.push({ fieldName: w.fieldName, value: w.value, status: "NEW", conflicts: w.conflicts, sourceSnapshotId: snapshotId });
     }
 
     for (const prior of slot.retires) {
@@ -397,6 +443,9 @@ export async function applyPeopleEvidence(
         field: w.fieldName,
         value: w.value,
         status: w.status,
+        // Per-claim, because one observation may aggregate several pages and
+        // the snapshot that carried a claim is its real provenance.
+        source_snapshot_id: w.sourceSnapshotId ?? ctx.sourceSnapshotId,
         conflicts: w.conflicts.map((c) => c.sourceId),
       })),
     }),

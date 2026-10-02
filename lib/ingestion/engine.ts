@@ -48,6 +48,39 @@ const SECTION_CAPS = new Set<string>([
 interface ProcessedTarget {
   item: EngineResult["items"][number];
   subs: DiscoveredTarget[];
+  /**
+   * People claims this page carried, held back for the end of the run instead of
+   * being asserted page by page. See applyPeopleObservations for why.
+   */
+  people?: PeopleClaim[];
+}
+
+/**
+ * One source's whole-run People observation, accumulated across every page the
+ * run touched and applied ONCE at the end.
+ *
+ * WHY NOT PER PAGE. The lifecycle retires a source's prior claim in a slot as
+ * soon as the source positively asserts a different value in that slot — which
+ * is safe only if the observation covers the slot completely. A leadership
+ * roster is routinely split across pages (/about carries the CEO,
+ * /board-of-directors carries the board), so a per-page observation would read
+ * "/about has no chair" as "this source withdrew its chair" and retire a live
+ * claim every time the queue happened to process the pages in the other order.
+ * Aggregating the run first makes the observation what the source actually
+ * published across the pages the run read, which is the same granularity
+ * careers and financials already use.
+ *
+ * WHAT THIS DOES NOT DO. It never infers a withdrawal from silence. A slot the
+ * run says nothing about is absent from `observedFields` and therefore never
+ * retired. Proving that a source REMOVED a role entirely needs an authoritative
+ * per-source page registry (the pattern career-source-registry.json and
+ * branch-source-registry.json already use), which does not exist for People and
+ * is an owner decision, not an inference this engine may make.
+ */
+interface PeopleObservationRun {
+  institutionId: string;
+  claims: PeopleClaim[];
+  observedFields: string[];
 }
 
 /**
@@ -102,6 +135,13 @@ import type {
   IngestionSourceSpec,
   ValidationOutcome,
 } from "./types";
+import {
+  applyPeopleEvidence,
+  isPeopleAssertionField,
+  normalizePeopleClaimValue,
+  planPeopleEvidence,
+  type PeopleClaim,
+} from "./people-evidence";
 
 export class GenericIngestionEngine {
   constructor(private readonly deps: EngineDeps) {}
@@ -182,6 +222,17 @@ export class GenericIngestionEngine {
     // capability) must not double-fetch or double-snapshot the same evidence.
     const seenUrls = new Set<string>();
 
+    // M3.6B — People claims are accumulated across the whole run and applied once
+    // at the end, never page by page. See PeopleObservationRun: a leadership
+    // roster spans several pages, so a per-page observation would read "this page
+    // has no chair" as "the source withdrew its chair".
+    const peopleClaims = new Map<string, PeopleClaim>();
+    const peopleObserved = new Set<string>();
+    // Normalized value is the dedup key, so the same person listed twice on a
+    // page (or on two pages of one run) is one claim, matching the identity the
+    // writer would compute anyway.
+    const peopleKey = (c: PeopleClaim): string => `${c.fieldName}|${normalizePeopleClaimValue(c.value)}`;
+
     // Phase F (deeper): the crawl is a bounded work queue, so targets discovered
     // mid-run are still processed under the SAME budget. Two carriers extend the
     // original list: SITEMAP dereference (a fetched sitemap file yields its
@@ -211,10 +262,18 @@ export class GenericIngestionEngine {
       if (seenUrls.has(target.url)) continue; // same URL already ingested this run
       seenUrls.add(target.url);
 
-      const { item, subs } = await this.processTarget(source, target, runId, now, opts, budget);
+      const processedTarget = await this.processTarget(source, target, runId, now, opts, budget);
+      const { item, subs, people } = processedTarget;
       items.push(item);
       fetches += 1;
       if (docKinds.has(target.capability) && item.lifecycle !== "FAILED") documents += 1;
+      // The slot this claim speaks to is an OBSERVED slot: the run positively
+      // asserts something about it, which is what allows a prior claim in the
+      // same slot to be superseded. Silence about a slot is recorded as nothing.
+      for (const claim of people ?? []) {
+        peopleClaims.set(peopleKey(claim), claim);
+        peopleObserved.add(claim.fieldName);
+      }
       if (item.lifecycle === "FAILED") {
         errors.push({ runId, sourceId, url: target.url, errorType: "ITEM_FAILED", errorMessage: item.lifecycle === "FAILED" ? `processing failed for ${target.url}` : "", retryCount: 0 });
       }
@@ -225,6 +284,24 @@ export class GenericIngestionEngine {
     }
 
     const completedAt = this.deps.now?.() ?? new Date().toISOString();
+
+    // The People lifecycle step for this run. Institution-scoped sources only:
+    // a source with no institution_id asserts people against the source entity
+    // (NRB and friends), which is a different scope the lifecycle does not own,
+    // so those assertions were written unchanged in processTarget.
+    if (source.institutionId && peopleClaims.size > 0) {
+      await this.applyPeopleObservations(
+        source,
+        {
+          institutionId: source.institutionId,
+          claims: [...peopleClaims.values()],
+          observedFields: [...peopleObserved].sort(),
+        },
+        runId,
+        now,
+      );
+    }
+
     await this.deps.registry.recordRun({
       sourceId, startedAt: now, completedAt, status: errors.length === 0 ? "SUCCESS" : "PARTIAL",
       itemsFound: items.length, itemsChanged: items.filter((i) => i.lifecycle === "CHANGED").length,
@@ -404,19 +481,41 @@ export class GenericIngestionEngine {
     // becomes an assertion visible to the public. Deduped per snapshot by
     // (field, value) so composed extractors that see the same title (e.g. the
     // NRB listing parser + the financial-metadata parser) assert it once.
+    //
+    // People_* fields on an institution-scoped source are the one exception:
+    // they are COLLECTED here and applied once at the end of the run through the
+    // source-owned lifecycle (planPeopleEvidence / applyPeopleEvidence), so a
+    // source can supersede, revive and disagree instead of only ever adding.
+    // Every other field — branches, documents, NRB, everything else — keeps the
+    // exact write behaviour it has always had.
     const assertedKeys = new Set<string>();
+    const people: PeopleClaim[] = [];
+    const institutionScoped = Boolean(source.institutionId);
     for (const ev of extracted) {
       if (ev.kind === "FIELD" && ev.confidence >= 0.5) {
         const key = `${(ev.field ?? ev.capability).toLowerCase()}|${ev.text ?? ""}`;
         if (assertedKeys.has(key)) continue;
         assertedKeys.add(key);
+        const fieldName = ev.field ? ev.field.toLowerCase() : ev.capability.toLowerCase();
+        if (institutionScoped && isPeopleAssertionField(fieldName)) {
+          // Each claim keeps the snapshot that carried it, because the run's
+          // pages are applied together and ctx.sourceSnapshotId cannot speak for
+          // all of them.
+          people.push({
+            fieldName,
+            value: ev.text ?? "",
+            confidence: ev.confidence,
+            sourceSnapshotId: snapshotId,
+          });
+          continue;
+        }
         await this.deps.writer.saveAssertion({
           // Institution-scoped sources assert against the institution;
           // regulator/regulatory sources (e.g. NRB, no institution_id) assert
           // against the source itself so the ledger stays honest per crawler.
-          entityType: source.institutionId ? "institution" : "source",
+          entityType: institutionScoped ? "institution" : "source",
           entityId: source.institutionId ?? source.id,
-          fieldName: ev.field ? ev.field.toLowerCase() : ev.capability.toLowerCase(),
+          fieldName,
           value: ev.text ?? "",
           sourceId: source.id,
           sourceSnapshotId: snapshotId,
@@ -470,7 +569,44 @@ export class GenericIngestionEngine {
     return {
       item: { url: target.url, capability: target.capability, lifecycle: lifecycle as string, persisted: true, contentHash: fetched.contentHash },
       subs: this.walkLinks(source, target, fetched),
+      people: people.length > 0 ? people : undefined,
     };
+  }
+
+  /**
+   * Apply one source's whole-run People observation through the source-owned
+   * lifecycle, once, after the queue has drained.
+   *
+   * Read-then-write planning, so it is deterministic and safe to re-run. Every
+   * row it writes lands UNVERIFIED: writing a claim is never verification.
+   *
+   * `observedFields` is exactly the slots the run positively spoke to. That is
+   * what keeps retirement honest — a slot the run is silent about is not in the
+   * list, so nothing in it is ever retired. This function therefore supersedes
+   * and revives what a source demonstrably re-stated, and detects cross-source
+   * disagreement, while never inferring that a source withdrew a role merely
+   * because the pages read this run happened not to mention it. See
+   * PeopleObservationRun for the per-page alternative and why it is wrong.
+   */
+  private async applyPeopleObservations(
+    source: IngestionSourceSpec,
+    run: PeopleObservationRun,
+    runId: string,
+    now: string,
+  ): Promise<void> {
+    const plan = await planPeopleEvidence(
+      this.deps.writer,
+      { institutionId: run.institutionId, observedFields: run.observedFields, claims: run.claims },
+      source.id,
+    );
+    await applyPeopleEvidence(this.deps.writer, plan, {
+      sourceId: source.id,
+      // Every claim carries its own snapshot; this is only the fallback for an
+      // observation that named none, and it is recorded in the audit either way.
+      sourceSnapshotId: run.claims[0]?.sourceSnapshotId ?? "",
+      observedAt: now,
+      runId,
+    });
   }
 
   /**

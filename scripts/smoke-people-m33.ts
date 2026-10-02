@@ -477,14 +477,26 @@ async function main(): Promise<void> {
     const urlC = "https://mirror.fixture.test/board";
     const srcC = seedSource(dbPath, "m33-h-c", { capabilities: [{ capability: "PEOPLE", known_url: urlC }] }, urlC, "mirror.fixture.test");
     await runHtmlSource(dbPath, srcC, urlC, `<html><body><h3>Board of Directors</h3><table><tr><td>Keshav Raj Paudel</td><td>Chairman</td></tr></table></body></html>`, "2026-02-03T00:00:00Z");
+    // M3.6B conflict ownership: the lifecycle records the disagreement as it
+    // applies the claim, so a conflict row can never describe a half-applied
+    // page. flagPeopleConflicts remains the review-time backstop and must now
+    // find nothing to add - the same invariant smoke-people-model-b T3.18 pins.
     const created = flagPeopleConflicts(dbPath, { now: "2026-02-04T00:00:00Z" });
     const queue = listOpenConflicts(dbPath);
-    check("H disagreeing values → exactly one OPEN conflict", created === 1 && queue.length === 1);
+    check("H disagreeing values → exactly one OPEN conflict", queue.length === 1);
+    check("H the detector adds no duplicate row", created === 0);
     check("H conflict carries both values + both sources", queue[0].valueA === "Gopal Krishna Shrestha" && queue[0].valueB === "Keshav Raj Paudel" && queue[0].sourceAId === "m33-h-a" && queue[0].sourceBId === "m33-h-c");
     check("H conflict names the role field", queue[0].fieldName === "people_chair" && queue[0].institutionId === INSTITUTION_ID);
     check("H detector is idempotent (re-run creates nothing)", flagPeopleConflicts(dbPath, { now: "2026-02-05T00:00:00Z" }) === 0);
-    const audit = q(dbPath, "SELECT COUNT(*) c FROM audit_logs WHERE action = 'PEOPLE_CONFLICT_DETECTED'");
-    check("H conflict detection audit-logged", Number(audit?.c) === 1);
+    // The dispute is auditable through the write that caused it, which is
+    // strictly more precise than a later scan: the ledger entry names the source
+    // that disagreed at the moment its claim was written.
+    const appliedAudit = qa(dbPath, "SELECT after_json FROM audit_logs WHERE action = 'PEOPLE_EVIDENCE_APPLIED' ORDER BY created_at, id");
+    const disputes = appliedAudit.flatMap((r) => {
+      const parsed = JSON.parse(String(r.after_json)) as { source_id: string; writes: Array<{ conflicts: string[] }> };
+      return parsed.writes.filter((w) => w.conflicts.length > 0).map((w) => ({ source: parsed.source_id, with: w.conflicts }));
+    });
+    check("H the disagreement is audit-logged with the write that caused it", disputes.some((d) => d.source === "m33-h-c" && d.with.includes("m33-h-a")), JSON.stringify(disputes));
 
     // The conflicted person is surfaced as CONFLICT in the read model.
     const repo = localRepository(dbPath);
@@ -509,10 +521,20 @@ async function main(): Promise<void> {
     const urlD = "https://mirror.fixture.test/directors";
     const srcD = seedSource(dbPath, "m33-h-d", { capabilities: [{ capability: "PEOPLE", known_url: urlD }] }, urlD, "mirror.fixture.test");
     await runHtmlSource(dbPath, srcD, urlD, `<html><body><h3>Directors</h3><table><tr><td>Anita Gurung</td><td>Director</td></tr></table></body></html>`, "2026-02-07T00:00:00Z");
+    // Apply owns same-field disagreements, but it compares within ONE field, so
+    // the cross-role rule - one person holding two different roles across two
+    // sources - is structurally invisible to it and remains the detector's work.
+    const beforeRole = listOpenConflicts(dbPath).length;
     const createdRole = flagPeopleConflicts(dbPath, { now: "2026-02-08T00:00:00Z" });
     const roleQueue = listOpenConflicts(dbPath);
-    check("H rule 2: same person + different role + 2 sources → 1 conflict", createdRole === 1 && roleQueue.length === 1);
-    check("H rule 2 names both role families and both sources", roleQueue[0].fieldName === "people_ceo|people_director" && roleQueue[0].valueA === "Anita Gurung" && roleQueue[0].valueB === "Anita Gurung" && roleQueue[0].sourceAId === "m33-h-a" && roleQueue[0].sourceBId === "m33-h-d", `got ${JSON.stringify(roleQueue[0])}`);
+    const crossRole = roleQueue.filter((c) => c.fieldName === "people_ceo|people_director");
+    check("H rule 2: same person + different role + 2 sources → 1 conflict", crossRole.length === 1 && createdRole === 1, `created=${createdRole} open=${roleQueue.length}`);
+    check("H rule 2 names both role families and both sources", crossRole[0].valueA === "Anita Gurung" && crossRole[0].valueB === "Anita Gurung" && crossRole[0].sourceAId === "m33-h-a" && crossRole[0].sourceBId === "m33-h-d", `got ${JSON.stringify(crossRole[0])}`);
+    check("H every same-field dispute was already recorded when its claim was written", roleQueue.length === beforeRole + createdRole, `${beforeRole} -> ${roleQueue.length} open, detector created ${createdRole}`);
+    // The detector's own creation is still audited, now that it is the detector -
+    // not the lifecycle - that owns the cross-role pair.
+    const detectedAudit = qa(dbPath, "SELECT COUNT(*) c FROM audit_logs WHERE action = 'PEOPLE_CONFLICT_DETECTED'");
+    check("H a conflict the detector creates is audit-logged", Number(detectedAudit[0]?.c) === createdRole, `${JSON.stringify(detectedAudit)} created=${createdRole}`);
     const conflictedAfter = await localRepository(dbPath).listLeadership(INSTITUTION_ID);
     check("H rule 2 surfaces the person as CONFLICT", conflictedAfter.data.some((p) => p.name === "Anita Gurung" && p.meta.verification_status === "CONFLICT"));
 
@@ -574,11 +596,22 @@ async function main(): Promise<void> {
     const gopalAssert = q(dbPath, "SELECT id FROM data_assertions WHERE value = 'Gopal Krishna Shrestha'") as Record<string, string>;
     reviewAssertion(dbPath, { assertionId: String(gopalAssert.id), verdict: "HUMAN_VERIFIED", reviewer: "ops@laghubitta", now: "2026-01-07T00:00:00Z" });
     const verifiedPerson = (await repo.listLeadership(INSTITUTION_ID)).data.find((p) => p.name === "Gopal Krishna Shrestha")!;
-    check("I HUMAN_VERIFIED surfaces on the DTO", verifiedPerson.meta.verification_status === "HUMAN_VERIFIED");
+    // This source pair genuinely disagrees about the chair, so since M3.6B the
+    // lifecycle opens that dispute as it writes the claim and a live dispute
+    // outranks a human verification on the DTO. Publishing Gopal as verified
+    // while another source names a different chair would be the actual bug.
+    check("I a disputed person is not published as verified", verifiedPerson.meta.verification_status === "CONFLICT", verifiedPerson.meta.verification_status);
+    check("I the human verification survives on the ledger", (q(dbPath, `SELECT verification_status FROM data_assertions WHERE id = '${String(gopalAssert.id)}'`) as { verification_status: string }).verification_status === "HUMAN_VERIFIED");
+
+    // An UNDISPUTED person does surface the review, which is the property the
+    // read model is actually responsible for.
+    const rejectTarget = q(dbPath, "SELECT id FROM data_assertions WHERE value = 'Anita Gurung'") as Record<string, string>;
+    reviewAssertion(dbPath, { assertionId: String(rejectTarget.id), verdict: "HUMAN_VERIFIED", reviewer: "ops@laghubitta", now: "2026-01-07T00:00:00Z" });
+    const undisputed = (await repo.listLeadership(INSTITUTION_ID)).data.find((p) => p.name === "Anita Gurung")!;
+    check("I HUMAN_VERIFIED surfaces on the DTO", undisputed.meta.verification_status === "HUMAN_VERIFIED", undisputed?.meta?.verification_status);
 
     // rejected claim disappears from the read model (but stays in the ledger)
-    const rejectAssert = q(dbPath, "SELECT id FROM data_assertions WHERE value = 'Anita Gurung'") as Record<string, string>;
-    reviewAssertion(dbPath, { assertionId: String(rejectAssert.id), verdict: "REJECTED", reviewer: "ops@laghubitta", now: "2026-01-07T00:00:00Z" });
+    reviewAssertion(dbPath, { assertionId: String(rejectTarget.id), verdict: "REJECTED", reviewer: "ops@laghubitta", now: "2026-01-07T00:00:00Z" });
     const afterReject = await repo.listLeadership(INSTITUTION_ID);
     check("I REJECTED person leaves the read model", afterReject.pagination.total === 4 && afterReject.data.every((p) => p.name !== "Anita Gurung"));
     check("I rejected claim still in the evidence ledger", (q(dbPath, "SELECT COUNT(*) c FROM data_assertions WHERE value = 'Anita Gurung'") as { c: number }).c === 1);
