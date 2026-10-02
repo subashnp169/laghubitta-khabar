@@ -1,197 +1,321 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Container, PageHeader } from "@/components/ui/Section";
+import { Chip } from "@/components/ui/Chip";
 import { crawlSources, crawlSummary } from "@/data/pilot";
 import { institutions } from "@/data/institutions";
+import { formatDateTime, humanize } from "@/util/format";
+import type { Tone } from "@/util/evidence";
+
+/**
+ * Ingestion control room.
+ *
+ * The previous version of this page described its own contents as "Live evidence
+ * from the deterministic ingestion pipeline". That was not true of the page: it is
+ * a static build, so the numbers on it were frozen when the site was last
+ * generated. Nothing here refreshes while you watch it, and saying "live" invited
+ * a reader to treat a stale number as current. The heading now states when the
+ * snapshot was taken instead.
+ *
+ * Everything here is UNVERIFIED by default, which is why that word is in the
+ * description rather than buried at the bottom.
+ */
 
 export const metadata: Metadata = {
-  title: "Ingestion Control Room — Laghubitta Khabar",
-  description: "Live evidence from the deterministic ingestion pipeline across all crawled institution websites.",
+  title: "Ingestion control room",
+  description: `Source-monitoring snapshot: what was fetched from ${crawlSummary.sources} institution websites, and what is still missing. All extracted assertions are UNVERIFIED until human review.`,
 };
 
-const statusClasses: Record<string, string> = {
-  HEALTHY: "bg-green-50 text-nrb-700",
-  DEGRADED: "bg-amber-50 text-amber-700",
-  UNHEALTHY: "bg-red-50 text-red-700",
-  "NEVER-RUN": "bg-slate-100 text-slate-500",
+const HEALTH_TONE: Record<string, Tone> = {
+  HEALTHY: "positive",
+  DEGRADED: "attention",
+  UNHEALTHY: "conflict",
+  "NEVER-RUN": "neutral",
 };
 
-const lastStatusClasses: Record<string, string> = {
-  SUCCESS: "bg-green-50 text-nrb-700",
-  PARTIAL: "bg-amber-50 text-amber-700",
-  FAILED: "bg-red-50 text-red-700",
+const LAST_RUN_TONE: Record<string, Tone> = {
+  SUCCESS: "positive",
+  PARTIAL: "attention",
+  FAILED: "conflict",
 };
 
-const bucketClasses: Record<string, string> = {
-  frequent: "bg-sky-50 text-sky-700",
-  periodic: "bg-indigo-50 text-indigo-700",
-  slow: "bg-violet-50 text-violet-700",
-};
-
-function Stat({ label, value, tone }: { label: string; value: string | number; tone?: string }) {
+function Stat({
+  term,
+  value,
+  tone = "neutral",
+}: {
+  term: string;
+  value: string | number;
+  tone?: Tone;
+}) {
+  const accent: Record<Tone, string> = {
+    positive: "text-nrb-700",
+    attention: "text-flag-700",
+    conflict: "text-alert-700",
+    info: "text-mfi-700",
+    neutral: "text-mfi-900",
+  };
   return (
-    <div className="bg-white rounded-xl border border-slate-200 p-3">
-      <div className={`text-xl font-bold ${tone ?? "text-slate-800"}`}>{value}</div>
-      <div className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">{label}</div>
+    <div className="bg-white px-4 py-3.5">
+      <dt className="lk-eyebrow">{term}</dt>
+      <dd className={`mt-1 text-xl font-semibold tabular-nums tracking-tight ${accent[tone]}`}>{value}</dd>
     </div>
   );
 }
 
 export default function IngestionPage() {
+  const { schedule } = crawlSummary;
+  // Failures are the interesting number on this page. Presenting "74 errors"
+  // without the fetch/reason breakdown would overstate breakage; presenting it
+  // without the pass count would understate health. Both are shown.
+  const validationTotal = crawlSummary.passCount + crawlSummary.failCount + crawlSummary.pendingCount;
+
   return (
-    <div className="max-w-[1400px] mx-auto px-4 py-8">
-      <div className="mb-6">
-        <div className="flex items-center gap-2 text-xs text-slate-400 mb-1">
-          <span className="inline-block w-2 h-2 rounded-full bg-nrb-500" />
-          <span>Deterministic ingestion snapshot · {crawlSummary.mode} · generated {crawlSummary.generatedAt.slice(0, 19).replace("T", " ")}Z</span>
+    <>
+      <PageHeader
+        eyebrow="Source monitoring"
+        title="What we could fetch, and what we could not"
+      >
+        <p className="max-w-3xl text-base leading-relaxed text-mfi-600">
+          A snapshot of {crawlSummary.sources} institution websites, taken{" "}
+          {formatDateTime(crawlSummary.generatedAt) ?? "at an unrecorded time"}. It is a build artifact, not a
+          live feed — the figures below are as of that moment. Nothing here is written by a model, nothing
+          is OCR&apos;d, and every extracted assertion stays UNVERIFIED until a person reviews it.
+        </p>
+      </PageHeader>
+
+      <Container className="py-8 sm:py-10">
+        <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-mfi-200 bg-mfi-200 sm:grid-cols-4 lg:grid-cols-8">
+          <Stat term="Sources" value={crawlSummary.sources} />
+          <Stat
+            term="With pages read"
+            value={`${crawlSummary.withEvidence}/${crawlSummary.institutions}`}
+            tone={crawlSummary.withEvidence === crawlSummary.institutions ? "positive" : "attention"}
+          />
+          <Stat term="Runs" value={crawlSummary.runs} />
+          <Stat term="Snapshots" value={crawlSummary.snapshots} />
+          <Stat term="Items captured" value={crawlSummary.items} />
+          <Stat term="Documents" value={crawlSummary.documents} />
+          <Stat term="Fetch errors" value={crawlSummary.errors} tone={crawlSummary.errors > 0 ? "attention" : "positive"} />
+          <Stat
+            term="Duplicate hash groups"
+            value={crawlSummary.duplicateSnapshotGroups}
+            tone={crawlSummary.duplicateSnapshotGroups === 0 ? "positive" : "attention"}
+          />
+        </dl>
+
+        <dl className="mt-4 grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-mfi-200 bg-mfi-200 sm:grid-cols-4">
+          <Stat term="Validation passed" value={crawlSummary.passCount} tone="positive" />
+          <Stat term="Validation failed" value={crawlSummary.failCount} tone={crawlSummary.failCount > 0 ? "conflict" : "neutral"} />
+          <Stat term="Awaiting review" value={crawlSummary.pendingCount} />
+          <Stat term="Open conflicts" value={crawlSummary.conflictsOpen} tone={crawlSummary.conflictsOpen === 0 ? "positive" : "conflict"} />
+        </dl>
+
+        <p className="mt-3 text-xs leading-relaxed text-mfi-500">
+          {crawlSummary.passCount + crawlSummary.failCount} of {validationTotal.toLocaleString()} captured
+          assertions have been checked, leaving {crawlSummary.pendingCount.toLocaleString()} awaiting a
+          human. The two duplicate hash groups are identical page content recorded against different
+          sources — expected where institutions share a template, and the reason{" "}
+          {crawlSummary.documents} documents is below the number of distinct pages fetched.
+        </p>
+
+        <div className="mt-8 flex flex-wrap items-center gap-2">
+          <span className="lk-eyebrow">Source health</span>
+          <Chip tone="positive">{crawlSummary.healthy} healthy</Chip>
+          <Chip tone="attention">{crawlSummary.degraded} degraded</Chip>
+          <span className="ml-auto text-xs text-mfi-500">
+            {crawlSummary.pdfSnapshots} PDFs stored as evidence, contents never read
+          </span>
         </div>
-        <h1 className="text-2xl font-bold text-slate-800">Ingestion Control Room</h1>
-        <p className="text-sm text-slate-500 mt-1">Evidence captured from {crawlSummary.sources} institution websites. No AI, no OCR, no browser automation; all assertions UNVERIFIED.</p>
-      </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-3 mb-6">
-        <Stat label="Sources" value={crawlSummary.sources} />
-        <Stat label="Institutions Covered" value={`${crawlSummary.withEvidence}/${crawlSummary.institutions}`} tone="text-mfi-600" />
-        <Stat label="Runs" value={crawlSummary.runs} />
-        <Stat label="Snapshots" value={crawlSummary.snapshots} />
-        <Stat label="Items" value={crawlSummary.items} />
-        <Stat label="Documents" value={crawlSummary.documents} />
-        <Stat label="Errors" value={crawlSummary.errors} tone={crawlSummary.errors > 0 ? "text-amber-700" : "text-nrb-700"} />
-        <Stat label="Duplicate hash groups" value={crawlSummary.duplicateSnapshotGroups} tone={crawlSummary.duplicateSnapshotGroups === 0 ? "text-nrb-700" : "text-red-700"} />
-      </div>
+        <div className="mt-3 flex flex-wrap items-center gap-2">
+          <span className="lk-eyebrow">Fetch cadence</span>
+          <Chip tone="info">{schedule.frequent} frequent</Chip>
+          {schedule.periodic > 0 ? <Chip tone="neutral">{schedule.periodic} periodic</Chip> : null}
+          {schedule.slow > 0 ? <Chip tone="neutral">{schedule.slow} slow</Chip> : null}
+          {schedule.dueNow > 0 ? <Chip tone="attention">{schedule.dueNow} due for a refetch</Chip> : null}
+          {schedule.paused > 0 ? <Chip tone="conflict">{schedule.paused} paused</Chip> : null}
+          <span className="ml-auto text-xs text-mfi-500">
+            Next fetch = last fetch + the cadence its site permits
+          </span>
+        </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-3 mb-6">
-        <Stat label="Validation PASS" value={crawlSummary.passCount} tone="text-nrb-700" />
-        <Stat label="Validation FAIL" value={crawlSummary.failCount} tone={crawlSummary.failCount > 0 ? "text-red-700" : "text-slate-800"} />
-        <Stat label="Validation PENDING" value={crawlSummary.pendingCount} />
-        <Stat label="Conflicts (open)" value={crawlSummary.conflictsOpen} tone={crawlSummary.conflictsOpen === 0 ? "text-nrb-700" : "text-red-700"} />
-      </div>
-
-      <div className="flex items-center gap-2 mb-4 flex-wrap">
-        <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Source health:</span>
-        <span className="text-xs font-semibold px-2 py-1 rounded-full bg-green-50 text-nrb-700">{crawlSummary.healthy} HEALTHY</span>
-        <span className="text-xs font-semibold px-2 py-1 rounded-full bg-amber-50 text-amber-700">{crawlSummary.degraded} DEGRADED</span>
-        <span className="text-xs text-slate-400 ml-auto">{crawlSummary.pdfSnapshots} PDF snapshot (evidence only, no OCR)</span>
-      </div>
-
-      <div className="flex items-center gap-2 mb-4 flex-wrap">
-        <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Schedule (capability-driven):</span>
-        <span className="text-xs font-semibold px-2 py-1 rounded-full bg-sky-50 text-sky-700">{crawlSummary.schedule.frequent} frequent</span>
-        <span className="text-xs font-semibold px-2 py-1 rounded-full bg-indigo-50 text-indigo-700">{crawlSummary.schedule.periodic} periodic</span>
-        <span className="text-xs font-semibold px-2 py-1 rounded-full bg-violet-50 text-violet-700">{crawlSummary.schedule.slow} slow</span>
-        {crawlSummary.schedule.dueNow > 0 && (
-          <span className="text-xs font-semibold px-2 py-1 rounded-full bg-amber-50 text-amber-700">{crawlSummary.schedule.dueNow} due now</span>
-        )}
-        {crawlSummary.schedule.paused > 0 && (
-          <span className="text-xs font-semibold px-2 py-1 rounded-full bg-slate-100 text-slate-500">{crawlSummary.schedule.paused} paused</span>
-        )}
-        <span className="text-xs text-slate-400 ml-auto">next run = last run + cadence (min of the source&apos;s capability intervals)</span>
-      </div>
-
-      <div className="bg-white rounded-xl border border-slate-200 overflow-x-auto">
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="text-left text-[10px] text-slate-500 uppercase tracking-wider border-b border-slate-200">
-              <th className="px-3 py-2">Institution</th>
-              <th className="px-3 py-2">Website</th>
-              <th className="px-3 py-2">Capabilities</th>
-              <th className="px-3 py-2 text-right">Runs</th>
-              <th className="px-3 py-2 text-right">Snapshots</th>
-              <th className="px-3 py-2 text-right">Items</th>
-              <th className="px-3 py-2 text-right">Docs</th>
-              <th className="px-3 py-2 text-right">Branches</th>
-              <th className="px-3 py-2 text-right">Vacancies</th>
-              <th className="px-3 py-2 text-right">Fin. Docs</th>
-              <th className="px-3 py-2 text-right">Errors</th>
-              <th className="px-3 py-2">Last Run</th>
-              <th className="px-3 py-2">Cadence</th>
-              <th className="px-3 py-2">Next run</th>
-              <th className="px-3 py-2">Health</th>
-            </tr>
-          </thead>
-          <tbody>
-            {crawlSources.map((c) => {
-              const inst = institutions.find((i) => i.id === c.institutionId);
-              return (
-                <tr key={c.sourceId} className="border-b border-slate-100 last:border-0 hover:bg-slate-50 transition">
-                  <td className="px-3 py-2">
-                    <div className="font-medium text-slate-700">{inst?.name.replace("Laghubitta Bittiya Sanstha Ltd.", "").trim() ?? c.institutionId}</div>
-                    {inst && (
-                      <Link href={`/institutions/${inst.slug}`} className="text-[10px] text-mfi-600 hover:underline">View profile →</Link>
-                    )}
-                  </td>
-                  <td className="px-3 py-2">
-                    <a href={c.website} target="_blank" rel="noopener" className="text-xs text-mfi-600 hover:underline block max-w-[180px] truncate">{c.website}</a>
-                  </td>
-                  <td className="px-3 py-2">
-                    <div className="flex flex-wrap gap-1 max-w-[220px]">
-                      {c.capabilities.map((cap) => {
-                        const loc = c.capabilityPages?.find((l) => l.capability === cap);
-                        if (loc?.knownUrl) {
-                          return (
-                            <a
-                              key={cap}
-                              href={loc.knownUrl}
-                              target="_blank"
-                              rel="noopener"
-                              title={`${loc.knownUrl}\n${loc.note ?? ""}`}
-                              className="text-[9px] font-semibold px-1.5 py-0.5 rounded bg-mfi-50 text-mfi-700 hover:bg-mfi-100 hover:underline"
-                            >
-                              {cap}
-                            </a>
-                          );
-                        }
-                        return (
-                          <span key={cap} className="text-[9px] font-semibold px-1.5 py-0.5 rounded bg-slate-100 text-slate-500">{cap}</span>
-                        );
-                      })}
-                    </div>
-                  </td>
-                  <td className="px-3 py-2 text-right text-slate-600">{c.runs}</td>
-                  <td className="px-3 py-2 text-right text-slate-600">{c.snapshots}</td>
-                  <td className="px-3 py-2 text-right text-slate-600">{c.items}</td>
-                  <td className="px-3 py-2 text-right text-slate-600">{c.documents}</td>
-                  <td className="px-3 py-2 text-right text-slate-600">{c.branchCount}</td>
-                  <td className="px-3 py-2 text-right text-slate-600">{c.vacancyCount}</td>
-                  <td className="px-3 py-2 text-right text-slate-600">{c.documentCount}</td>
-                  <td className="px-3 py-2 text-right text-slate-600">{c.errors}</td>
-                  <td className="px-3 py-2 text-xs text-slate-400">{c.lastRun ? c.lastRun.slice(0, 16).replace("T", " ") : "-"}</td>
-                  <td className="px-3 py-2">
-                    <div className="flex flex-col gap-1">
-                      <span className="text-xs text-slate-600">{c.cadenceMinutes} min</span>
-                      <span className={`text-[9px] font-semibold px-2 py-0.5 rounded-full w-fit ${bucketClasses[c.cadenceBucket] ?? "bg-slate-100 text-slate-500"}`}>{c.cadenceBucket}</span>
-                    </div>
-                  </td>
-                  <td className="px-3 py-2">
-                    {c.paused ? (
-                      <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-slate-100 text-slate-500">PAUSED</span>
-                    ) : c.isDue ? (
-                      <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-50 text-amber-700">DUE · {(c.nextDueAt ?? "").slice(0, 16).replace("T", " ")}</span>
-                    ) : (
-                      <span className="text-xs text-slate-400">{c.nextDueAt ? c.nextDueAt.slice(0, 16).replace("T", " ") : "-"}</span>
-                    )}
-                  </td>
-                  <td className="px-3 py-2">
-                    <div className="flex flex-col gap-1">
-                      <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full w-fit ${statusClasses[c.status] ?? "bg-slate-100 text-slate-500"}`}>
-                        {c.status}
-                      </span>
-                      {c.lastStatus && (
-                        <span className={`text-[9px] font-semibold px-2 py-0.5 rounded-full w-fit ${lastStatusClasses[c.lastStatus] ?? "bg-slate-100 text-slate-500"}`}>
-                          {c.lastStatus}
-                        </span>
-                      )}
-                    </div>
-                  </td>
+        <div className="lk-card mt-6 overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[1180px] text-sm">
+              <caption className="sr-only">
+                Per-source fetch history: runs, snapshots, items, documents, errors, cadence and health
+              </caption>
+              <thead>
+                <tr className="border-b border-mfi-200 bg-mfi-50 text-left">
+                  <Th>Institution</Th>
+                  <Th>Website</Th>
+                  <Th>Pages located</Th>
+                  <Th align="right">Runs</Th>
+                  <Th align="right">Snapshots</Th>
+                  <Th align="right">Items</Th>
+                  <Th align="right">Docs</Th>
+                  <Th align="right">Branches</Th>
+                  <Th align="right">Vacancies</Th>
+                  <Th align="right">Fin. docs</Th>
+                  <Th align="right">Errors</Th>
+                  <Th>Last fetch</Th>
+                  <Th>Cadence</Th>
+                  <Th>Next</Th>
+                  <Th>Health</Th>
                 </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
+              </thead>
+              <tbody>
+                {crawlSources.map((c) => {
+                  const inst = institutions.find((i) => i.id === c.institutionId);
+                  return (
+                    <tr key={c.sourceId} className="border-b border-mfi-100 transition-colors last:border-0 hover:bg-mfi-50">
+                      <td className="px-3 py-2.5 align-top">
+                        <div className="font-medium text-mfi-900">
+                          {inst
+                            ? inst.name.replace(/ Laghubitta Bittiya Sanstha( Ltd\.?)?$/i, "").trim()
+                            : c.institutionId}
+                        </div>
+                        {inst ? (
+                          <Link
+                            href={`/institutions/${inst.slug}`}
+                            className="text-[11px] text-mfi-600 underline underline-offset-2"
+                          >
+                            profile
+                          </Link>
+                        ) : null}
+                      </td>
+                      <td className="px-3 py-2.5 align-top">
+                        <a
+                          href={c.website}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="block max-w-[190px] truncate text-xs text-mfi-600 underline underline-offset-2"
+                        >
+                          {c.website}
+                        </a>
+                      </td>
+                      <td className="px-3 py-2.5 align-top">
+                        <div className="flex max-w-[230px] flex-wrap gap-1">
+                          {c.capabilities.map((cap) => {
+                            const loc = c.capabilityPages?.find((l) => l.capability === cap);
+                            const label = humanize(cap) ?? cap;
+                            return loc?.knownUrl ? (
+                              <a
+                                key={cap}
+                                href={loc.knownUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                title={`Page located for ${label.toLowerCase()}: ${loc.knownUrl}`}
+                                className="rounded bg-mfi-50 px-1.5 py-0.5 text-[10px] font-medium text-mfi-700 underline-offset-2 hover:bg-mfi-100 hover:underline"
+                              >
+                                {label}
+                              </a>
+                            ) : (
+                              <span
+                                key={cap}
+                                title="No page located for this capability"
+                                className="rounded bg-mfi-100 px-1.5 py-0.5 text-[10px] font-medium text-mfi-500"
+                              >
+                                {label}
+                              </span>
+                            );
+                          })}
+                        </div>
+                      </td>
+                      <Num>{c.runs}</Num>
+                      <Num>{c.snapshots}</Num>
+                      <Num>{c.items}</Num>
+                      <Num>{c.documents}</Num>
+                      <Num>{c.branchCount}</Num>
+                      <Num>{c.vacancyCount}</Num>
+                      <Num>{c.documentCount}</Num>
+                      <Num tone={c.errors > 0 ? "attention" : undefined}>{c.errors}</Num>
+                      <td className="whitespace-nowrap px-3 py-2.5 align-top font-mono text-xs text-mfi-500">
+                        {formatDateTime(c.lastRun) ?? "never"}
+                      </td>
+                      <td className="whitespace-nowrap px-3 py-2.5 align-top">
+                        <span className="text-xs text-mfi-700">{c.cadenceMinutes} min</span>
+                      </td>
+                      <td className="whitespace-nowrap px-3 py-2.5 align-top">
+                        {c.paused ? (
+                          <Chip tone="neutral">paused</Chip>
+                        ) : c.isDue ? (
+                          <Chip tone="attention">due</Chip>
+                        ) : (
+                          <span className="font-mono text-xs text-mfi-500">
+                            {formatDateTime(c.nextDueAt) ?? "—"}
+                          </span>
+                        )}
+                      </td>
+                      <td className="px-3 py-2.5 align-top">
+                        <div className="flex flex-col items-start gap-1">
+                          <Chip tone={HEALTH_TONE[c.status] ?? "neutral"} dot>
+                            {humanize(c.status) ?? c.status}
+                          </Chip>
+                          {c.lastStatus ? (
+                            <Chip tone={LAST_RUN_TONE[c.lastStatus] ?? "neutral"}>
+                              {humanize(c.lastStatus) ?? c.lastStatus}
+                            </Chip>
+                          ) : null}
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
 
-      <p className="text-[10px] text-slate-400 mt-3">
-        Snapshot file: src/data/pilot.ts (regenerated via <code className="bg-slate-100 px-1 rounded">npm run pilot:export -- &lt;db-path&gt;</code>). Extracted metadata is evidence-only and UNVERIFIED until human review. Schedules are advisory: operational verbs (run/retry/pause/resume) run via <code className="bg-slate-100 px-1 rounded">npm run ops -- &lt;verb&gt; --db=&lt;path&gt;</code>.
-      </p>
-    </div>
+        <p className="mt-6 max-w-3xl text-xs leading-relaxed text-mfi-500">
+          This is the fetch log, not the truth about those institutions. A site can return HTTP 200 and still
+          publish nothing findable; a page can be captured and later disappear. Counts above describe what
+          the pipeline saw, and{" "}
+          <Link href="/alerts" className="underline underline-offset-2">
+            alerts
+          </Link>{" "}
+          lists the coverage gaps that result.
+        </p>
+      </Container>
+    </>
+  );
+}
+
+function Th({
+  children,
+  align = "left",
+}: {
+  children: React.ReactNode;
+  align?: "left" | "right";
+}) {
+  return (
+    <th
+      scope="col"
+      className={`px-3 py-2 text-[10px] font-semibold uppercase tracking-wider text-mfi-500 ${
+        align === "right" ? "text-right" : "text-left"
+      }`}
+    >
+      {children}
+    </th>
+  );
+}
+
+function Num({ children, tone }: { children: React.ReactNode; tone?: Tone }) {
+  const accent: Record<Tone, string> = {
+    positive: "text-nrb-700",
+    attention: "text-flag-700",
+    conflict: "text-alert-700",
+    info: "text-mfi-700",
+    neutral: "text-mfi-600",
+  };
+  return (
+    <td
+      className={`px-3 py-2.5 text-right align-top tabular-nums ${
+        tone ? accent[tone] : "text-mfi-600"
+      }`}
+    >
+      {children}
+    </td>
   );
 }

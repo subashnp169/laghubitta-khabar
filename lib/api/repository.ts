@@ -11,7 +11,6 @@ import { institutions } from "@/data/institutions";
 import { crawlSources } from "@/data/pilot";
 import { nrbDocuments, nrbInstitutionLinks, nrbRegulatoryEvents } from "@/data/nrb";
 import { jobs } from "@/data/jobs";
-import { documents } from "@/data/documents";
 import { financials, type FinancialRecord } from "@/data/financials";
 import { allPublishedPeople } from "../repository/static-people";
 import { allPublishedBranches } from "../repository/static-branches";
@@ -469,7 +468,14 @@ export function search(query: { q?: string | null }): { status: number; body: Re
     people: allPeople()
       .filter((p) => p.name.toLowerCase().includes(needle))
       .slice(0, 20),
-    documents: [...documents, ...nrbDocuments.map((d) => ({ id: `nrb-${d.id}`, title: d.title, type: d.docType, institution: d.sourceTitle, date: d.publishedAt ?? "", size: d.size ?? "", url: d.officialUrl }))]
+    // Only real NRB documents. The eight placeholder documents this used to
+    // merge in (invented titles such as "Financial Stability Report 2025" and
+    // "Monetary Policy 2025/26", every one with `url: "#"`) were being returned
+    // by the published search endpoint, where a caller had no way to tell them
+    // apart from the 97 real ones. The contract shape is unchanged — only the
+    // fabricated rows are gone.
+    documents: nrbDocuments
+      .map((d) => ({ id: `nrb-${d.id}`, title: d.title, type: d.docType, institution: d.sourceTitle, date: d.publishedAt ?? "", size: d.size ?? "", url: d.officialUrl }))
       .filter((d) => d.title.toLowerCase().includes(needle))
       .slice(0, 20),
   };

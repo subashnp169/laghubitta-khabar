@@ -1,147 +1,215 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { nrbSummary, nrbDocuments, nrbRegulatoryEvents } from "@/data/nrb";
+import { Container, PageHeader } from "@/components/ui/Section";
+import { Chip } from "@/components/ui/Chip";
+import { nrbSummary, nrbRegulatoryEvents } from "@/data/nrb";
+import { distinctNrbDocuments } from "@/util/activity";
+import { formatDate, humanize } from "@/util/format";
+import { institutionHrefForSlug } from "@/util/institution-profile";
+import type { Tone } from "@/util/evidence";
+
+/**
+ * NRB snapshot.
+ *
+ * This is the regulator's own catalogue: what it published, and what it recorded
+ * happening to licensed institutions. Two things it deliberately does not do.
+ *
+ * It does not summarise documents. No PDF has been parsed, so a row can say a
+ * report exists and when it was published, and nothing more. The previous version
+ * of this page implied more coverage than existed by describing the corpus as
+ * "evidence-backed", which is only true of the titles and dates.
+ *
+ * It does not infer event dates. Where the regulator records that a merger
+ * happened but not when, the row says the date came from the observation date of
+ * the snapshot rather than from the event itself.
+ */
 
 export const metadata: Metadata = {
-  title: "NRB Center — Laghubitta Khabar",
-  description: "Deterministic, evidence-backed NRB documents and regulatory timeline for Nepalese microfinance institutions.",
+  title: "NRB snapshot",
+  description: `Documents published by Nepal Rastra Bank and structural changes it recorded, ${distinctNrbDocuments().length} documents and ${nrbSummary.regulatoryEvents} events. Catalogued, not read.`,
 };
 
-const docTypeLabels: Record<string, string> = {
-  REPORT: "Report",
-  KFI: "Key Financial Indicators",
-  ENFORCEMENT: "Enforcement",
+const DOC_TONE: Record<string, Tone> = {
+  REPORT: "info",
+  KFI: "positive",
+  ENFORCEMENT: "conflict",
 };
 
-const docTypeClasses: Record<string, string> = {
-  REPORT: "bg-blue-50 text-blue-700",
-  KFI: "bg-purple-50 text-purple-700",
-  ENFORCEMENT: "bg-red-50 text-red-700",
+const EVENT_TONE: Record<string, Tone> = {
+  MERGED: "info",
+  ACQUIRED: "attention",
+  RENAMED: "conflict",
 };
 
-const eventTypeLabels: Record<string, string> = {
-  MERGED: "Merger",
-  ACQUIRED: "Acquisition",
-  RENAMED: "Renamed",
-};
+export default function NrbPage() {
+  // Deduplicated so the type counts and the rows below describe the same documents.
+  const DOCS = distinctNrbDocuments();
+  const docsByType = new Map<string, number>();
+  for (const d of DOCS) docsByType.set(d.docType, (docsByType.get(d.docType) ?? 0) + 1);
+  const docTypes = [...docsByType.entries()]
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+    .map(([type]) => type);
+  const eventTypes = Object.entries(nrbSummary.eventsByType)
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+    .map(([type]) => type);
 
-const eventTypeClasses: Record<string, string> = {
-  MERGED: "bg-blue-50 text-blue-700",
-  ACQUIRED: "bg-purple-50 text-purple-700",
-  RENAMED: "bg-amber-50 text-amber-700",
-};
+  const dated = nrbRegulatoryEvents.filter((e) => e.occurredAt && !e.occurredAt.startsWith("1900")).length;
+  const undated = nrbRegulatoryEvents.length - dated;
 
-function Stat({ label, value, tone }: { label: string; value: string | number; tone?: string }) {
   return (
-    <div className="bg-white rounded-xl border border-slate-200 p-3">
-      <div className={`text-xl font-bold ${tone ?? "text-slate-800"}`}>{value}</div>
-      <div className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">{label}</div>
-    </div>
+    <>
+      <PageHeader
+        eyebrow="Nepal Rastra Bank"
+        title="The regulator&apos;s own record"
+      >
+        <p className="max-w-3xl text-base leading-relaxed text-mfi-600">
+          {DOCS.length} documents published by Nepal Rastra Bank and{" "}
+          {nrbSummary.regulatoryEvents} structural changes it recorded across{" "}
+          {nrbSummary.institutions} licensed institutions. Generated{" "}
+          {formatDate(nrbSummary.generatedAt) ?? "at an unrecorded time"} from a universe observed{" "}
+          {formatDate(nrbSummary.observedAt) ?? "at an unrecorded time"}. No PDF has been parsed and no OCR
+          has been run, so nothing here summarises a document.
+        </p>
+      </PageHeader>
+
+      <Container className="py-8 sm:py-10">
+        <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-mfi-200 bg-mfi-200 lg:grid-cols-4">
+          <Stat term="Documents" value={DOCS.length} />
+          <Stat term="Structural changes" value={nrbSummary.regulatoryEvents} />
+          <Stat term="Institutions licensed" value={nrbSummary.institutions} />
+          <Stat term="Source lists read" value={nrbSummary.sources.length} />
+        </dl>
+
+        <nav aria-label="Jump to a category" className="mt-6 flex flex-wrap gap-2">
+          {docTypes.map((type) => (
+            <a key={`d-${type}`} href={`#doc-${type.toLowerCase()}`}>
+              <Chip tone={DOC_TONE[type] ?? "neutral"}>
+                {humanize(type) ?? type} · {docsByType.get(type)}
+              </Chip>
+            </a>
+          ))}
+          {eventTypes.map((type) => (
+            <a key={`e-${type}`} href={`#evt-${type.toLowerCase()}`}>
+              <Chip tone={EVENT_TONE[type] ?? "neutral"}>
+                {humanize(type) ?? type} · {nrbSummary.eventsByType[type]}
+              </Chip>
+            </a>
+          ))}
+        </nav>
+
+        {docTypes.map((type) => {
+          const docs = DOCS.filter((d) => d.docType === type);
+          return (
+            <section key={type} id={`doc-${type.toLowerCase()}`} className="mt-10 scroll-mt-24">
+              <div className="flex flex-wrap items-baseline gap-2 border-b border-mfi-200 pb-2">
+                <h2 className="text-base font-semibold tracking-tight text-mfi-900">
+                  {humanize(type) ?? type}
+                </h2>
+                <span className="text-xs text-mfi-500">
+                  {docs.length} documents · titles and dates only
+                </span>
+              </div>
+              <ul className="lk-card lk-divide mt-3 overflow-hidden">
+                {docs.map((doc) => (
+                  <li
+                    key={doc.id}
+                    className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 px-4 py-3.5 transition-colors hover:bg-mfi-50 sm:px-5"
+                  >
+                    <span className="min-w-0 flex-1 text-sm leading-snug text-mfi-900">
+                      <a
+                        href={doc.officialUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline-offset-4 hover:underline"
+                      >
+                        {doc.title}
+                      </a>
+                    </span>
+                    <span className="flex shrink-0 flex-wrap items-center gap-2">
+                      {doc.topic ? <Chip>{doc.topic}</Chip> : null}
+                      {doc.size ? (
+                        <span className="font-mono text-xs text-mfi-400">{doc.size}</span>
+                      ) : null}
+                      <span className="font-mono text-xs tabular-nums text-mfi-500">
+                        {formatDate(doc.publishedAt) ?? "undated"}
+                      </span>
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          );
+        })}
+
+        <section className="mt-12">
+          <div className="flex flex-wrap items-baseline gap-2 border-b border-mfi-200 pb-2">
+            <h2 className="text-base font-semibold tracking-tight text-mfi-900">
+              Structural changes
+            </h2>
+            <span className="text-xs text-mfi-500">
+              {nrbSummary.regulatoryEvents} events · {dated} dated by the event, {undated} undated
+            </span>
+          </div>
+
+          {eventTypes.map((type) => {
+            const events = nrbRegulatoryEvents.filter((e) => e.eventType === type);
+            return (
+              <div key={type} id={`evt-${type.toLowerCase()}`} className="mt-5 scroll-mt-24">
+                <div className="flex items-center gap-2">
+                  <Chip tone={EVENT_TONE[type] ?? "neutral"}>{humanize(type) ?? type}</Chip>
+                  <span className="text-xs text-mfi-500">{events.length} events</span>
+                </div>
+                <ul className="lk-card lk-divide mt-2 overflow-hidden">
+                  {events.map((evt) => {
+                    // Resolved server-side: some events name an institution the
+                    // directory has no row for any more, so there is no profile
+                    // page to point at and no link should be rendered.
+                    const profile = institutionHrefForSlug(evt.institutionSlug);
+                    return (
+                      <li
+                        key={evt.id}
+                        className="flex flex-wrap items-baseline gap-x-3 gap-y-1 px-4 py-3.5 transition-colors hover:bg-mfi-50 sm:px-5"
+                      >
+                        {profile ? (
+                          <Link
+                            href={profile}
+                            className="text-sm font-medium text-mfi-900 underline-offset-4 hover:underline"
+                          >
+                            {evt.institutionName}
+                          </Link>
+                        ) : (
+                          <span className="text-sm font-medium text-mfi-900">{evt.institutionName}</span>
+                        )}
+                        <span className="min-w-0 flex-1 text-sm text-mfi-600">{evt.description}</span>
+                        <span className="shrink-0 font-mono text-xs tabular-nums text-mfi-500">
+                          {formatDate(evt.occurredAt) ?? "undated"}
+                        </span>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            );
+          })}
+        </section>
+
+        <p className="mt-10 max-w-3xl text-xs leading-relaxed text-mfi-500">
+          Regenerated from the NRB public listing. Where the regulator records a structural change without
+          an explicit event date, the row falls back to the date the universe was observed — so an
+          &ldquo;undated&rdquo; row is a statement about the source, not a gap in this site. Aggregate
+          catalogue only: no document contents are read, no per-institution figures are extracted here, and
+          nothing is written by a model.
+        </p>
+      </Container>
+    </>
   );
 }
 
-export default function NrbPage() {
-  const docTypeOrder = Object.entries(nrbSummary.documentsByType)
-    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
-    .map(([t]) => t);
-  const eventTypeOrder = Object.entries(nrbSummary.eventsByType)
-    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
-    .map(([t]) => t);
-
+function Stat({ term, value }: { term: string; value: number }) {
   return (
-    <div className="max-w-[1000px] mx-auto px-4 py-8">
-      <div className="mb-6">
-        <div className="flex items-center gap-2 text-xs text-slate-400 mb-1">
-          <span className="inline-block w-2 h-2 rounded-full bg-nrb-500" />
-          <span>Evidence-backed NRB snapshot · generated {nrbSummary.generatedAt.slice(0, 19).replace("T", " ")}Z · universe observed {nrbSummary.observedAt}</span>
-        </div>
-        <h1 className="text-2xl font-bold text-slate-800">NRB Center</h1>
-        <p className="text-sm text-slate-500 mt-1">Nepal Rastra Bank documents and regulatory events, captured by the deterministic ingestion pipeline. No AI, no OCR; all assertions UNVERIFIED.</p>
-      </div>
-
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
-        <Stat label="Documents" value={nrbSummary.documents} tone="text-nrb-700" />
-        <Stat label="Regulatory events" value={nrbSummary.regulatoryEvents} />
-        <Stat label="Institutions under NRB" value={nrbSummary.institutions} />
-        <Stat label="NRB sources" value={nrbSummary.sources.length} />
-      </div>
-
-      <div className="flex flex-wrap gap-1.5 mb-8">
-        {docTypeOrder.map((t) => (
-          <a key={t} href={`#doc-${t.toLowerCase()}`} className={`text-[11px] font-semibold px-2.5 py-1 rounded-full ${docTypeClasses[t] ?? "bg-slate-100 text-slate-600"}`}>
-            {docTypeLabels[t] ?? t} · {nrbSummary.documentsByType[t]}
-          </a>
-        ))}
-        {eventTypeOrder.map((t) => (
-          <a key={t} href={`#evt-${t.toLowerCase()}`} className={`text-[11px] font-semibold px-2.5 py-1 rounded-full ${eventTypeClasses[t] ?? "bg-slate-100 text-slate-600"}`}>
-            {eventTypeLabels[t] ?? t} · {nrbSummary.eventsByType[t]}
-          </a>
-        ))}
-      </div>
-
-      {docTypeOrder.map((type) => {
-        const docs = nrbDocuments.filter((d) => d.docType === type);
-        return (
-          <section key={type} id={`doc-${type.toLowerCase()}`} className="mb-10">
-            <div className="flex items-center gap-2 mb-3">
-              <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${docTypeClasses[type] ?? "bg-slate-100 text-slate-600"}`}>{docTypeLabels[type] ?? type}</span>
-              <h2 className="font-bold text-sm text-slate-700">{type}</h2>
-              <span className="text-xs text-slate-400">· {docs.length} documents</span>
-            </div>
-            <div className="space-y-2">
-              {docs.map((doc) => (
-                <div key={doc.id} className="bg-white rounded-xl border border-slate-200 p-4 hover:border-nrb-200 transition">
-                  <div className="flex items-start justify-between gap-3">
-                    <a href={doc.officialUrl} target="_blank" rel="noopener" className="font-semibold text-sm text-slate-800 hover:text-mfi-600">{doc.title}</a>
-                    <span className="text-[10px] text-slate-400 whitespace-nowrap">{doc.publishedAt ?? "—"}</span>
-                  </div>
-                  <div className="flex items-center gap-2 mt-1.5 flex-wrap">
-                    <span className="text-[10px] text-slate-400">{doc.sourceTitle}</span>
-                    {doc.size && <span className="text-[10px] text-slate-400">· {doc.size}</span>}
-                    {doc.topic && <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-slate-100 text-slate-500">{doc.topic}</span>}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-        );
-      })}
-
-      <section id="timeline" className="mb-6">
-        <div className="flex items-center gap-2 mb-3">
-          <h2 className="font-bold text-sm text-slate-700">Regulatory Timeline</h2>
-          <span className="text-xs text-slate-400">· {nrbSummary.regulatoryEvents} events from the NRB universe</span>
-        </div>
-
-        {eventTypeOrder.map((type) => {
-          const events = nrbRegulatoryEvents.filter((e) => e.eventType === type);
-          return (
-            <div key={type} id={`evt-${type.toLowerCase()}`} className="mb-6">
-              <div className="flex items-center gap-2 mb-2">
-                <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${eventTypeClasses[type] ?? "bg-slate-100 text-slate-600"}`}>{eventTypeLabels[type] ?? type}</span>
-                <span className="text-xs text-slate-400">{events.length} events</span>
-              </div>
-              <div className="space-y-2">
-                {events.map((evt) => (
-                  <div key={evt.id} className="bg-white rounded-xl border border-slate-200 p-4">
-                    <div className="flex items-start justify-between gap-3">
-                      <div>
-                        <Link href={`/institutions/${evt.institutionSlug}`} className="font-semibold text-sm text-slate-800 hover:text-mfi-600">{evt.institutionName}</Link>
-                        <p className="text-xs text-slate-500 mt-1">{evt.description}</p>
-                      </div>
-                      <span className="text-[10px] text-slate-400 whitespace-nowrap">{evt.occurredAt ?? "—"}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          );
-        })}
-      </section>
-
-      <p className="text-[10px] text-slate-400 mt-3">
-        Snapshot: src/data/nrb.ts (regenerated via <code className="bg-slate-100 px-1 rounded">npm run nrb:data</code> from the NRB ledger). Event dates fall back to the universe observation date ({nrbSummary.observedAt}) where NRB does not publish an explicit event date. Aggregate regulator documents only — no PDF parsing, no per-institution values in this slice.
-      </p>
+    <div className="bg-white px-4 py-4">
+      <dt className="lk-eyebrow">{term}</dt>
+      <dd className="lk-figure mt-1.5 tabular-nums">{value}</dd>
     </div>
   );
 }

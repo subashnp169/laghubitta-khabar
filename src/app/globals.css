@@ -1,54 +1,354 @@
 @import "tailwindcss";
 
+/* ==========================================================================
+   Laghubitta Khabar — design tokens
+
+   The palette is deliberately narrow. Navy carries the brand and primary
+   action, green only ever means "verified / positive", amber means "needs a
+   human's attention", and red is reserved for genuine disagreement. Nothing
+   decorative gets a colour, because colour here is information: a reader
+   should be able to trust that an amber row really is unresolved.
+   ========================================================================== */
 @theme {
-  --color-mfi-50: #eff6ff;
-  --color-mfi-100: #dbeafe;
-  --color-mfi-200: #bfdbfe;
-  --color-mfi-300: #93c5fd;
-  --color-mfi-400: #60a5fa;
-  --color-mfi-500: #1e40af;
-  --color-mfi-600: #1e3a8a;
-  --color-mfi-700: #1e3a5f;
-  --color-mfi-800: #0f172a;
-  --color-mfi-900: #020617;
-  --color-accent-50: #fdf2f8;
-  --color-accent-100: #fce7f3;
-  --color-accent-200: #fbcfe8;
-  --color-accent-300: #f9a8d4;
-  --color-accent-400: #f472b6;
-  --color-accent-500: #ec4899;
-  --color-accent-600: #db2777;
-  --color-accent-700: #be185d;
-  --color-accent-800: #9d174d;
-  --color-accent-900: #831843;
-  --color-nrb-50: #f0fdf4;
-  --color-nrb-100: #dcfce7;
-  --color-nrb-500: #22c55e;
-  --color-nrb-600: #16a34a;
-  --color-nrb-700: #15803d;
+  /* Primary — deep navy. 800/900 are the brand surfaces, 600 the action colour. */
+  --color-mfi-50: #f4f7fb;
+  --color-mfi-100: #e6edf6;
+  --color-mfi-200: #c9d9ec;
+  --color-mfi-300: #9dbadb;
+  --color-mfi-400: #6a94c4;
+  --color-mfi-500: #4773ab;
+  --color-mfi-600: #345a90;
+  --color-mfi-700: #2a4776;
+  --color-mfi-800: #22375c;
+  --color-mfi-900: #16233c;
+  --color-mfi-950: #0d1626;
+
+  /* Verified / positive. Restrained on purpose — it is a fact, not a reward. */
+  --color-nrb-50: #f0faf3;
+  --color-nrb-100: #dcf3e3;
+  --color-nrb-200: #b9e5c7;
+  --color-nrb-500: #2f9e5c;
+  --color-nrb-600: #218049;
+  --color-nrb-700: #1a6539;
+  --color-nrb-800: #164f2e;
+
+  /* Attention — needs review. Amber is never used for a positive state. */
+  --color-flag-50: #fdf8ed;
+  --color-flag-100: #f9edcf;
+  --color-flag-200: #f2daa0;
+  --color-flag-500: #c08a1e;
+  --color-flag-600: #9d6f14;
+  --color-flag-700: #7d580f;
+
+  /* Conflict / warning. The only red in the system. */
+  --color-alert-50: #fdf2f2;
+  --color-alert-100: #fbe3e3;
+  --color-alert-200: #f5c9c9;
+  --color-alert-500: #c0453f;
+  --color-alert-600: #a33732;
+  --color-alert-700: #862e2a;
+
   --font-sans: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono: "SFMono-Regular", "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+
+  /* Motion. Short and few. Motion exists to show a state change happened. */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+html {
+  /* Anchored headings must clear the sticky header. */
+  scroll-padding-top: 5.5rem;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
   font-family: var(--font-sans);
-  background-color: #f8fafc;
-  color: #0f172a;
+  background-color: #ffffff;
+  color: var(--color-mfi-950);
+  /* Tabular figures everywhere: these screens are read as columns of numbers,
+     and proportional digits make a column of values look ragged. */
+  font-variant-numeric: tabular-nums;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
-.ticker-wrap {
-  animation: ticker-scroll 30s linear infinite;
+/* One visible, consistent focus treatment. Never remove it — the search box,
+   tabs and menus are all keyboard-reachable. */
+:focus-visible {
+  outline: 2px solid var(--color-mfi-600);
+  outline-offset: 2px;
+  border-radius: 3px;
 }
 
-@keyframes ticker-scroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+::selection {
+  background-color: var(--color-mfi-800);
+  color: #ffffff;
 }
 
-.pulse-dot {
-  animation: pulse 2s infinite;
+/* ==========================================================================
+   Repeated patterns
+
+   Declared once so a card, a chip or a section header is identical everywhere
+   and a change lands in one place. Tailwind utilities still work normally.
+   ========================================================================== */
+@layer components {
+  /* A record row. Lifts 1px on hover only when it is actually a link, so the
+     page does not twitch as the pointer crosses static content. */
+  .lk-card {
+    background-color: #ffffff;
+    border: 1px solid var(--color-mfi-100);
+    border-radius: 0.5rem;
+    transition:
+      border-color 150ms var(--ease-out-soft),
+      box-shadow 150ms var(--ease-out-soft),
+      transform 150ms var(--ease-out-soft);
+  }
+  a.lk-card:hover,
+  a.lk-card:focus-visible {
+    border-color: var(--color-mfi-300);
+    box-shadow: 0 1px 2px rgb(22 35 60 / 0.04), 0 6px 16px -8px rgb(22 35 60 / 0.14);
+    transform: translateY(-1px);
+  }
+
+  /* Hairline rule used to separate dense rows without a heavy border. */
+  .lk-divide > * + * {
+    border-top: 1px solid var(--color-mfi-100);
+  }
+
+  /* Small caps label above a group of records. */
+  .lk-eyebrow {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-mfi-500);
+  }
+
+  /* Numeric emphasis for the few figures that carry a page. */
+  .lk-figure {
+    font-weight: 650;
+    letter-spacing: -0.02em;
+    color: var(--color-mfi-900);
+  }
+
+  /* Underline that grows from the left — used for the header active state. */
+  .lk-nav-link {
+    position: relative;
+    padding-block: 0.375rem;
+    color: var(--color-mfi-600);
+    transition: color 150ms var(--ease-out-soft);
+  }
+  .lk-nav-link:hover {
+    color: var(--color-mfi-900);
+  }
+  .lk-nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.125rem;
+    height: 2px;
+    background-color: var(--color-mfi-700);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 200ms var(--ease-out-soft);
+  }
+  .lk-nav-link:hover::after,
+  .lk-nav-link[aria-current="page"]::after {
+    transform: scaleX(1);
+  }
+  .lk-nav-link[aria-current="page"] {
+    color: var(--color-mfi-900);
+    font-weight: 600;
+  }
+
+  /* Faint grid used behind the hero. Reads as a ledger, not as decoration. */
+  .lk-ledger-grid {
+    background-image:
+      linear-gradient(to right, rgb(255 255 255 / 0.055) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(255 255 255 / 0.055) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  /* Action buttons. Sized for a 44px touch target on mobile and a visible
+     focus ring on keyboard, because the whole site leans on tap targets. */
+  .lk-button,
+  .lk-button-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.5rem;
+    padding-inline: 1rem;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-align: center;
+    border: 1px solid transparent;
+    transition:
+      background-color 150ms var(--ease-out-soft),
+      border-color 150ms var(--ease-out-soft),
+      color 150ms var(--ease-out-soft);
+  }
+  .lk-button {
+    background-color: var(--color-mfi-900);
+    color: #ffffff;
+  }
+  .lk-button:hover {
+    background-color: var(--color-mfi-800);
+  }
+  .lk-button-secondary {
+    background-color: #ffffff;
+    border-color: var(--color-mfi-200);
+    color: var(--color-mfi-800);
+  }
+  .lk-button-secondary:hover {
+    background-color: var(--color-mfi-50);
+    border-color: var(--color-mfi-300);
+    color: var(--color-mfi-900);
+  }
+  .lk-button:focus-visible,
+  .lk-button-secondary:focus-visible {
+    outline: 2px solid var(--color-mfi-700);
+    outline-offset: 2px;
+  }
+
+  /* Institution monogram. Decorative — the name is always rendered next to it. */
+  .lk-monogram {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 0.375rem;
+    background-color: var(--color-mfi-100);
+    color: var(--color-mfi-700);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
 }
 
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
+/* ==========================================================================
+   Motion
+   ========================================================================== */
+
+
+
+
+/* Skeleton loading. */
+@keyframes lk-shimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+.lk-skeleton {
+  background-image: linear-gradient(90deg, var(--color-mfi-50) 0%, var(--color-mfi-100) 50%, var(--color-mfi-50) 100%);
+  background-size: 200% 100%;
+  animation: lk-shimmer 1.4s linear infinite;
+}
+
+/* Freshness indicator. Deliberately slow and small: it says "this observation
+   is recent", not "something is happening right now". */
+@keyframes lk-breathe {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+.lk-fresh-dot {
+  animation: lk-breathe 2.6s ease-in-out infinite;
+}
+
+/* Search results arriving. */
+@keyframes lk-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.lk-enter {
+  animation: lk-fade-in 160ms var(--ease-out-soft);
+}
+
+/* Mobile drawer. */
+@keyframes lk-slide-in {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+.lk-drawer-in {
+  animation: lk-slide-in 220ms var(--ease-out-soft);
+}
+
+/* Horizontal scroll affordance for the activity strip and filter rows. */
+.lk-scroll-x {
+  overflow-x: auto;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x proximity;
+}
+.lk-scroll-x > * {
+  scroll-snap-align: start;
+}
+.lk-scroll-x::-webkit-scrollbar {
+  height: 6px;
+}
+.lk-scroll-x::-webkit-scrollbar-thumb {
+  background-color: var(--color-mfi-200);
+  border-radius: 999px;
+}
+.lk-scroll-x::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+/* ==========================================================================
+   Reduced motion
+
+   Honour the OS setting completely: no reveals, no shimmer, no drawer slide,
+   no hover lift. The layout is identical either way.
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  a.lk-card:hover,
+  a.lk-card:focus-visible {
+    transform: none;
+  }
+}
+
+/* ==========================================================================
+   Print — these pages get printed by ops teams; drop the chrome.
+   ========================================================================== */
+@media print {
+  header,
+  footer,
+  nav {
+    display: none !important;
+  }
+  body {
+    color: #000;
+  }
 }
