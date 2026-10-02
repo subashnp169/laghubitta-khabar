@@ -11,13 +11,18 @@
 //   - Positions = distinct role families (people_chair/ceo/director/board).
 //   - REJECTED assertions are excluded entirely (the claim was judged invalid);
 //     a person with zero non-rejected assertions does not appear.
+//   - Retired observations (valid_to set) are excluded entirely: a source that
+//     stopped publishing a claim must not keep it on the page. Absent
+//     valid_to means current, so the static generated module is unaffected.
 //   - meta.verification_status: CONFLICT when the person's institution+field
 //     has an OPEN data_conflicts row → else HUMAN_VERIFIED → AUTO_VERIFIED →
 //     UNVERIFIED. Nuance: a review decision on one field of a multi-role
 //     person marks the person overall (with every position still enumerating
 //     its own evidence) — never an invented claim.
 //   - last_verified_at = latest observation; source = first source that
-//     asserted the person (provenance, not a guess).
+//     asserted the person (provenance, not a guess); sources = EVERY source
+//     that currently asserts this person, which is where corroboration comes
+//     from under the source-owned observation model.
 // ============================================================================
 
 import type { PersonDto, SourceMeta, VerificationStatus } from "./types";
@@ -33,6 +38,11 @@ export interface PersonAssertionRecord {
     /** Raw URL of the page this observation came from, when one is known. */
     source_url?: string | null;
     observed_at: string;
+    /**
+     * Set when the owning source retired this observation. Optional because the
+     * static generated module carries no lifecycle; undefined reads as current.
+     */
+    valid_to?: string | null;
     verification_status: string;
     confidence: number | null;
 }
@@ -92,7 +102,13 @@ export interface PeopleProjectionOptions {
 /**
  * Project raw evidence rows into PersonDto[]. Sorting is deterministic:
  * by institution name then person name. Rejects nothing except REJECTED
- * assertions and non-person fields (field_name not starting people_).
+ * assertions, retired observations and non-person fields (field_name not
+ * starting people_).
+ *
+ * Currency is enforced HERE, not at the call site, exactly as the branch
+ * projector does it: a caller that forgets to filter still gets a correct read
+ * model, and a claim its source has withdrawn can never surface as somebody's
+ * current role by accident.
  */
 export function peopleFromAssertionRows(
   rows: PersonAssertionRecord[],
@@ -104,6 +120,9 @@ export function peopleFromAssertionRows(
   for (const r of rows) {
     if (!String(r.field_name).toLowerCase().startsWith("people_")) continue;
     if (String(r.verification_status) === "REJECTED") continue;
+    // A retired observation is history: readable from the evidence layer with
+    // valid_to surfaced, never published as a current claim.
+    if (r.valid_to !== null && r.valid_to !== undefined) continue;
     const key = `${r.institution_id}|${String(r.value).trim()}`;
     const bucket = people.get(key);
     if (bucket) bucket.push(r);
@@ -181,11 +200,14 @@ export function peopleFromAssertionRows(
 // Branch evidence projection (M3.4) — pure, provider-agnostic read model.
 // ============================================================================
 //
-// This is where supersession becomes VISIBLE. M3.3 people assertions are never
-// superseded, so peopleFromAssertionRows could ignore currency entirely. Branch
-// assertions are: an address that is revised, a district that is corrected, a
-// branch that is renamed all produce a STALE row that is still in the table and
-// still carries its value, its source and its snapshot.
+// This is where supersession becomes VISIBLE. Branch assertions are retired when
+// the same source revises an address, a district or a name, so
+// branchesFromAssertionRows must exclude anything with valid_to set. People
+// assertions are retired the same way since M3.6A, and the people projector
+// applies the identical currency rule — one rule for every source-owned
+// observation, no module-specific exception. A revised or withdrawn claim
+// produces a STALE row that is still in the table and still carries its value,
+// its source and its snapshot.
 //
 // So the read model and the evidence layer deliberately read the SAME rows and
 // answer DIFFERENT questions:

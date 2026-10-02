@@ -13,6 +13,7 @@ import type {
   ErrorInput,
   EvidenceWriter,
   StoredAssertion,
+  StoredConflict,
   ItemInput,
   OutboundLinkInput,
   RunOutcome,
@@ -520,6 +521,55 @@ export class LocalSqliteEvidenceWriter implements EvidenceWriter {
         input.sourceAId, input.valueA, input.sourceBId, input.valueB,
         input.detectedAt, input.resolutionStatus, input.resolutionNote ?? null,
       );
+  }
+
+  /**
+   * The dispute already recorded for this pair of values, or null.
+   *
+   * The value pair is matched in BOTH orders, so the same disagreement found
+   * from either side is one dispute and not two. resolution_status is
+   * deliberately not filtered: a RESOLVED or IGNORED pair has been decided by a
+   * human, and re-observing the disagreement must not reopen it — which is the
+   * rule flagPeopleConflicts already applies, now available to every writer
+   * path that records a conflict directly.
+   */
+  async findConflict(input: {
+    entityType: string;
+    entityId: string;
+    fieldName: string;
+    sourceAId: string;
+    valueA: string;
+    sourceBId: string;
+    valueB: string;
+  }): Promise<StoredConflict | null> {
+    const row = this.db
+      .prepare(
+        `SELECT id, entity_type, entity_id, field_name, source_a_id, value_a,
+                source_b_id, value_b, resolution_status
+           FROM data_conflicts
+          WHERE entity_type = ? AND entity_id = ? AND field_name = ?
+            AND ((value_a = ? AND value_b = ?) OR (value_a = ? AND value_b = ?))
+          ORDER BY detected_at ASC, id ASC
+          LIMIT 1`,
+      )
+      .get(
+        input.entityType, input.entityId, input.fieldName,
+        input.valueA, input.valueB, input.valueB, input.valueA,
+      ) as
+      | { id: string; entity_type: string; entity_id: string; field_name: string; source_a_id: string | null; value_a: string | null; source_b_id: string | null; value_b: string | null; resolution_status: string }
+      | undefined;
+    if (!row) return null;
+    return {
+      id: row.id,
+      entity_type: row.entity_type,
+      entity_id: row.entity_id,
+      field_name: row.field_name,
+      source_a_id: row.source_a_id,
+      value_a: row.value_a,
+      source_b_id: row.source_b_id,
+      value_b: row.value_b,
+      resolution_status: row.resolution_status,
+    };
   }
 
   async saveValidation(input: ValidationInput): Promise<void> {

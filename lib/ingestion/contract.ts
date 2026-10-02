@@ -230,6 +230,41 @@ export interface EvidenceWriter {
     sourceSnapshotId: string;
     confidence: number;
   }): Promise<boolean>;
+  /**
+   * Is there ALREADY a conflict row for this dispute? Matched on the entity, the
+   * field and the unordered value pair, whatever its resolution status.
+   *
+   * A repeated disagreement must not append a second row for the same pair every
+   * run, and a pair a human has already decided must stay decided: re-reporting
+   * it may never reopen it. That guarantee lived only in the detector
+   * (flagPeopleConflicts), so anything writing conflicts directly had to
+   * re-implement it; this is the same rule as a writer operation.
+   *
+   * Optional. A writer that cannot look returns null, and the caller inserts —
+   * which is correct for a dispute never seen before.
+   */
+  findConflict?(input: {
+    entityType: string;
+    entityId: string;
+    fieldName: string;
+    sourceAId: string;
+    valueA: string;
+    sourceBId: string;
+    valueB: string;
+  }): Promise<StoredConflict | null>;
+}
+
+/** One existing dispute, as findConflict returns it. */
+export interface StoredConflict {
+  id: string;
+  entity_type: string;
+  entity_id: string;
+  field_name: string;
+  source_a_id: string | null;
+  value_a: string | null;
+  source_b_id: string | null;
+  value_b: string | null;
+  resolution_status: string;
 }
 
 /** One stored assertion, as the deterministic lookup returns it. */

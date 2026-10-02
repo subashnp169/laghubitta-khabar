@@ -136,6 +136,25 @@ export {
   type ReviewAssertionResult,
   type ReviewVerdict,
 } from "./review";
+export {
+  PEOPLE_ASSERTION_ENTITY_TYPE,
+  PEOPLE_ASSERTION_FIELD_PREFIX,
+  applyPeopleEvidence,
+  currentPeopleClaimsForSource,
+  isPeopleAssertionField,
+  normalizePeopleClaimValue,
+  planPeopleEvidence,
+  type AppliedPeopleClaim,
+  type PeopleApplyContext,
+  type PeopleApplyResult,
+  type PeopleClaim,
+  type PeopleClaimPlan,
+  type PeopleConflictSide,
+  type PeopleObservation,
+  type PeopleObservationPlan,
+  type PeopleSlotPlan,
+  type PeopleWriteStatus,
+} from "./people-evidence";
 
 // M3.4 extension: external branch evidence fallback.
 export {

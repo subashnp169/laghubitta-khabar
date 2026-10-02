@@ -128,6 +128,15 @@ export interface FlagConflictsInput {
 const SINGLE_VALUED_PEOPLE_FIELDS = new Set(["people_chair", "people_ceo"]);
 
 /**
+ * The same normalization the assertion identity uses, so "the same claim" means
+ * the same thing here as it does to the writer. A whitespace or case difference
+ * between two sources is corroboration, never a disagreement.
+ */
+function normalizeConflictValue(raw: unknown): string {
+  return String(raw).normalize("NFKC").replace(/\s+/gu, " ").trim().toLocaleLowerCase();
+}
+
+/**
  * Detect people conflicts deterministically. Two disagreement modes only:
  *   1. SINGLE-VALUED ROLE — people_chair / people_ceo carry more than one
  *      distinct value for the institution (two sources disagree on who holds
@@ -141,6 +150,21 @@ const SINGLE_VALUED_PEOPLE_FIELDS = new Set(["people_chair", "people_ceo"]);
  * duplicated, so re-running the detector is idempotent. REJECTED assertions are
  * ignored (a rejected claim is not a live conflict). No assertion is ever
  * modified — the evidence ledger stays intact.
+ *
+ * M3.6A — two Model-B corrections, both about reading CURRENT source-owned
+ * observations instead of a first-witness snapshot of the whole table:
+ *
+ *   - CURRENCY. Only rows with `valid_to IS NULL` are compared. A source that
+ *     stopped publishing a claim has had that claim retired by the people
+ *     lifecycle (lib/ingestion/people-evidence.ts), and a retired claim is
+ *     history: it must not keep manufacturing a live disagreement.
+ *   - PER-SOURCE ATTRIBUTION. The single-valued mode reads one row per
+ *     (value, source) rather than one row per value. With A->X, B->X, A->Y the
+ *     old grouping reported "X from A" against "Y from A" — a disagreement
+ *     with a source on both sides, and B's agreement with A silently dropped.
+ *     The genuine dispute is B->X versus A->Y. Two values asserted by the SAME
+ *     source is that source's own page artifact (the exemption mode 2 already
+ *     applies), not a cross-source conflict.
  */
 export function flagPeopleConflicts(dbPath: string, input: FlagConflictsInput = {}): number {
   const now = input.now ?? new Date().toISOString();
@@ -150,10 +174,10 @@ export function flagPeopleConflicts(dbPath: string, input: FlagConflictsInput = 
       .prepare(
         `SELECT entity_id, field_name, value, source_id, MIN(observed_at) AS first_seen, MIN(id) AS sample_id
            FROM data_assertions
-          WHERE field_name LIKE ? AND verification_status != 'REJECTED'
+          WHERE field_name LIKE ? AND verification_status != 'REJECTED' AND valid_to IS NULL
             ${input.institutionId ? "AND entity_id = ?" : ""}
-          GROUP BY entity_id, field_name, value
-          ORDER BY entity_id, field_name, value`,
+          GROUP BY entity_id, field_name, value, source_id
+          ORDER BY entity_id, field_name, value, source_id`,
       )
       .all(PEOPLE_FIELD_PREFIX, ...(input.institutionId ? [input.institutionId] : [])) as Array<Row & { entity_id: string; field_name: string; value: string; source_id: string; sample_id: string }>;
 
@@ -176,11 +200,18 @@ export function flagPeopleConflicts(dbPath: string, input: FlagConflictsInput = 
       const [entityId, fieldName] = key.split("|");
       for (let i = 0; i < bucket.length; i++) {
         for (let j = i + 1; j < bucket.length; j++) {
+          const a = bucket[i];
+          const b = bucket[j];
+          // Same value from two sources is corroboration, not a conflict, and a
+          // source disagreeing with ITSELF is a page artifact. Either way there
+          // is no cross-source dispute to record.
+          if (a.source_id === b.source_id) continue;
+          if (normalizeConflictValue(a.value) === normalizeConflictValue(b.value)) continue;
           pairs.push({
             entityId,
             fieldName,
-            a: { value: String(bucket[i].value), sourceId: String(bucket[i].source_id) },
-            b: { value: String(bucket[j].value), sourceId: String(bucket[j].source_id) },
+            a: { value: String(a.value), sourceId: String(a.source_id) },
+            b: { value: String(b.value), sourceId: String(b.source_id) },
           });
         }
       }

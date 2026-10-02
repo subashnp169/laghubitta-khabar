@@ -169,7 +169,8 @@ export class D1InstitutionRepository implements InstitutionRepository {
     const all = await this.db
       .prepare(`
         SELECT i.id AS institution_id, i.slug AS institution_slug, i.name_en AS institution_name,
-               a.field_name, a.value, a.source_id, a.observed_at, a.verification_status, a.confidence
+               a.field_name, a.value, a.source_id, a.observed_at, a.verification_status, a.confidence,
+               a.valid_to AS valid_to
         FROM data_assertions a
         JOIN institutions i ON i.id = a.entity_id
         WHERE a.entity_type = 'institution' AND a.field_name LIKE 'people_%' ${where}
