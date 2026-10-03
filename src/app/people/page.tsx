@@ -6,7 +6,7 @@ import { EmptyState } from "@/components/ui/EmptyState";
 import { allPublishedPeople } from "../../../lib/repository/static-people";
 import { institutions } from "@/data/institutions";
 import { verificationStatus, sourceCount } from "@/util/evidence";
-import { humanize, initials } from "@/util/format";
+import { formatDate, humanize, initials } from "@/util/format";
 import type { PersonDto } from "../../../lib/repository/types";
 
 /**
@@ -133,7 +133,9 @@ export default function PeoplePage() {
                             </Link>
                             <p className="mt-0.5 text-xs leading-relaxed text-mfi-600">
                               {position ? humanize(position.title) ?? "Role not stated" : "Role not stated"}
-                              {position?.since ? ` · since ${position.since}` : ""}
+                              {position?.since
+                                ? ` · since ${formatDate(position.since) ?? "an unrecorded date"}`
+                                : ""}
                             </p>
 
                             {person.positions.length > 1 ? (

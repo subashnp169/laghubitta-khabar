@@ -70,6 +70,18 @@ export default function NrbPage() {
           {formatDate(nrbSummary.observedAt) ?? "at an unrecorded time"}. No PDF has been parsed and no OCR
           has been run, so nothing here summarises a document.
         </p>
+        {nrbSummary.documents > DOCS.length ? (
+          <p className="mt-3 max-w-3xl text-sm leading-relaxed text-mfi-600">
+            The source lists carry {nrbSummary.documents} entries. Repeated documents are shown once
+            here, so this page lists {DOCS.length} distinct documents rather than{" "}
+            {nrbSummary.documents}. The reporting and financial-inclusion series are also listed on
+            their own{" "}
+            <Link href="/reports" className="underline underline-offset-4 hover:text-mfi-900">
+              Reports
+            </Link>{" "}
+            page.
+          </p>
+        ) : null}
       </PageHeader>
 
       <Container className="py-8 sm:py-10">

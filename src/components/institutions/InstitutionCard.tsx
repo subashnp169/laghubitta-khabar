@@ -27,7 +27,7 @@ export default function InstitutionCard({ institution }: { institution: Institut
             {initials(institution.name)}
           </span>
           <div className="min-w-0 flex-1">
-            <h3 className="text-sm font-semibold leading-snug text-mfi-900">{institution.name}</h3>
+            <h2 className="text-sm font-semibold leading-snug text-mfi-900">{institution.name}</h2>
             <p className="mt-1 text-xs text-mfi-600">
               {headOffice ?? <span className="text-mfi-400">Head office not stated</span>}
             </p>

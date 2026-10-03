@@ -48,6 +48,14 @@ export default function ReportsPage() {
           listed in reverse publication order. Links and dates are the regulator&apos;s own; the documents
           have not been read here, so no figure on this page comes from them.
         </p>
+        <p className="mt-3 max-w-3xl text-sm leading-relaxed text-mfi-600">
+          This page lists only the reporting and financial-inclusion series. The regulator&apos;s
+          enforcement notices are listed separately on the{" "}
+          <Link href="/nrb" className="underline underline-offset-4 hover:text-mfi-900">
+            Nepal Rastra Bank
+          </Link>{" "}
+          page, which also records the structural changes the regulator made to the sector.
+        </p>
       </PageHeader>
 
       <Container className="py-8 sm:py-10">

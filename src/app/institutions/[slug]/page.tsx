@@ -181,12 +181,26 @@ export default async function InstitutionPage({
           />
           <Stat
             term="In operation since"
-            value={formatDate(inst.operationDate)}
-            fallback="Not recorded"
+            value={
+              inst.operationDateStatus === "source_anomaly"
+                ? null
+                : formatDate(inst.operationDate)
+            }
+            fallback="Not published"
           />
           <Stat term="Published people" value={String(leadership.length)} fallback="None published" />
           <Stat term="Published branches" value={String(publishedBranches.length)} fallback="None published" />
         </dl>
+
+        {inst.operationDateStatus === "source_anomaly" ? (
+          <p className="mt-3 text-sm leading-relaxed text-mfi-600">
+            The NRB directory currently shows an implausible start date for this
+            institution, so we do not reproduce it.{" "}
+            {inst.operationDateNote
+              ? `${inst.operationDateNote}.`
+              : "The record is awaiting clarification from the source."}
+          </p>
+        ) : null}
 
         <div className="mt-8 grid gap-6 lg:grid-cols-3">
           <div className="space-y-6 lg:col-span-2">
