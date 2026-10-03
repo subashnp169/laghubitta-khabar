@@ -32,11 +32,15 @@ export default function Footer() {
         { href: "/interest-rates", label: "Interest rates" },
         { href: "/jobs", label: "Vacancies" },
         { href: "/documents", label: "Documents" },
+        { href: "/reports", label: "Reports" },
         { href: "/research", label: "Research" },
       ],
     },
     {
-      title: "Operations",
+      // Compare, alerts, ingestion and search are all things a reader uses to
+      // interrogate the dataset, not things the site publishes. "Operations"
+      // put search and compare under a heading that did not describe them.
+      title: "Tools",
       links: [
         { href: "/ingestion", label: "Ingestion" },
         { href: "/alerts", label: "Alerts" },
