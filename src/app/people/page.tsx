@@ -8,6 +8,7 @@ import { institutions } from "@/data/institutions";
 import { verificationStatus, sourceCount } from "@/util/evidence";
 import { formatDate, humanize, initials } from "@/util/format";
 import type { PersonDto } from "../../../lib/repository/types";
+import { Stat } from "@/components/ui/Stat";
 
 /**
  * Leadership directory.
@@ -178,11 +179,3 @@ export default function PeoplePage() {
   );
 }
 
-function Stat({ term, value }: { term: string; value: string }) {
-  return (
-    <div className="bg-white px-4 py-4">
-      <dt className="lk-eyebrow">{term}</dt>
-      <dd className="lk-figure mt-1.5 tabular-nums">{value}</dd>
-    </div>
-  );
-}

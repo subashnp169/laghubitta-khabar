@@ -21,14 +21,40 @@ interface NavItem {
   label: string;
 }
 
+/**
+ * Primary navigation.
+ *
+ * Grouped by user intent rather than by data source: Institutions and People are
+ * the directory, News and Jobs are activity, Financials and Interest Rates are
+ * figures, Documents is what we hold. Operational screens (alerts, compare,
+ * ingestion) stay in the footer and drawer deliberately — they describe how this
+ * site is built rather than what it knows.
+ *
+ * The bar is space-constrained at the `lg` breakpoint, so it carries the seven
+ * concepts a returning reader reaches for most. Everything else remains one click
+ * away in the drawer and footer.
+ */
 const NAV: NavItem[] = [
-  { href: "/news", label: "News" },
   { href: "/institutions", label: "Institutions" },
   { href: "/people", label: "People" },
-  { href: "/financials", label: "Financials" },
-  { href: "/interest-rates", label: "Interest Rates" },
+  { href: "/news", label: "News" },
+  { href: "/documents", label: "Documents" },
   { href: "/jobs", label: "Jobs" },
+  { href: "/financials", label: "Financials" },
+  { href: "/interest-rates", label: "Rates" },
+];
+
+/**
+ * Secondary destinations. The drawer shows these under the primary list so every
+ * route is reachable on a small screen, including the two that are deliberately
+ * absent from the desktop bar: the regulator's record and our own analysis.
+ */
+const EXTRA_NAV: NavItem[] = [
   { href: "/research", label: "Research" },
+  { href: "/nrb", label: "NRB & regulatory" },
+  { href: "/reports", label: "Reports" },
+  { href: "/compare", label: "Compare" },
+  { href: "/alerts", label: "Alerts" },
 ];
 
 /** A nav item is active on its own route and on anything nested beneath it. */
@@ -169,12 +195,20 @@ export default function Header() {
               ))}
             </ul>
             <div className="mt-4 border-t border-mfi-100 pt-4">
-              <Link href="/nrb" className="flex min-h-11 items-center py-2.5 text-[15px] text-mfi-600">
-                NRB &amp; regulatory
-              </Link>
-              <Link href="/documents" className="flex min-h-11 items-center py-2.5 text-[15px] text-mfi-600">
-                Documents
-              </Link>
+              <p className="lk-eyebrow px-1 pb-1 text-mfi-400">Also</p>
+              {EXTRA_NAV.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="flex min-h-11 items-center justify-between py-2.5 text-[15px] text-mfi-600"
+                  aria-current={isActive(pathname, item.href) ? "page" : undefined}
+                >
+                  {item.label}
+                  {isActive(pathname, item.href) ? (
+                    <span className="size-1.5 rounded-full bg-mfi-700" aria-hidden="true" />
+                  ) : null}
+                </Link>
+              ))}
             </div>
           </nav>
         </>

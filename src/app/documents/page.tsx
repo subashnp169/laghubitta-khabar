@@ -6,6 +6,7 @@ import { nrbSummary } from "@/data/nrb";
 import { distinctNrbDocuments } from "@/util/activity";
 import { financials } from "@/data/financials";
 import { formatDate } from "@/util/format";
+import { institutionHrefForId } from "@/util/institution-profile";
 
 /**
  * Documents.
@@ -56,6 +57,9 @@ const ROWS: DocumentRow[] = [
     size: null,
     url: d.sourceDocument,
     origin: "institution" as const,
+    // The generator embedded the institution id in the record id, so the owning
+    // institution is resolvable without shipping the directory to the browser.
+    institutionProfileHref: institutionHrefForId(/^financial-([^|]+)\|/.exec(d.id)?.[1]),
   })),
 ];
 

@@ -1,9 +1,11 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Link from "next/link";
 import { Chip } from "@/components/ui/Chip";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { displayHost, formatDate, humanize, realUrl } from "@/util/format";
+import { Stat } from "@/components/ui/Stat";
 
 /**
  * Document catalogue with origin filtering.
@@ -24,6 +26,14 @@ export interface DocumentRow {
   size: string | null;
   url: string | null;
   origin: "nrb" | "institution";
+  /**
+   * Profile of the institution this document came from, resolved on the server.
+   *
+   * A document found on an institution's own site is evidence about that
+   * institution, so the row links back to the profile that carries the rest of its
+   * record. Regulator publications have no single institution and so carry none.
+   */
+  institutionProfileHref?: string | null;
 }
 
 type Filter = "all" | "nrb" | "institution";
@@ -129,6 +139,15 @@ export function DocumentCatalogue({ rows }: { rows: DocumentRow[] }) {
                     {displayHost(row.url) ?? "source"}
                   </span>
                 ) : null}
+                {/* Back-link to the institution this document was found on. */}
+                {row.institutionProfileHref ? (
+                  <Link
+                    href={row.institutionProfileHref}
+                    className="text-xs font-medium text-mfi-700 underline-offset-4 hover:underline"
+                  >
+                    Institution profile →
+                  </Link>
+                ) : null}
               </span>
             </li>
           ))}
@@ -138,11 +157,3 @@ export function DocumentCatalogue({ rows }: { rows: DocumentRow[] }) {
   );
 }
 
-function Stat({ term, value }: { term: string; value: string }) {
-  return (
-    <div className="bg-white px-4 py-4">
-      <dt className="lk-eyebrow">{term}</dt>
-      <dd className="lk-figure mt-1.5 tabular-nums">{value}</dd>
-    </div>
-  );
-}

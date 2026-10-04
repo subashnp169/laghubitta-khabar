@@ -6,6 +6,7 @@ import { EmptyState } from "@/components/ui/EmptyState";
 import { allInterestRates } from "../../../lib/api/repository";
 import type { InterestRateDto } from "../../../lib/repository/types";
 import { formatDate, humanize, realUrl } from "@/util/format";
+import { Stat } from "@/components/ui/Stat";
 
 /**
  * Interest rates.
@@ -180,16 +181,6 @@ export default function InterestRatesPage() {
   );
 }
 
-function Stat({ term, value, tone }: { term: string; value: string; tone?: "attention" }) {
-  return (
-    <div className="bg-white px-4 py-4">
-      <dt className="lk-eyebrow">{term}</dt>
-      <dd className={`lk-figure mt-1.5 tabular-nums ${tone === "attention" ? "text-flag-700" : ""}`}>
-        {value}
-      </dd>
-    </div>
-  );
-}
 
 /**
  * Unwraps `{ status, body: { data } }` into rows. Returns an empty array rather

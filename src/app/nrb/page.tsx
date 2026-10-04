@@ -7,6 +7,7 @@ import { distinctNrbDocuments } from "@/util/activity";
 import { formatDate, humanize } from "@/util/format";
 import { institutionHrefForSlug } from "@/util/institution-profile";
 import type { Tone } from "@/util/evidence";
+import { Stat } from "@/components/ui/Stat";
 
 /**
  * NRB snapshot.
@@ -217,11 +218,3 @@ export default function NrbPage() {
   );
 }
 
-function Stat({ term, value }: { term: string; value: number }) {
-  return (
-    <div className="bg-white px-4 py-4">
-      <dt className="lk-eyebrow">{term}</dt>
-      <dd className="lk-figure mt-1.5 tabular-nums">{value}</dd>
-    </div>
-  );
-}

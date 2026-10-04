@@ -6,6 +6,16 @@ import { crawlSources, crawlSummary } from "@/data/pilot";
 import { institutions } from "@/data/institutions";
 import { formatDateTime, humanize } from "@/util/format";
 import type { Tone } from "@/util/evidence";
+import { Stat as MetricCell } from "@/components/ui/Stat";
+
+/**
+ * Every figure on this page is a pipeline count rather than a published fact, so
+ * they all render in the dense cell. Wrapping once keeps twelve call sites
+ * reading as plain metrics while the markup still has a single definition.
+ */
+function Stat(props: { term: string; value: string | number; tone?: Tone }) {
+  return <MetricCell dense {...props} />;
+}
 
 /**
  * Ingestion control room.
@@ -38,30 +48,6 @@ const LAST_RUN_TONE: Record<string, Tone> = {
   PARTIAL: "attention",
   FAILED: "conflict",
 };
-
-function Stat({
-  term,
-  value,
-  tone = "neutral",
-}: {
-  term: string;
-  value: string | number;
-  tone?: Tone;
-}) {
-  const accent: Record<Tone, string> = {
-    positive: "text-nrb-700",
-    attention: "text-flag-700",
-    conflict: "text-alert-700",
-    info: "text-mfi-700",
-    neutral: "text-mfi-900",
-  };
-  return (
-    <div className="bg-white px-4 py-3.5">
-      <dt className="lk-eyebrow">{term}</dt>
-      <dd className={`mt-1 text-xl font-semibold tabular-nums tracking-tight ${accent[tone]}`}>{value}</dd>
-    </div>
-  );
-}
 
 export default function IngestionPage() {
   const { schedule } = crawlSummary;

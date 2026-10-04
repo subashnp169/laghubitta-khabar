@@ -7,6 +7,7 @@ import { jobs, jobsProvenance } from "@/data/jobs";
 import { institutions } from "@/data/institutions";
 import { displayHost, formatDate, humanize, realUrl } from "@/util/format";
 import type { Job } from "@/data/jobs";
+import { Stat } from "@/components/ui/Stat";
 
 /**
  * Vacancies.
@@ -163,20 +164,6 @@ export default function JobsPage() {
   );
 }
 
-function Stat({ term, value, tone }: { term: string; value: string; tone?: "info" | "attention" }) {
-  return (
-    <div className="bg-white px-4 py-4">
-      <dt className="lk-eyebrow">{term}</dt>
-      <dd
-        className={`lk-figure mt-1.5 tabular-nums ${
-          tone === "attention" ? "text-flag-700" : tone === "info" ? "text-mfi-700" : ""
-        }`}
-      >
-        {value}
-      </dd>
-    </div>
-  );
-}
 
 function Detail({ term, value }: { term: string; value: string | null }) {
   return (

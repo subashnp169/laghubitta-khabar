@@ -12,6 +12,7 @@ import { nrbRegulatoryEvents } from "@/data/nrb";
 import { distinctNrbDocuments } from "@/util/activity";
 import { crawlSummary } from "@/data/pilot";
 import { formatCount, formatCrore, formatDate } from "@/util/format";
+import { Stat } from "@/components/ui/Stat";
 
 /**
  * What the dataset actually supports.
@@ -85,6 +86,18 @@ const docsByInstitution = institutions
   .filter((row) => row.count > 0)
   .sort((a, b) => b.count - a.count);
 
+/**
+ * Institutions ranked by the one financial figure the regulator publishes, kept as
+ * a list of records rather than a single aggregate.
+ *
+ * A finding that only states a number leaves the reader with nowhere to go. Every
+ * row here is a real directory record, so each one links to that institution's
+ * profile — which is how a research finding turns back into a directory entry.
+ */
+const capitalRanking = institutions
+  .filter((i): i is typeof i & { paidUpCapitalCrore: number } => typeof i.paidUpCapitalCrore === "number")
+  .sort((a, b) => b.paidUpCapitalCrore - a.paidUpCapitalCrore);
+
 
 export default function ResearchPage() {
   return (
@@ -134,6 +147,49 @@ export default function ResearchPage() {
               answer</span>, because it holds no lending, deposit or profitability data.
             </p>
           ) : null}
+
+          {/* The ranked records behind the figure, each linking to its profile. */}
+          <div className="mt-4">
+            <div className="mb-2 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+              <h3 className="text-sm font-semibold text-mfi-900">Largest by published capital</h3>
+              <Link href="/compare" className="text-xs font-medium text-mfi-700 underline-offset-4 hover:underline">
+                Compare fields →
+              </Link>
+            </div>
+            <ul className="lk-card lk-divide overflow-hidden">
+              {capitalRanking.slice(0, 10).map((inst, i) => (
+                <li
+                  key={inst.id}
+                  className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1 px-3.5 py-2.5"
+                >
+                  <span className="flex min-w-0 flex-1 items-baseline gap-2.5">
+                    <span aria-hidden="true" className="w-5 shrink-0 font-mono text-xs text-mfi-400">
+                      {i + 1}
+                    </span>
+                    <Link
+                      href={`/institutions/${inst.slug}`}
+                      className="min-w-0 break-words text-sm text-mfi-900 underline-offset-4 hover:underline"
+                    >
+                      {inst.name}
+                    </Link>
+                  </span>
+                  <span className="shrink-0 font-mono text-sm tabular-nums text-mfi-800">
+                    {formatCrore(inst.paidUpCapitalCrore)}
+                  </span>
+                </li>
+              ))}
+            </ul>
+            {capitalRanking.length > 10 ? (
+              <p className="mt-2 text-xs text-mfi-500">
+                Showing the largest 10 of {capitalRanking.length} institutions that publish a capital
+                figure.{" "}
+                <Link href="/institutions" className="underline underline-offset-2">
+                  Open the full directory
+                </Link>
+                .
+              </p>
+            ) : null}
+          </div>
         </Finding>
 
         <Finding
@@ -241,9 +297,38 @@ export default function ResearchPage() {
                 <span className="font-medium text-mfi-800">no comparison of financial performance between
                 institutions</span> — not because the institutions are opaque, but because the contents were
                 never extracted.
-              </p>
-            </>
-          )}
+                </p>
+
+                {/* Which institutions actually publish, each linking to its profile. */}
+                <div className="mt-4">
+                  <h3 className="mb-2 text-sm font-semibold text-mfi-900">
+                    Institutions that publish a document
+                  </h3>
+                  <ul className="lk-card lk-divide flex flex-wrap gap-x-1 gap-y-0 overflow-hidden p-2.5">
+                    {docsByInstitution.slice(0, 24).map((row) => (
+                      <li key={row.inst.id}>
+                        <Link
+                          href={`/institutions/${row.inst.slug}`}
+                          className="inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-xs text-mfi-700 transition-colors hover:bg-mfi-50 hover:text-mfi-900"
+                        >
+                          {row.inst.name.replace(/ Laghubitta Bittiya Sanstha( Ltd\.?)?$/i, "")}
+                          <span className="font-mono text-mfi-400">{row.count}</span>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                  {docsByInstitution.length > 24 ? (
+                    <p className="mt-2 text-xs text-mfi-500">
+                      Showing 24 of {docsByInstitution.length}.{" "}
+                      <Link href="/documents" className="underline underline-offset-2">
+                        See all documents
+                      </Link>
+                      .
+                    </p>
+                  ) : null}
+                </div>
+              </>
+            )}
         </Finding>
 
         <Finding
@@ -299,14 +384,6 @@ function Finding({
   );
 }
 
-function Stat({ term, value }: { term: string; value: string }) {
-  return (
-    <div className="bg-white px-4 py-4">
-      <dt className="lk-eyebrow">{term}</dt>
-      <dd className="lk-figure mt-1.5 tabular-nums">{value}</dd>
-    </div>
-  );
-}
 
 /** Median across institutions that published anything, not across all of them. */
 function medianCount(rows: Array<{ count: number }>): string {

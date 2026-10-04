@@ -6,6 +6,7 @@ import { EmptyState } from "@/components/ui/EmptyState";
 import { financials, financialsProvenance } from "@/data/financials";
 import { institutions } from "@/data/institutions";
 import { displayHost, formatDate, humanize, realUrl } from "@/util/format";
+import { Stat } from "@/components/ui/Stat";
 
 /**
  * Financial information.
@@ -162,14 +163,6 @@ export default function FinancialsPage() {
   );
 }
 
-function Stat({ term, value }: { term: string; value: string }) {
-  return (
-    <div className="bg-white px-4 py-4">
-      <dt className="lk-eyebrow">{term}</dt>
-      <dd className="lk-figure mt-1.5 tabular-nums">{value}</dd>
-    </div>
-  );
-}
 
 /**
  * A document link, or an explicit "no usable link" when the record has none. The
