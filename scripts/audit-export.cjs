@@ -101,6 +101,9 @@ for (const file of pages) {
     }
     if (!href.startsWith("/laghubitta-khabar/") && href !== "/laghubitta-khabar") continue;
     internalLinks++;
+    // GitHub Pages only resolves nested page links that end in a slash; an
+    // extensionless nested href 404s even though the .html file exists.
+    if (!href.endsWith("/")) fail(page, "page-link-no-trailing-slash", href);
     const target = href.replace("/laghubitta-khabar", "") || "/";
     if (!exists.has(target) && !exists.has(target.replace(/\/$/, ""))) {
       fail(page, "broken-internal-link", href);
