@@ -9,7 +9,7 @@ import { jobs } from "@/data/jobs";
 import { financials, type FinancialRecord } from "@/data/financials";
 import type { BranchDto, PersonDto } from "../../../../lib/repository/types";
 import { Container } from "@/components/ui/Section";
-import { Breadcrumb, Panel, SectionNav } from "@/components/ui/Panel";
+import { Breadcrumb, Panel, SectionNav, SectionSidebar } from "@/components/ui/Panel";
 import { Row, Stat, StatGrid } from "@/components/ui/Stat";
 import { Chip, StatusChip } from "@/components/ui/Chip";
 import { EmptyState } from "@/components/ui/EmptyState";
@@ -145,6 +145,45 @@ export default async function InstitutionPage({
   const operationDate =
     inst.operationDateStatus === "source_anomaly" ? null : formatDate(inst.operationDate);
 
+  /**
+   * Timeline events are assembled only from records this institution actually
+   * has: the operation date we can evidence, branch establishments the branch
+   * read model published, and NRB regulatory events. An event with no date is
+   * not shown rather than being placed at an invented point in the sequence.
+   */
+  const timelineEvents = [
+    ...(operationDate
+      ? [
+          {
+            id: "established",
+            date: operationDate,
+            title: "Operation recorded",
+            detail: `Establishment date published by ${directorySource.source.title}.`,
+          },
+        ]
+      : []),
+    ...publishedBranches
+      .filter((b) => b.established_on)
+      .map((b) => ({
+        id: `branch-${b.id}`,
+        date: formatDate(b.established_on) ?? b.established_on,
+        title: `Branch established: ${b.name}`,
+        detail: [b.municipality, b.district].filter(Boolean).join(", ") || "Location not stated",
+      })),
+    ...nrbEvents
+      .filter((e) => e.occurredAt)
+      .map((e) => ({
+        id: e.id,
+        date: formatDate(e.occurredAt) ?? (e.occurredAt as string),
+        title: e.title,
+        detail: e.description,
+      })),
+  ].sort((a, b) => {
+    const da = a.date ?? "";
+    const db = b.date ?? "";
+    return da < db ? 1 : da > db ? -1 : 0;
+  });
+
   const identity = inst.evidence.identity;
   const sources = [
     {
@@ -205,10 +244,13 @@ export default async function InstitutionPage({
     { href: "#overview", label: "Overview" },
     { href: "#leadership", label: "Leadership", count: leadership.length },
     { href: "#branches", label: "Branches", count: publishedBranches.length },
+    { href: "#financials", label: "Financials", count: finReports.length },
+    { href: "#interest-rates", label: "Interest rates", count: finRates.length },
     { href: "#activity", label: "Activity", count: nrbEvents.length },
     { href: "#documents", label: "Documents", count: institutionFinancials.length },
     { href: "#careers", label: "Careers", count: vacancyList.length },
     { href: "#regulatory", label: "Regulatory", count: nrbLinksFor.length },
+    { href: "#timeline", label: "Timeline" },
     { href: "#sources", label: "Sources" },
   ];
 
@@ -305,12 +347,57 @@ export default async function InstitutionPage({
       </header>
 
       <Container className="py-6 sm:py-8">
-        {/* Section navigation. Sticky, and every entry is a real anchor. */}
-        <div className="sticky top-14 z-40 sm:top-16">
+        {/* Section navigation. Sticky, and every entry is a real anchor. The
+            horizontal bar is the narrow-viewport presentation; wide viewports get
+            the side rail below instead, so the links are never duplicated. */}
+        <div className="sticky top-14 z-40 sm:top-16 lg:hidden">
           <SectionNav items={navItems} label="Institution sections" />
         </div>
 
-        <div className="mt-6 space-y-6">
+        <div className="mt-6 grid gap-6 lg:grid-cols-[13rem_minmax(0,1fr)] lg:gap-8">
+          <aside className="hidden lg:block">
+            <div className="sticky top-24">
+              <SectionSidebar items={navItems} label="Institution sections">
+                <p className="lk-eyebrow">Related</p>
+                <ul className="mt-2 space-y-0.5">
+                  <li>
+                    <Link
+                      href="/institutions"
+                      className="flex min-h-9 items-center text-mfi-700 underline-offset-4 hover:text-mfi-900 hover:underline"
+                    >
+                      All institutions
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href={`/compare?a=${inst.slug}`}
+                      className="flex min-h-9 items-center text-mfi-700 underline-offset-4 hover:text-mfi-900 hover:underline"
+                    >
+                      Compare with others
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/interest-rates"
+                      className="flex min-h-9 items-center text-mfi-700 underline-offset-4 hover:text-mfi-900 hover:underline"
+                    >
+                      Interest rates explained
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/nrb"
+                      className="flex min-h-9 items-center text-mfi-700 underline-offset-4 hover:text-mfi-900 hover:underline"
+                    >
+                      NRB regulatory layer
+                    </Link>
+                  </li>
+                </ul>
+              </SectionSidebar>
+            </div>
+          </aside>
+
+          <div className="min-w-0 space-y-6">
           <Panel
             id="overview"
             title="Overview"
@@ -458,6 +545,137 @@ export default async function InstitutionPage({
                 ))}
               </ul>
             )}
+          </Panel>
+
+          <Panel
+            id="financials"
+            title="Financial documents"
+            count={`${finReports.length}`}
+            note="Reports this institution published, catalogued by type. Contents have not been read, so no figure from them is shown."
+          >
+            {finReports.length === 0 ? (
+              <EmptyState
+                compact
+                title="No financial reports located"
+                detail="No annual, quarterly or interim report from this institution has been catalogued."
+              />
+            ) : (
+              <ul className="lk-card lk-divide overflow-hidden">
+                {finReports.map((doc) => (
+                  <li
+                    key={doc.id}
+                    className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1 px-3.5 py-2.5"
+                  >
+                    <span className="min-w-0 flex-1 break-words text-sm text-mfi-900">{doc.title}</span>
+                    <span className="flex shrink-0 items-center gap-2">
+                      <span className="text-xs text-mfi-500">
+                        last verified {formatDate(doc.lastSeenAt) ?? "undated"}
+                      </span>
+                      <Chip tone="info">
+                        {doc.reportType ? humanize(doc.reportType) : "report"}
+                      </Chip>
+                      {realUrl(doc.sourceDocument) ? (
+                        <a
+                          href={doc.sourceDocument as string}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-xs font-medium text-mfi-700 underline-offset-4 hover:underline"
+                        >
+                          {displayHost(doc.sourceDocument)} ↗
+                        </a>
+                      ) : null}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </Panel>
+
+          <Panel
+            id="interest-rates"
+            title="Interest rates"
+            count={`${finRates.length}`}
+            note="Rate notices this institution published. No rate value has been extracted from any notice, so none is shown."
+          >
+            {finRates.length === 0 ? (
+              <EmptyState
+                compact
+                title="Not extracted"
+                detail="No interest-rate notice from this institution has been catalogued. Absence here is not a rate of zero."
+              />
+            ) : (
+              <>
+                <ul className="lk-card lk-divide overflow-hidden">
+                  {finRates.map((doc) => (
+                    <li
+                      key={doc.id}
+                      className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1 px-3.5 py-2.5"
+                    >
+                      <span className="min-w-0 flex-1 break-words text-sm text-mfi-900">{doc.title}</span>
+                      <span className="flex shrink-0 items-center gap-2">
+                        <span className="text-xs text-mfi-500">
+                          last verified {formatDate(doc.lastSeenAt) ?? "undated"}
+                        </span>
+                        <Chip tone="attention">
+                          {doc.rateKind ? humanize(doc.rateKind) : "rate notice"}
+                        </Chip>
+                        {realUrl(doc.sourceDocument) ? (
+                          <a
+                            href={doc.sourceDocument as string}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-xs font-medium text-mfi-700 underline-offset-4 hover:underline"
+                          >
+                            {displayHost(doc.sourceDocument)} ↗
+                          </a>
+                        ) : null}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+                <p className="mt-3 text-xs text-mfi-500">
+                  Rate values are not extracted from these notices.{" "}
+                  <Link href="/interest-rates" className="underline underline-offset-2">
+                    Why there are no rates
+                  </Link>
+                  .
+                </p>
+              </>
+            )}
+          </Panel>
+
+          <Panel
+            id="timeline"
+            title="Timeline"
+            count={`${timelineEvents.length}`}
+            note="Events we can evidence for this institution, most recent first. An event without a verifiable date is not listed."
+          >
+            {timelineEvents.length === 0 ? (
+              <EmptyState
+                compact
+                title="No dated events"
+                detail="No establishment date, branch opening or regulatory event with a verifiable date is on record."
+              />
+            ) : (
+              <ol className="lk-card lk-divide overflow-hidden">
+                {timelineEvents.slice(0, 25).map((event) => (
+                  <li key={event.id} className="flex flex-wrap items-baseline gap-x-3 gap-y-1 px-3.5 py-2.5">
+                    <span className="shrink-0 font-mono text-xs text-mfi-500">{event.date}</span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block text-sm font-medium text-mfi-900">{event.title}</span>
+                      {event.detail ? (
+                        <span className="block text-xs text-mfi-500">{event.detail}</span>
+                      ) : null}
+                    </span>
+                  </li>
+                ))}
+              </ol>
+            )}
+            {timelineEvents.length > 25 ? (
+              <p className="mt-3 text-xs text-mfi-500">
+                Showing 25 of {timelineEvents.length} dated events.
+              </p>
+            ) : null}
           </Panel>
 
           <Panel
@@ -696,6 +914,7 @@ export default async function InstitutionPage({
               .
             </p>
           </Panel>
+          </div>
         </div>
       </Container>
     </>

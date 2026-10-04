@@ -83,6 +83,49 @@ export function SectionNav({
 }
 
 /**
+ * Desktop side navigation for a long page: the same entries as SectionNav, laid
+ * out vertically and pinned beside the content so the current position stays
+ * visible without scrolling back up. Ordinary anchors, so it needs no JavaScript.
+ *
+ * SectionNav stays the mobile presentation of the same list; this is the wide
+ * viewport one. Rendering both would duplicate links for assistive technology,
+ * so the caller shows one or the other by breakpoint.
+ */
+export function SectionSidebar({
+  items,
+  label = "On this page",
+  children,
+}: {
+  items: { href: string; label: string; count?: number | string }[];
+  label?: string;
+  /** Extra links rendered under the section list. */
+  children?: ReactNode;
+}) {
+  if (items.length < 2) return null;
+  return (
+    <nav aria-label={label} className="text-sm">
+      <p className="lk-eyebrow">{label}</p>
+      <ul className="mt-2 space-y-0.5 border-l border-mfi-200">
+        {items.map((item) => (
+          <li key={item.href}>
+            <a
+              href={item.href}
+              className="-ml-px flex min-h-9 items-center justify-between gap-2 border-l-2 border-transparent py-1 pl-3 pr-2 text-mfi-700 transition-colors hover:border-mfi-300 hover:bg-mfi-50 hover:text-mfi-900"
+            >
+              <span>{item.label}</span>
+              {item.count !== undefined ? (
+                <span className="font-mono text-xs text-mfi-400">{item.count}</span>
+              ) : null}
+            </a>
+          </li>
+        ))}
+      </ul>
+      {children ? <div className="mt-5">{children}</div> : null}
+    </nav>
+  );
+}
+
+/**
  * Breadcrumb trail. Shared so the separator, sizing and link treatment match on
  * every page that shows one.
  */
