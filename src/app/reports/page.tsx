@@ -98,7 +98,7 @@ export default function ReportsPage() {
                       {TYPE_LABEL[doc.docType] ?? doc.docType}
                     </Chip>
                     <span className="font-mono text-xs tabular-nums text-mfi-500">
-                      {formatDate(doc.publishedAt) ?? "undated"}
+                      {doc.publishedAt ? formatDate(doc.publishedAt) + " (publication date)" : "undated"}
                     </span>
                   </span>
                 </div>

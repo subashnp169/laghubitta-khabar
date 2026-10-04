@@ -108,7 +108,7 @@ export default function FinancialsPage() {
                       <Chip tone="info">{REPORT_TYPE_LABEL[doc.reportType] ?? humanize(doc.reportType)}</Chip>
                     ) : null}
                     {doc.lastSeenAt ? (
-                      <span className="text-mfi-500">seen {formatDate(doc.lastSeenAt)}</span>
+                      <span className="text-mfi-500">last verified {formatDate(doc.lastSeenAt)} (observed)</span>
                     ) : null}
                     <span className="text-mfi-400">contents not read</span>
                   </div>

@@ -78,8 +78,8 @@ export default function InterestRatesPage() {
 
         <dl className="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-mfi-200 bg-mfi-200 sm:grid-cols-3">
           <Stat term="Notices located" value={String(rates.length)} />
-          <Stat term="Rates available" value={String(extracted.length)} tone="attention" />
-          <Stat term="Rates unavailable" value={String(unavailable)} />
+          <Stat term="Rates available" value={extracted.length > 0 ? String(extracted.length) : null} fallback="Not extracted" tone={extracted.length > 0 ? "attention" : undefined} />
+          <Stat term="Rates unavailable" value={String(unavailable)} hint="Rate values not extracted from notices" />
         </dl>
 
         {Object.keys(byKind).length > 0 ? (
