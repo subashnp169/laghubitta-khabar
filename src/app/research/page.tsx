@@ -3,14 +3,13 @@ import type { Metadata } from "next";
 import { Container, PageHeader } from "@/components/ui/Section";
 import { Chip } from "@/components/ui/Chip";
 import { EmptyState } from "@/components/ui/EmptyState";
-import { institutions, directorySource } from "@/data/institutions";
+import { institutions, directorySource, jobs, nrbRegulatoryEvents, crawlSummary } from "@/lib/site-data";
 import { allPublishedPeople } from "../../../lib/repository/static-people";
 import { allPublishedBranches } from "../../../lib/repository/static-branches";
-import { financials } from "@/data/financials";
-import { jobs } from "@/data/jobs";
-import { nrbRegulatoryEvents } from "@/data/nrb";
+import { allPublishedFinancials } from "../../../lib/repository/static-financials";
+
+const financials = allPublishedFinancials();
 import { distinctNrbDocuments } from "@/util/activity";
-import { crawlSummary } from "@/data/pilot";
 import { formatCount, formatCrore, formatDate } from "@/util/format";
 import { Stat } from "@/components/ui/Stat";
 

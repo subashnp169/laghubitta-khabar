@@ -13,6 +13,8 @@
 //       guard-env.cjs require.
 //   R5  No prod DB bindings in browser code — flags any *.tsx importing
 //       lib/repository or a D1 binding.
+//   R6  Generated snapshots stay behind the site-data facade — flags any src/
+//       file importing @/data/* other than src/lib/site-data.ts.
 //
 // Only scans files that should be COMMITTED: *.ts, *.tsx, *.js, *.cjs, *.mjs,
 // *.json, *.toml under app/, components/, lib/, scripts/, worker/, migrations/,
@@ -102,6 +104,16 @@ function scanFile(full, rel) {
       const m = /from\s+["'](\.\.?\/)+(lib\/repository|lib\/api)["']/.exec(text);
       const before = text.slice(0, m.index).split('\n');
       hit('R5', before.length, m[0]);
+    }
+  }
+
+  // R6 — generated snapshots (@/data/*) are build output. Only the site-data
+  // facade may read them; everything else in src/ imports @/lib/site-data.
+  if (rel.startsWith('src/') && rel !== 'src/lib/site-data.ts') {
+    const m = /from\s+["']@\/data\//.exec(text);
+    if (m) {
+      const before = text.slice(0, m.index).split('\n');
+      hit('R6', before.length, m[0]);
     }
   }
 

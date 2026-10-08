@@ -344,6 +344,28 @@ function nameAllowedInColumn(raw: string, declaresBranch: boolean): boolean {
   return declaredColumnNameLike(raw);
 }
 
+/**
+ * The value gate for a branch_name already carried in evidence.
+ *
+ * A row in `data_assertions` with field `branch_name` was recorded under a
+ * branch-declaring column, so the column context exists even though the
+ * assertion itself does not retain it. The declared-column rule is therefore the
+ * correct read: it keeps a real place that carries no branch/office marker
+ * ("Sijuwa, Morang", "Ghorahi") while still refusing a repeated heading
+ * ("Branch Manager") or a generic section ("Regional Office"). A bare district
+ * read as a name ("Morang") is withheld regardless — that shape was always a
+ * column mix-up, never a branch named after its district.
+ *
+ * This composes the SAME two predicates the extractor already uses
+ * (declaredColumnNameLike + isBareDistrictName); it is not a second model.
+ */
+export function isAssertableBranchNameValue(raw: string): boolean {
+  const s = cleanCell(raw);
+  if (s.length === 0) return false;
+  if (isBareDistrictName(s)) return false;
+  return declaredColumnNameLike(s);
+}
+
 // ---------------------------------------------------------------------------
 // Attribute plausibility (M3.4 Phase 3 / 15).
 //

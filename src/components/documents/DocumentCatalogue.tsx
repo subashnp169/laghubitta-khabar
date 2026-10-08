@@ -43,6 +43,10 @@ const TYPE_LABEL: Record<string, string> = {
   KFI: "Financial inclusion",
   REPORT: "Report",
   REPORT_NOTICE: "Rate notice",
+  // P2-D general documents: label follows the capability the evidence arrived
+  // under (notice_title vs document_title), not a guessed document category.
+  DOCUMENT: "Document link",
+  NOTICE: "Notice",
 };
 
 export function DocumentCatalogue({ rows }: { rows: DocumentRow[] }) {

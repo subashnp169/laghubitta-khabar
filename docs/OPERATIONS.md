@@ -66,6 +66,23 @@ runtime. Run it in CI on every PR.
   `env.DB` exists only there.
 - Enforced by `check-discipline.cjs` (R5) scanning every `.tsx`/`.jsx`.
 
+### R6 — Generated snapshots stay behind the site-data facade.
+
+- `src/data/*` is **build output**, rewritten by `scripts/pilot-export*.ts`,
+  `scripts/build-*-module.ts` and `scripts/generate-nrb-data.ts`. It is never
+  hand-edited.
+- Only `src/lib/site-data.ts` may import `@/data/*`. Every page, component and
+  util imports `@/lib/site-data` instead, so the frontend depends on one stable
+  read surface rather than seven generated shapes.
+- Rationale: when pages import generated modules directly, a change to an export
+  script silently breaks unrelated routes, and the repository contract in
+  `lib/repository/` drifts away from what the site actually renders. The facade
+  keeps the generated layer swappable.
+- `src/types` is type-only, so importing types from it is allowed anywhere.
+- Enforced by `check-discipline.cjs` (R6) scanning every `.ts`/`.tsx` under `src/`.
+- Adding a new generated dataset? Re-export it from `src/lib/site-data.ts`. Do not
+  widen the R6 allowlist.
+
 ## Command reference (all run from repo root)
 
 ```bash
@@ -73,7 +90,8 @@ npm run typecheck        # tsc --noEmit (strict)
 npm run seed             # node scripts/seed.cjs  (local lk.db only; LK_ENV-gated)
 npm run smoke            # repository contract, mock + local adapters (never staging/prod)
 npm run smoke:worker     # Worker fetch handler over a local D1 shim (never staging/prod)
-npm run check:discipline # static audit of R2/R3/R5   → run in CI
+npm run smoke:worker-security # edge policy: headers, CORS, rate limit, /go/ egress guard
+npm run check:discipline # static audit of R2/R3/R5/R6 — run in CI
 npm run build            # next build (static + SSG)
 ```
 

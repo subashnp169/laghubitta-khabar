@@ -2,8 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { Container, PageHeader } from "@/components/ui/Section";
 import { InstitutionDirectory } from "@/components/institutions/InstitutionDirectory";
-import { directorySource, institutions } from "@/data/institutions";
-import { crawlSummary } from "@/data/pilot";
+import { directorySource, institutions, crawlSummary } from "@/lib/site-data";
 import { formatDate } from "@/util/format";
 
 /**

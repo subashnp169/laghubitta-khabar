@@ -25,7 +25,7 @@
 //     from under the source-owned observation model.
 // ============================================================================
 
-import type { PersonDto, SourceMeta, VerificationStatus } from "./types";
+import type { DocumentDto, PersonDto, SourceMeta, VerificationStatus } from "./types";
 
 /** Raw person evidence row as the adapters/generators hand to the projection. */
 export interface PersonAssertionRecord {
@@ -481,6 +481,8 @@ const VACANCY_FIELD_ALIASES: Readonly<Record<string, string>> = {
   JOB_TITLE: "title",
   VACANCY_TITLE: "title",
   job_title: "title",
+  /** Title-only observations recorded against the institution entity (P2-D). */
+  vacancy_title: "title",
   title: "title",
   LOCATION: "location",
   VACANCY_LOCATION: "location",
@@ -697,14 +699,25 @@ export function jobsFromAssertionRows(
     // the disagreement puts `title` in `conflicts` and the row in CONFLICT, so a
     // consumer may not quote the wording as fact. Fields that can be omitted -
     // deadline, location, and the rest - are genuinely suppressed instead.
-    const title = publishable("title") ?? String(published.get("title")?.value ?? "");
+    const agreedTitle = publishable("title");
+    const rawTitle = String(published.get("title")?.value ?? "");
+    // Withhold a title that is a bare call to action or the institution's own
+    // registered name (the P2-D title plausibility gate): such a label names
+    // nothing a job seeker could act on, and publishing it would credit the
+    // source with a title it never gave. The raw value stays in the evidence
+    // rows; it is simply not published — the record falls back to its notice
+    // filename when there is a document URL, and is not published at all when
+    // there is not.
+    const gateHeldTitle = rawTitle !== "" && titleGateReason(rawTitle, first.institution_name) !== null;
+    const title = gateHeldTitle ? "" : agreedTitle ?? rawTitle;
     const sourceDocument = publishable("source_document");
     // A PDF notice is a vacancy-shaped entity whose text was never read. It has no
     // asserted title, so the display title is the document's own filename. That is
     // a fact about the file, not a claim about what is inside it, and the read
     // model marks it `kind: "DOCUMENT"` so no caller can mistake it for a posting
-    // with extracted fields.
-    const kind: VacancyKind = sourceDocument !== null && !publishable("title") ? "DOCUMENT" : "POSTING";
+    // with extracted fields. A record whose title was withheld by the gate lands
+    // in the same place for the same reason: nothing readable was observed.
+    const kind: VacancyKind = sourceDocument !== null && (gateHeldTitle || !agreedTitle) ? "DOCUMENT" : "POSTING";
     const displayTitle = title || (sourceDocument ? documentFileName(sourceDocument) : "");
     // Nothing to show and no document: there is no vacancy here.
     if (!displayTitle) continue;
@@ -841,4 +854,489 @@ export function vacancySlug(institutionSlug: string, entityId: string): string {
     .replace(/^-+|-+$/g, "")
     .toLowerCase();
   return slug.slice(0, 120);
+}
+
+// ============================================================================
+// Financial document projection (P2-C) — pure, provider-agnostic read model.
+//
+// A financial record is a DOCUMENT and no more. The evidence states a URL and
+// the source's own naming (a title, a report type, or a rate kind); the document
+// body was never fetched and never parsed, so no metric and no numeric rate is
+// ever derived here. That is the whole content of the public layer, and this
+// projector is the single place that decides it.
+//
+// The pre-P2-C module was projected inside its builder and the API re-derived the
+// owning institution from an `entity_id` prefix regex. Both facts made identity
+// drift: the store's `institutions` copy uses pilot `mfi-0NN` numbering that does
+// NOT match the public registry, so a document whose publisher was Mahila could
+// be published under another company's name. Here identity is a plain column
+// (`institution_slug`) written by the builder from the publisher -> registry
+// resolution, so a consumer never re-parses an id to find the owner.
+//
+//   - A record is one `entity_id` group (the canonical `financial-<inst>|<url>`).
+//   - A REJECTED claim and a retired observation (`valid_to` set) are excluded,
+//     exactly as every other source-owned projection does.
+//   - A generic link label ("Download", "Read more", "PDF") is not a title. It
+//     is dropped and the document's own filename is shown instead — a fact about
+//     the file, not a claim about its contents.
+//   - An OPEN cross-source conflict on any field marks the record CONFLICT; it is
+//     still shown (a document nobody can name is less useful than a flagged one)
+//     but never quoted as agreed.
+// ============================================================================
+
+import type { FinancialDocumentDto, FinancialKind } from "./types";
+
+/** Raw financial document evidence row, as the adapters hand to the projection. */
+export interface FinancialAssertionRecord {
+  entity_id: string;
+  institution_id: string;
+  institution_slug: string;
+  institution_name: string;
+  field_name: string;
+  value: string;
+  source_id: string;
+  /** Raw URL of the page this observation came from, when one is known. */
+  source_url?: string | null;
+  observed_at: string;
+  valid_to: string | null;
+  verification_status: string;
+  confidence: number | null;
+}
+
+/**
+ * Financial field name -> DocumentDto property. Uppercase names are the assertion
+ * vocabulary written by lib/ingestion/financial-evidence.ts; the lowercase names
+ * are accepted so an older JSON fixture reaches the same read model.
+ */
+const FINANCIAL_FIELD_ALIASES: Readonly<Record<string, "sourceDocument" | "title" | "reportType" | "rateKind">> = {
+  SOURCE_DOCUMENT: "sourceDocument",
+  source_document: "sourceDocument",
+  DOCUMENT_TITLE: "title",
+  document_title: "title",
+  DOCUMENT_TYPE: "reportType",
+  document_type: "reportType",
+  RATE_KIND: "rateKind",
+  rate_kind: "rateKind",
+};
+
+/**
+ * A link's visible text is frequently its own call-to-action, not the document's
+ * name. Publishing "Read more" as a document title would be a claim the source
+ * never made, so the gate withholds it and the filename is used instead.
+ */
+const GENERIC_DOCUMENT_TITLE =
+  /^(download|downloads?|read\s*more|readmore|view(\s*more)?|more|click(\s*here)?|here|details?|see\s*more|open|link|pdf|file|document|notice|english|nepali)$/i;
+
+function urlFromEntityId(entityId: string): string | null {
+  const tail = entityId.split("|").slice(1).join("|");
+  return /^https?:\/\//i.test(tail) ? tail : null;
+}
+
+/** Deterministic slug for a financial document route. */
+export function financialSlug(institutionSlug: string, url: string | null, entityId: string): string {
+  const tail = url ? documentFileName(url) : entityId.split("|").slice(1).join("-") || entityId;
+  const slug = `${institutionSlug || "unresolved"}-${tail}`
+    .replace(/[^a-z0-9]+/gi, "-")
+    .replace(/-{2,}/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .toLowerCase();
+  return slug.slice(0, 120);
+}
+
+export interface FinancialProjectionOptions {
+  /** Open financial conflicts as `<entity_id>|<field_name>` keys. */
+  openConflictKeys?: ReadonlySet<string>;
+}
+
+/**
+ * Project current financial document evidence into FinancialDocumentDto[].
+ * Deterministic sort by institution then id.
+ */
+export function financialsFromAssertionRows(
+  rows: FinancialAssertionRecord[],
+  opts: FinancialProjectionOptions = {},
+): FinancialDocumentDto[] {
+  const open = opts.openConflictKeys ?? new Set<string>();
+  const byEntity = new Map<string, FinancialAssertionRecord[]>();
+
+  for (const r of rows) {
+    if (!Object.prototype.hasOwnProperty.call(FINANCIAL_FIELD_ALIASES, String(r.field_name))) continue;
+    if (String(r.verification_status) === "REJECTED") continue;
+    if (r.valid_to !== null && r.valid_to !== undefined) continue;
+    const bucket = byEntity.get(r.entity_id);
+    if (bucket) bucket.push(r);
+    else byEntity.set(r.entity_id, [r]);
+  }
+
+  const out: FinancialDocumentDto[] = [];
+  for (const [entityId, bucket] of byEntity) {
+    const first = bucket[0];
+    const pick = (target: "sourceDocument" | "title" | "reportType" | "rateKind"): string | null => {
+      const hit = bucket.find((r) => FINANCIAL_FIELD_ALIASES[String(r.field_name)] === target);
+      const v = hit?.value;
+      return v !== undefined && String(v).trim().length > 0 ? String(v).trim() : null;
+    };
+
+    const sourceDocument = pick("sourceDocument") ?? urlFromEntityId(entityId);
+    const institutionId = first.institution_id;
+    const institutionSlug = first.institution_slug;
+    const url = sourceDocument;
+    const id = url ? `financial-${institutionId}|${url}` : entityId;
+
+    let title = pick("title");
+    if (title && GENERIC_DOCUMENT_TITLE.test(title)) title = null;
+    const displayTitle = title ?? (url ? documentFileName(url) : entityId);
+
+    const rateKind = pick("rateKind");
+    const kind: FinancialKind = rateKind ? "RATE" : "REPORT";
+    const conflict = bucket.some((r) => open.has(`${entityId}|${String(r.field_name)}`));
+    const lastSeenAt = bucket.reduce((max, r) => (r.observed_at > max ? r.observed_at : max), "");
+
+    out.push({
+      id,
+      slug: financialSlug(institutionSlug, url, entityId),
+      institution: first.institution_name || "(institution name not observed)",
+      institution_id: institutionId,
+      institution_slug: institutionSlug,
+      title: displayTitle,
+      kind,
+      reportType: pick("reportType"),
+      rateKind,
+      sourceDocument: url,
+      sourceName: first.source_url ?? null,
+      lastSeenAt,
+      status: conflict ? "CONFLICT" : "ACTIVE",
+    });
+  }
+
+  out.sort((a, b) =>
+    a.institution_slug !== b.institution_slug
+      ? a.institution_slug < b.institution_slug
+        ? -1
+        : 1
+      : a.id < b.id
+        ? -1
+        : a.id > b.id
+          ? 1
+          : 0,
+  );
+  return out;
+}
+
+// ============================================================================
+// General document projection (P2-D) — pure, provider-agnostic read model.
+//
+// These are the OTHER documents: not the financial layer (P2-C, keyed by URL)
+// but every document an institution's own site linked and whose link text was
+// asserted as evidence — `document_title` and `notice_title` rows. The evidence
+// is title-only. No URL for the target was recorded, no publication date, no
+// document type beyond the capability the row arrived under. So a published
+// record carries (institution, exact title, owning source, observed_at) and
+// nothing else: `official_url`, `go_slug` and `period` are null because nothing
+// in evidence fills them, and a fabricated one would be a claim no source made.
+//
+//   - Identity is `document-<institution>|<title>`, established by the adapter
+//     from the publisher -> registry resolution (helpers below), never parsed
+//     back out of a pilot-numbered id by a consumer. One record per
+//     (institution, exact title); sources asserting the same title corroborate
+//     one record through the row set, not through absence of rows.
+//   - REJECTED claims and retired observations are excluded, as everywhere.
+//   - The title plausibility gate withholds a bare call to action ("Download",
+//     "Read more") or the institution's own registered name — the same rule the
+//     financial builder applies to DOCUMENT_TITLE, exercised here directly so
+//     the D1 adapter and injected tests get it without going through a build.
+//   - `doc_type` is an evidence fact: NOTICE when every row arrived under
+//     `notice_title`, DOCUMENT otherwise. It is not a guessed document category.
+//   - An OPEN cross-source dispute on the record's own title marks it CONFLICT.
+//   - Unresolved owners never publish: a row whose institution could not be
+//     resolved from its source publisher is evidence, not a public record.
+// ============================================================================
+
+/** Raw general document evidence row, as the adapters hand to the projection. */
+export interface DocumentAssertionRecord {
+  entity_id: string;
+  institution_id: string;
+  institution_slug: string;
+  institution_name: string;
+  /** `document_title` or `notice_title` — the capability the row arrived under. */
+  field_name: string;
+  /** The observed link text: the document's title, exactly as the source gave it. */
+  value: string;
+  source_id: string;
+  /** Raw URL of the source page this observation came from, when one is known. */
+  source_url?: string | null;
+  observed_at: string;
+  valid_to: string | null;
+  verification_status: string;
+  confidence: number | null;
+}
+
+/**
+ * One whitespace-normalized observed title. The ONLY normalization applied to
+ * an asserted title: link text arrives wrapped across lines or padded with
+ * runs of spaces by the HTML it was read from, and two observations of one
+ * title must collapse to one record. Case, punctuation and wording are the
+ * source's own and are never touched.
+ */
+export function normalizeObservedTitle(v: string): string {
+  return String(v ?? "").replace(/\s+/g, " ").trim();
+}
+
+/**
+ * Institution-only identity key, the same normalization P2-A/P2-B/P2-C use to
+ * match a source's publisher (or a title) against the public registry.
+ */
+function institutionIdentityKey(s: string): string {
+  return String(s ?? "")
+    .toLowerCase()
+    .replace(/\blimited\b/g, "ltd")
+    .replace(/\b(ltd|co|company|pvt|private)\b/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+/**
+ * Canonical general document record identity: `document-<institution>|<title>`.
+ * Constructed by every adapter (builder, D1) through this one function so the
+ * static module and the runtime query can never disagree about what a record IS.
+ */
+export function documentEntityId(institutionId: string, title: string): string {
+  return `document-${institutionId}|${normalizeObservedTitle(title)}`;
+}
+
+/**
+ * Canonical vacancy record identity from whatever shape the evidence row has.
+ * Two shapes exist and both are handled here so no adapter re-invents this:
+ *
+ *   - `vacancy-<rawInst>|<tail>` — an entity-keyed row (a parsed posting or an
+ *     unread notice link). Only the institution segment is re-keyed to the
+ *     canonical registry id; the tail (URL or title) is preserved byte-for-byte,
+ *     because rebuilding it from a field value would split one record into two
+ *     whenever the two differ in case or encoding.
+ *   - an institution-keyed title-only observation (`vacancy_title` rows, P2-D):
+ *     the record's identity IS (institution, title), so it is synthesized as
+ *     `vacancy-<institution>|<normalized title>` here, at the one place every
+ *     caller goes through.
+ *
+ * Returns the raw id unchanged when no canonical institution is known — the
+ * caller withholds such rows from publication rather than publishing a pilot
+ * number or inventing an owner.
+ */
+export function canonicalVacancyEntityId(
+  rawEntityId: string,
+  fieldName: string,
+  value: string,
+  institutionId: string,
+): string {
+  const raw = String(rawEntityId);
+  if (raw.startsWith("vacancy-")) {
+    if (!institutionId) return raw;
+    const tail = raw.split("|").slice(1).join("|");
+    return tail ? `vacancy-${institutionId}|${tail}` : raw;
+  }
+  if (institutionId && VACANCY_FIELD_ALIASES[String(fieldName)] === "title") {
+    const title = normalizeObservedTitle(value);
+    if (title) return `vacancy-${institutionId}|${title}`;
+  }
+  return raw;
+}
+
+/**
+ * The title plausibility gate, shared by the document and vacancy layers.
+ *
+ * A title the source never actually gave — a call-to-action label ("Download",
+ * "Read more") or the institution's own registered name standing in for a
+ * document or vacancy — is withheld from publication. The reason is returned
+ * rather than a boolean so a caller can report WHY something was held, and it
+ * is a pure function so a test can exercise both branches without evidence.
+ */
+export function titleGateReason(
+  title: string,
+  institutionName: string,
+): "GENERIC" | "OWN_NAME" | null {
+  const t = normalizeObservedTitle(title);
+  if (!t) return "GENERIC";
+  // A period a scraper leaves on a link label - "Ltd." in the institution's
+  // name, or after "Download" - is punctuation, not identity or meaning, so
+  // the gate tests a dot-free form. The published title keeps its dots.
+  const gateKey = (s: string): string =>
+    normalizeObservedTitle(institutionIdentityKey(s).replace(/\./g, " "));
+  const g = gateKey(t);
+  if (!g) return "GENERIC";
+  if (GENERIC_DOCUMENT_TITLE.test(g)) return "GENERIC";
+  const own = gateKey(institutionName);
+  if (own && g === own) return "OWN_NAME";
+  return null;
+}
+
+/** Open dispute rows an adapter has resolved to canonical institution identity. */
+export interface EvidenceConflictRow {
+  entity_id: string;
+  field_name: string;
+  value_a?: string | null;
+  value_b?: string | null;
+  /** The canonical registry institution id this conflict belongs to, when resolved. */
+  institution_id?: string | null;
+}
+
+/**
+ * Turn raw OPEN cross-source conflicts into canonical document conflict records
+ * (`{entity_id, field_name}` — the same shape every generated module stores).
+ * The adapter resolves the conflict's institution (the same publisher/join
+ * authority it uses for assertion rows); everything after that is deterministic
+ * here so the builder and the D1 adapter cannot drift on what counts as a
+ * disputed document.
+ *
+ * Conflicts are keyed at institution level in the store (`mfi-00X`,
+ * `document_title`, two disputed values), so each disputed VALUE becomes the
+ * document record it disputes. A conflict already keyed on a canonical
+ * `document-` entity is passed through. A conflict whose institution could not
+ * be resolved is skipped: an unowned dispute cannot be matched to a record, and
+ * guessing an owner is exactly the drift this layer exists to prevent.
+ */
+export function documentConflictRows(
+  conflicts: readonly EvidenceConflictRow[],
+): Array<{ entity_id: string; field_name: string }> {
+  const out: Array<{ entity_id: string; field_name: string }> = [];
+  const seen = new Set<string>();
+  const push = (entity_id: string, field_name: string): void => {
+    const key = `${entity_id}|${field_name}`;
+    if (seen.has(key)) return;
+    seen.add(key);
+    out.push({ entity_id, field_name });
+  };
+  for (const c of conflicts) {
+    const field = String(c.field_name);
+    const raw = String(c.entity_id);
+    if (raw.startsWith("document-")) {
+      push(raw, field);
+      continue;
+    }
+    const inst = String(c.institution_id ?? "");
+    if (!inst) continue;
+    for (const v of [c.value_a, c.value_b]) {
+      const title = normalizeObservedTitle(v ?? "");
+      if (title) push(documentEntityId(inst, title), field);
+    }
+  }
+  return out;
+}
+
+/**
+ * The vacancy counterpart of documentConflictRows: entity-keyed conflicts
+ * re-key their institution segment, institution-keyed `vacancy_title` disputes
+ * synthesize one record per disputed title value.
+ */
+export function vacancyConflictRows(
+  conflicts: readonly EvidenceConflictRow[],
+): Array<{ entity_id: string; field_name: string }> {
+  const out: Array<{ entity_id: string; field_name: string }> = [];
+  const seen = new Set<string>();
+  const push = (entity_id: string, field_name: string): void => {
+    const key = `${entity_id}|${field_name}`;
+    if (seen.has(key)) return;
+    seen.add(key);
+    out.push({ entity_id, field_name });
+  };
+  for (const c of conflicts) {
+    const field = String(c.field_name);
+    const raw = String(c.entity_id);
+    const inst = String(c.institution_id ?? "");
+    if (!inst) continue;
+    if (raw.startsWith("vacancy-")) {
+      push(canonicalVacancyEntityId(raw, field, "", inst), field);
+      continue;
+    }
+    for (const v of [c.value_a, c.value_b]) {
+      const value = String(v ?? "");
+      if (value) push(canonicalVacancyEntityId(raw, field, value, inst), field);
+    }
+  }
+  return out;
+}
+
+export interface DocumentProjectionOptions {
+  /** Open document conflicts as `<entity_id>|<field_name>` keys. */
+  openConflictKeys?: ReadonlySet<string>;
+}
+
+/**
+ * Project current general document evidence into DocumentDto[].
+ * Deterministic sort by institution slug, then record id.
+ *
+ * Rows are expected to carry canonical entity ids (built through
+ * documentEntityId); a caller that feeds raw institution-keyed rows would
+ * merge a whole institution's documents into one bucket, which is why both
+ * adapters go through the helper instead of shaping ids themselves.
+ */
+export function documentsFromAssertionRows(
+  rows: DocumentAssertionRecord[],
+  opts: DocumentProjectionOptions = {},
+): DocumentDto[] {
+  const open = opts.openConflictKeys ?? new Set<string>();
+
+  const byEntity = new Map<string, DocumentAssertionRecord[]>();
+  for (const r of rows) {
+    if (r.field_name !== "document_title" && r.field_name !== "notice_title") continue;
+    if (String(r.verification_status) === "REJECTED") continue;
+    if (r.valid_to !== null && r.valid_to !== undefined) continue;
+    const bucket = byEntity.get(r.entity_id);
+    if (bucket) bucket.push(r);
+    else byEntity.set(r.entity_id, [r]);
+  }
+
+  const out: DocumentDto[] = [];
+  for (const [entityId, bucket] of byEntity) {
+    const first = bucket[0];
+    // An owner that was never resolved is evidence, not a public record.
+    if (!first.institution_id) continue;
+
+    const title = normalizeObservedTitle(first.value);
+    // The gate withholds the label; with no URL to fall back to (there is
+    // never one in this layer), the record itself is not published.
+    if (titleGateReason(title, first.institution_name)) continue;
+
+    const conflict = [...open].some((key) => key.startsWith(`${entityId}|`));
+    const lastSeenAt = bucket.reduce((max, r) => (r.observed_at > max ? r.observed_at : max), "");
+    const statuses = bucket.map((r) => String(r.verification_status));
+    // NOTICE is a claim about the capability the evidence arrived under, made
+    // only when every row for this title used it; mixed evidence publishes the
+    // general DOCUMENT rather than picking the narrower word.
+    const doc_type = bucket.every((r) => r.field_name === "notice_title") ? "NOTICE" : "DOCUMENT";
+
+    out.push({
+      id: entityId,
+      doc_type,
+      title,
+      // Never filled from a guess: this layer has no URL, no date, no period.
+      official_url: null,
+      go_slug: null,
+      period: null,
+      source_id: first.source_id,
+      meta: {
+        source: first.source_id,
+        sources: distinctSources(bucket),
+        source_url: first.source_url ?? null,
+        last_verified_at: lastSeenAt || null,
+        verification_status: effectiveStatus(statuses, conflict),
+      },
+      institution_id: first.institution_id,
+      institution_slug: first.institution_slug,
+      institution: first.institution_name || "(institution name not observed)",
+      status: conflict ? "CONFLICT" : "ACTIVE",
+    });
+  }
+
+  out.sort((a, b) =>
+    a.institution_slug !== b.institution_slug
+      ? a.institution_slug < b.institution_slug
+        ? -1
+        : 1
+      : a.id < b.id
+        ? -1
+        : a.id > b.id
+          ? 1
+          : 0,
+  );
+  return out;
 }

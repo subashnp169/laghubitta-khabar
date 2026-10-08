@@ -1,4 +1,4 @@
-import { institutions } from "@/data/institutions";
+import { institutions } from "@/lib/site-data";
 import type { Institution } from "@/types";
 
 /**

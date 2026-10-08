@@ -108,14 +108,14 @@ export function InstitutionDirectory({
 
     return [...matched].sort((a, b) => {
       if (sort === "name") return a.name.localeCompare(b.name);
-      if (sort === "oldest") {
-        // The 1900-01-09 sentinel and unknown dates sort last, not first, so
-        // "oldest first" cannot be led by institutions that were never dated.
-        const av = Number(a.operationDate.slice(0, 4)) || 9999;
-        const bv = Number(b.operationDate.slice(0, 4)) || 9999;
-        return av - bv;
+      if (sort === "capital") {
+        const ac = a.paidUpCapitalCrore ?? 0;
+        const bc = b.paidUpCapitalCrore ?? 0;
+        return bc - ac;
       }
-      return b.paidUpCapitalCrore - a.paidUpCapitalCrore;
+      const av = Number(a.operationDate.slice(0, 4)) || 9999;
+      const bv = Number(b.operationDate.slice(0, 4)) || 9999;
+      return av - bv;
     });
   }, [institutions, query, area, sort]);
 

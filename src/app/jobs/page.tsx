@@ -3,10 +3,8 @@ import type { Metadata } from "next";
 import { Container, PageHeader } from "@/components/ui/Section";
 import { Chip } from "@/components/ui/Chip";
 import { EmptyState } from "@/components/ui/EmptyState";
-import { jobs, jobsProvenance } from "@/data/jobs";
-import { institutions } from "@/data/institutions";
+import { jobs, jobsProvenance, type Job } from "@/lib/site-data";
 import { displayHost, formatDate, humanize, realUrl } from "@/util/format";
-import type { Job } from "@/data/jobs";
 import { Stat } from "@/components/ui/Stat";
 
 /**
@@ -14,15 +12,18 @@ import { Stat } from "@/components/ui/Stat";
  *
  * Two record kinds live here and the distinction is load-bearing:
  *
- *  - `POSTING` — the institution's page was fetched and a posting was parsed out
- *    of the text. There is one of these in the current dataset.
+ *  - `POSTING` — a record parsed out of an institution's own page: either a
+ *    full posting, or (P2-D) the listing title observed on a career page with
+ *    nothing else behind it. Fields the page never stated render as "Not
+ *    stated"; they are not missing data, they were never observed.
  *  - `DOCUMENT` — the institution's career page links a notice (usually a PDF)
- *    that we recorded but did not read. There are 36 of these.
+ *    that we recorded but did not read.
  *
- * The previous version of this page claimed no institution's site had ever
- * yielded a readable posting, which the data contradicts. It also rendered
- * postings and unread notices through the same visual treatment, so a reader
- * could not tell which of the 37 rows was actually parsed.
+ * Every count below is derived from the generated module, never written into
+ * the copy: the record mix changes when evidence changes, and a hardcoded
+ * number is the first thing to start lying. Institution links resolve through
+ * the canonical `institutionSlug` column the builder wrote, never by matching
+ * a name and never by parsing an id.
  */
 
 export const metadata: Metadata = {
@@ -34,8 +35,6 @@ export const metadata: Metadata = {
 const POSTINGS = jobs.filter((j) => j.kind === "POSTING");
 const NOTICES = jobs.filter((j) => j.kind === "DOCUMENT");
 
-const slugByName = new Map(institutions.map((i) => [i.name, i.slug]));
-
 export default function JobsPage() {
   return (
     <>
@@ -44,26 +43,28 @@ export default function JobsPage() {
         title="Vacancies institutions have posted"
       >
         <p className="max-w-3xl text-base leading-relaxed text-mfi-600">
-          {jobs.length} records from institution career pages. Only{" "}
-          <span className="font-medium text-mfi-900">{POSTINGS.length}</span> of these is a posting we could
-          read and parse; the other {NOTICES.length} are notice links we recorded without opening them.
+          {jobs.length} records from institution career pages.{" "}
+          <span className="font-medium text-mfi-900">{POSTINGS.length}</span> carry a title read from the
+          page; {NOTICES.length} are notice links we recorded without opening them. A field the page never
+          stated shows as &quot;Not stated&quot; — it was never observed, not lost.
         </p>
       </PageHeader>
 
       <Container className="py-8 sm:py-10">
         <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-mfi-200 bg-mfi-200 sm:grid-cols-4">
           <Stat term="Records" value={String(jobs.length)} />
-          <Stat term="Parsed postings" value={String(POSTINGS.length)} tone="info" />
+          <Stat term="Postings" value={String(POSTINGS.length)} tone="info" />
           <Stat term="Unread notices" value={String(NOTICES.length)} tone="attention" />
-          <Stat term="Institutions" value={String(new Set(jobs.map((j) => j.institution)).size)} />
+          <Stat term="Institutions" value={String(new Set(jobs.map((j) => j.institutionSlug)).size)} />
         </dl>
 
         <section aria-labelledby="postings-heading" className="mt-10">
           <h2 id="postings-heading" className="border-b border-mfi-200 pb-2 text-base font-semibold tracking-tight text-mfi-900">
-            Parsed postings
+            Postings
           </h2>
           <p className="mt-1 text-xs text-mfi-500">
-            Read from the institution&apos;s own page. Title, location and type come from the posting text.
+            Titles read from the institution&apos;s own page. Location, type and deadline appear only when the
+            page stated them.
           </p>
 
           {POSTINGS.length === 0 ? (
@@ -81,7 +82,7 @@ export default function JobsPage() {
                     <div className="min-w-0 flex-1">
                       <h3 className="text-base font-semibold leading-snug text-mfi-900">{job.title}</h3>
                       <p className="mt-1 text-sm text-mfi-600">
-                        <InstitutionLink name={job.institution} />
+                        <InstitutionLink slug={job.institutionSlug} name={job.institution} />
                       </p>
                     </div>
                     <Chip tone="info">parsed from page</Chip>
@@ -138,7 +139,7 @@ export default function JobsPage() {
                     </span>
                   </div>
                   <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-mfi-600">
-                    <InstitutionLink name={job.institution} />
+                    <InstitutionLink slug={job.institutionSlug} name={job.institution} />
                     {realUrl(job.sourceDocument) ? (
                       <a
                         href={job.sourceDocument as string}
@@ -176,8 +177,14 @@ function Detail({ term, value }: { term: string; value: string | null }) {
   );
 }
 
-function InstitutionLink({ name }: { name: string }) {
-  const slug = slugByName.get(name);
+/**
+ * Institution link resolved through the canonical slug COLUMN the builder
+ * wrote (P2-D). Name-based lookup used to live here; it silently stopped
+ * linking the moment a name drifted, and it could not tell two records for the
+ * same company apart. A record with no resolved slug renders as plain text —
+ * never a guessed href.
+ */
+function InstitutionLink({ slug, name }: { slug: string; name: string }) {
   if (!slug) return <>{name}</>;
   return (
     <Link href={`/institutions/${slug}`} className="underline-offset-4 hover:underline">

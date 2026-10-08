@@ -2,12 +2,10 @@ import Link from "next/link";
 import { Container, Section, SectionLink } from "@/components/ui/Section";
 import { Chip } from "@/components/ui/Chip";
 import { EmptyState } from "@/components/ui/EmptyState";
-import { directorySource, institutions } from "@/data/institutions";
+import { directorySource, institutions, financialsProvenance, jobs, jobsProvenance, crawlSummary } from "@/lib/site-data";
 import { distinctNrbDocuments } from "@/util/activity";
-import { financials, financialsProvenance } from "@/data/financials";
-import { jobs, jobsProvenance } from "@/data/jobs";
-import { crawlSummary } from "@/data/pilot";
 import { allPublishedPeople } from "../../lib/repository/static-people";
+import { allPublishedFinancials } from "../../lib/repository/static-financials";
 import { activitySlice, latestActivityDate } from "@/util/activity";
 import { formatCrore, formatCount, formatDate, humanize, initials, realUrl } from "@/util/format";
 
@@ -340,6 +338,7 @@ function PeopleSnapshot() {
  * numbers inside had been checked.
  */
 function PublicationSnapshot() {
+  const financials = allPublishedFinancials();
   const reportDocs = financials.filter((f) => f.kind === "REPORT").slice(0, 6);
   const openJobs = jobs.slice(0, 6);
 

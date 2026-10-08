@@ -12,6 +12,7 @@ import type {
   BranchDto,
   CoverageDto,
   DocumentDto,
+  FinancialDocumentDto,
   FinancialReportDto,
   InstitutionDetail,
   InstitutionSummary,
@@ -27,8 +28,72 @@ import type {
   SourceMeta,
   TimelineEventDto,
 } from "./types";
-import type { InstitutionRepository, NotFoundError } from "./contract";
-import { peopleFromAssertionRows, type PersonAssertionRecord } from "./projection";
+import type { InstitutionRepository } from "./contract";
+import {
+  branchesFromAssertionRows,
+  canonicalVacancyEntityId,
+  documentConflictRows,
+  documentEntityId,
+  documentsFromAssertionRows,
+  financialsFromAssertionRows,
+  jobsFromAssertionRows,
+  peopleFromAssertionRows,
+  vacancyConflictRows,
+  type BranchAssertionRecord,
+  type DocumentAssertionRecord,
+  type EvidenceConflictRow,
+  type FinancialAssertionRecord,
+  type PersonAssertionRecord,
+  type VacancyAssertionRecord,
+} from "./projection";
+import { branchIdentityKey } from "../ingestion/branch-records";
+
+/**
+ * A projected financial document -> the frozen Phase C report/rate DTO shapes.
+ * The body was never read, so metrics is empty and no numeric rate is set. The
+ * mapping is defined once here and mirrored (identically) in the static API.
+ */
+function financialDocumentMeta(d: FinancialDocumentDto): SourceMeta {
+  return {
+    source: d.sourceName ?? "generated-modules",
+    sources: d.sourceName ? [d.sourceName] : ["generated-modules"],
+    source_url: d.sourceDocument,
+    last_verified_at: d.lastSeenAt,
+    verification_status: d.status === "CONFLICT" ? "CONFLICT" : "UNVERIFIED",
+  };
+}
+
+function financialReportFromDocument(d: FinancialDocumentDto): FinancialReportDto {
+  return {
+    id: d.id,
+    institution: d.institution,
+    institution_slug: d.institution_slug || "(unresolved)",
+    title: d.title,
+    report_type: d.reportType,
+    period_start: null,
+    period_end: null,
+    report_date: null,
+    metrics: {},
+    source_url: d.sourceDocument,
+    meta: financialDocumentMeta(d),
+  };
+}
+
+function interestRateFromDocument(d: FinancialDocumentDto): InterestRateDto {
+  return {
+    id: d.id,
+    rate_kind: d.rateKind ?? "INTEREST_RATE",
+    institution: d.institution,
+    institution_slug: d.institution_slug || "(unresolved)",
+    title: d.title,
+    url: d.sourceDocument,
+    source_url: d.sourceName,
+    rate_pct: null,
+    period_start: null,
+    period_end: null,
+    meta: financialDocumentMeta(d),
+  };
+}
 
 export interface D1ResultRow {
   [column: string]: unknown;
@@ -258,17 +323,285 @@ export class D1InstitutionRepository implements InstitutionRepository {
       pagination: { page: 1, limit: Math.max(1, Math.min(100, total || 20)), total },
     };
   }
-  async listBranches(_institutionId: string): Promise<Paged<BranchDto>> {
-    return { data: [], pagination: { page: 1, limit: 20, total: 0 } };
+  /**
+   * Raw branch evidence rows (+ open conflict keys) for one institution. The
+   * projection does all shaping; SQL here only carries provenance columns.
+   *
+   * Rows are re-keyed with branchIdentityKey(institutionId, name): a store that
+   * carries branch_name assertions against the institution entity_id would
+   * otherwise collapse every branch of an institution onto one record. The same
+   * identity the builder writes, so D1 and the static module agree.
+   */
+  private async branchEvidence(institutionId: string): Promise<{ results: BranchAssertionRecord[]; openKeys: Set<string> }> {
+    const all = await this.db
+      .prepare(`
+        SELECT i.id AS institution_id, i.slug AS institution_slug,
+               a.field_name, a.value, a.source_id, a.observed_at, a.verification_status, a.confidence,
+               a.valid_to AS valid_to
+        FROM data_assertions a
+        JOIN institutions i ON i.id = a.entity_id
+        WHERE a.entity_type = 'institution' AND a.field_name LIKE 'branch%' AND i.id = ?
+        ORDER BY i.id, a.value, a.field_name`)
+      .bind(institutionId)
+      .all();
+    const conflicts = await this.db
+      .prepare(`SELECT entity_id, field_name FROM data_conflicts WHERE resolution_status = 'OPEN' AND entity_type = 'institution' AND field_name LIKE 'branch%'`)
+      .all();
+    const results: BranchAssertionRecord[] = (all.results as unknown as Array<Record<string, unknown>>).map((r) => {
+      const institution = String(r.institution_id);
+      return {
+        entity_id: branchIdentityKey(institution, String(r.value)),
+        institution_id: institution,
+        institution_slug: String(r.institution_slug),
+        field_name: String(r.field_name),
+        value: String(r.value),
+        source_id: String(r.source_id),
+        observed_at: String(r.observed_at),
+        valid_to: (r.valid_to as string | null) ?? null,
+        verification_status: String(r.verification_status),
+        confidence: (r.confidence as number | null) ?? null,
+      };
+    });
+    const openKeys = new Set(
+      conflicts.results.map((c) => `${String(c.entity_id)}|${String(c.field_name)}`),
+    );
+    return { results, openKeys };
   }
-  async listFinancials(_institutionId: string): Promise<Paged<FinancialReportDto>> {
-    return { data: [], pagination: { page: 1, limit: 20, total: 0 } };
+
+  async listBranches(institutionId: string): Promise<Paged<BranchDto>> {
+    const { results, openKeys } = await this.branchEvidence(institutionId);
+    const data = branchesFromAssertionRows(results, { openConflictKeys: openKeys });
+    const total = data.length;
+    return { data, pagination: { page: 1, limit: 100, total } };
   }
-  async listDocuments(_institutionId: string): Promise<Paged<DocumentDto>> {
-    return { data: [], pagination: { page: 1, limit: 20, total: 0 } };
+  /**
+   * Raw financial document evidence rows (+ open conflict keys). Financial rows
+   * are NOT institution-scoped: entity_id is `financial-<institution>|<url>`, and
+   * the owning institution is resolved from the observation's source, exactly as
+   * the module builder does. The entity id is then re-keyed to the resolved
+   * institution so D1 and the static module produce the same record identity.
+   *
+   * NOTE: the canonical lk.db carries no FINANCIAL assertions today (the
+   * document layer is published from evidence only — see docs/data/P2-C-*). This
+   * path is correct for when it does; until then it returns nothing, honestly.
+   */
+  private async financialEvidence(
+    institutionId?: string,
+  ): Promise<{ results: FinancialAssertionRecord[]; openKeys: Set<string> }> {
+    const sql =
+      `SELECT a.entity_id, a.source_id, a.field_name, a.value, a.observed_at,
+              a.valid_to, a.verification_status, a.confidence,
+              i.id AS institution_id, i.slug AS institution_slug, i.name_en AS institution_name,
+              s.url AS source_url
+         FROM data_assertions a
+         LEFT JOIN ingestion_sources s ON s.id = a.source_id
+         LEFT JOIN institutions i ON i.id = s.institution_id
+        WHERE a.entity_type = 'FINANCIAL'` +
+      (institutionId ? ` AND i.id = ?` : ``) +
+      ` ORDER BY a.entity_id, a.field_name, a.observed_at`;
+    const all = institutionId
+      ? await this.db.prepare(sql).bind(institutionId).all()
+      : await this.db.prepare(sql).all();
+    const conflicts = await this.db
+      .prepare(`SELECT entity_id, field_name FROM data_conflicts WHERE resolution_status = 'OPEN' AND entity_type = 'FINANCIAL'`)
+      .all();
+    const results: FinancialAssertionRecord[] = (all.results as unknown as Array<Record<string, unknown>>).map((r) => {
+      const rawId = String(r.entity_id);
+      const tail = rawId.split("|").slice(1).join("|");
+      const institutionId = r.institution_id ? String(r.institution_id) : "";
+      const entityId = institutionId && tail ? `financial-${institutionId}|${tail}` : rawId;
+      return {
+        entity_id: entityId,
+        institution_id: institutionId,
+        institution_slug: r.institution_slug ? String(r.institution_slug) : "",
+        institution_name: r.institution_name ? String(r.institution_name) : "",
+        field_name: String(r.field_name),
+        value: String(r.value),
+        source_id: String(r.source_id),
+        source_url: (r.source_url as string | null) ?? null,
+        observed_at: String(r.observed_at),
+        valid_to: (r.valid_to as string | null) ?? null,
+        verification_status: String(r.verification_status),
+        confidence: (r.confidence as number | null) ?? null,
+      };
+    });
+    const openKeys = new Set(
+      conflicts.results.map((c) => `${String(c.entity_id)}|${String(c.field_name)}`),
+    );
+    return { results, openKeys };
   }
-  async listJobs(_institutionId: string): Promise<Paged<JobDto>> {
-    return { data: [], pagination: { page: 1, limit: 20, total: 0 } };
+
+  async listFinancials(institutionId: string): Promise<Paged<FinancialReportDto>> {
+    const { results, openKeys } = await this.financialEvidence(institutionId);
+    const data = financialsFromAssertionRows(results, { openConflictKeys: openKeys })
+      .filter((d) => d.kind === "REPORT")
+      .map(financialReportFromDocument);
+    return { data, pagination: { page: 1, limit: 100, total: data.length } };
+  }
+  /**
+   * Raw general document evidence rows (+ open conflict keys), P2-D. Document
+   * rows are institution-scoped through the observation's source, exactly as the
+   * module builder resolves them: the owning institution comes from
+   * `institutions` (registry numbering in lk.db), never from the assertion's
+   * entity id, and `entity_id` is rebuilt through documentEntityId so D1 and
+   * the static module produce the same record identity.
+   *
+   * NOTE: lk.db carries no document assertions today (the layer is published
+   * from evidence only — see docs/data/P2-D-DOCUMENTS-JOBS-AUDIT.md). This path
+   * is correct for when it does; until then it returns nothing, honestly.
+   */
+  private async documentEvidence(
+    institutionId?: string,
+  ): Promise<{ results: DocumentAssertionRecord[]; openKeys: Set<string> }> {
+    const sql =
+      `SELECT a.entity_id, a.source_id, a.field_name, a.value, a.observed_at,
+              a.valid_to, a.verification_status, a.confidence,
+              i.id AS institution_id, i.slug AS institution_slug, i.name_en AS institution_name,
+              s.url AS source_url
+         FROM data_assertions a
+         LEFT JOIN ingestion_sources s ON s.id = a.source_id
+         LEFT JOIN institutions i ON i.id = s.institution_id
+        WHERE a.field_name IN ('document_title', 'notice_title')` +
+      (institutionId ? ` AND i.id = ?` : ``) +
+      ` ORDER BY a.entity_id, a.observed_at`;
+    const all = institutionId
+      ? await this.db.prepare(sql).bind(institutionId).all()
+      : await this.db.prepare(sql).all();
+    const conflictSql =
+      `SELECT c.entity_id, c.field_name, c.value_a, c.value_b,
+              c.source_a_id, c.source_b_id, i.id AS institution_id
+         FROM data_conflicts c
+         LEFT JOIN ingestion_sources s ON s.id = c.source_a_id
+         LEFT JOIN institutions i ON i.id = s.institution_id
+        WHERE c.resolution_status = 'OPEN'
+          AND c.field_name IN ('document_title', 'notice_title')
+          AND c.source_a_id IS NOT NULL
+          AND c.source_b_id IS NOT NULL
+          AND c.source_a_id <> c.source_b_id`;
+    const conflicts = await this.db.prepare(conflictSql).all();
+
+    const results: DocumentAssertionRecord[] = (all.results as unknown as Array<Record<string, unknown>>).map((r) => {
+      const inst = r.institution_id ? String(r.institution_id) : "";
+      return {
+        // Canonical identity is rebuilt here through the shared helper, so the
+        // runtime and the generated module can never disagree about what a
+        // record IS. Unresolved rows keep their raw id and are withheld by the
+        // projection rather than published under a guessed owner.
+        entity_id: inst ? documentEntityId(inst, String(r.value)) : String(r.entity_id),
+        institution_id: inst,
+        institution_slug: r.institution_slug ? String(r.institution_slug) : "",
+        institution_name: r.institution_name ? String(r.institution_name) : "",
+        field_name: String(r.field_name),
+        value: String(r.value),
+        source_id: String(r.source_id),
+        source_url: (r.source_url as string | null) ?? null,
+        observed_at: String(r.observed_at),
+        valid_to: (r.valid_to as string | null) ?? null,
+        verification_status: String(r.verification_status),
+        confidence: (r.confidence as number | null) ?? null,
+      };
+    });
+    const conflictRows: EvidenceConflictRow[] = (conflicts.results as unknown as Array<Record<string, unknown>>).map(
+      (c) => ({
+        entity_id: String(c.entity_id),
+        field_name: String(c.field_name),
+        value_a: (c.value_a as string | null) ?? null,
+        value_b: (c.value_b as string | null) ?? null,
+        institution_id: c.institution_id ? String(c.institution_id) : null,
+      }),
+    );
+    const openKeys = new Set(
+      documentConflictRows(conflictRows).map((c) => `${c.entity_id}|${c.field_name}`),
+    );
+    return { results, openKeys };
+  }
+
+  async listDocuments(institutionId: string): Promise<Paged<DocumentDto>> {
+    const { results, openKeys } = await this.documentEvidence(institutionId);
+    const data = documentsFromAssertionRows(results, { openConflictKeys: openKeys });
+    return { data, pagination: { page: 1, limit: 100, total: data.length } };
+  }
+
+  /**
+   * Raw vacancy evidence, both P2-D representations (+ open conflict keys).
+   * Same rules as the builder: institution from the source's row in
+   * `institutions`, entity id re-keyed through canonicalVacancyEntityId, and a
+   * row whose owner cannot be resolved is not published (kept here only as
+   * evidence the caller never sees — the public layer must not carry a pilot
+   * number or a guessed owner).
+   *
+   * NOTE: lk.db carries no vacancy assertions today; until it does this path
+   * honestly returns nothing.
+   */
+  private async vacancyEvidence(
+    institutionId?: string,
+  ): Promise<{ results: VacancyAssertionRecord[]; openKeys: Set<string> }> {
+    const sql =
+      `SELECT a.entity_id, a.source_id, a.field_name, a.value, a.observed_at,
+              a.valid_to, a.verification_status, a.confidence,
+              i.id AS institution_id, i.slug AS institution_slug, i.name_en AS institution_name,
+              s.url AS source_url
+         FROM data_assertions a
+         LEFT JOIN ingestion_sources s ON s.id = a.source_id
+         LEFT JOIN institutions i ON i.id = s.institution_id
+        WHERE (a.entity_type = 'VACANCY'
+           OR (a.entity_type = 'institution' AND a.field_name = 'vacancy_title'))` +
+      (institutionId ? ` AND i.id = ?` : ``) +
+      ` ORDER BY a.entity_id, a.field_name, a.observed_at`;
+    const all = institutionId
+      ? await this.db.prepare(sql).bind(institutionId).all()
+      : await this.db.prepare(sql).all();
+    const conflictSql =
+      `SELECT c.entity_id, c.field_name, c.value_a, c.value_b,
+              c.source_a_id, c.source_b_id, i.id AS institution_id
+         FROM data_conflicts c
+         LEFT JOIN ingestion_sources s ON s.id = c.source_a_id
+         LEFT JOIN institutions i ON i.id = s.institution_id
+        WHERE c.resolution_status = 'OPEN'
+          AND (c.entity_type = 'VACANCY' OR c.field_name = 'vacancy_title')
+          AND c.source_a_id IS NOT NULL
+          AND c.source_b_id IS NOT NULL
+          AND c.source_a_id <> c.source_b_id`;
+    const conflicts = await this.db.prepare(conflictSql).all();
+
+    const results: VacancyAssertionRecord[] = [];
+    for (const r of all.results as unknown as Array<Record<string, unknown>>) {
+      const inst = r.institution_id ? String(r.institution_id) : "";
+      if (!inst) continue;
+      const sourceUrl = (r.source_url as string | null) ?? null;
+      results.push({
+        entity_id: canonicalVacancyEntityId(String(r.entity_id), String(r.field_name), String(r.value), inst),
+        institution_id: inst,
+        institution_slug: r.institution_slug ? String(r.institution_slug) : "",
+        institution_name: r.institution_name ? String(r.institution_name) : "",
+        field_name: String(r.field_name),
+        value: String(r.value),
+        source_id: String(r.source_id),
+        source_name: sourceUrl,
+        source_url: sourceUrl,
+        observed_at: String(r.observed_at),
+        valid_to: (r.valid_to as string | null) ?? null,
+        verification_status: String(r.verification_status),
+        confidence: (r.confidence as number | null) ?? null,
+      });
+    }
+    const conflictRows: EvidenceConflictRow[] = (conflicts.results as unknown as Array<Record<string, unknown>>).map(
+      (c) => ({
+        entity_id: String(c.entity_id),
+        field_name: String(c.field_name),
+        value_a: (c.value_a as string | null) ?? null,
+        value_b: (c.value_b as string | null) ?? null,
+        institution_id: c.institution_id ? String(c.institution_id) : null,
+      }),
+    );
+    const openKeys = new Set(vacancyConflictRows(conflictRows).map((c) => `${c.entity_id}|${c.field_name}`));
+    return { results, openKeys };
+  }
+
+  async listJobs(institutionId: string): Promise<Paged<JobDto>> {
+    const { results, openKeys } = await this.vacancyEvidence(institutionId);
+    const data = jobsFromAssertionRows(results, { openConflictKeys: openKeys });
+    return { data, pagination: { page: 1, limit: 100, total: data.length } };
   }
 
   async getPersonBySlug(slug: string): Promise<PersonDto | null> {
@@ -299,7 +632,11 @@ export class D1InstitutionRepository implements InstitutionRepository {
   }
 
   async listInterestRates(): Promise<Paged<InterestRateDto>> {
-    return { data: [], pagination: { page: 1, limit: 20, total: 0 } };
+    const { results, openKeys } = await this.financialEvidence();
+    const data = financialsFromAssertionRows(results, { openConflictKeys: openKeys })
+      .filter((d) => d.kind === "RATE")
+      .map(interestRateFromDocument);
+    return { data, pagination: { page: 1, limit: 100, total: data.length } };
   }
 
   async resolveOutboundLink(scopeKey: string, slug: string): Promise<OutboundLinkDto | null> {

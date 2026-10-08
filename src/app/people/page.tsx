@@ -4,7 +4,7 @@ import { Container, PageHeader } from "@/components/ui/Section";
 import { Chip, StatusChip } from "@/components/ui/Chip";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { allPublishedPeople } from "../../../lib/repository/static-people";
-import { institutions } from "@/data/institutions";
+import { institutions } from "@/lib/site-data";
 import { verificationStatus, sourceCount } from "@/util/evidence";
 import { formatDate, humanize, initials } from "@/util/format";
 import type { PersonDto } from "../../../lib/repository/types";

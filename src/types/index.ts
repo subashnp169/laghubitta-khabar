@@ -9,7 +9,12 @@ export interface Institution {
   operationDate: string;
   operationDateIsJointAfterMerger: boolean;
   headOffice: string;
-  paidUpCapitalCrore: number;
+  /**
+   * Paid-up capital in NPR crore, or null when the figure could not be attributed
+   * to this institution by a grade-A source. Null means "not published / pending
+   * verification", never zero. See data/master/disputed-identities.json.
+   */
+  paidUpCapitalCrore: number | null;
   workingArea: string;
   officialWebsite: string | null;
   websiteStatus: string;

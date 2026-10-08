@@ -1,7 +1,6 @@
 import { search as contractSearch } from "../../lib/api/repository";
 import type { DocumentDto, InstitutionSummary, PersonDto } from "../../lib/repository/types";
-import { nrbDocuments, nrbRegulatoryEvents } from "@/data/nrb";
-import { jobs } from "@/data/jobs";
+import { nrbDocuments, nrbRegulatoryEvents, jobs } from "@/lib/site-data";
 import { displayHost, humanize } from "./format";
 
 /**

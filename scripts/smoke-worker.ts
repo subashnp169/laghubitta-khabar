@@ -73,8 +73,17 @@ async function main() {
   // ---- news / search / people / interest-rates ----
   const news = await call("/api/news?tier=KHABAR");
   assert(news.status === 200, "GET /api/news?tier=KHABAR → 200");
+  const newsScoped = await call("/api/news?scope=NRB");
+  assert(newsScoped.status === 200, "GET /api/news?scope=NRB → 200");
   const newsBad = await call("/api/news?tier=BOGUS");
   assert(newsBad.status === 422, "bad tier → 422");
+  const newsBadScope = await call("/api/news?scope=BOGUS");
+  assert(newsBadScope.status === 422, "bad scope → 422");
+  const newsMeta = await news.json();
+  assert(
+    newsMeta.meta && typeof newsMeta.meta.tier === "object" && newsMeta.meta.tiers === undefined,
+    "news meta key is `tier` (singular) per API-CONTRACT",
+  );
 
   const search = await call("/api/search?q=deprosc");
   const searchBody = await search.json();

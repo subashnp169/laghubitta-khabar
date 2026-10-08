@@ -2,9 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import { directorySource } from "@/data/institutions";
-import { financialsProvenance } from "@/data/financials";
-import { jobsProvenance } from "@/data/jobs";
+import { directorySource, financialsProvenance, jobsProvenance } from "@/lib/site-data";
 
 /**
  * Site metadata.

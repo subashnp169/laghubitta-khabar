@@ -3,10 +3,12 @@ import type { Metadata } from "next";
 import { Container, PageHeader } from "@/components/ui/Section";
 import { Chip } from "@/components/ui/Chip";
 import { EmptyState } from "@/components/ui/EmptyState";
-import { financials, financialsProvenance } from "@/data/financials";
-import { institutions } from "@/data/institutions";
+import { financialsProvenance, institutions } from "@/lib/site-data";
+import { allPublishedFinancials } from "../../../lib/repository/static-financials";
 import { displayHost, formatDate, humanize, realUrl } from "@/util/format";
 import { Stat } from "@/components/ui/Stat";
+
+const financials = allPublishedFinancials();
 
 /**
  * Financial information.

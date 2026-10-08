@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import { Container, PageHeader } from "@/components/ui/Section";
 import { SearchIndex, type IndexEntry } from "@/components/search/SearchIndex";
-import { institutions } from "@/data/institutions";
-import { nrbRegulatoryEvents } from "@/data/nrb";
+import { institutions, nrbRegulatoryEvents, jobs } from "@/lib/site-data";
 import { distinctNrbDocuments } from "@/util/activity";
-import { jobs } from "@/data/jobs";
-import { financials } from "@/data/financials";
 import { allPublishedPeople } from "../../../lib/repository/static-people";
+import { allPublishedFinancials } from "../../../lib/repository/static-financials";
 import { displayHost, formatDate, humanize, NOT_AVAILABLE } from "@/util/format";
+
+const financials = allPublishedFinancials();
 
 /**
  * Search.

@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { buildAlerts, countBySeverity } from "../../../lib/alerts";
-import { nrbRegulatoryEvents } from "@/data/nrb";
-import { crawlSources } from "@/data/pilot";
-import { institutions } from "@/data/institutions";
+import { nrbRegulatoryEvents, crawlSources, institutions } from "@/lib/site-data";
 import { Container, PageHeader } from "@/components/ui/Section";
 import { Chip } from "@/components/ui/Chip";
 import { EmptyState } from "@/components/ui/EmptyState";

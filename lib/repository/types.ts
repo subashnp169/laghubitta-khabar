@@ -196,6 +196,50 @@ export interface FinancialReportDto {
   meta: SourceMeta;
 }
 
+/** A financial record is a report document or a rate notice, and no more. */
+export type FinancialKind = "REPORT" | "RATE";
+
+/** A published financial document is either current or carrying an open dispute. */
+export type FinancialDocumentStatus = "ACTIVE" | "CONFLICT";
+
+/**
+ * The canonical financial document read model (P2-C), shared by the static B2B
+ * API and the D1 adapter. Identity is a column, never re-parsed from an id, so
+ * the owning institution cannot drift between consumers. Its body was never
+ * read: there is no metric and no numeric rate on the record.
+ */
+export interface FinancialDocumentDto {
+  id: string;
+  slug: string;
+  institution: string;
+  institution_id: string;
+  institution_slug: string;
+  title: string;
+  kind: FinancialKind;
+  reportType: string | null;
+  rateKind: string | null;
+  sourceDocument: string | null;
+  sourceName: string | null;
+  lastSeenAt: string;
+  status: FinancialDocumentStatus;
+}
+
+/** A published general document is current, or carries an open dispute. */
+export type DocumentStatus = "ACTIVE" | "CONFLICT";
+
+/**
+ * A general (non-financial) document as the read model exposes it (P2-D).
+ *
+ * Evidence for these records is title-only: an institution's own site linked a
+ * document and the link text was asserted. There is therefore no URL, no
+ * publication date and no reporting period on the record — `official_url`,
+ * `go_slug` and `period` stay null because nothing in evidence fills them, and
+ * fabricating any of them would put a claim on a page that no source made.
+ *
+ * `doc_type` is the capability the assertion arrived under (`DOCUMENT` for
+ * `document_title`, `NOTICE` for `notice_title`) — an evidence fact, not a
+ * guessed document category.
+ */
 export interface DocumentDto {
   id: string;
   doc_type: string;
@@ -205,6 +249,11 @@ export interface DocumentDto {
   period: string | null;
   source_id: string;
   meta: SourceMeta;
+  /** Canonical registry institution identity, resolved from the source publisher. */
+  institution_id: string;
+  institution_slug: string;
+  institution: string;
+  status: DocumentStatus;
 }
 
 export interface JobDto {
@@ -220,12 +269,29 @@ export interface JobDto {
 
 export type NewsTier = "OFFICIAL" | "NRB" | "KHABAR" | "MEDIA";
 
+/**
+ * The lens `?scope=` filters a news collection by. Distinct from `tier` — tier
+ * is *who published* (the authoritative source class), scope is *what the item
+ * is about* (the entity class it touches). Today every item is NRB-published
+ * about the NRB institution universe, so tier and scope coincide; they stay
+ * separate fields because the consumer-facing filter semantics are different
+ * and must not be conflated.
+ */
+export type NewsScope = "INSTITUTION" | "NRB" | "MARKET" | "MEDIA";
+
 export interface NewsItemDto {
   id: string;
   slug: string;
   title: string;
   tier: NewsTier;
-  published_at: string;
+  scope: NewsScope;
+  /**
+   * The date the source gave the record. Nullable on purpose: a record whose
+   * source carried no date must report that honestly rather than carry a
+   * fabricated placeholder. In the current snapshot all 155 records are dated,
+   * so consumers can rely on non-null in practice today.
+   */
+  published_at: string | null;
   snippet: string;
   institution_slug: string | null;
   source_id: string;
@@ -262,6 +328,7 @@ export interface ListInstitutionsOptions {
 
 export interface ListNewsOptions {
   tier?: NewsTier;
+  scope?: NewsScope;
   page: number;
   limit: number;
 }

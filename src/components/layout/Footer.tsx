@@ -1,8 +1,5 @@
 import Link from "next/link";
-import { directorySource } from "@/data/institutions";
-import { financialsProvenance } from "@/data/financials";
-import { jobsProvenance } from "@/data/jobs";
-import { crawlSummary } from "@/data/pilot";
+import { directorySource, financialsProvenance, jobsProvenance, crawlSummary } from "@/lib/site-data";
 import { formatDate } from "@/util/format";
 
 /**

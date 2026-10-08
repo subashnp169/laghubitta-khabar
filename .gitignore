@@ -30,6 +30,16 @@ worker/wrangler.*.local.toml
 *.sqlite3
 lk.db
 
+# ...except the pilot evidence databases. These are the ONLY primary record the
+# system has: 5,083 assertions, 1,458 snapshots, 264 ingestion runs. P0.4 of the
+# workmap established them as authoritative; P0.5 established that `*.db` meant a
+# fresh clone of this repository contained ZERO assertions, on one unversioned
+# disk. Losing them loses the provenance for every published fact. Nothing here
+# is regenerable — their own inputs (the three *_dump.json exports) are deleted.
+# The derived stores stay ignored: data/durable/store.db is rebuilt by
+# `npm run durable:build`, and lk.db is rebuilt by `npm run seed`.
+!data/pilot/evidence/*.db
+
 # --- OS / editor ---
 .DS_Store
 Thumbs.db

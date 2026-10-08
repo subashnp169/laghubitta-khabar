@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Container, PageHeader } from "@/components/ui/Section";
 import { Chip } from "@/components/ui/Chip";
-import { nrbSummary, nrbRegulatoryEvents } from "@/data/nrb";
+import { nrbSummary, nrbRegulatoryEvents } from "@/lib/site-data";
 import { distinctNrbDocuments } from "@/util/activity";
 import { formatDate, humanize } from "@/util/format";
 import { institutionHrefForSlug } from "@/util/institution-profile";

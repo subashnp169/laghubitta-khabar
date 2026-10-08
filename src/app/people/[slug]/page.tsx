@@ -4,7 +4,7 @@ import Link from "next/link";
 import { getPerson } from "../../../../lib/api/repository";
 import { allPublishedPeople } from "../../../../lib/repository/static-people";
 import type { PersonDto } from "../../../../lib/repository/types";
-import { institutions } from "@/data/institutions";
+import { institutions } from "@/lib/site-data";
 import { Container, PageHeader } from "@/components/ui/Section";
 import { Chip, StatusChip } from "@/components/ui/Chip";
 import { Provenance } from "@/components/ui/Provenance";

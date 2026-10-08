@@ -8,20 +8,30 @@
 //   05 empty Phase B collections + Phase C financials/interest-rates (evidence-keyed)
 //   06 search grouped + validation (missing q → 422), method guard (405)
 //   07 vacancies are evidence-derived: the module is generated, every row names
-//      its source, and no institution can be credited with a vacancy not keyed to it
+//      its source, every title is observed evidence (an asserted title or an
+//      observed notice filename), and no institution can be credited with a
+//      vacancy not keyed to it
 //   08 financial documents + rate notices are evidence-derived, never content:
 //      a URL is carried, never a number, and every row names its source
+//   09 news / content layer (P2-E): /api/news serves the canonical activity
+//      records (newsRecords) — tier/scope filters, meta.tier counts, page
+//      parity with the feed, and evidence-derived dates, sources and URLs
 // ============================================================================
 
 // Fixture-only test harness reading JSON with unchecked shape access.
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
+import { createRequire } from "node:module";
 import { join } from "node:path";
 import { handleApiRequest } from "../lib/api/handler";
 import { parsePagination } from "../lib/api/contract";
 import { institutions } from "../src/data/institutions";
 import { allPublishedPeople } from "../lib/repository/static-people";
-import { financials } from "../src/data/financials";
+import { allPublishedFinancials } from "../lib/repository/static-financials";
+import { nrbDocuments, nrbRegulatoryEvents, nrbSummary } from "../src/data/nrb";
+import { allActivity, newsRecords } from "../src/util/activity";
+
+const financials = allPublishedFinancials();
 
 let passed = 0;
 let failed = 0;
@@ -86,8 +96,34 @@ ok(jobbed.status === 200 && Array.isArray(jobbed.body.data), "jobs collection");
 
 // 05 honest empties + Phase C financial evidence
 console.log("smoke:api — honest empties + Phase C financials");
-const branchEmpty = request("GET", `/api/institutions/${slug}/branches`);
-ok(branchEmpty.status === 200 && branchEmpty.body.data.length === 0 && branchEmpty.body.pagination.total === 0, "branches empty until Phase B populated");
+// Phase B: branches are first-class. An institution with published branches
+// returns a real collection scoped to it; one without returns an honest empty.
+const branchSlug = institutions.find((i) => {
+  const res = request("GET", `/api/institutions/${i.slug}/branches?limit=1`);
+  return res.status === 200 && res.body.data.length > 0;
+})?.slug;
+ok(typeof branchSlug === "string", "at least one institution has published branches");
+const branchAll = request("GET", `/api/institutions/${branchSlug}/branches?limit=100`);
+ok(
+  branchAll.status === 200 && branchAll.body.data.length > 0 && branchAll.body.pagination.total >= branchAll.body.data.length,
+  "branches collection is populated and total covers the returned items",
+);
+ok(
+  branchAll.body.data.every((b: any) => b.id.startsWith("branch-") && typeof b.slug === "string" && b.slug.startsWith(`${branchSlug}-`) && typeof b.name === "string" && b.name.length > 0),
+  "every branch is a BranchDto scoped to its institution with a name",
+);
+ok(
+  branchAll.body.data.every((b: any) => typeof b.meta.source === "string" && b.meta.source.length > 0 && Array.isArray(b.meta.sources) && b.meta.sources.length >= 1),
+  "every branch carries a source + non-empty source set",
+);
+const noBranchSlug = institutions.find((i) => {
+  const res = request("GET", `/api/institutions/${i.slug}/branches?limit=1`);
+  return res.status === 200 && res.body.data.length === 0;
+})?.slug;
+if (noBranchSlug) {
+  const honest = request("GET", `/api/institutions/${noBranchSlug}/branches`);
+  ok(honest.status === 200 && honest.body.data.length === 0 && honest.body.pagination.total === 0, "an institution with no published branches returns an honest empty collection");
+}
 
 // Every financial document is a document, never a number: period/metric fields are
 // null/empty even when a title looks numeric, and metadata stays UNVERIFIED.
@@ -100,7 +136,7 @@ ok(topRates.body.data.every((r: any) => institutions.some((i) => i.slug === r.in
 ok(topRates.body.data.every((r: any) => r.meta.source_url === null || /^https?:\/\//.test(r.meta.source_url)), "rate notice source_url is a real URL or null");
 
 function financialReportRowsFor(slug: string): number {
-  return financials.filter((r) => r.kind === "REPORT" && (institutions.find((i) => i.id === (/^financial-([^|]+)/.exec(r.id) ?? ["", ""])[1])?.slug) === slug).length;
+  return financials.filter((r) => r.kind === "REPORT" && r.institution_slug === slug).length;
 }
 const withReports = institutions
   .map((i) => i.slug)
@@ -269,10 +305,6 @@ ok(
   jobsSource.includes("GENERATED FILE"),
   "src/data/jobs.ts declares itself generated, so a hand-written row is visible in review",
 );
-ok(
-  !/title:\s*"(?:Branch Manager|Credit Officer|Risk Manager|Internal Auditor|IT Officer|Relationship Manager|Compliance Officer|Microfinance Trainer|Data Analyst)"/.test(jobsSource),
-  "no hand-written vacancy titles survive in the jobs module",
-);
 // Whatever the module holds, every row must carry the provenance fields the
 // generator writes. A row without them came from somewhere other than evidence. The
 // counts are taken from the array body only, so the `Job` interface above it — which
@@ -283,10 +315,66 @@ ok(rowCount === (jobsBody.match(/^ {4}id: /gm) ?? []).length, "every job row in 
 ok((jobsBody.match(/sourceName: /g) ?? []).length === rowCount, "every job row names the source it was observed from");
 ok((jobsBody.match(/lastSeenAt: /g) ?? []).length === rowCount, "every job row records when it was last seen");
 ok((jobsBody.match(/status: /g) ?? []).length === rowCount, "every job row carries a lifecycle status");
+// A title is publishable only when a source asserted it, or it is the filename
+// of an observed notice document. This replaces a denylist of nine hand-written
+// fixture titles, which cannot survive titles being evidence-derived: a genuine
+// evidence title (for example "Compliance Officer") would fail the denylist, and
+// a hand-written title not on the list would pass it. Membership in what the
+// store actually observed is the real property.
+const storePath = join(__dirname, "..", "data", "durable", "store.db");
+ok(existsSync(storePath), "durable store present for the vacancy-title evidence check");
+const evidenceTitles = new Set<string>();
+if (existsSync(storePath)) {
+  const req = createRequire(import.meta.url);
+  const StoreDb = req("better-sqlite3") as new (p: string, o?: { readonly?: boolean }) => {
+    prepare(s: string): { all(): { value: string }[] };
+    close(): void;
+  };
+  const db = new StoreDb(storePath, { readonly: true });
+  const observed = db
+    .prepare(
+      `SELECT value FROM data_assertions
+        WHERE field_name IN ('vacancy_title', 'JOB_TITLE')
+          AND verification_status <> 'REJECTED' AND valid_to IS NULL`,
+    )
+    .all();
+  for (const r of observed) evidenceTitles.add(String(r.value));
+  const notices = db
+    .prepare(
+      `SELECT value FROM data_assertions
+        WHERE field_name IN ('SOURCE_DOCUMENT', 'source_document')
+          AND verification_status <> 'REJECTED' AND valid_to IS NULL`,
+    )
+    .all();
+  for (const r of notices) {
+    // The projection displays a notice's own filename when no title was read.
+    try {
+      const last = new URL(String(r.value)).pathname.split("/").filter(Boolean).pop();
+      if (last) evidenceTitles.add(decodeURIComponent(last));
+    } catch {
+      evidenceTitles.add(String(r.value));
+    }
+  }
+  db.close();
+}
+const jobTitles = [...jobsBody.matchAll(/^ {4}title: (".*"),$/gm)].map((m) => JSON.parse(m[1]) as string);
+ok(jobTitles.length > 0 && jobTitles.length === rowCount, "every job row in the module carries exactly one title");
+const unsourcedTitles = jobTitles.filter((t) => !evidenceTitles.has(t));
+ok(
+  unsourcedTitles.length === 0,
+  `every vacancy title is observed evidence, never hand-written${
+    unsourcedTitles.length ? ` (not in the store: ${unsourcedTitles.slice(0, 3).join(" | ")})` : ""
+  }`,
+);
 // An institution column is only ever one of two things: a name from the public
 // registry the evidence resolved to, or the explicit "(institution name not
-// observed)" marker. Anything else is an invented attribution.
-const observedNames = new Set(institutions.map((i) => i.name));
+// observed)" marker. Anything else is an invented attribution. A source may
+// use a former/alternate legal name, so the registry's aliases count too.
+const observedNames = new Set<string>();
+for (const i of institutions) {
+  observedNames.add(i.name);
+  for (const a of i.aliases ?? []) observedNames.add(a);
+}
 const namedJobRows = [...jobsBody.matchAll(/^ {4}institution: ("[^"]*"),$/gm)].map((m) => m[1]);
 const inventedInstitution =
   rowCount > 0 &&
@@ -325,15 +413,20 @@ ok(
 console.log("smoke:api — financial documents come from evidence only");
 const financialsSource = readFileSync(join(__dirname, "..", "src", "data", "financials.ts"), "utf8");
 ok(
-  financialsSource.includes("GENERATED FILE"),
+  financialsSource.includes("Deterministic snapshot generated by scripts/build-financials-module.ts"),
   "src/data/financials.ts declares itself generated, so a hand-written row is visible in review",
 );
-const financialsBody = (financialsSource.match(/export const financials: FinancialRecord\[\] = \[([\s\S]*?)\];/) ?? ["", ""])[1];
+// The module carries raw source-owned assertions; the FinancialDocumentDto is
+// projected once in lib/repository/projection.ts. Every assertion must name its
+// source and when it was observed, or it did not come from evidence.
+const financialsBody = (financialsSource.match(/export const financialAssertions:[\s\S]*?= \[([\s\S]*?)\];/) ?? ["", ""])[1];
 const finRowCount = financialsBody.split(/\n {2}\{/).filter((s) => s.trim().length > 0).length;
-ok(finRowCount === (financialsBody.match(/^ {4}id: /gm) ?? []).length, "every financial row in the module is counted the same way");
-ok((financialsBody.match(/sourceName: /g) ?? []).length === finRowCount, "every financial row names the source it was observed from");
-ok((financialsBody.match(/lastSeenAt: /g) ?? []).length === finRowCount, "every financial row records when it was last seen");
-ok((financialsBody.match(/status: /g) ?? []).length === finRowCount, "every financial row carries a lifecycle status");
+ok(finRowCount > 0, "the financial module carries published assertions");
+ok(finRowCount === (financialsBody.match(/"entity_id": /g) ?? []).length, "every financial assertion in the module is counted the same way");
+ok((financialsBody.match(/"source_id": /g) ?? []).length === finRowCount, "every financial row names the source it was observed from");
+ok((financialsBody.match(/"observed_at": /g) ?? []).length === finRowCount, "every financial row records when it was last seen");
+ok((financialsBody.match(/"verification_status": /g) ?? []).length === finRowCount, "every financial row carries an honest verification status");
+ok(!/"metrics"|rate_pct|"period_start"/.test(financialsBody), "no financial row carries a metric, a numeric rate or a period");
 // REPORT rows carry a reportType; RATE rows carry a rateKind. A row with neither
 // would be a document the classifier could not read, and this pipeline does not
 // publish those. A row that claims both kinds at once is not financial evidence,
@@ -359,6 +452,68 @@ ok(
   }),
   "every published financial row resolves to a real institution entity id",
 );
+
+// 09 news / content layer (P2-E)
+console.log("smoke:api — /api/news (content layer, P2-E)");
+const allNewsTotal = newsRecords().length;
+ok(allNewsTotal === 155, "canonical record count is 155 (62 events + 93 distinct documents)");
+const news = request("GET", "/api/news");
+ok(news.status === 200 && Array.isArray(news.body.data), "news returns collection");
+ok(news.body.pagination.total === allNewsTotal, "news total matches the canonical record set");
+ok(news.body.data.length === Math.min(20, allNewsTotal), "news default limit 20");
+const tierCounts = news.body.meta.tier as Record<string, number>;
+ok(
+  ["OFFICIAL", "NRB", "KHABAR", "MEDIA"].every((t) => typeof tierCounts[t] === "number"),
+  "meta.tier carries all four tiers",
+);
+ok(tierCounts.NRB === allNewsTotal && tierCounts.OFFICIAL === 0 && tierCounts.KHABAR === 0 && tierCounts.MEDIA === 0, "meta.tier counts are honest (everything NRB today)");
+const n0 = news.body.data[0] as Record<string, any>;
+ok(n0.slug === n0.id && n0.tier === "NRB" && n0.scope === "NRB", "item shape: slug=id, tier NRB, scope NRB");
+ok(/^\d{4}-\d{2}-\d{2}$/.test(String(n0.published_at)) && typeof n0.snippet === "string" && n0.snippet.length > 0, "item carries a dated, non-empty snippet");
+
+// page parity: the API and the feed derive from the same canonical records, so
+// the full id sequence must be identical, in the same order.
+const p1 = request("GET", "/api/news?limit=100");
+const p2 = request("GET", "/api/news?limit=100&page=2");
+const allApiIds = [...p1.body.data.map((i: any) => i.id), ...p2.body.data.map((i: any) => i.id)];
+const feedIds = allActivity().map((i) => i.id);
+ok(JSON.stringify(allApiIds) === JSON.stringify(feedIds), "API ids === feed ids, same order (single canonical source)");
+
+// filters
+const scopedNrb = request("GET", "/api/news?scope=NRB");
+ok(scopedNrb.body.pagination.total === allNewsTotal && scopedNrb.body.data.every((i: any) => i.scope === "NRB"), "scope=NRB returns the full NRB set");
+const scopedInst = request("GET", "/api/news?scope=INSTITUTION");
+ok(scopedInst.body.data.length === 0 && scopedInst.body.pagination.total === 0, "scope=INSTITUTION honestly empty");
+ok(Object.values(scopedInst.body.meta.tier).every((c: any) => c === 0), "scope-filtered counts are zero when the scope is empty");
+const khabar = request("GET", "/api/news?tier=KHABAR");
+ok(khabar.body.data.length === 0 && khabar.body.pagination.total === 0 && khabar.body.meta.tier.NRB === allNewsTotal, "tier=KHABAR empty but meta.tier facets the full set");
+const badTier = request("GET", "/api/news?tier=BOGUS");
+ok(badTier.status === 422 && badTier.body.error.code === "VALIDATION", "bad tier → 422");
+const badScope = request("GET", "/api/news?scope=BOGUS");
+ok(badScope.status === 422 && badScope.body.error.code === "VALIDATION", "bad scope → 422");
+const lowered = request("GET", "/api/news?tier=khabar&scope=nrb");
+ok(lowered.status === 200 && lowered.body.data.length === 0, "tier/scope accepted case-insensitively");
+const deepPage = request("GET", "/api/news?page=8&limit=20");
+ok(deepPage.body.pagination.page === 8 && deepPage.body.data.length === allNewsTotal - 7 * 20, "deep page returns the remainder");
+const pastPage = request("GET", "/api/news?page=99&limit=20");
+ok(pastPage.body.data.length === 0 && pastPage.body.pagination.total === allNewsTotal, "page past the end is empty, total unchanged");
+
+// every item's evidence fields trace to the record it came from
+const allItems = [...p1.body.data, ...p2.body.data] as Array<Record<string, any>>;
+const docById = new Map(nrbDocuments.map((d) => [d.id, d]));
+const evById = new Map(nrbRegulatoryEvents.map((e) => [e.id, e]));
+ok(allItems.length === allNewsTotal, "both pages together cover every record");
+ok(allItems.every((i) => /^\d{4}-\d{2}-\d{2}$/.test(String(i.published_at))), "every published_at is an ISO date");
+ok(allItems.every((i) => i.meta.verification_status === "UNVERIFIED"), "every item is honest UNVERIFIED");
+ok(allItems.every((i) => i.meta.last_verified_at === nrbSummary.generatedAt.slice(0, 10)), "every item shares the snapshot's last_verified date");
+ok(allItems.every((i) => nrbSummary.sources.some((s) => s.title === i.meta.source)), "every meta.source is a registered source title");
+ok(allItems.every((i) => i.meta.source_url === null || /^https?:\/\//.test(i.meta.source_url)), "every source_url is a real absolute URL or null");
+const events = allItems.filter((i) => evById.has(i.id));
+ok(events.every((i) => i.source_id === "nrb-bfi-mid-may-2026"), "every event traces to the universe source id");
+ok(events.every((i) => i.published_at === nrbSummary.observedAt), "every event carries the documented observed_at fallback date");
+const pubs = allItems.filter((i) => docById.has(i.id));
+ok(pubs.every((i) => i.source_id === docById.get(i.id)!.sourceId), "every document keeps the source id its listing carried");
+ok(pubs.every((i) => i.meta.source === docById.get(i.id)!.sourceTitle), "every document source title matches its listing's registered title");
 
 console.log(`\nsmoke:api: ${passed} passed, ${failed} failed`);
 if (failed > 0) process.exit(1);

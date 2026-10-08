@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import { Container, PageHeader } from "@/components/ui/Section";
 import { buildCompareModel } from "../../../lib/compare";
-import { institutions } from "@/data/institutions";
-import { crawlSources } from "@/data/pilot";
-import { nrbDocuments, nrbInstitutionLinks, nrbRegulatoryEvents } from "@/data/nrb";
+import { institutions, crawlSources, nrbDocuments, nrbInstitutionLinks, nrbRegulatoryEvents } from "@/lib/site-data";
 import CompareView from "@/components/compare/CompareView";
 
 /**

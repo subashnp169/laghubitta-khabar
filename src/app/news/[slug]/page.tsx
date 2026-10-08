@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { Container } from "@/components/ui/Section";
 import { Chip } from "@/components/ui/Chip";
-import { nrbDocuments, nrbRegulatoryEvents } from "@/data/nrb";
+import { nrbDocuments, nrbRegulatoryEvents } from "@/lib/site-data";
 import { formatDate, humanize, realUrl } from "@/util/format";
 import { institutionHrefForSlug } from "@/util/institution-profile";
 

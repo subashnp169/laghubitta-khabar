@@ -88,6 +88,39 @@ for (const a of master.aliases) ins('institution_aliases', {
 });
 counts.institution_aliases = q('SELECT COUNT(*) c FROM institution_aliases').c;
 
+// --- CANONICAL LINEAGE (P1-A slug redirects + P1-B FORMER aliases) ---
+// master.json is fingerprinted and cannot carry slug redirects or absorbed
+// predecessor names, so those live in data/master/canonical-*.json. Seed them
+// into the canonical store here so lk.db resolves superseded slugs and FORMER
+// aliases exactly as the published module and the verifier do.
+const readJsonIfExists = (rel) => {
+  const p = path.join(ROOT, rel);
+  return fs.existsSync(p) ? JSON.parse(fs.readFileSync(p, 'utf8')) : null;
+};
+const slugAliasDoc = readJsonIfExists('data/master/canonical-slug-aliases.json');
+const formerAliasDoc = readJsonIfExists('data/master/canonical-former-aliases.json');
+
+let slugAliases = 0;
+if (slugAliasDoc) for (const r of slugAliasDoc.rows) {
+  ins('slug_aliases', {
+    id: `sa-${r.old_slug}`, institution_id: r.institution_id,
+    old_slug: r.old_slug, moved_to: r.moved_to, created_at: now,
+  });
+  slugAliases++;
+}
+counts.slug_aliases = q('SELECT COUNT(*) c FROM slug_aliases').c;
+
+let formerAliases = 0;
+if (formerAliasDoc) for (const r of formerAliasDoc.rows) {
+  ins('institution_aliases', {
+    id: `al-${r.institution_id}-former-${String(r.alias).toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 40)}`,
+    institution_id: r.institution_id, alias: r.alias, alias_type: r.alias_type || 'FORMER',
+    is_active: 1, source_id: r.source_id || 'nrb-bfi-mid-may-2026', last_verified_at: now,
+  });
+  formerAliases++;
+}
+counts.institution_aliases = q('SELECT COUNT(*) c FROM institution_aliases').c;
+
 // --- OFFICIAL LINKS (first-class evidence; none trusted until verified=1) ---
 for (const l of master.officialLinks) ins('official_links', {
   id: `ol-${l.institution_id}-${l.link_type.toLowerCase()}-${l.url.replace(/^https?:\/\//, '').replace(/[^a-z0-9]+/g, '-').slice(-40)}`,
@@ -162,8 +195,10 @@ console.log(JSON.stringify(counts, null, 2));
 const orphan = q(`SELECT COUNT(*) c FROM institution_aliases a LEFT JOIN institutions i ON i.id=a.institution_id WHERE i.id IS NULL`).c;
 const orphanOl = q(`SELECT COUNT(*) c FROM official_links l LEFT JOIN institutions i ON i.id=l.institution_id WHERE i.id IS NULL`).c;
 const orphanTe = q(`SELECT COUNT(*) c FROM timeline_events e LEFT JOIN institutions i ON i.id=e.institution_id WHERE i.id IS NULL`).c;
-console.log('integrity: orphaned aliases', orphan, '| official_links', orphanOl, '| timeline_events', orphanTe);
-if (orphan + orphanOl + orphanTe > 0) { console.error('FAIL: orphaned rows'); process.exit(1); }
+const orphanSlug = q(`SELECT COUNT(*) c FROM slug_aliases s LEFT JOIN institutions i ON i.id=s.institution_id WHERE i.id IS NULL`).c;
+const badMoved = q(`SELECT COUNT(*) c FROM slug_aliases WHERE moved_to NOT IN (SELECT slug FROM institutions)`).c;
+console.log('integrity: orphaned aliases', orphan, '| official_links', orphanOl, '| timeline_events', orphanTe, '| slug_aliases', orphanSlug, '| slug moves w/o live target', badMoved);
+if (orphan + orphanOl + orphanTe + orphanSlug + badMoved > 0) { console.error('FAIL: orphaned rows'); process.exit(1); }
 const missingSources = q(`SELECT COUNT(*) c FROM institutions WHERE source_id NOT IN (SELECT id FROM sources)`).c;
 console.log('integrity: institutions w/o real source', missingSources);
 console.log('OK — canonical universe seeded; nothing fabricated.');
