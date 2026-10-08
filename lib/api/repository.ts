@@ -9,12 +9,25 @@ import type {
 } from "@/types";
 import { institutions } from "@/data/institutions";
 import { crawlSources } from "@/data/pilot";
-import { nrbDocuments, nrbInstitutionLinks, nrbRegulatoryEvents } from "@/data/nrb";
+import { nrbDocuments, nrbInstitutionLinks, nrbRegulatoryEvents, nrbSummary } from "@/data/nrb";
 import { jobs } from "@/data/jobs";
-import { financials, type FinancialRecord } from "@/data/financials";
+import { newsRecords, type NewsRecord } from "@/util/activity";
 import { allPublishedPeople } from "../repository/static-people";
 import { allPublishedBranches } from "../repository/static-branches";
-import type { BranchDto, FinancialReportDto, InterestRateDto, PersonDto, SourceMeta } from "../repository/types";
+import { allPublishedFinancials } from "../repository/static-financials";
+import { allPublishedDocuments } from "../repository/static-documents";
+import type {
+  BranchDto,
+  DocumentDto,
+  FinancialDocumentDto,
+  FinancialReportDto,
+  InterestRateDto,
+  NewsItemDto,
+  NewsScope,
+  NewsTier,
+  PersonDto,
+  SourceMeta,
+} from "../repository/types";
 import { slicePage, parsePagination, errorEnvelope, type ApiMeta, type CollectionEnvelope, type ResourceEnvelope, type ErrorEnvelope } from "./contract";
 
 export interface InstitutionSummary {
@@ -23,7 +36,8 @@ export interface InstitutionSummary {
   name: string;
   license_class: string;
   operation_date: string;
-  paid_up_capital_crore: number;
+  /** null when no grade-A source attributes a figure to this institution. */
+  paid_up_capital_crore: number | null;
   head_office: string;
   working_area: string;
   coverage_type: string;
@@ -58,6 +72,13 @@ export interface InstitutionDetail extends InstitutionSummary {
     last_run: string | null;
   };
   sourced_evidence: Institution["evidence"];
+  timeline: Array<{
+    event_type: string;
+    title: string;
+    occurred_at: string | null;
+    summary: string | null;
+  }>;
+  coverage: { province_count: number; district_count: number; branch_count: number } | null;
 }
 
 export interface NrbDocumentRecord extends NrbDocument {
@@ -90,18 +111,19 @@ function eventsByInst(inst: Institution): NrbRegulatoryEvent[] {
 /**
  * Vacancies for an institution, from the generated evidence module.
  *
- * Matching is on the institution slug that the generator recorded from the
- * `ingestion_sources` -> `institutions` join, not on a name prefix. A prefix match
- * is how a fabricated "Branch Manager at Nirdhan Utthan Laghubitta" row ended up on
- * an institution's page: the row existed, and its institution field merely started
- * with the same words. Slug matching can only return a row that was actually
- * observed from that institution's own site, because that is where the slug came
- * from.
+ * Matching is on the canonical `institutionSlug` COLUMN the builder wrote from
+ * the source's publisher -> registry resolution (P2-D) — not on a name prefix
+ * and not on a prefix of a slug built from an id. A prefix match is how a
+ * fabricated "Branch Manager at Nirdhan Utthan Laghubitta" row ended up on an
+ * institution's page: the row existed, and its institution field merely started
+ * with the same words. Column matching can only return a row that was actually
+ * observed from that institution's own site, because that is where the column
+ * came from — and it cannot mis-attribute an institution whose pilot numbering
+ * disagrees with the registry, which three did before P2-D.
  */
 function jobsByInst(inst: Institution): Job[] {
-  const prefix = `${inst.slug}-`;
   return jobs
-    .filter((j) => j.slug.startsWith(prefix))
+    .filter((j) => j.institutionSlug === inst.slug)
     .map((j) => ({
       id: j.id,
       title: j.title,
@@ -178,6 +200,16 @@ export function metaFor(inst: Institution): ApiMeta {
 function detailFor(l: InstLookup): InstitutionDetail {
   const s = summaryFor(l);
   const src = l.source;
+  const timeline = l.events
+    .map((e) => ({
+      event_type: e.eventType || "EVENT",
+      title: e.title,
+      occurred_at: e.occurredAt ?? null,
+      summary: e.description ?? null,
+    }));
+  const branchCount = src?.branchCount ?? 0;
+  const districtCount = 0;
+  const provinceCount = 0;
   return {
     ...s,
     source_name_raw: l.inst.sourceNameRaw,
@@ -191,6 +223,12 @@ function detailFor(l: InstLookup): InstitutionDetail {
       last_run: src?.lastRun ?? null,
     },
     sourced_evidence: l.inst.evidence,
+    timeline,
+    coverage: {
+      province_count: provinceCount,
+      district_count: districtCount,
+      branch_count: branchCount,
+    },
   };
 }
 
@@ -283,34 +321,33 @@ export function institutionJobs(
 }
 
 // ---------------------------------------------------------------------------
-// Financial documents + interest-rate notices (Phase C) — pure projection over
-// the generated src/data/financials.ts evidence module. A record is a document
-// URL asserted from an institution's own site; its body was never read, so no
-// metric or numeric rate is ever derived here.
+// Financial documents + interest-rate notices (P2-C) — the single shared
+// FinancialDocumentDto projection (lib/repository/projection.ts) over the
+// generated src/data/financials.ts evidence snapshot. A record is a document URL
+// asserted from an institution's own site; its body was never read, so no metric
+// and no numeric rate is ever derived here. The owning institution is a COLUMN on
+// the record (resolved by the builder from the source's publisher), never
+// re-parsed from the id — which is what let a pilot-numbered id drift onto the
+// wrong company before P2-C.
 // ---------------------------------------------------------------------------
 
-/** The institution module that owns a financial record, from its entity id. */
-function instForFinancial(r: FinancialRecord): Institution | undefined {
-  const m = /^financial-([^|]+)\|/.exec(r.id);
-  return m ? institutions.find((i) => i.id === m[1]) : undefined;
-}
+export type { FinancialDocumentDto } from "../repository/types";
 
-function financialMeta(r: FinancialRecord): SourceMeta {
+function financialMeta(r: FinancialDocumentDto): SourceMeta {
   return {
     source: "generated-modules",
     sources: ["generated-modules"],
     source_url: r.sourceDocument ?? null,
     last_verified_at: r.lastSeenAt,
-    verification_status: "UNVERIFIED",
+    verification_status: r.status === "CONFLICT" ? "CONFLICT" : "UNVERIFIED",
   };
 }
 
-function financialReportDto(r: FinancialRecord): FinancialReportDto {
-  const inst = instForFinancial(r);
+function financialReportDto(r: FinancialDocumentDto): FinancialReportDto {
   return {
     id: r.id,
-    institution: inst?.name ?? r.institution,
-    institution_slug: inst?.slug ?? "(unresolved)",
+    institution: r.institution,
+    institution_slug: r.institution_slug || "(unresolved)",
     title: r.title,
     report_type: r.reportType,
     period_start: null,
@@ -319,28 +356,30 @@ function financialReportDto(r: FinancialRecord): FinancialReportDto {
     metrics: {},
     // The document URL is the evidence; JSON of a title never gets promoted
     // into a number, so metrics stays empty even when a title looks numeric.
-    source_url: r.sourceDocument ?? null,
+    source_url: r.sourceDocument,
     meta: financialMeta(r),
   };
 }
 
-function interestRateDto(r: FinancialRecord): InterestRateDto {
-  const inst = instForFinancial(r);
+function interestRateDto(r: FinancialDocumentDto): InterestRateDto {
   return {
     id: r.id,
     rate_kind: r.rateKind ?? "INTEREST_RATE",
-    institution: inst?.name ?? r.institution,
-    institution_slug: inst?.slug ?? "(unresolved)",
+    institution: r.institution,
+    institution_slug: r.institution_slug || "(unresolved)",
     title: r.title,
-    url: r.sourceDocument ?? null,
-    // The source page that linked the notice is not tracked, so there is no
-    // second, separate URL to report. Never fabricate one.
-    source_url: null,
+    url: r.sourceDocument,
+    source_url: r.sourceName,
     rate_pct: null,
     period_start: null,
     period_end: null,
     meta: financialMeta(r),
   };
+}
+
+/** Every currently published financial document, reports and rate notices alike. */
+export function allFinancialDocuments(): FinancialDocumentDto[] {
+  return allPublishedFinancials();
 }
 
 export function institutionFinancials(
@@ -350,8 +389,8 @@ export function institutionFinancials(
   const inst = institutions.find((i) => i.slug === slug);
   if (!inst) return errorEnvelope("NOT_FOUND", `No institution with slug '${slug}'`);
   const p = parsePagination(new URLSearchParams(`${requested.page != null ? `page=${encodeURIComponent(requested.page)}` : ""}&${requested.limit != null ? `limit=${encodeURIComponent(requested.limit)}` : ""}`));
-  const reports = financials
-    .filter((r) => r.kind === "REPORT" && instForFinancial(r)?.slug === slug)
+  const reports = allPublishedFinancials()
+    .filter((r) => r.kind === "REPORT" && r.institution_slug === slug)
     .map(financialReportDto)
     .sort((a, b) => a.id.localeCompare(b.id));
   return { status: 200, body: slicePage(reports, p) };
@@ -364,8 +403,8 @@ export function institutionInterestRates(
   const inst = institutions.find((i) => i.slug === slug);
   if (!inst) return errorEnvelope("NOT_FOUND", `No institution with slug '${slug}'`);
   const p = parsePagination(new URLSearchParams(`${requested.page != null ? `page=${encodeURIComponent(requested.page)}` : ""}&${requested.limit != null ? `limit=${encodeURIComponent(requested.limit)}` : ""}`));
-  const rates = financials
-    .filter((r) => r.kind === "RATE" && instForFinancial(r)?.slug === slug)
+  const rates = allPublishedFinancials()
+    .filter((r) => r.kind === "RATE" && r.institution_slug === slug)
     .map(interestRateDto)
     .sort((a, b) => a.id.localeCompare(b.id));
   return { status: 200, body: slicePage(rates, p) };
@@ -375,7 +414,7 @@ export function allInterestRates(
   requested: { page?: string | null; limit?: string | null },
 ): { status: number; body: CollectionEnvelope<InterestRateDto> } {
   const p = parsePagination(new URLSearchParams(`${requested.page != null ? `page=${encodeURIComponent(requested.page)}` : ""}&${requested.limit != null ? `limit=${encodeURIComponent(requested.limit)}` : ""}`));
-  const rates = financials
+  const rates = allPublishedFinancials()
     .filter((r) => r.kind === "RATE")
     .map(interestRateDto)
     .sort((a, b) => a.id.localeCompare(b.id));
@@ -480,7 +519,7 @@ export function search(query: { q?: string | null }): { status: number; body: Re
       .slice(0, 20),
   };
 
-  return {
+return {
     status: 200,
     body: {
       data: {
@@ -488,6 +527,278 @@ export function search(query: { q?: string | null }): { status: number; body: Re
         groups: matches,
       },
         meta: { source: "generated-modules", sources: ["generated-modules"], source_url: null, last_verified_at: null, verification_status: "UNVERIFIED" },
+    },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// News / content layer (P2-E) — `GET /api/news`.
+//
+// The canonical content iteration lives in src/util/activity.ts (`newsRecords`).
+// This endpoint maps those records to the repository's NewsItemDto shape and
+// applies the frozen API-CONTRACT.md filters:
+//
+//   ?scope=INSTITUTION|NRB|MARKET|MEDIA  what the item is about
+//   ?tier=OFFICIAL|NRB|KHABAR|MEDIA      who published it
+//   ?page&limit                           default 20, max 100
+//
+// Both filters are derived from the record's registered source publisher, never
+// guessed from ids or titles. meta.tier holds counts over the scope-filtered
+// set, computed BETWEEN the scope and tier filter — the facet semantics a
+// grouped list needs — and every tier counts, including the ones that are
+// honestly zero today.
+// ---------------------------------------------------------------------------
+
+/** The tier vocabulary, in contract order. */
+const NEWS_TIERS: readonly NewsTier[] = ["OFFICIAL", "NRB", "KHABAR", "MEDIA"];
+/** The scope vocabulary, in contract order. */
+const NEWS_SCOPES: readonly NewsScope[] = ["INSTITUTION", "NRB", "MARKET", "MEDIA"];
+
+/**
+ * The publisher → tier / scope classification. Every registered NRB source is
+ * published by "Nepal Rastra Bank" (measured over all 9 of nrbSummary.sources),
+ * so everything maps to NRB/NRB and OFFICIAL/KHABAR/MEDIA count honestly as 0.
+ * An unmapped publisher throws rather than silently collapsing into a plausible
+ * tier — a new publisher class must be classified consciously, never defaulted.
+ */
+const TIER_BY_PUBLISHER: Readonly<Record<string, NewsTier>> = { "Nepal Rastra Bank": "NRB" };
+const SCOPE_BY_PUBLISHER: Readonly<Record<string, NewsScope>> = { "Nepal Rastra Bank": "NRB" };
+
+interface NewsClassification {
+  tier: NewsTier;
+  scope: NewsScope;
+}
+
+function classify(record: NewsRecord): NewsClassification {
+  const source = nrbSummary.sources.find((s) => s.id === record.sourceId);
+  if (!source) throw new Error(`listNews: unregistered source id: ${record.sourceId}`);
+  const tier = TIER_BY_PUBLISHER[source.publisher];
+  const scope = SCOPE_BY_PUBLISHER[source.publisher];
+  if (!tier || !scope) throw new Error(`listNews: no tier/scope mapping for publisher '${source.publisher}' (source ${record.sourceId})`);
+  return { tier, scope };
+}
+
+function toNewsItem(record: NewsRecord, { tier, scope }: NewsClassification): NewsItemDto {
+  return {
+    id: record.id,
+    // The /news/{slug} route already serves these ids as static paths, so the
+    // API slug is the same id — a consumer can follow either surface.
+    slug: record.id,
+    title: record.title,
+    tier,
+    scope,
+    published_at: record.occurredAt,
+    // The feed's detail line, verbatim: the feed says the same thing the API
+    // says, and neither claims more than the record carries.
+    snippet: record.detail,
+    institution_slug: record.institutionSlug,
+    source_id: record.sourceId,
+    meta: {
+      source: record.sourceTitle,
+      sources: [record.sourceTitle],
+      source_url: record.sourceUrl,
+      // The snapshot's build instant, dated — the last moment the evidence was
+      // regenerated. The same for every item: this is a property of the frozen
+      // snapshot, not of any single observation.
+      last_verified_at: nrbSummary.generatedAt.slice(0, 10),
+      verification_status: "UNVERIFIED",
+    },
+  };
+}
+
+export function listNews(params: {
+  tier?: string | null;
+  scope?: string | null;
+  page?: string | null;
+  limit?: string | null;
+}): { status: number; body: { data: NewsItemDto[]; pagination: { page: number; limit: number; total: number }; meta: { tier: Record<NewsTier, number> } } | ErrorEnvelope } {
+  const pagination = parsePagination(
+    new URLSearchParams(
+      `${params.page != null ? `page=${encodeURIComponent(params.page)}` : ""}&${params.limit != null ? `limit=${encodeURIComponent(params.limit)}` : ""}`,
+    ),
+  );
+  const tier = (params.tier ?? "").trim().toUpperCase();
+  const scope = (params.scope ?? "").trim().toUpperCase();
+  if (tier && !NEWS_TIERS.includes(tier as NewsTier)) return errorEnvelope("VALIDATION", `tier must be one of ${NEWS_TIERS.join(", ")}`);
+  if (scope && !NEWS_SCOPES.includes(scope as NewsScope)) return errorEnvelope("VALIDATION", `scope must be one of ${NEWS_SCOPES.join(", ")}`);
+
+  const classified = newsRecords().map((record) => ({ record, ...classify(record) }));
+  const scoped = scope ? classified.filter((c) => c.scope === scope) : classified;
+  const counts = NEWS_TIERS.reduce(
+    (acc, t) => {
+      acc[t] = scoped.filter((c) => c.tier === t).length;
+      return acc;
+    },
+    {} as Record<NewsTier, number>,
+  );
+  const data = tier ? scoped.filter((c) => c.tier === tier) : scoped;
+  const items = data.map((c) => toNewsItem(c.record, c));
+
+  const paged = slicePage(items, pagination);
+  return { status: 200, body: { ...paged, meta: { tier: counts } } };
+}
+
+// ---------------------------------------------------------------------------
+// Operational Graph (P2-F) — institution-centric intelligence graph
+// ---------------------------------------------------------------------------
+
+export interface InstitutionGraph {
+  node: InstitutionDetail;
+  edges: {
+    leadership: PersonDto[];
+    branches: BranchDto[];
+    financialReports: FinancialReportDto[];
+    interestRates: InterestRateDto[];
+    documents: DocumentDto[];
+    jobs: Job[];
+    news: NewsItemDto[];
+    events: NrbRegulatoryEvent[];
+    nrbLinks: NrbInstitutionLink[];
+  };
+  timeline: Array<{
+    id: string;
+    date: string | null;
+    title: string;
+    detail: string | null;
+    type: string;
+  }>;
+  evidence: {
+    sources: string[];
+    source_urls: (string | null)[];
+    last_verified_at: string | null;
+  };
+  meta: ApiMeta;
+}
+
+export function institutionGraph(
+  slug: string,
+): { status: number; body: ResourceEnvelope<InstitutionGraph> | ErrorEnvelope } {
+  const inst = institutions.find((i) => i.slug === slug);
+  if (!inst) return errorEnvelope("NOT_FOUND", `No institution with slug '${slug}'`);
+
+  const l = lookup(inst);
+  const node = detailFor(l);
+
+  const leadership = allPeople().filter((p) => p.institution_slug === slug);
+  const branches = allBranches().filter((b) => b.slug.startsWith(`${slug}-`));
+  const finAll = allPublishedFinancials().filter((r) => r.institution_slug === slug);
+  const financialReports = finAll.filter((r) => r.kind === "REPORT").map(financialReportDto);
+  const interestRates = finAll.filter((r) => r.kind === "RATE").map(interestRateDto);
+  const documents = allPublishedDocuments().filter((d) => d.institution_slug === slug);
+  const jobs = jobsByInst(inst);
+  const classifiedNews = newsRecords()
+    .filter((r) => r.institutionSlug === slug)
+    .map((record) => ({ record, ...classify(record) }));
+  const news = classifiedNews.map((c) => toNewsItem(c.record, c));
+  const events = eventsByInst(inst);
+  const nrbLinks = linkByInst(inst.id);
+
+  const timeline: InstitutionGraph["timeline"] = [];
+  if (node.timeline) {
+    for (let i = 0; i < node.timeline.length; i++) {
+      const t = node.timeline[i];
+      timeline.push({
+        id: `nrb-${i}`,
+        date: t.occurred_at,
+        title: t.title,
+        detail: t.summary,
+        type: t.event_type,
+      });
+    }
+  }
+  const opDate = inst.operationDateStatus !== "source_anomaly" && inst.operationDate ? inst.operationDate : null;
+  if (opDate) {
+    timeline.push({ id: "op-established", date: opDate, title: "Operation recorded", detail: null, type: "ESTABLISHED" });
+  }
+  for (const b of branches) {
+    if (b.established_on) {
+      timeline.push({ id: `br-${b.id}`, date: b.established_on, title: `Branch established: ${b.name}`, detail: null, type: "BRANCH_ESTABLISHED" });
+    }
+  }
+  timeline.sort((a, b) => {
+    const da = a.date ?? "";
+    const db = b.date ?? "";
+    if (da < db) return 1;
+    if (da > db) return -1;
+    return 0;
+  });
+
+  // Remove duplicates by (date,title,type) while preserving order
+  const seen = new Set<string>();
+  const timelineDedup: typeof timeline = [];
+  for (const t of timeline) {
+    const k = `${t.date ?? ""}|${t.title}|${t.type}`;
+    if (!seen.has(k)) {
+      seen.add(k);
+      timelineDedup.push(t);
+    }
+  }
+
+  const sourcesSet = new Set<string>();
+  const urlsSet = new Set<string | null>();
+  for (const p of leadership) {
+    sourcesSet.add(p.meta.source);
+    urlsSet.add(p.meta.source_url);
+  }
+  for (const b of branches) {
+    sourcesSet.add(b.meta.source);
+    urlsSet.add(b.meta.source_url);
+  }
+  for (const f of financialReports) {
+    sourcesSet.add(f.meta.source);
+    urlsSet.add(f.meta.source_url);
+  }
+  for (const f of interestRates) {
+    sourcesSet.add(f.meta.source);
+    urlsSet.add(f.meta.source_url);
+  }
+  for (const d of documents) {
+    sourcesSet.add(d.meta.source);
+    urlsSet.add(d.meta.source_url);
+  }
+  for (const n of news) {
+    sourcesSet.add(n.meta.source);
+    urlsSet.add(n.meta.source_url);
+  }
+  for (const e of events) {
+    urlsSet.add(e.description && e.description.includes("https://") ? e.description.match(/https:\/\/[^\s]+/)?.[0] ?? null : null);
+  }
+  for (const nl of nrbLinks) {
+    urlsSet.add(nl.nrbDocumentId ? `nrb:${nl.nrbDocumentId}` : null);
+  }
+  const m = metaFor(inst);
+  sourcesSet.add(m.source);
+  urlsSet.add(m.source_url);
+  // add registered sources reference by flattening keys present in evidence nodes? keep minimal per locked scope
+
+  const lastVerified = m.last_verified_at ?? null;
+  const evidence = {
+    sources: Array.from(sourcesSet).filter((x) => x && x.trim() !== ""),
+    source_urls: Array.from(urlsSet),
+    last_verified_at: lastVerified,
+  };
+
+  return {
+    status: 200,
+    body: {
+      data: {
+        node,
+        edges: {
+          leadership,
+          branches,
+          financialReports,
+          interestRates,
+          documents,
+          jobs,
+          news,
+          events,
+          nrbLinks,
+        },
+        timeline: timelineDedup,
+        evidence,
+        meta: m,
+      },
+      meta: m,
     },
   };
 }

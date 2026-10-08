@@ -12,10 +12,12 @@ import {
   institutionEvents,
   institutionFinancials,
   institutionInterestRates,
+  institutionBranches,
+  institutionGraph,
   institutionJobs,
   institutionLeadership,
-  emptyPhaseEnvelope,
   listInstitutions,
+  listNews,
   search,
 } from "./repository";
 import { errorEnvelope } from "./contract";
@@ -37,8 +39,6 @@ function readQuery(url: string): URLSearchParams {
   const idx = url.indexOf("?");
   return new URLSearchParams(idx >= 0 ? url.slice(idx + 1) : "");
 }
-
-const PHASE_EMPTY_ROUTES = ["branches"] as const;
 
 export function handleApiRequest(req: ApiRequest): ApiResponse {
   const method = (req.method ?? "GET").toUpperCase();
@@ -81,18 +81,22 @@ export function handleApiRequest(req: ApiRequest): ApiResponse {
           return respond(institutionDocuments(slug, requested));
         case "events":
           return respond(institutionEvents(slug, requested));
+        case "branches":
+          return respond(institutionBranches(slug, requested));
         case "jobs":
           return respond(institutionJobs(slug, requested));
         case "leadership":
           return respond(institutionLeadership(slug, requested));
+        case "branches":
+          return respond(institutionBranches(slug, requested));
         case "financials":
           return respond(institutionFinancials(slug, requested));
         case "interest-rates":
           return respond(institutionInterestRates(slug, requested));
+        case "graph":
+          return respond(institutionGraph(slug));
         default: {
           const leaf = segs[3];
-          if (leaf && (PHASE_EMPTY_ROUTES as readonly string[]).includes(leaf))
-            return respond({ status: 200, body: emptyPhaseEnvelope(requested.page, requested.limit) });
           return respond(errorEnvelope("NOT_FOUND", `No such endpoint '/api/institutions/${slug}/${leaf ?? ""}'`));
         }
       }
@@ -105,6 +109,15 @@ export function handleApiRequest(req: ApiRequest): ApiResponse {
       return respond(search({ q: query.get("q") }));
     case "interest-rates":
       return respond(allInterestRates({ page: query.get("page"), limit: query.get("limit") }));
+    case "news":
+      return respond(
+        listNews({
+          tier: query.get("tier"),
+          scope: query.get("scope"),
+          page: query.get("page"),
+          limit: query.get("limit"),
+        }),
+      );
     default:
       return respond(errorEnvelope("NOT_FOUND", `No such endpoint '/${segs.join("/")}'`));
   }
