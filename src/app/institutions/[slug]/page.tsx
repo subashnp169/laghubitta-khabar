@@ -1,12 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { institutions, getInstitutionBySlug, directorySource } from "@/data/institutions";
-import { crawlSources, crawlSummary } from "@/data/pilot";
-import { nrbInstitutionLinks, nrbRegulatoryEvents } from "@/data/nrb";
-import { institutionLeadership, institutionBranches } from "../../../../lib/api/repository";
-import { jobs } from "@/data/jobs";
-import { financials, type FinancialRecord } from "@/data/financials";
+import MovedInstitution from "@/components/institutions/MovedInstitution";
+import { institutions, getInstitutionBySlug, getInstitutionSlugRedirect, slugAliases, directorySource, crawlSources, crawlSummary, nrbInstitutionLinks, nrbRegulatoryEvents, jobs } from "@/lib/site-data";
+import { institutionLeadership, institutionBranches, allFinancialDocuments, type FinancialDocumentDto } from "../../../../lib/api/repository";
 import type { BranchDto, PersonDto } from "../../../../lib/repository/types";
 import { Container } from "@/components/ui/Section";
 import { Breadcrumb, Panel, SectionNav, SectionSidebar } from "@/components/ui/Panel";
@@ -69,7 +66,12 @@ const LINK_TYPE_LABEL: Record<string, string> = {
 };
 
 export async function generateStaticParams() {
-  return institutions.map((inst) => ({ slug: inst.slug }));
+  // Superseded slugs are included so they are prerendered as 301s rather than
+  // arriving as a cold dynamic request.
+  return [
+    ...institutions.map((inst) => ({ slug: inst.slug })),
+    ...slugAliases.map((a) => ({ slug: a.old_slug })),
+  ];
 }
 
 export async function generateMetadata({
@@ -78,6 +80,17 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
+  // A superseded slug is not a second record: point its metadata at the canonical
+  // URL so the moved page is not indexed as a duplicate of the institution.
+  const movedTo = getInstitutionSlugRedirect(slug);
+  if (movedTo) {
+    const target = `/institutions/${movedTo}/`;
+    return {
+      title: "Page moved",
+      alternates: { canonical: target },
+      openGraph: { url: target },
+    };
+  }
   const inst = getInstitutionBySlug(slug);
   if (!inst) return {};
   const short = inst.name.replace(/ Laghubitta Bittiya Sanstha( Ltd\.?)?$/i, "").trim() || inst.name;
@@ -96,6 +109,13 @@ export default async function InstitutionPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  // A corrected identity changed the canonical slug. The previously published
+  // slug is still a live inbound URL, so render an accessible "moved" page that
+  // redirects to the institution that now answers for it. A bare
+  // `permanentRedirect()` exported as an error shell (no lang/main/h1/skip link),
+  // so it is handled as a real page instead.
+  const movedTo = getInstitutionSlugRedirect(slug);
+  if (movedTo) return <MovedInstitution fromSlug={slug} toSlug={movedTo} />;
   const inst = getInstitutionBySlug(slug);
   if (!inst) notFound();
 
@@ -128,17 +148,18 @@ export default async function InstitutionPage({
   const vacancyPostings = vacancyList.filter((j) => j.kind === "POSTING");
   const vacancyNotices = vacancyList.filter((j) => j.kind === "DOCUMENT");
 
-  // Financial documents match on the institution id the generator resolved in the
-  // evidence database, so a record can only appear here if it was observed from
-  // this institution's own site.
-  const institutionFinancials = financials.filter(
-    (r) => (/^financial-([^|]+)\|/.exec(r.id) ?? ["", ""])[1] === inst.id,
+  // Financial documents match on the canonical institution slug the builder
+  // resolved from the source's publisher, so a record can only appear here if it
+  // was observed from this institution's own site and never drifts onto another
+  // company via a pilot-numbered id.
+  const institutionFinancials = allFinancialDocuments().filter(
+    (r) => r.institution_slug === inst.slug,
   );
   const finReports = institutionFinancials.filter(
-    (r): r is FinancialRecord & { kind: "REPORT" } => r.kind === "REPORT",
+    (r): r is FinancialDocumentDto & { kind: "REPORT" } => r.kind === "REPORT",
   );
   const finRates = institutionFinancials.filter(
-    (r): r is FinancialRecord & { kind: "RATE" } => r.kind === "RATE",
+    (r): r is FinancialDocumentDto & { kind: "RATE" } => r.kind === "RATE",
   );
 
   const districts = [...new Set(publishedBranches.map((b) => b.district).filter(Boolean))].sort();
@@ -159,6 +180,7 @@ export default async function InstitutionPage({
             date: operationDate,
             title: "Operation recorded",
             detail: `Establishment date published by ${directorySource.source.title}.`,
+            type: "ESTABLISHED",
           },
         ]
       : []),
@@ -169,20 +191,31 @@ export default async function InstitutionPage({
         date: formatDate(b.established_on) ?? b.established_on,
         title: `Branch established: ${b.name}`,
         detail: [b.municipality, b.district].filter(Boolean).join(", ") || "Location not stated",
+        type: "BRANCH_ESTABLISHED",
       })),
     ...nrbEvents
-      .filter((e) => e.occurredAt)
       .map((e) => ({
         id: e.id,
-        date: formatDate(e.occurredAt) ?? (e.occurredAt as string),
+        date: e.occurredAt ? formatDate(e.occurredAt) ?? (e.occurredAt as string) : null,
         title: e.title,
         detail: e.description,
+        type: e.eventType,
       })),
-  ].sort((a, b) => {
-    const da = a.date ?? "";
-    const db = b.date ?? "";
-    return da < db ? 1 : da > db ? -1 : 0;
+  ]
+    .filter((e) => e.date)
+    .sort((a, b) => {
+      const da = a.date ?? "";
+      const db = b.date ?? "";
+      return da < db ? 1 : da > db ? -1 : 0;
+    });
+  const seen = new Set<string>();
+  const timelineEventsDedup = timelineEvents.filter((e) => {
+    const k = `${e.date}|${e.title}|${e.type ?? ""}`;
+    if (seen.has(k)) return false;
+    seen.add(k);
+    return true;
   });
+  const timelineEventsFinal = timelineEventsDedup;
 
   const identity = inst.evidence.identity;
   const sources = [
@@ -647,10 +680,10 @@ export default async function InstitutionPage({
           <Panel
             id="timeline"
             title="Timeline"
-            count={`${timelineEvents.length}`}
+            count={`${timelineEventsFinal.length}`}
             note="Events we can evidence for this institution, most recent first. An event without a verifiable date is not listed."
           >
-            {timelineEvents.length === 0 ? (
+            {timelineEventsFinal.length === 0 ? (
               <EmptyState
                 compact
                 title="No dated events"
@@ -658,7 +691,7 @@ export default async function InstitutionPage({
               />
             ) : (
               <ol className="lk-card lk-divide overflow-hidden">
-                {timelineEvents.slice(0, 25).map((event) => (
+                {timelineEventsFinal.slice(0, 25).map((event) => (
                   <li key={event.id} className="flex flex-wrap items-baseline gap-x-3 gap-y-1 px-3.5 py-2.5">
                     <span className="shrink-0 font-mono text-xs text-mfi-500">{event.date}</span>
                     <span className="min-w-0 flex-1">
@@ -671,9 +704,9 @@ export default async function InstitutionPage({
                 ))}
               </ol>
             )}
-            {timelineEvents.length > 25 ? (
+            {timelineEventsFinal.length > 25 ? (
               <p className="mt-3 text-xs text-mfi-500">
-                Showing 25 of {timelineEvents.length} dated events.
+                Showing 25 of {timelineEventsFinal.length} dated events.
               </p>
             ) : null}
           </Panel>
