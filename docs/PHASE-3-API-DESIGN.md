@@ -37,16 +37,21 @@ Implemented endpoints (all GET, all read-only, envelope + pagination per contrac
 | `GET /api/institutions/:slug` | single-resource `InstitutionDetail` (SNOT: identity, capital, geography, coverage, web evidence, NRB docs/events) |
 | `GET /api/institutions/:slug/documents` | matched NRB documents via `src/data/nrb.ts` links |
 | `GET /api/institutions/:slug/events` | NRB regulatory events filtered by institution slug |
-| `GET /api/institutions/:slug/jobs` | jobs matched deterministically (name-prefix rule, see repository comments) |
-| `GET /api/institutions/:slug/branches` | empty collection until Phase B |
-| `GET /api/institutions/:slug/leadership` | empty collection until Phase B |
-| `GET /api/institutions/:slug/financials` | empty collection until Phase C |
-| `GET /api/interest-rates` | empty collection until Phase C |
-| `GET /api/search?q=` | grouped `{institutions, people, documents}`; people empty until Phase B |
+| `GET /api/institutions/:slug/jobs` | canonical vacancy layer (P2-D): both evidence shapes, publisher→registry attribution; the pre-P2-D name-prefix matching is **removed** (it credited ten invented postings to named MFIs) |
+| `GET /api/institutions/:slug/branches` | canonical branch layer (P2-B); empty only where branch evidence does not resolve |
+| `GET /api/institutions/:slug/leadership` | canonical People + Positions layer (P2-A); empty only where no source states a person |
+| `GET /api/institutions/:slug/financials` | canonical financial **document** layer (P2-C); empty only where no document evidence resolves |
+| `GET /api/institutions/:slug/interest-rates` | canonical interest-rate **notices** for institution (P2-C); `rate_pct` always null |
+| `GET /api/institutions/:slug/graph` | operational graph (P2-F): node + edges (leadership/branches/financials/reports+rates/documents/jobs/news/events/links), merged timeline, evidence trail |
+| `GET /api/interest-rates` | canonical interest-rate **notices** (P2-C); 8 notices, `rate_pct` always null |
+| `GET /api/search?q=` | grouped `{institutions, people, documents}`; people populated from P2-A evidence |
 
-Not in this slice: `GET /api/news` (needs a source-tier vocabulary that the current
-`posts.ts` digest does not carry — do not invent tiers), notification writes, and any
-non-GET verb (contract is read-only V1 anyway).
+Not in this slice: notification writes and any non-GET verb (contract is
+read-only V1 anyway). `GET /api/news` **is in this slice since P2-E**: its tier
+vocabulary is derived from the registered NRB source publishers
+(`lib/api/repository.listNews` → `src/util/activity.ts`), never invented —
+OFFICIAL/KHABAR/MEDIA are served as honest zero counts until a source-owned
+ingestion populates them.
 
 ## Honesty rules
 
@@ -55,8 +60,15 @@ non-GET verb (contract is read-only V1 anyway).
 - `last_verified_at` / `source` come from the evidence fields actually recorded
   (`nrb-bfi-mid-may-2026`, `asOf` `2026-05-15`), never invented.
 - Missing values are realistically absent or provable (0 counts), never fabricated.
-- Branches/leadership/financials/interest-rates return honest empty collections with
-  `pagination.total: 0` — the phases have not populated them.
+- Branches (P2-B), leadership (P2-A) and financial documents (P2-C) return
+  populated collections from evidence; where a source does not state them they
+  stay honestly empty (`pagination.total: 0`).
+- Vacancies (P2-D) publish only what evidence states: `deadline` is always
+  `""`, `location`/`type` always `"(… not observed)"` placeholders, `kind`
+  distinguishes a read posting from an unread notice. General documents
+  (P2-D) are intentionally **not** routed through the contract — V1's
+  `/documents` route keeps its NRB meaning (see API-CONTRACT.md); exposure is
+  the `/documents` page and the D1/worker repository path.
 
 ## Error contract (from API-CONTRACT.md)
 

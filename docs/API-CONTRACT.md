@@ -118,29 +118,31 @@ Returns `data` = `InstitutionDetail`.
 
 ### GET /api/institutions/:slug/leadership
 
-Board + senior management (Phase B). Returns collection envelope; empty until Phase B populates.
+Board + senior management. Returns collection envelope; populated from the canonical People + Positions layer (P2-A; empty only where no source states a person).
 
 ### GET /api/institutions/:slug/branches
 
-Branch directory. Collection envelope; empty until Phase B.
+Branch directory. Collection envelope; populated from the canonical branch layer for the institutions whose branch-directory evidence resolves (P2-B).
 
 ### GET /api/institutions/:slug/financials
 
 Published financial **documents** for this institution — the report PDFs (annual, quarterly,
-audited/unaudited, …) that were linked on its own site and snapshotted. Collection envelope of
-`FinancialReport`; every row carries `institution`, `institution_slug`, `title`, `report_type`
-(null when the source's naming assigned none) and a `source_url` pointing at the document.
+audited/unaudited, …) that were linked on its own site and snapshotted (P2-C canonical
+document layer). Collection envelope of `FinancialReport`; every row carries `institution`,
+`institution_slug`, `title`, `report_type` (null when the source's naming assigned none) and a
+`source_url` pointing at the document.
 
 A row is a document, never its contents. The file is snapshotted and skipped, so
 `metrics` is always `{}`, `period_start`/`period_end`/`report_date` are `null`, and no number from
 a report is ever derived here — this system will not publish a figure it cannot show the bytes
 for. `meta.verification_status` is `UNVERIFIED`.
 
-Empty until a financial document has been published for the institution.
+Empty where no financial document evidence resolves for the institution (48 documents across
+14 institutions today). Identity comes from the source publisher, never from an id prefix.
 
 ### GET /api/institutions/:slug/interest-rates
 
-Interest-rate **notices** linked on this institution's own site. Collection envelope of
+Interest-rate **notices** linked on this institution's own site (P2-C). Collection envelope of
 `InterestRate`; every row carries `rate_kind` (BASE_RATE / SAVINGS / DEPOSIT / REMITTANCE / LOAN /
 RATE_CHANGE / INTEREST_RATE), `institution`, `institution_slug`, `title` and `url`.
 
@@ -151,6 +153,13 @@ Rows are scoped to the institution whose site linked them.
 ### GET /api/institutions/:slug/documents
 
 Categorised documents (reports, notices, directives). Collection envelope; Phase A/E.
+Serves the **NRB-matched** document links (`src/data/nrb.ts`) — that is this
+route's frozen meaning. The P2-D general document layer (`DocumentDto`, from
+`document_title`/`notice_title` assertions) is deliberately **not** served
+here: V1 defines no route for it (exposure: the `/documents` page, repository
+`allPublishedDocuments()`, D1 `listDocuments`). Note the worker's same-path
+route answers with the P2-D layer instead — a recorded divergence, not a
+contract change.
 
 ### GET /api/institutions/:slug/events
 
@@ -158,7 +167,15 @@ Timeline events (MERGE/ACQUIRE/RENAME…). Collection envelope; seeded from mast
 
 ### GET /api/institutions/:slug/jobs
 
-Job listings for the MFB. Phase D; empty until then.
+Job listings for the MFB, evidence-derived (P2-D). Collection envelope of `Job`
+rows: `title` and `kind` (`POSTING` = a title read from the institution's own
+page; `DOCUMENT` = an unread vacancy notice, titled by its own filename) are
+observations; `deadline` is always empty (`""`), `location`/`type` always the
+`"(… not observed)"` placeholders — no deadline/location/employment-type
+evidence exists and none is invented. Rows are scoped by the canonical
+`institutionSlug` column (publisher→registry attribution), never matched by
+name prefix. Empty only where no vacancy evidence resolves for the
+institution.
 
 ### GET /api/people/:slug
 
@@ -168,6 +185,14 @@ Person profile (Tier-1/2 board + senior mgmt). Single-resource envelope; Phase B
 
 News list, typed by source (OFFICIAL / NRB / KHABAR / MEDIA). Collection envelope with
 `meta.tier` counts. `?scope=` + `?tier=` filters, `?page=`.
+
+Implemented by the static api-server over the canonical activity projection
+(`lib/api/repository.listNews` → `src/util/activity.ts`): today that is 155 NRB
+records (62 regulatory events + 93 distinct documents), so `meta.tier` is
+`{OFFICIAL:0, NRB:155, KHABAR:0, MEDIA:0}` and the other tiers are honestly
+empty. The Worker serves the same shape but reads D1, which holds no news rows
+yet — its counts are honest zeros until a news ingestion seeds it. See
+[docs/data/P2-E-NEWS-CONTENT-AUDIT.md](data/P2-E-NEWS-CONTENT-AUDIT.md).
 
 ### GET /api/search
 
@@ -189,7 +214,8 @@ Free-text search across institutions, aliases, people, documents. Returns groupe
 ### GET /api/interest-rates
 
 Every published interest-rate notice across all institutions. Collection envelope of
-`InterestRate`, same shape as the per-institution route above; `?page=` / `?limit=` supported.
+`InterestRate`, same shape as the per-institution route above (8 notices today); `?page=` /
+`?limit=` supported.
 
 ## Not in V1
 
