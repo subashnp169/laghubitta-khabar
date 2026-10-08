@@ -171,11 +171,20 @@ Job listings for the MFB, evidence-derived (P2-D). Collection envelope of `Job`
 rows: `title` and `kind` (`POSTING` = a title read from the institution's own
 page; `DOCUMENT` = an unread vacancy notice, titled by its own filename) are
 observations; `deadline` is always empty (`""`), `location`/`type` always the
-`"(… not observed)"` placeholders — no deadline/location/employment-type
+`"(— not observed)"` placeholders — no deadline/location/employment-type
 evidence exists and none is invented. Rows are scoped by the canonical
 `institutionSlug` column (publisher→registry attribution), never matched by
 name prefix. Empty only where no vacancy evidence resolves for the
 institution.
+
+### GET /api/institutions/:slug/graph
+
+Operational graph (P2-F): single-resource envelope with `data = InstitutionGraph`.
+Shape: `node` (`InstitutionDetail`), `edges` {leadership, branches, financialReports,
+interestRates, documents, jobs, news, events, nrbLinks}, `timeline` (merged historical
+events, deduped, most recent first), `evidence` (sources/urls/last_verified_at),
+`meta` (ApiMeta). Edges are filtered by institution; no pagination by design.
+Deterministic read-model over generated modules.
 
 ### GET /api/people/:slug
 
