@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import MovedInstitution from "@/components/institutions/MovedInstitution";
@@ -23,12 +23,12 @@ import {
 } from "@/util/format";
 
 /**
- * Institution profile — the platform's microsite template.
+ * Institution profile â€” the platform's microsite template.
  *
  * This page is meant to read like a small institutional website rather than a
  * record in a directory table: a wide identity block, navigation across the
  * sections that actually exist, then the sections themselves, then the evidence.
- * The sidebar it used to carry is gone — nothing here was earning the space, and
+ * The sidebar it used to carry is gone â€” nothing here was earning the space, and
  * it forced the primary content into two thirds of the viewport.
  *
  * The data wiring is load-bearing and is preserved exactly. Leadership, branches,
@@ -316,7 +316,7 @@ export default async function InstitutionPage({
               </h1>
               {inst.aliases.length > 0 ? (
                 <p className="mt-1.5 text-sm leading-relaxed text-mfi-500">
-                  Also recorded as {inst.aliases.join(" · ")}
+                  Also recorded as {inst.aliases.join(" Â· ")}
                 </p>
               ) : null}
             </div>
@@ -335,7 +335,7 @@ export default async function InstitutionPage({
                 rel="noopener noreferrer"
                 className="inline-flex min-h-7 items-center rounded-md border border-mfi-200 px-2.5 text-xs font-medium text-mfi-700 transition-colors hover:bg-mfi-50"
               >
-                {displayHost(websiteUrl)} ↗
+                {displayHost(websiteUrl)} â†—
               </a>
             ) : (
               <Chip
@@ -366,8 +366,8 @@ export default async function InstitutionPage({
 
           <div className="mt-4 flex flex-wrap items-center justify-between gap-x-6 gap-y-2">
             <p className="text-xs leading-relaxed text-mfi-500">
-              Directory record as of {formatDate(directorySource.asOf) ?? "an unrecorded date"} ·{" "}
-              {directorySource.source.publisher} · not the institution&apos;s own website
+              Directory record as of {formatDate(directorySource.asOf) ?? "an unrecorded date"} Â·{" "}
+              {directorySource.source.publisher} Â· not the institution&apos;s own website
             </p>
             <Link
               href={`/compare?a=${inst.slug}`}
@@ -614,7 +614,7 @@ export default async function InstitutionPage({
                           rel="noopener noreferrer"
                           className="text-xs font-medium text-mfi-700 underline-offset-4 hover:underline"
                         >
-                          {displayHost(doc.sourceDocument)} ↗
+                          {displayHost(doc.sourceDocument)} â†—
                         </a>
                       ) : null}
                     </span>
@@ -659,7 +659,7 @@ export default async function InstitutionPage({
                             rel="noopener noreferrer"
                             className="text-xs font-medium text-mfi-700 underline-offset-4 hover:underline"
                           >
-                            {displayHost(doc.sourceDocument)} ↗
+                            {displayHost(doc.sourceDocument)} â†—
                           </a>
                         ) : null}
                       </span>
@@ -734,7 +734,7 @@ export default async function InstitutionPage({
                       {event.title}
                     </Link>
                     <p className="mt-0.5 text-xs text-mfi-500">
-                      {humanize(event.eventType) ?? event.eventType} ·{" "}
+                      {humanize(event.eventType) ?? event.eventType} Â·{" "}
                       {formatDate(event.occurredAt) ?? "undated"}
                     </p>
                   </li>
@@ -793,7 +793,7 @@ export default async function InstitutionPage({
                             rel="noopener noreferrer"
                             className="text-xs font-medium text-mfi-700 underline-offset-4 hover:underline"
                           >
-                            {displayHost(doc.sourceDocument)} ↗
+                            {displayHost(doc.sourceDocument)} â†—
                           </a>
                         ) : null}
                       </span>
@@ -841,8 +841,8 @@ export default async function InstitutionPage({
                       <span className="mt-0.5 block text-xs text-mfi-500">
                         {[humanize(job.type), humanize(job.location), humanize(job.status)]
                           .filter(Boolean)
-                          .join(" · ") || "Role details not stated"}
-                        {job.deadline ? ` · deadline ${formatDate(job.deadline) ?? job.deadline}` : ""}
+                          .join(" Â· ") || "Role details not stated"}
+                        {job.deadline ? ` Â· deadline ${formatDate(job.deadline) ?? job.deadline}` : ""}
                       </span>
                     </span>
                     <span className="flex shrink-0 items-center gap-2">
@@ -863,7 +863,7 @@ export default async function InstitutionPage({
                           rel="noopener noreferrer"
                           className="text-xs font-medium text-mfi-700 underline-offset-4 hover:underline"
                         >
-                          {displayHost(job.sourceDocument)} ↗
+                          {displayHost(job.sourceDocument)} â†—
                         </a>
                       ) : null}
                     </span>
@@ -932,8 +932,8 @@ export default async function InstitutionPage({
 
             <dl className="mt-4 space-y-2 border-t border-mfi-100 pt-4 text-xs">
               <Row term="Pipeline status" value={<StatusChip status={sourceStatus(crawl?.status)} />} />
-              <Row term="Pages stored" value={crawl ? String(crawl.snapshots) : "—"} />
-              <Row term="Crawl runs" value={crawl ? String(crawl.runs) : "—"} />
+              <Row term="Pages stored" value={crawl ? String(crawl.snapshots) : "â€”"} />
+              <Row term="Crawl runs" value={crawl ? String(crawl.runs) : "â€”"} />
               <Row term="Institution site last checked" value={formatDate(crawl?.lastRun) ?? "not recorded"} />
               <Row term="Directory snapshot" value={formatDate(directorySource.asOf) ?? "not recorded"} />
               <Row term="Published by regulator" value={formatDate(directorySource.publishedByNRB) ?? "not recorded"} />
