@@ -574,6 +574,21 @@ export default async function InstitutionPage({
                         Established {formatDate(branch.established_on) ?? branch.established_on}
                       </p>
                     ) : null}
+                    {branch.meta?.source_url ? (
+                      <div className="mt-1 flex items-center gap-2 text-xs text-mfi-500">
+                        <span>Source:</span>
+                        {realUrl(branch.meta.source_url) ? (
+                          <a href={branch.meta.source_url as string} target="_blank" rel="noopener noreferrer nofollow" className="break-all underline underline-offset-2">
+                            {displayHost(branch.meta.source_url)}
+                          </a>
+                        ) : (
+                          <span>listed source</span>
+                        )}
+                        {branch.meta?.verification_status ? <StatusChip status={verificationStatus(branch.meta.verification_status)} /> : null}
+                      </div>
+                    ) : branch.meta?.verification_status ? (
+                      <div className="mt-1 text-xs text-mfi-500"><StatusChip status={verificationStatus(branch.meta.verification_status)} /></div>
+                    ) : null}
                   </li>
                 ))}
               </ul>
