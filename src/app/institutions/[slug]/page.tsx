@@ -12,6 +12,7 @@ import { Chip, StatusChip } from "@/components/ui/Chip";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { Provenance } from "@/components/ui/Provenance";
 import { fieldState, institutionStatus, isCurrentInstitution, isVerifiedWebsite, sourceStatus, verificationStatus, websiteStatus, BRANDING_NOTE, type Tone } from "@/util/evidence";
+import { branchCoverage } from "@/util/branches";
 import { hasSharedRole, maxSharedBy, roleLabels } from "@/util/roles";
 import { rateKindLabel, rateValueState } from "@/util/rates";
 import { PERIOD_DISCIPLINE_NOTE, financialPeriodLines, sourceOwnerLabel } from "@/util/financials";
@@ -145,6 +146,7 @@ export default async function InstitutionPage({
     branchesResponse.status === 200 && "data" in branchesResponse.body
       ? (branchesResponse.body.data as BranchDto[])
       : [];
+  const branchCov = branchCoverage(branchesResponse.status, publishedBranches.length);
 
   // Vacancies match on the institution's own slug prefix, which only happens when
   // the evidence resolved to this institution.
@@ -695,15 +697,21 @@ export default async function InstitutionPage({
             count={`${publishedBranches.length}`}
             note={
               districts.length > 0
-                ? `Across ${districts.length} ${districts.length === 1 ? "district" : "districts"}: ${districts.join(", ")}`
-                : "Districts not recorded"
+                ? `${branchCov.label} · across ${districts.length} ${districts.length === 1 ? "district" : "districts"}: ${districts.join(", ")}`
+                : branchCov.label
             }
           >
+            <div className="mb-3 flex items-start gap-2">
+              <Chip tone={branchCov.tone} title={branchCov.help}>
+                {branchCov.label}
+              </Chip>
+              <span className="text-xs leading-relaxed text-mfi-500">{branchCov.help}</span>
+            </div>
             {publishedBranches.length === 0 ? (
               <EmptyState
                 compact
-                title="No branches published"
-                detail="No branch list was published on a page we could read for this institution."
+                title={branchCov.label}
+                detail={branchCov.help}
               />
             ) : (
               <ul className="lk-card lk-divide max-h-[28rem] overflow-y-auto">

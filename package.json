@@ -64,6 +64,7 @@
     "smoke:dataapi": "tsx scripts/smoke-dataapi.ts",
     "smoke:vocabulary": "tsx scripts/smoke-vocabulary.ts",
     "smoke:research": "tsx scripts/smoke-research.ts",
+    "smoke:branch-coverage": "tsx scripts/smoke-branch-coverage.ts",
     "smoke:canonical-links": "tsx scripts/smoke-canonical-links.ts",
     "api": "tsx scripts/api-server.ts",
     "smoke:api": "tsx scripts/smoke-api.ts",
