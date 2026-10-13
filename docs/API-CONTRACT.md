@@ -137,6 +137,14 @@ A row is a document, never its contents. The file is snapshotted and skipped, so
 a report is ever derived here — this system will not publish a figure it cannot show the bytes
 for. `meta.verification_status` is `UNVERIFIED`.
 
+**Period discipline (P1-4).** Each row also carries `reporting_period`, `publication_date`,
+`as_of_date` and `source_owner` so the three dates a figure needs are never conflated. All three
+date fields are `null` today (the body was never read); `meta.last_verified_at` is the only date
+the record owns and it is an *observation* date, not a reporting period or a publication date.
+`source_owner` is `institution` (an institution's own published document) / `nrb` /
+`derived`; every row today is `institution`. Consumers must label the observed date as such and
+must not render it as a reporting period or publication date.
+
 Empty where no financial document evidence resolves for the institution (48 documents across
 14 institutions today). Identity comes from the source publisher, never from an id prefix.
 

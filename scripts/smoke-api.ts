@@ -165,6 +165,18 @@ if (withReports.length > 0) {
     ),
     "a financial report is a document with kind + provenance, never a metric, and is scoped to its institution",
   );
+  // P1-4: the three dates stay distinct. Reporting period, publication date and
+  // as-of are present but null (nothing was read); the owner is the institution.
+  const REPORT_OWNERS = ["institution", "nrb", "derived"];
+  ok(
+    fin.body.data.every((f: any) =>
+      f.reporting_period === null &&
+      f.publication_date === null &&
+      f.as_of_date === null &&
+      REPORT_OWNERS.includes(f.source_owner),
+    ),
+    "period discipline: reporting period, publication date and as-of are distinct null fields, and every report names an owner",
+  );
   const perRates = request("GET", `/api/institutions/${withReports[0]}/interest-rates?limit=100`);
   ok(
     perRates.status === 200 &&

@@ -8,6 +8,7 @@ import { allPublishedFinancials } from "../../../lib/repository/static-financial
 import { displayHost, formatDate, humanize, realUrl } from "@/util/format";
 import { Stat } from "@/components/ui/Stat";
 import { rateKindLabel } from "@/util/rates";
+import { PERIOD_DISCIPLINE_NOTE, financialPeriodLines, sourceOwnerLabel } from "@/util/financials";
 
 const financials = allPublishedFinancials();
 
@@ -65,6 +66,8 @@ export default function FinancialsPage() {
           yet.
         </p>
 
+        <p className="mt-3 text-xs leading-relaxed text-mfi-500">{PERIOD_DISCIPLINE_NOTE}</p>
+
         <dl className="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-mfi-200 bg-mfi-200 sm:grid-cols-4">
           <Stat term="Documents found" value={String(financials.length)} />
           <Stat term="Reports" value={String(REPORTS.length)} />
@@ -103,11 +106,25 @@ export default function FinancialsPage() {
                     {doc.reportType ? (
                       <Chip tone="info">{REPORT_TYPE_LABEL[doc.reportType] ?? humanize(doc.reportType)}</Chip>
                     ) : null}
-                    {doc.lastSeenAt ? (
-                      <span className="text-mfi-500">last verified {formatDate(doc.lastSeenAt)} (observed)</span>
-                    ) : null}
+                    <Chip tone="neutral" title={PERIOD_DISCIPLINE_NOTE}>
+                      {sourceOwnerLabel(doc.sourceOwner)}
+                    </Chip>
                     <span className="text-mfi-400">contents not read</span>
                   </div>
+
+                  <dl className="mt-1.5 flex flex-wrap gap-x-4 gap-y-0.5 text-[11px] text-mfi-400">
+                    {financialPeriodLines({
+                      reporting_period: doc.reportingPeriod,
+                      publication_date: doc.publicationDate,
+                      as_of_date: doc.asOfDate,
+                      observed_at: formatDate(doc.lastSeenAt),
+                    }).map((line) => (
+                      <div key={line.term} className="flex gap-1">
+                        <dt>{line.term}</dt>
+                        <dd className="font-medium text-mfi-600">{line.value}</dd>
+                      </div>
+                    ))}
+                  </dl>
                 </li>
               ))}
             </ul>
@@ -145,6 +162,9 @@ export default function FinancialsPage() {
                     {doc.rateKind ? (
                       <Chip tone="attention">{rateKindLabel(doc.rateKind)}</Chip>
                     ) : null}
+                    <Chip tone="neutral" title={PERIOD_DISCIPLINE_NOTE}>
+                      {sourceOwnerLabel(doc.sourceOwner)}
+                    </Chip>
                     <span className="text-mfi-400">rate value not extracted</span>
                   </div>
                 </li>

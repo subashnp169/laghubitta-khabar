@@ -1005,6 +1005,14 @@ export function financialsFromAssertionRows(
       sourceDocument: url,
       sourceName: first.source_url ?? null,
       lastSeenAt,
+      // Period discipline (P1-4): nothing was read, so reporting period,
+      // publication date and as-of are all absent. `lastSeenAt` above is the one
+      // date this record owns — an observation date — and the source is the
+      // institution's own site, so the owner is the institution, never NRB.
+      reportingPeriod: null,
+      publicationDate: null,
+      asOfDate: null,
+      sourceOwner: "institution",
       status: conflict ? "CONFLICT" : "ACTIVE",
     });
   }

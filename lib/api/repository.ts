@@ -364,6 +364,13 @@ function financialReportDto(r: FinancialDocumentDto): FinancialReportDto {
     period_start: null,
     period_end: null,
     report_date: null,
+    // Period discipline (P1-4): the body was never read, so the reporting period,
+    // publication date and as-of are all absent; the record's own date is the
+    // observation date in meta.last_verified_at.
+    reporting_period: r.reportingPeriod,
+    publication_date: r.publicationDate,
+    as_of_date: r.asOfDate,
+    source_owner: r.sourceOwner,
     metrics: {},
     // The document URL is the evidence; JSON of a title never gets promoted
     // into a number, so metrics stays empty even when a title looks numeric.

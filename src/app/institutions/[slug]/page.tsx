@@ -14,6 +14,7 @@ import { Provenance } from "@/components/ui/Provenance";
 import { sourceStatus, verificationStatus, type Tone } from "@/util/evidence";
 import { hasSharedRole, maxSharedBy, roleLabels } from "@/util/roles";
 import { rateKindLabel, rateValueState } from "@/util/rates";
+import { PERIOD_DISCIPLINE_NOTE, financialPeriodLines, sourceOwnerLabel } from "@/util/financials";
 import {
   displayHost,
   formatCrore,
@@ -690,7 +691,7 @@ export default async function InstitutionPage({
             id="financials"
             title="Financial documents"
             count={`${finReports.length}`}
-            note="Reports this institution published, catalogued by type. Contents have not been read, so no figure from them is shown."
+            note="Reports this institution published, catalogued by type. Contents have not been read, so no figure from them is shown and neither a reporting period nor a publication date is extracted."
           >
             {finReports.length === 0 ? (
               <EmptyState
@@ -701,29 +702,41 @@ export default async function InstitutionPage({
             ) : (
               <ul className="lk-card lk-divide overflow-hidden">
                 {finReports.map((doc) => (
-                  <li
-                    key={doc.id}
-                    className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1 px-3.5 py-2.5"
-                  >
-                    <span className="min-w-0 flex-1 break-words text-sm text-mfi-900">{doc.title}</span>
-                    <span className="flex shrink-0 items-center gap-2">
-                      <span className="text-xs text-mfi-500">
-                        last verified {formatDate(doc.lastSeenAt) ?? "undated"}
+                  <li key={doc.id} className="px-3.5 py-3">
+                    <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+                      <span className="min-w-0 flex-1 break-words text-sm text-mfi-900">{doc.title}</span>
+                      <span className="flex shrink-0 items-center gap-2">
+                        <Chip tone="info" title={PERIOD_DISCIPLINE_NOTE}>
+                          {sourceOwnerLabel(doc.sourceOwner)}
+                        </Chip>
+                        <Chip tone="neutral">
+                          {doc.reportType ? humanize(doc.reportType) : "report"}
+                        </Chip>
+                        {realUrl(doc.sourceDocument) ? (
+                          <a
+                            href={doc.sourceDocument as string}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-xs font-medium text-mfi-700 underline-offset-4 hover:underline"
+                          >
+                            {displayHost(doc.sourceDocument)} â†—
+                          </a>
+                        ) : null}
                       </span>
-                      <Chip tone="info">
-                        {doc.reportType ? humanize(doc.reportType) : "report"}
-                      </Chip>
-                      {realUrl(doc.sourceDocument) ? (
-                        <a
-                          href={doc.sourceDocument as string}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-xs font-medium text-mfi-700 underline-offset-4 hover:underline"
-                        >
-                          {displayHost(doc.sourceDocument)} â†—
-                        </a>
-                      ) : null}
-                    </span>
+                    </div>
+                    <dl className="mt-1.5 flex flex-wrap gap-x-4 gap-y-0.5 text-[11px] text-mfi-400">
+                      {financialPeriodLines({
+                        reporting_period: doc.reportingPeriod,
+                        publication_date: doc.publicationDate,
+                        as_of_date: doc.asOfDate,
+                        observed_at: formatDate(doc.lastSeenAt),
+                      }).map((line) => (
+                        <div key={line.term} className="flex gap-1">
+                          <dt>{line.term}</dt>
+                          <dd className="font-medium text-mfi-600">{line.value}</dd>
+                        </div>
+                      ))}
+                    </dl>
                   </li>
                 ))}
               </ul>
@@ -862,7 +875,7 @@ export default async function InstitutionPage({
             id="documents"
             title="Documents"
             count={`${institutionFinancials.length}`}
-            note="Catalogued from this institution's own site. Contents have not been read."
+            note="Catalogued from this institution's own site. Contents have not been read, so reporting periods and publication dates are not extracted."
           >
             {institutionFinancials.length === 0 ? (
               <EmptyState
@@ -883,7 +896,7 @@ export default async function InstitutionPage({
                       </span>
                       <span className="flex shrink-0 items-center gap-2">
                         <span className="text-xs text-mfi-500">
-                          {formatDate(doc.lastSeenAt) ?? "undated"}
+                          observed {formatDate(doc.lastSeenAt) ?? "undated"}
                         </span>
                         <Chip tone={doc.kind === "REPORT" ? "info" : "attention"}>
                           {doc.kind === "REPORT"

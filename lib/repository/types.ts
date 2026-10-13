@@ -191,6 +191,18 @@ export interface FinancialReportDto {
   period_start: string | null;
   period_end: string | null;
   report_date: string | null;
+  /**
+   * Period discipline (P1-4), per INSTITUTION-MASTER-MODEL.md §Financial model.
+   * A figure is only comparable when its reporting period, its publication date
+   * and the as-of point are told apart. The document body was never read, so all
+   * three are null today; they exist so a real extraction lands here without a
+   * schema change, and so no consumer has to guess which date it holds.
+   */
+  reporting_period: string | null;
+  publication_date: string | null;
+  as_of_date: string | null;
+  /** Who published the figure: the institution, NRB, or derived by us. */
+  source_owner: FinancialSourceOwner;
   metrics: Record<string, { reported_value: string | null; normalized_value: string | null }>;
   source_url: string | null;
   meta: SourceMeta;
@@ -198,6 +210,14 @@ export interface FinancialReportDto {
 
 /** A financial record is a report document or a rate notice, and no more. */
 export type FinancialKind = "REPORT" | "RATE";
+
+/**
+ * Who owns a financial claim. This is provenance, not a confidence value:
+ * `institution` is an institution's own published document, `nrb` is a
+ * regulator-published dataset, `derived` is a ratio we computed from
+ * authoritative inputs. The three must never be presented as interchangeable.
+ */
+export type FinancialSourceOwner = "institution" | "nrb" | "derived";
 
 /** A published financial document is either current or carrying an open dispute. */
 export type FinancialDocumentStatus = "ACTIVE" | "CONFLICT";
@@ -221,6 +241,17 @@ export interface FinancialDocumentDto {
   sourceDocument: string | null;
   sourceName: string | null;
   lastSeenAt: string;
+  /**
+   * Period discipline (P1-4). The document body was never read, so the reporting
+   * period, publication date and as-of point are all null and `lastSeenAt` is
+   * the only date the record owns — an observation date. They are carried here so
+   * the UI can label each distinctly and so no page can mistake one for another.
+   */
+  reportingPeriod: string | null;
+  publicationDate: string | null;
+  asOfDate: string | null;
+  /** Who published the document: the institution, NRB, or derived by us. */
+  sourceOwner: FinancialSourceOwner;
   status: FinancialDocumentStatus;
 }
 
