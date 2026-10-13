@@ -134,6 +134,13 @@ ok(topRates.body.data.every((r: any) => r.rate_pct === null && r.meta.verificati
 ok(topRates.body.data.every((r: any) => typeof r.rate_kind === "string" && r.rate_kind.length > 0 && typeof r.title === "string" && r.title.length > 0 && r.period_start === null && r.period_end === null), "every rate notice has a kind + title and no invented period");
 ok(topRates.body.data.every((r: any) => institutions.some((i) => i.slug === r.institution_slug)), "rate notices resolve to a real institution slug");
 ok(topRates.body.data.every((r: any) => r.meta.source_url === null || /^https?:\/\//.test(r.meta.source_url)), "rate notice source_url is a real URL or null");
+// P1-3: a rate carries the full context a percentage would need, and never a
+// naked value. Context fields exist and are null (nothing was read); the value
+// state is an explicit vocabulary word rather than a substitute number.
+const RATE_VALUE_VOCAB = ["NOT_EXTRACTED", "UNKNOWN", "NOT_FOUND", "CURRENT"];
+ok(topRates.body.data.every((r: any) => RATE_VALUE_VOCAB.includes(r.evidence_status)), "every rate notice states its value in the shared vocabulary (Not extracted / Unknown / Not found / Current)");
+ok(topRates.body.data.every((r: any) => r.product_category === null && r.rate_type === null && r.rate_basis === null && r.effective_date === null && r.reporting_period === null && r.grade === null), "rate context fields are present but null — no product, type, basis, effective date, period or grade is invented");
+ok(topRates.body.data.every((r: any) => r.rate_pct === null || (typeof r.rate_basis === "string" && r.rate_basis.length > 0)), "a numeric rate is only ever published alongside its basis (never a naked %)");
 
 function financialReportRowsFor(slug: string): number {
   return financials.filter((r) => r.kind === "REPORT" && r.institution_slug === slug).length;

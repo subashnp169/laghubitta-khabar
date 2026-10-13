@@ -83,6 +83,13 @@ function interestRateFromDocument(d: FinancialDocumentDto): InterestRateDto {
   return {
     id: d.id,
     rate_kind: d.rateKind ?? "INTEREST_RATE",
+    product_category: null,
+    rate_type: null,
+    rate_basis: null,
+    effective_date: null,
+    reporting_period: null,
+    grade: null,
+    evidence_status: "NOT_EXTRACTED",
     institution: d.institution,
     institution_slug: d.institution_slug || "(unresolved)",
     title: d.title,

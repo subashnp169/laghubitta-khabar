@@ -150,6 +150,16 @@ RATE_CHANGE / INTEREST_RATE), `institution`, `institution_slug`, `title` and `ur
 never read, so no rate value is ever published. `source_url` is `null` rather than a guessed page.
 Rows are scoped to the institution whose site linked them.
 
+**Rate context (P1-3).** A rate is only meaningful with the context it was published in
+(`INSTITUTION-MASTER-MODEL.md` §Interest rates). Each row therefore also carries
+`product_category`, `rate_type`, `rate_basis`, `effective_date`, `reporting_period` and `grade` —
+all present and all `null` today, because nothing was extracted to fill them. `evidence_status` is
+the value's state in the shared vocabulary (`NOT_EXTRACTED` / `UNKNOWN` / `NOT_FOUND` /
+`CURRENT`); it is `NOT_EXTRACTED` for every located notice (the notice is known, the number is
+not). A percentage may only be published when a finite `rate_pct` and a `rate_basis` are both
+present — `rateValue` (src/util/rates.ts) refuses a naked `%` — so consumers must not display
+`rate_pct` without its basis and context.
+
 ### GET /api/institutions/:slug/documents
 
 Categorised documents (reports, notices, directives). Collection envelope; Phase A/E.

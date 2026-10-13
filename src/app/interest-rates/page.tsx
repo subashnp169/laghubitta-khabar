@@ -7,6 +7,7 @@ import { allInterestRates } from "../../../lib/api/repository";
 import type { InterestRateDto } from "../../../lib/repository/types";
 import { formatDate, humanize, realUrl } from "@/util/format";
 import { Stat } from "@/components/ui/Stat";
+import { rateKindLabel, rateValue } from "@/util/rates";
 
 /**
  * Interest rates.
@@ -19,22 +20,16 @@ import { Stat } from "@/components/ui/Stat";
  * institution's rate — all of which would look like data and be nothing of the
  * kind — the page lists the notices and states that the value is unavailable.
  *
- * If a `rate_pct` ever arrives from a real extraction, the table below is already
- * shaped to show it. Until then the honest answer is the empty one.
+ * A rate is only ever shown with its context: product/type, effective period and
+ * the basis it was quoted on. `rateValue` (src/util/rates.ts) enforces that — a
+ * bare percentage with no basis is refused, never printed. Context is shown per
+ * row below so a reader can see exactly what is missing, not just that it is.
  */
 
 export const metadata: Metadata = {
   title: "Interest rates",
   description:
     "Interest-rate notices published by Nepal's licensed microfinance institutions. The notices are catalogued; rate values have not been extracted from the documents.",
-};
-
-const RATE_KIND_LABEL: Record<string, string> = {
-  INTEREST_RATE: "Interest rate",
-  RATE_CHANGE: "Rate change",
-  BASE_RATE: "Base rate",
-  DEPOSIT: "Deposit",
-  LOAN: "Loan",
 };
 
 /**
@@ -44,8 +39,8 @@ const RATE_KIND_LABEL: Record<string, string> = {
  */
 const rates = unwrap<InterestRateDto>(allInterestRates({ limit: "200" }));
 
-/** Rows that actually carry a number, if extraction ever runs. */
-const extracted = rates.filter((r) => typeof r.rate_pct === "number");
+/** Rows that carry a value the display rule will actually release. */
+const extracted = rates.filter((r) => rateValue(r).available);
 
 const byKind = rates.reduce<Record<string, number>>((acc, r) => {
   const key = r.rate_kind || "unspecified";
@@ -89,7 +84,7 @@ export default function InterestRatesPage() {
               .sort((a, b) => b[1] - a[1])
               .map(([kind, count]) => (
                 <Chip key={kind} tone="info">
-                  {RATE_KIND_LABEL[kind] ?? humanize(kind)} · {count}
+                  {rateKindLabel(kind)} · {count}
                 </Chip>
               ))}
           </div>
@@ -109,15 +104,16 @@ export default function InterestRatesPage() {
             </div>
           ) : (
             <div className="lk-card mt-4 overflow-x-auto">
-              <table className="w-full min-w-[38rem] border-collapse text-sm">
+              <table className="w-full min-w-[44rem] border-collapse text-sm">
                 <caption className="sr-only">
-                  Interest-rate notices located on institution websites, with rate values unavailable
+                  Interest-rate notices located on institution websites, with the context a rate would need and its value state
                 </caption>
                 <thead>
                   <tr className="border-b border-mfi-200 bg-mfi-50 text-left">
                     <th scope="col" className="px-4 py-2.5 font-semibold text-mfi-800">Institution</th>
                     <th scope="col" className="px-4 py-2.5 font-semibold text-mfi-800">Notice</th>
-                    <th scope="col" className="px-4 py-2.5 font-semibold text-mfi-800">Period</th>
+                    <th scope="col" className="px-4 py-2.5 font-semibold text-mfi-800">Applies to</th>
+                    <th scope="col" className="px-4 py-2.5 font-semibold text-mfi-800">Effective</th>
                     <th scope="col" className="px-4 py-2.5 text-right font-semibold text-mfi-800">Rate</th>
                   </tr>
                 </thead>
@@ -127,6 +123,9 @@ export default function InterestRatesPage() {
                     const period = rate.period_start
                       ? [rate.period_start, rate.period_end].filter(Boolean).join(" – ")
                       : null;
+                    const effective = rate.effective_date ?? period ?? formatDate(rate.meta?.last_verified_at);
+                    const appliesTo = [rate.product_category, rate.rate_type].filter(Boolean).join(" · ") || null;
+                    const rv = rateValue(rate);
                     return (
                       <tr key={rate.id} className="align-top transition-colors hover:bg-mfi-50">
                         <th scope="row" className="px-4 py-3 text-left font-medium">
@@ -147,17 +146,24 @@ export default function InterestRatesPage() {
                             humanize(rate.title) ?? "Notice"
                           )}
                           <span className="mt-1 block text-xs text-mfi-400">
-                            {RATE_KIND_LABEL[rate.rate_kind] ?? humanize(rate.rate_kind) ?? "Rate notice"}
+                            {rateKindLabel(rate.rate_kind)}
                           </span>
                         </td>
+                        <td className="px-4 py-3 text-mfi-600">
+                          {appliesTo ?? <span className="text-mfi-400">Not extracted</span>}
+                        </td>
                         <td className="px-4 py-3 font-mono text-xs text-mfi-600">
-                          {period ?? formatDate(rate.meta?.last_verified_at) ?? "Not stated"}
+                          {effective ?? "Not stated"}
                         </td>
                         <td className="px-4 py-3 text-right">
-                          {typeof rate.rate_pct === "number" ? (
-                            <span className="font-mono tabular-nums text-mfi-900">{rate.rate_pct}%</span>
+                          {rv.available ? (
+                            <span className="font-mono tabular-nums text-mfi-900" title={rv.help}>
+                              {rv.label}
+                            </span>
                           ) : (
-                            <span className="text-xs text-flag-700">not extracted</span>
+                            <span className="text-xs text-flag-700" title={rv.help}>
+                              {rv.label}
+                            </span>
                           )}
                         </td>
                       </tr>

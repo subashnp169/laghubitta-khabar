@@ -376,6 +376,17 @@ function interestRateDto(r: FinancialDocumentDto): InterestRateDto {
   return {
     id: r.id,
     rate_kind: r.rateKind ?? "INTEREST_RATE",
+    // Full rate context, all null by design: the notice body was never read, so
+    // there is no product, type, basis or effective date to publish. The value's
+    // state is the vocabulary word for "notice known, number not read", which is
+    // what makes a naked percentage impossible downstream.
+    product_category: null,
+    rate_type: null,
+    rate_basis: null,
+    effective_date: null,
+    reporting_period: null,
+    grade: null,
+    evidence_status: "NOT_EXTRACTED",
     institution: r.institution,
     institution_slug: r.institution_slug || "(unresolved)",
     title: r.title,

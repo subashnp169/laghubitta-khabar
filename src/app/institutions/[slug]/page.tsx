@@ -13,6 +13,7 @@ import { EmptyState } from "@/components/ui/EmptyState";
 import { Provenance } from "@/components/ui/Provenance";
 import { sourceStatus, verificationStatus, type Tone } from "@/util/evidence";
 import { hasSharedRole, maxSharedBy, roleLabels } from "@/util/roles";
+import { rateKindLabel, rateValueState } from "@/util/rates";
 import {
   displayHost,
   formatCrore,
@@ -733,12 +734,12 @@ export default async function InstitutionPage({
             id="interest-rates"
             title="Interest rates"
             count={`${finRates.length}`}
-            note="Rate notices this institution published. No rate value has been extracted from any notice, so none is shown."
+            note="Rate notices this institution published, with the context a rate needs. No rate value has been extracted from any notice, so none is shown."
           >
             {finRates.length === 0 ? (
               <EmptyState
                 compact
-                title="Not extracted"
+                title={rateValueState("NOT_FOUND").label}
                 detail="No interest-rate notice from this institution has been catalogued. Absence here is not a rate of zero."
               />
             ) : (
@@ -754,9 +755,7 @@ export default async function InstitutionPage({
                         <span className="text-xs text-mfi-500">
                           last verified {formatDate(doc.lastSeenAt) ?? "undated"}
                         </span>
-                        <Chip tone="attention">
-                          {doc.rateKind ? humanize(doc.rateKind) : "rate notice"}
-                        </Chip>
+                        <Chip tone="attention">{rateKindLabel(doc.rateKind)}</Chip>
                         {realUrl(doc.sourceDocument) ? (
                           <a
                             href={doc.sourceDocument as string}
@@ -772,7 +771,9 @@ export default async function InstitutionPage({
                   ))}
                 </ul>
                 <p className="mt-3 text-xs text-mfi-500">
-                  Rate values are not extracted from these notices.{" "}
+                  Rate values are{" "}
+                  <span className="font-medium text-mfi-700">{rateValueState("NOT_EXTRACTED").label}</span> from
+                  these notices.{" "}
                   <Link href="/interest-rates" className="underline underline-offset-2">
                     Why there are no rates
                   </Link>

@@ -7,6 +7,7 @@ import { financialsProvenance, institutions } from "@/lib/site-data";
 import { allPublishedFinancials } from "../../../lib/repository/static-financials";
 import { displayHost, formatDate, humanize, realUrl } from "@/util/format";
 import { Stat } from "@/components/ui/Stat";
+import { rateKindLabel } from "@/util/rates";
 
 const financials = allPublishedFinancials();
 
@@ -37,13 +38,6 @@ const REPORT_TYPE_LABEL: Record<string, string> = {
   ANNUAL: "Annual",
   QUARTERLY: "Quarterly",
   UNAUDITED: "Unaudited",
-};
-
-const RATE_KIND_LABEL: Record<string, string> = {
-  INTEREST_RATE: "Interest rate",
-  RATE_CHANGE: "Rate change",
-  BASE_RATE: "Base rate",
-  LOAN: "Loan rate",
 };
 
 const covered = new Set(financials.map((f) => f.institution));
@@ -149,7 +143,7 @@ export default function FinancialsPage() {
                   <div className="mt-2 flex w-full flex-wrap items-center gap-x-3 gap-y-1.5 text-xs text-mfi-600">
                     <InstitutionLink name={doc.institution} />
                     {doc.rateKind ? (
-                      <Chip tone="attention">{RATE_KIND_LABEL[doc.rateKind] ?? humanize(doc.rateKind)}</Chip>
+                      <Chip tone="attention">{rateKindLabel(doc.rateKind)}</Chip>
                     ) : null}
                     <span className="text-mfi-400">rate value not extracted</span>
                   </div>

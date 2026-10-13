@@ -301,6 +301,24 @@ export interface NewsItemDto {
 export interface InterestRateDto {
   id: string;
   rate_kind: string;
+  /**
+   * Full context for a rate, per INSTITUTION-MASTER-MODEL.md §Interest rates.
+   * Every context field below is nullable on purpose: a rate notice's body was
+   * never read, so nothing can fill them today, and inventing a product, a type
+   * or an effective date would publish a claim no source made. They exist so a
+   * real extraction has somewhere to land without a schema change, and so the
+   * UI can require them before it ever prints a percentage.
+   */
+  product_category: string | null;
+  rate_type: string | null;
+  /** The basis a value is quoted on (e.g. "per annum"); required before any % is shown. */
+  rate_basis: string | null;
+  effective_date: string | null;
+  reporting_period: string | null;
+  /** Evidence grade A–D per DATA-STATUS-VOCABULARY.md, or null when ungraded. */
+  grade: string | null;
+  /** Vocabulary state of the rate value (NOT_EXTRACTED / UNKNOWN / NOT_FOUND / CURRENT). */
+  evidence_status: string;
   institution: string;
   institution_slug: string;
   title: string;
