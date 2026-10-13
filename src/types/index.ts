@@ -5,6 +5,14 @@ export interface Institution {
   name: string;
   sourceNameRaw: string;
   licenseClass: string;
+  /**
+   * Lifecycle status, in the vocabulary fixed by
+   * docs/INSTITUTION-MASTER-MODEL.md: ACTIVE, MERGED, ACQUIRED, LIQUIDATED,
+   * CLOSED, SUSPENDED, HISTORICAL or LICENSE_STATUS_UNKNOWN. Anything other than
+   * ACTIVE means the institution is not a current one, and the UI must present
+   * it as historical rather than as a current licensed institution. Rendered
+   * through institutionStatus() in src/util/evidence.ts; never shown raw.
+   */
   licenseStatus: string;
   operationDate: string;
   operationDateIsJointAfterMerger: boolean;

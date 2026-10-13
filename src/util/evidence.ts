@@ -186,6 +186,92 @@ export function runStatus(status: string | null | undefined): StatusPresentation
  * domain tokens, so they are mapped here rather than through the verification
  * vocabulary — one place decides every status label and tone.
  */
+/**
+ * Institution lifecycle.
+ *
+ * Every institution carries exactly one lifecycle state, and the governing
+ * model (docs/INSTITUTION-MASTER-MODEL.md) fixes the vocabulary to these tokens.
+ * The states after ACTIVE all describe an institution that is no longer
+ * operating independently, and each help string leads with that fact so a
+ * historical institution is never read as a current licensed one. The legacy
+ * literal `licensed` is folded into ACTIVE so older rows and fixtures keep
+ * resolving.
+ */
+const INSTITUTION_STATUS: Record<string, StatusPresentation> = {
+  ACTIVE: {
+    label: "Active",
+    tone: "positive",
+    help: "Currently operating and licensed by Nepal Rastra Bank.",
+  },
+  MERGED: {
+    label: "Merged",
+    tone: "neutral",
+    help: "No longer operating independently: it merged into another institution. Kept for the historical record.",
+  },
+  ACQUIRED: {
+    label: "Acquired",
+    tone: "neutral",
+    help: "No longer operating independently: it was acquired by another institution. Kept for the historical record.",
+  },
+  LIQUIDATED: {
+    label: "Liquidated",
+    tone: "attention",
+    help: "No longer operating: it was wound up. Kept as a historical record.",
+  },
+  CLOSED: {
+    label: "Closed",
+    tone: "attention",
+    help: "No longer operating. Kept as a historical record.",
+  },
+  SUSPENDED: {
+    label: "Suspended",
+    tone: "attention",
+    help: "The licence is suspended, so it is not currently operating as a licensed institution.",
+  },
+  HISTORICAL: {
+    label: "Historical",
+    tone: "neutral",
+    help: "A former institution, kept for the historical record and not presented as current.",
+  },
+  LICENSE_STATUS_UNKNOWN: {
+    label: "Status unknown",
+    tone: "attention",
+    help: "No current licence status has been recorded for this institution.",
+  },
+};
+
+/**
+ * Normalise a stored lifecycle token: uppercase, and spaces, hyphens and
+ * en-dashes folded to underscores, so `License status unknown` and
+ * `LICENSE_STATUS_UNKNOWN` find the same entry.
+ */
+function lifecycleKey(status: string | null | undefined): string {
+  return statusKey(status).replace(/[\s-]+/g, "_");
+}
+
+/** Presentation for an institution's lifecycle status. */
+export function institutionStatus(status: string | null | undefined): StatusPresentation {
+  const key = lifecycleKey(status);
+  if (key === "LICENSED") return INSTITUTION_STATUS.ACTIVE;
+  return (
+    INSTITUTION_STATUS[key] ?? {
+      label: key ? key.replace(/_/g, " ").toLowerCase() : "Status unknown",
+      tone: "attention",
+      help: "No current licence status has been recorded for this institution.",
+    }
+  );
+}
+
+/**
+ * Whether a lifecycle status means the institution is still operating. Only
+ * ACTIVE counts; every other state — including unknown — is treated as not
+ * current, so an unrecognised value can never be presented as a live licence.
+ */
+export function isCurrentInstitution(status: string | null | undefined): boolean {
+  const key = lifecycleKey(status);
+  return key === "ACTIVE" || key === "LICENSED";
+}
+
 const FIELD_STATE: Record<string, StatusPresentation> = {
   VERIFIED: {
     label: "Verified",

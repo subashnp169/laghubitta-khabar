@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { Institution } from "@/types";
 import { Chip } from "@/components/ui/Chip";
 import { formatCrore, humanize, initials } from "@/util/format";
-import { UNKNOWN_LABEL } from "@/util/evidence";
+import { institutionStatus } from "@/util/evidence";
 
 /**
  * Directory card.
@@ -51,8 +51,11 @@ export default function InstitutionCard({ institution }: { institution: Institut
         </dl>
 
         <div className="mt-3 flex flex-wrap items-center gap-1.5 border-t border-mfi-100 pt-3">
-          <Chip tone={institution.licenseStatus === "licensed" ? "info" : "attention"}>
-            {humanize(institution.licenseStatus) ?? UNKNOWN_LABEL}
+          <Chip
+            tone={institutionStatus(institution.licenseStatus).tone}
+            title={institutionStatus(institution.licenseStatus).help}
+          >
+            {institutionStatus(institution.licenseStatus).label}
           </Chip>
           {institution.coverageType ? (
             <Chip tone="neutral">{humanize(institution.coverageType)}</Chip>

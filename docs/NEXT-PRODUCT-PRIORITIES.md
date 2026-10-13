@@ -10,7 +10,7 @@ Ranked by impact/risk. P0 = factual risk; P1 = core; P2 = coverage; P3 = UX; P4 
 | P0-2 | Enforce "no unresolved institution identity published" (hard guard) | Prevents cross-entity mixups | S | Build-time/data validation | Yes (`scripts/check-institution-identity.ts` — canonical uniqueness, alias coherence, all 5488 refs resolve, no `mfi-…`-as-slug, no internal-id/bare-evidence text leaks; wired as `prebuild` so `npm run build` cannot publish a broken reference) |
 | P0-3 | Preserve M3.6B semantics; detect accidental drift | People correctness | S | Review only | Yes (frozen) |
 | P0-4 | Data-truth guardrails (no sentinel dates, Rs null/undefined/NaN, fabricated counts) | Already strong; codify as invariant checks | S | Discipline script + build checks | Strong (verified in build) |
-| P0-5 | Historical institutions not presented as current | Lifecycle status must be explicit | S | Institution profile + lists | Partial |
+| P0-5 | Historical institutions not presented as current | Lifecycle status must be explicit | S | Institution profile + lists | Yes (`src/util/evidence.ts` owns the lifecycle vocabulary fixed by INSTITUTION-MASTER-MODEL (`ACTIVE`/`MERGED`/`ACQUIRED`/`LIQUIDATED`/`CLOSED`/`SUSPENDED`/`HISTORICAL`/`LICENSE_STATUS_UNKNOWN` via `institutionStatus` + `isCurrentInstitution`); `licenseStatus` now carries the canonical token everywhere (was the non-canonical literal `licensed`); profile shows an explicit lifecycle chip and, for any non-active institution, a "kept as a historical record, not current" notice and overview line; directory cards + homepage count route through the same helpers; `smoke:vocabulary` asserts every published institution carries a canonical token) |`
 
 ## P1 — Core product
 

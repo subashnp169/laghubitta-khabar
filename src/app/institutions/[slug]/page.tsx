@@ -11,7 +11,7 @@ import { Row, Stat, StatGrid } from "@/components/ui/Stat";
 import { Chip, StatusChip } from "@/components/ui/Chip";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { Provenance } from "@/components/ui/Provenance";
-import { fieldState, sourceStatus, UNKNOWN_LABEL, verificationStatus, type Tone } from "@/util/evidence";
+import { fieldState, institutionStatus, isCurrentInstitution, sourceStatus, verificationStatus, type Tone } from "@/util/evidence";
 import { hasSharedRole, maxSharedBy, roleLabels } from "@/util/roles";
 import { rateKindLabel, rateValueState } from "@/util/rates";
 import { PERIOD_DISCIPLINE_NOTE, financialPeriodLines, sourceOwnerLabel } from "@/util/financials";
@@ -363,8 +363,11 @@ export default async function InstitutionPage({
           </div>
 
           <div className="mt-4 flex flex-wrap gap-2">
-            <Chip tone={inst.licenseStatus === "licensed" ? "info" : "attention"}>
-              {humanize(inst.licenseStatus) ?? UNKNOWN_LABEL}
+            <Chip
+              tone={institutionStatus(inst.licenseStatus).tone}
+              title={institutionStatus(inst.licenseStatus).help}
+            >
+              {institutionStatus(inst.licenseStatus).label}
             </Chip>
             {inst.licenseClass ? <Chip tone="neutral">Class {inst.licenseClass}</Chip> : null}
             {inst.coverageType ? <Chip tone="neutral">{humanize(inst.coverageType)} level</Chip> : null}
@@ -386,6 +389,14 @@ export default async function InstitutionPage({
               </Chip>
             )}
           </div>
+
+          {!isCurrentInstitution(inst.licenseStatus) ? (
+            <p className="mt-4 rounded-md border border-flag-200 bg-flag-50 px-3 py-2 text-sm leading-relaxed text-flag-700">
+              {inst.name} is recorded by the Nepal Rastra Bank as{" "}
+              {institutionStatus(inst.licenseStatus).label.toLowerCase()}. It is kept here as a
+              historical record and is not presented as a current institution.
+            </p>
+          ) : null}
 
           <StatGrid className="mt-6">
             <Stat term="Paid-up capital" value={formatCrore(inst.paidUpCapitalCrore)} fallback="Not published" />
@@ -478,9 +489,9 @@ export default async function InstitutionPage({
           >
             <p className="max-w-prose text-sm leading-relaxed text-mfi-700">
               {inst.name}{" "}
-              {inst.licenseStatus === "licensed"
+              {isCurrentInstitution(inst.licenseStatus)
                 ? "is a licensed microfinance institution in the Nepal Rastra Bank directory."
-                : "appears in the Nepal Rastra Bank directory with a status we could not read as licensed."}{" "}
+                : `is recorded by the Nepal Rastra Bank as ${institutionStatus(inst.licenseStatus).label.toLowerCase()} and is kept here as a historical record, not as a current institution.`}{" "}
               {humanize(inst.headOffice) ? `Its recorded head office is ${humanize(inst.headOffice)}. ` : ""}
               {humanize(inst.workingArea) ? `It works at ${humanize(inst.workingArea)}.` : ""}
             </p>

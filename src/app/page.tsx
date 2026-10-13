@@ -8,6 +8,7 @@ import { allPublishedPeople } from "../../lib/repository/static-people";
 import { allPublishedFinancials } from "../../lib/repository/static-financials";
 import { activitySlice, latestActivityDate } from "@/util/activity";
 import { formatCrore, formatCount, formatDate, humanize, initials, realUrl } from "@/util/format";
+import { isCurrentInstitution } from "@/util/evidence";
 
 /**
  * Homepage.
@@ -29,7 +30,7 @@ const byCapital = institutions
   .filter((inst) => typeof inst.paidUpCapitalCrore === "number" && inst.paidUpCapitalCrore > 0)
   .sort((a, b) => (b.paidUpCapitalCrore ?? 0) - (a.paidUpCapitalCrore ?? 0));
 
-const LICENSED = institutions.filter((i) => i.licenseStatus === "licensed").length;
+const LICENSED = institutions.filter((i) => isCurrentInstitution(i.licenseStatus)).length;
 
 const CAPITALS = byCapital.reduce((sum, i) => sum + (i.paidUpCapitalCrore ?? 0), 0);
 

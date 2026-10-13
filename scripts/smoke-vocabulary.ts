@@ -10,11 +10,14 @@
 // ============================================================================
 import {
   fieldState,
+  institutionStatus,
+  isCurrentInstitution,
   runStatus,
   sourceStatus,
   UNKNOWN_LABEL,
   verificationStatus,
 } from "../src/util/evidence";
+import { institutions } from "../src/data/institutions";
 
 let pass = 0;
 let fail = 0;
@@ -60,6 +63,32 @@ check("verificationStatus resolves a known token", verificationStatus("human_ver
 
 // The canonical unknown word is exported, not re-invented per page.
 check("UNKNOWN_LABEL is canonical", UNKNOWN_LABEL === "Unknown");
+
+// Institution lifecycle (P0-5). The vocabulary is fixed by
+// docs/INSTITUTION-MASTER-MODEL.md, and anything other than ACTIVE means the
+// institution is not current — it must read as historical, never as a current
+// licensed institution.
+for (const token of ["ACTIVE", "MERGED", "ACQUIRED", "LIQUIDATED", "CLOSED", "SUSPENDED", "HISTORICAL", "LICENSE STATUS UNKNOWN"]) {
+  const s = institutionStatus(token);
+  check(`institutionStatus(${token}) labelled`, s.label.length > 0 && s.label !== token);
+}
+check("institutionStatus(ACTIVE) is current", isCurrentInstitution("ACTIVE"));
+check("institutionStatus(ACTIVE) tone positive", institutionStatus("ACTIVE").tone === "positive");
+check("institutionStatus(MERGED) not current", !isCurrentInstitution("MERGED"));
+check("institutionStatus(LIQUIDATED) not current", !isCurrentInstitution("LIQUIDATED"));
+check("institutionStatus(SUSPENDED) not current", !isCurrentInstitution("SUSPENDED"));
+check("institutionStatus(null) is not current and not a raw token", !isCurrentInstitution(null) && !/null|undefined/i.test(institutionStatus(null).label));
+check("institutionStatus hyphen/space fold (LICENSE STATUS UNKNOWN == LICENSE_STATUS_UNKNOWN)", institutionStatus("LICENSE STATUS UNKNOWN").label === institutionStatus("LICENSE_STATUS_UNKNOWN").label);
+check("institutionStatus(licensed) folds to ACTIVE", institutionStatus("licensed").label === institutionStatus("ACTIVE").label && isCurrentInstitution("licensed"));
+
+// Every published institution carries a canonical lifecycle token. This is the
+// regression guard: a row reverting to the old `licensed` literal fails here.
+const CANONICAL_LIFECYCLE = new Set([
+  "ACTIVE", "MERGED", "ACQUIRED", "LIQUIDATED", "CLOSED", "SUSPENDED", "HISTORICAL", "LICENSE_STATUS_UNKNOWN",
+]);
+for (const inst of institutions) {
+  check(`institution ${inst.slug} lifecycle canonical (${inst.licenseStatus})`, CANONICAL_LIFECYCLE.has(inst.licenseStatus));
+}
 
 console.log(`\nsmoke:vocabulary: ${pass} passed, ${fail} failed`);
 process.exit(fail === 0 ? 0 : 1);
