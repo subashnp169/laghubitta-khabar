@@ -2,7 +2,14 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { selectCompare, type CompareModel } from "../../../lib/compare";
+import {
+  COMPARABILITY,
+  COMPARABILITY_ORDER,
+  metricCoverage,
+  selectCompare,
+  type Comparability,
+  type CompareModel,
+} from "../../../lib/compare";
 import { EmptyState } from "@/components/ui/EmptyState";
 
 /**
@@ -32,6 +39,12 @@ function defaultSelection(model: CompareModel): string[] {
     return bv - av;
   });
   return sorted.slice(0, DEFAULT_COUNT).map((i) => i.id);
+}
+
+function comparabilityBadgeClass(id: Comparability): string {
+  if (id === "comparable") return "bg-mfi-50 text-mfi-500";
+  if (id === "context") return "bg-nrb-50 text-nrb-700";
+  return "bg-flag-50 text-flag-700";
 }
 
 export default function CompareView({ model }: { model: CompareModel }) {
@@ -92,6 +105,19 @@ export default function CompareView({ model }: { model: CompareModel }) {
         </div>
       </div>
 
+      <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
+        {COMPARABILITY_ORDER.map((id) => (
+          <span key={id} className="inline-flex max-w-xl items-start gap-1.5 text-[11px] leading-snug text-mfi-500">
+            <span
+              className={`mt-0.5 shrink-0 rounded px-1 py-0.5 text-[9px] font-semibold uppercase tracking-wide ${comparabilityBadgeClass(id)}`}
+            >
+              {COMPARABILITY[id].label}
+            </span>
+            <span>{COMPARABILITY[id].help}</span>
+          </span>
+        ))}
+      </div>
+
       {view.institutions.length === 0 ? (
         <div className="mt-6">
           <EmptyState
@@ -127,49 +153,68 @@ export default function CompareView({ model }: { model: CompareModel }) {
                 </tr>
               </thead>
               <tbody>
-                {view.metrics.map((metric) => (
-                  <tr key={metric.key} className="border-b border-mfi-100 last:border-0">
-                    <th
-                      scope="row"
-                      className="sticky left-0 z-10 bg-white px-3 py-2.5 text-xs font-medium text-mfi-600"
-                    >
-                      {metric.label}
-                    </th>
-                    {view.institutions.map((inst) => {
-                      const value = inst.series[metric.key];
-                      const leader = comparability && view.leaders[metric.key] === inst.id;
-                      const missing = value === null || value === undefined || value === "";
-                      return (
-                        <td
-                          key={inst.id}
-                          className={`px-3 py-2.5 align-top text-xs ${
-                            missing
-                              ? "text-mfi-300"
-                              : leader
-                                ? "bg-mfi-50 font-semibold text-mfi-900"
-                                : "text-mfi-700"
-                          }`}
-                        >
-                          {missing ? (
-                            <span title="Not recorded in any source">not recorded</span>
-                          ) : (
-                            <>
-                              {String(value)}
-                              {leader && metric.kind === "number" ? (
-                                <span
-                                  title={`Highest ${metric.label.toLowerCase()} among the ${view.institutions.length} institutions you selected`}
-                                  className="ml-1.5 rounded bg-mfi-100 px-1 py-0.5 text-[9px] font-semibold uppercase tracking-wide text-mfi-700"
-                                >
-                                  highest
-                                </span>
-                              ) : null}
-                            </>
-                          )}
-                        </td>
-                      );
-                    })}
-                  </tr>
-                ))}
+                {view.metrics.map((metric) => {
+                  const cov = metricCoverage(view.institutions, metric.key);
+                  return (
+                    <tr key={metric.key} className="border-b border-mfi-100 last:border-0">
+                      <th
+                        scope="row"
+                        className="sticky left-0 z-10 bg-white px-3 py-2.5 align-top text-xs font-medium text-mfi-600"
+                      >
+                        <span className="block text-mfi-700">{metric.label}</span>
+                        <span className="mt-1 flex flex-wrap items-center gap-1">
+                          <span
+                            title={`Source: ${metric.source}. ${COMPARABILITY[metric.comparability].help}`}
+                            className={`rounded px-1 py-0.5 text-[9px] font-semibold uppercase tracking-wide ${comparabilityBadgeClass(metric.comparability)}`}
+                          >
+                            {COMPARABILITY[metric.comparability].label}
+                          </span>
+                          {cov.partial ? (
+                            <span
+                              title={`${cov.recorded} of ${cov.total} selected institutions have a recorded value for this row.`}
+                              className="rounded bg-mfi-100 px-1 py-0.5 text-[9px] font-semibold uppercase tracking-wide text-mfi-600"
+                            >
+                              partial {cov.recorded}/{cov.total}
+                            </span>
+                          ) : null}
+                        </span>
+                      </th>
+                      {view.institutions.map((inst) => {
+                        const value = inst.series[metric.key];
+                        const leader = comparability && view.leaders[metric.key] === inst.id;
+                        const missing = value === null || value === undefined || value === "";
+                        return (
+                          <td
+                            key={inst.id}
+                            className={`px-3 py-2.5 align-top text-xs ${
+                              missing
+                                ? "text-mfi-300"
+                                : leader
+                                  ? "bg-mfi-50 font-semibold text-mfi-900"
+                                  : "text-mfi-700"
+                            }`}
+                          >
+                            {missing ? (
+                              <span title="Not recorded in any source">not recorded</span>
+                            ) : (
+                              <>
+                                {String(value)}
+                                {leader && metric.kind === "number" ? (
+                                  <span
+                                    title={`Highest ${metric.label.toLowerCase()} among the ${view.institutions.length} institutions you selected`}
+                                    className="ml-1.5 rounded bg-mfi-100 px-1 py-0.5 text-[9px] font-semibold uppercase tracking-wide text-mfi-700"
+                                  >
+                                    highest
+                                  </span>
+                                ) : null}
+                              </>
+                            )}
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>

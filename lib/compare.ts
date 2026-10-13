@@ -10,13 +10,53 @@ import type { CrawlSource, Institution, NrbDocument, NrbInstitutionLink, NrbRegu
 
 export type MetricKind = "text" | "number" | "date";
 
+/**
+ * Whether the cells of a metric share a period and a definition.
+ *
+ * Comparing two numbers is only honest when they mean the same thing. Values
+ * from one NRB snapshot do; per-source crawl counts do not — they depend on
+ * what each institution happened to publish. Rather than hide that, every
+ * metric declares its basis and the view labels it, so a reader can never read
+ * a "not comparable" number as a like-for-like figure.
+ */
+export type Comparability = "comparable" | "context" | "telemetry";
+
+export interface ComparabilityClass {
+  id: Comparability;
+  label: string;
+  help: string;
+}
+
+export const COMPARABILITY: Record<Comparability, ComparabilityClass> = {
+  comparable: {
+    id: "comparable",
+    label: "same basis",
+    help: "Every institution's value comes from the same NRB directory snapshot, so the cells share a period and a definition and can be read against one another.",
+  },
+  context: {
+    id: "context",
+    label: "ledger match",
+    help: "A count of ledger records matched to this institution. The period is shared, but the number describes our matching, not the institution's own activity.",
+  },
+  telemetry: {
+    id: "telemetry",
+    label: "not comparable",
+    help: "Collection telemetry from our last crawl. It depends on what each institution happened to publish to its website, so the cells are not a like-for-like figure.",
+  },
+};
+
 export interface CompareMetric {
   key: string;
   label: string;
   kind: MetricKind;
   /** For numeric metrics: "max" wins and is highlighted, "min" wins lowest. */
   best?: "max" | "min";
+  /** Which record set the value is drawn from (shown as the cell's source). */
+  source: string;
+  /** Whether the cells share a period and definition (see COMPARABILITY). */
+  comparability: Comparability;
 }
+
 
 export interface CompareInstitution {
   id: string;
@@ -34,22 +74,21 @@ export interface CompareModel {
 }
 
 export const COMPARE_METRICS: CompareMetric[] = [
-  { key: "licenseClass", label: "License class", kind: "text" },
-  { key: "operationDate", label: "Operation date", kind: "date" },
-  { key: "paidUpCapitalCrore", label: "Paid-up capital (NPR crore)", kind: "number", best: "max" },
-  { key: "workingArea", label: "Working area", kind: "text" },
-  { key: "coverageType", label: "Coverage", kind: "text" },
-  { key: "headOffice", label: "Head office", kind: "text" },
-  { key: "websiteStatus", label: "Website status", kind: "text" },
-  { key: "branchCount", label: "Branches (web evidence)", kind: "number", best: "max" },
-  { key: "vacancyCount", label: "Vacancies (web evidence)", kind: "number", best: "max" },
-  { key: "documentCount", label: "Documents (web evidence)", kind: "number", best: "max" },
-  { key: "snapshots", label: "Snapshots", kind: "number", best: "max" },
-  { key: "lastStatus", label: "Source status", kind: "text" },
-  { key: "nrbDocuments", label: "NRB docs matched", kind: "number", best: "max" },
-  { key: "nrbEvents", label: "Regulatory events", kind: "number", best: "max" },
+  { key: "licenseClass", label: "License class", kind: "text", source: "NRB BFI directory", comparability: "comparable" },
+  { key: "operationDate", label: "Operation date", kind: "date", source: "NRB BFI directory", comparability: "comparable" },
+  { key: "paidUpCapitalCrore", label: "Paid-up capital (NPR crore)", kind: "number", best: "max", source: "NRB BFI directory", comparability: "comparable" },
+  { key: "workingArea", label: "Working area", kind: "text", source: "NRB BFI directory", comparability: "comparable" },
+  { key: "coverageType", label: "Coverage", kind: "text", source: "NRB BFI directory", comparability: "comparable" },
+  { key: "headOffice", label: "Head office", kind: "text", source: "NRB BFI directory", comparability: "comparable" },
+  { key: "websiteStatus", label: "Website status", kind: "text", source: "Web evidence (our crawl)", comparability: "telemetry" },
+  { key: "branchCount", label: "Branches (web evidence)", kind: "number", best: "max", source: "Web evidence (our crawl)", comparability: "telemetry" },
+  { key: "vacancyCount", label: "Vacancies (web evidence)", kind: "number", best: "max", source: "Web evidence (our crawl)", comparability: "telemetry" },
+  { key: "documentCount", label: "Documents (web evidence)", kind: "number", best: "max", source: "Web evidence (our crawl)", comparability: "telemetry" },
+  { key: "snapshots", label: "Snapshots", kind: "number", best: "max", source: "Web evidence (our crawl)", comparability: "telemetry" },
+  { key: "lastStatus", label: "Source status", kind: "text", source: "Web evidence (our crawl)", comparability: "telemetry" },
+  { key: "nrbDocuments", label: "NRB docs matched", kind: "number", best: "max", source: "NRB ledger", comparability: "context" },
+  { key: "nrbEvents", label: "Regulatory events", kind: "number", best: "max", source: "NRB ledger", comparability: "context" },
 ];
-
 interface NrbInput {
   documents: NrbDocument[];
   links: NrbInstitutionLink[];
@@ -140,6 +179,36 @@ export function selectCompare(model: CompareModel, ids: string[]): CompareModel 
     }
   }
   return recomputeLeaders({ ...model, institutions: picked });
+}
+
+/** The comparability classes in display order, for legends. */
+export const COMPARABILITY_ORDER: Comparability[] = ["comparable", "context", "telemetry"];
+
+export interface MetricCoverage {
+  /** How many selected institutions have a recorded value for this metric. */
+  recorded: number;
+  /** How many institutions are selected. */
+  total: number;
+  /** Every selected institution has a value (false when nothing is selected). */
+  complete: boolean;
+  /** Some, but not all, selected institutions have a value. */
+  partial: boolean;
+}
+
+/** How complete a metric's column is across the current selection. */
+export function metricCoverage(institutions: CompareInstitution[], key: string): MetricCoverage {
+  const total = institutions.length;
+  let recorded = 0;
+  for (const inst of institutions) {
+    const v = inst.series[key];
+    if (v !== null && v !== undefined && v !== "") recorded += 1;
+  }
+  return {
+    recorded,
+    total,
+    complete: total > 0 && recorded === total,
+    partial: recorded > 0 && recorded < total,
+  };
 }
 
 export default buildCompareModel;

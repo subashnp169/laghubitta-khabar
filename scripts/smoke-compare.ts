@@ -10,10 +10,16 @@
 //   04 missing data is null (renders "—"), never 0/fabricated
 //   05 numeric leaders recomputed over the current selection
 //   06 selectCompare preserves requested order and ignores unknown ids
+//   07 every metric declares a source and a comparability class, so a
+//      "not comparable" number can never be read as like-for-like (P2-2)
+//   08 partial-coverage states are derived, never implied (P2-2)
 // ============================================================================
 
 import {
   buildCompareModel,
+  COMPARABILITY,
+  COMPARABILITY_ORDER,
+  metricCoverage,
   recomputeLeaders,
   selectCompare,
   type CompareInstitution,
@@ -127,6 +133,46 @@ ok(unknown.institutions.length === 1 && unknown.institutions[0].id === "mfi-b", 
 
 console.log("smoke:compare — recomputeLeaders purity");
 ok(recomputeLeaders(sub).leaders.nrbEvents === "mfi-a", "recompute works standalone");
+
+console.log("smoke:compare — comparability is declared, never implied (P2-2)");
+ok(model.metrics.every((m) => m.source.trim().length > 0), "every metric declares a source");
+ok(model.metrics.every((m) => COMPARABILITY_ORDER.includes(m.comparability)), "every metric has a known comparability class");
+ok(
+  model.metrics.every((m) => COMPARABILITY[m.comparability].label.length > 0 && COMPARABILITY[m.comparability].help.length > 0),
+  "every comparability class carries a label and an explanation",
+);
+ok(COMPARABILITY_ORDER.length === 3, "exactly three comparability classes in display order");
+ok(
+  COMPARABILITY_ORDER.every((id) => id !== "comparable" || COMPARABILITY[id].label !== id),
+  "comparability labels are display text, not raw tokens",
+);
+ok(model.metrics.find((m) => m.key === "paidUpCapitalCrore")?.comparability === "comparable", "capital is comparable (same snapshot)");
+ok(model.metrics.find((m) => m.key === "branchCount")?.comparability === "telemetry", "web branch count is not comparable");
+ok(model.metrics.find((m) => m.key === "nrbEvents")?.comparability === "context", "NRB events are ledger context");
+ok(
+  model.metrics.filter((m) => m.comparability === "comparable").every((m) => m.source === "NRB BFI directory"),
+  "every comparable row cites the NRB directory",
+);
+ok(
+  model.metrics.filter((m) => m.comparability === "telemetry").every((m) => m.source === "Web evidence (our crawl)"),
+  "every telemetry row cites our crawl",
+);
+ok(
+  model.metrics.filter((m) => m.comparability === "context").every((m) => m.source === "NRB ledger"),
+  "every context row cites the NRB ledger",
+);
+
+console.log("smoke:compare — partial-coverage states (P2-2)");
+const capCov = metricCoverage(model.institutions, "paidUpCapitalCrore");
+ok(capCov.recorded === 3 && capCov.total === 3 && capCov.complete && !capCov.partial, "capital is complete across all 3");
+const branchCov = metricCoverage(model.institutions, "branchCount");
+ok(branchCov.recorded === 2 && branchCov.total === 3 && branchCov.partial && !branchCov.complete, "branch count is partial (mfi-b has no crawl)");
+const noneCov = metricCoverage([], "paidUpCapitalCrore");
+ok(noneCov.recorded === 0 && noneCov.total === 0 && !noneCov.complete && !noneCov.partial, "empty selection is neither complete nor partial");
+const oneCov = metricCoverage([byId(model, "mfi-a")], "branchCount");
+ok(oneCov.recorded === 1 && oneCov.total === 1 && oneCov.complete && !oneCov.partial, "one selected institution with a value is complete, not partial");
+const subCov = metricCoverage(sub.institutions, "branchCount");
+ok(subCov.recorded === 2 && subCov.total === 2 && subCov.complete, "coverage recomputes over the current selection");
 
 console.log(`\nsmoke:compare: ${passed} passed, ${failed} failed`);
 if (failed > 0) process.exit(1);

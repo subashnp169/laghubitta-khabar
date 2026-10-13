@@ -44,6 +44,18 @@ export default function ComparePage() {
         <CompareView model={model} />
 
         <p className="mt-8 max-w-3xl text-xs leading-relaxed text-mfi-500">
+          Every row is labelled with its basis, because a comparison only means something when the cells
+          share a period and a definition. Rows drawn from one NRB snapshot are marked{" "}
+          <span className="font-medium text-mfi-700">same basis</span>. Web-evidence and ledger-match rows
+          do not share that basis and are marked{" "}
+          <span className="font-medium text-mfi-700">not comparable</span> or{" "}
+          <span className="font-medium text-mfi-700">ledger match</span> — read them as context, not as
+          like-for-like figures. A row that is only partly recorded is marked{" "}
+          <span className="font-medium text-mfi-700">partial</span> with the count of institutions that
+          actually have a value.
+        </p>
+
+        <p className="mt-4 max-w-3xl text-xs leading-relaxed text-mfi-500">
           Built from the NRB directory, the NRB document and event ledgers, and the source-monitoring
           snapshot — computed at build time from those records alone. A &ldquo;highest&rdquo; marker means
           highest among the institutions you have selected, not in the sector; select more than one to make
