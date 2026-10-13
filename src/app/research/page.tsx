@@ -4,6 +4,12 @@ import { Container, PageHeader } from "@/components/ui/Section";
 import { Chip } from "@/components/ui/Chip";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { institutions, directorySource, jobs, nrbRegulatoryEvents, crawlSummary } from "@/lib/site-data";
+import {
+  RESEARCH_KIND_ORDER,
+  RESEARCH_KINDS,
+  researchKind,
+  type ResearchStatementKind,
+} from "@/util/research";
 import { allPublishedPeople } from "../../../lib/repository/static-people";
 import { allPublishedBranches } from "../../../lib/repository/static-branches";
 import { allPublishedFinancials } from "../../../lib/repository/static-financials";
@@ -123,8 +129,29 @@ export default function ResearchPage() {
           structural changes.
         </p>
 
+        {/* What each label means. The four kinds are defined once in
+            src/util/research.ts; this legend is the reader-facing statement of
+            them, including the one this page deliberately does not use. */}
+        <div className="mt-4 rounded-md border border-mfi-200 bg-white px-4 py-3 text-xs leading-relaxed text-mfi-600">
+          <span className="font-semibold text-mfi-800">Every section below is labelled: </span>
+          {RESEARCH_KIND_ORDER.map((kind) => {
+            const presentation = RESEARCH_KINDS[kind];
+            return (
+              <span key={kind} className="mr-4 inline-flex items-center gap-1.5 whitespace-nowrap">
+                <Chip tone={presentation.tone} title={presentation.help}>
+                  {presentation.label}
+                </Chip>
+                <span className={kind === "external" ? "text-mfi-400" : undefined}>
+                  {kind === "external" ? "none — this project cites no third-party research" : presentation.help}
+                </span>
+              </span>
+            );
+          })}
+        </div>
+
         <Finding
           title="Paid-up capital is concentrated, and the directory publishes it for everyone"
+          kinds={["fact", "calculation"]}
           method={`Counted from the NRB BFI directory snapshot of ${formatDate(directorySource.asOf) ?? "an unrecorded date"}. Capital is what institutions hold on the books — it is not assets, deposits, profit or lending volume, none of which the directory publishes per institution.`}
         >
           <div className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-mfi-200 bg-mfi-200 sm:grid-cols-4">
@@ -193,6 +220,7 @@ export default function ResearchPage() {
 
         <Finding
           title="Leadership coverage is partial, and that is a collection fact"
+          kinds={["calculation", "analysis"]}
           method="Counted from published leadership records. Only institutions whose site publishes a leadership page appear; absence means the page was not found."
         >
           <div className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-mfi-200 bg-mfi-200 sm:grid-cols-4">
@@ -216,6 +244,7 @@ export default function ResearchPage() {
 
         <Finding
           title="Branch presence is recorded unevenly"
+          kinds={["calculation"]}
           method="Counted from published branch records. Branches appear only where an institution published a list we could read."
         >
           {districtRows.length === 0 ? (
@@ -247,6 +276,7 @@ export default function ResearchPage() {
 
         <Finding
           title="The sector has been consolidating"
+          kinds={["calculation", "analysis"]}
           method={`Counted from ${nrbRegulatoryEvents.length} structural changes in the NRB BFI directory. A merger means two licensed institutions became one, so the count of institutions falls over time.`}
         >
           {eventRows.length === 0 ? (
@@ -279,6 +309,7 @@ export default function ResearchPage() {
 
         <Finding
           title="Document coverage is narrow"
+          kinds={["calculation", "analysis"]}
           method="Counted from catalogued financial documents per institution."
         >
           {docsByInstitution.length === 0 ? (
@@ -332,6 +363,7 @@ export default function ResearchPage() {
 
         <Finding
           title="What this dataset cannot tell you"
+          kinds={["analysis"]}
           method="Stated explicitly so the gaps are not mistaken for findings."
         >
           <ul className="space-y-2 text-sm text-mfi-700">
@@ -365,15 +397,27 @@ export default function ResearchPage() {
 function Finding({
   title,
   method,
+  kinds,
   children,
 }: {
   title: string;
   method: string;
+  kinds: ResearchStatementKind[];
   children: React.ReactNode;
 }) {
   return (
     <section className="mt-10 first:mt-0">
-      <h2 className="text-lg font-bold tracking-tight text-mfi-900">{title}</h2>
+      <div className="flex flex-wrap items-center gap-2">
+        <h2 className="text-lg font-bold tracking-tight text-mfi-900">{title}</h2>
+        {kinds.map((kind) => {
+          const presentation = researchKind(kind);
+          return (
+            <Chip key={kind} tone={presentation.tone} title={presentation.help}>
+              {presentation.label}
+            </Chip>
+          );
+        })}
+      </div>
       <p className="mt-1 max-w-3xl text-xs leading-relaxed text-mfi-500">
         <span className="font-medium text-mfi-600">Method: </span>
         {method}

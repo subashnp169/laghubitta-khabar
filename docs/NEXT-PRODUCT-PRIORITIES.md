@@ -30,7 +30,7 @@ Ranked by impact/risk. P0 = factual risk; P1 = core; P2 = coverage; P3 = UX; P4 
 
 | # | Capability | Rationale | Effort | Owner logic | Done? |
 |---|---|---|---|---|---|
-| P2-1 | Research: label fact vs analysis vs calculation vs external | Clarity | S | Research | No |
+| P2-1 | Research: label fact vs analysis vs calculation vs external | Clarity | S | Research | Yes (every `/research` section carries a statement-kind chip defined once in `src/util/research.ts`: Fact / Calculation / Analysis / External; a reader legend defines all four and declares `external` deliberately unused — the project cites no third-party research; `smoke:research` locks the four-kind vocabulary and the "unknown falls back to analysis, never fact" rule) |
 | P2-2 | Compare: enforce period/definition equality or explicit labeling; partial states | Comparability | M | Compare | No |
 | P2-3 | Digital presence/branding only if verified (no guessing colors/logos) | Data-truth | S | Institution | Partial (rules exist) |
 | P2-4 | Branch coverage completeness state (Unknown/Partial/Not extracted) | Honest | S | Branches | No |
