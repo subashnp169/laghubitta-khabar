@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "npm run check:identity",
+    "prebuild": "npm run check:identity && npm run check:datatruth",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
@@ -67,7 +67,8 @@
     "api": "tsx scripts/api-server.ts",
     "smoke:api": "tsx scripts/smoke-api.ts",
     "check:discipline": "node scripts/check-discipline.cjs",
-    "check:identity": "tsx scripts/check-institution-identity.ts"
+    "check:identity": "tsx scripts/check-institution-identity.ts",
+    "check:datatruth": "tsx scripts/check-data-truth.ts"
   },
   "dependencies": {
     "next": "16.2.10",
