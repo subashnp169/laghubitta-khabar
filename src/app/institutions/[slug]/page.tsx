@@ -11,7 +11,7 @@ import { Row, Stat, StatGrid } from "@/components/ui/Stat";
 import { Chip, StatusChip } from "@/components/ui/Chip";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { Provenance } from "@/components/ui/Provenance";
-import { fieldState, institutionStatus, isCurrentInstitution, sourceStatus, verificationStatus, type Tone } from "@/util/evidence";
+import { fieldState, institutionStatus, isCurrentInstitution, isVerifiedWebsite, sourceStatus, verificationStatus, websiteStatus, BRANDING_NOTE, type Tone } from "@/util/evidence";
 import { hasSharedRole, maxSharedBy, roleLabels } from "@/util/roles";
 import { rateKindLabel, rateValueState } from "@/util/rates";
 import { PERIOD_DISCIPLINE_NOTE, financialPeriodLines, sourceOwnerLabel } from "@/util/financials";
@@ -126,6 +126,7 @@ export default async function InstitutionPage({
   const nrbLinksFor = nrbInstitutionLinks.filter((l) => l.institutionId === inst.id);
   const nrbEvents = nrbRegulatoryEvents.filter((e) => e.institutionId === inst.id);
   const websiteUrl = realUrl(inst.officialWebsite) ?? realUrl(crawl?.website);
+  const websiteVerified = isVerifiedWebsite(inst.websiteStatus);
 
   // Published leadership comes from the validated People read model, not from the
   // legacy crawl summary. The crawl widget's peopleNames is 0 for every institution
@@ -306,7 +307,7 @@ export default async function InstitutionPage({
     },
     {
       field: "Official website",
-      value: websiteUrl ? displayHost(websiteUrl) : "Not confirmed",
+      value: websiteUrl && websiteVerified ? displayHost(websiteUrl) : "Not confirmed",
       grade: inst.evidence.officialWebsite?.grade,
       state: inst.evidence.officialWebsite?.status,
     },
@@ -371,7 +372,18 @@ export default async function InstitutionPage({
             </Chip>
             {inst.licenseClass ? <Chip tone="neutral">Class {inst.licenseClass}</Chip> : null}
             {inst.coverageType ? <Chip tone="neutral">{humanize(inst.coverageType)} level</Chip> : null}
-            {websiteUrl ? (
+            {websiteUrl && !websiteVerified ? (
+              <a
+                href={websiteUrl}
+                target="_blank"
+                rel="noopener noreferrer nofollow"
+                title={websiteStatus(inst.websiteStatus).help}
+                className="inline-flex min-h-7 items-center gap-1.5 rounded-md border border-flag-200 px-2.5 text-xs font-medium text-flag-700 transition-colors hover:bg-flag-50"
+              >
+                {displayHost(websiteUrl)}
+                <span className="text-[9px] font-semibold uppercase tracking-wide">unconfirmed</span>
+              </a>
+            ) : websiteUrl ? (
               <a
                 href={websiteUrl}
                 target="_blank"
@@ -389,6 +401,14 @@ export default async function InstitutionPage({
               </Chip>
             )}
           </div>
+
+          <p className="mt-2 max-w-3xl text-xs leading-relaxed text-mfi-500">
+            {websiteVerified ? "Official website confirmed against the source. " : null}
+            {websiteUrl && !websiteVerified
+              ? "The website above is a candidate lead, not a confirmed official site. "
+              : null}
+            {BRANDING_NOTE}
+          </p>
 
           {!isCurrentInstitution(inst.licenseStatus) ? (
             <p className="mt-4 rounded-md border border-flag-200 bg-flag-50 px-3 py-2 text-sm leading-relaxed text-flag-700">

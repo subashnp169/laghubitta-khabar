@@ -303,6 +303,76 @@ export function fieldState(status: string | null | undefined): StatusPresentatio
 }
 
 /**
+ * Digital presence.
+ *
+ * The governing model (docs/INSTITUTION-MASTER-MODEL.md) allows an official
+ * website to be shown only when it is verified, and forbids guessing brand
+ * assets such as logos or colours ("No guessing colors/logos"). A site the
+ * directory merely lists as a candidate is a lead, not the institution's
+ * confirmed website, so it must never be presented as one. This vocabulary is
+ * the single place that decision is made, and `isVerifiedWebsite` is what the
+ * pages ask before treating a link as official.
+ */
+const WEBSITE_STATUS: Record<string, StatusPresentation> = {
+  VERIFIED: {
+    label: "Confirmed website",
+    tone: "positive",
+    help: "The institution's official website, confirmed against the source.",
+  },
+  CONFIRMED: {
+    label: "Confirmed website",
+    tone: "positive",
+    help: "The institution's official website, confirmed against the source.",
+  },
+  OFFICIAL: {
+    label: "Confirmed website",
+    tone: "positive",
+    help: "The institution's official website, confirmed against the source.",
+  },
+  CANDIDATE: {
+    label: "Unconfirmed website",
+    tone: "attention",
+    help: "A website the directory lists as a candidate. It has not been confirmed as the institution's official site, so it is shown as a lead, not a fact.",
+  },
+  UNVERIFIED: {
+    label: "Unconfirmed website",
+    tone: "attention",
+    help: "A website the directory records but has not confirmed as the institution's official site.",
+  },
+};
+
+/** Presentation for an institution's website confirmation state. */
+export function websiteStatus(status: string | null | undefined): StatusPresentation {
+  const key = statusKey(status);
+  return (
+    WEBSITE_STATUS[key] ?? {
+      label: "Website not confirmed",
+      tone: "neutral",
+      help: "No official website has been confirmed for this institution.",
+    }
+  );
+}
+
+/**
+ * Whether a website may be shown as official. Only an explicit verified token
+ * passes; every other value — including unknown — is treated as unconfirmed, so
+ * a candidate site is never presented as the institution's own.
+ */
+export function isVerifiedWebsite(status: string | null | undefined): boolean {
+  const key = statusKey(status);
+  return key === "VERIFIED" || key === "CONFIRMED" || key === "OFFICIAL";
+}
+
+/**
+ * The branding rule, stated once so pages do not paraphrase it. The model
+ * forbids inventing brand assets; this is what a page shows when no verified
+ * logo or colour exists to show.
+ */
+export const BRANDING_NOTE =
+  "No logo or brand colours are shown: none are published as a verified brand asset.";
+
+
+/**
  * The word a page shows when a status or value is genuinely unknown. Exported so
  * no page invents its own variant ("status unknown", "n/a", …): the vocabulary
  * document allows exactly this word.

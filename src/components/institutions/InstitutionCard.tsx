@@ -2,15 +2,16 @@ import Link from "next/link";
 import type { Institution } from "@/types";
 import { Chip } from "@/components/ui/Chip";
 import { formatCrore, humanize, initials } from "@/util/format";
-import { institutionStatus } from "@/util/evidence";
+import { institutionStatus, isVerifiedWebsite, websiteStatus } from "@/util/evidence";
 
 /**
  * Directory card.
  *
  * Shows only fields the NRB directory actually publishes for every institution.
- * Official websites are absent from the current snapshot — `officialWebsite` is
- * null with a "candidate" status throughout — so this card does not render a
- * website link, because a link that goes nowhere is worse than no link.
+ * A website is never linked from this card: it states the confirmation state and
+ * leaves the link to the profile, so a candidate site can never be mistaken for
+ * an official one. Brand assets are never shown — the governing model forbids
+ * guessing logos or colours, and none are verified.
  */
 export default function InstitutionCard({ institution }: { institution: Institution }) {
   const headOffice = humanize(institution.headOffice);
@@ -60,7 +61,16 @@ export default function InstitutionCard({ institution }: { institution: Institut
           {institution.coverageType ? (
             <Chip tone="neutral">{humanize(institution.coverageType)}</Chip>
           ) : null}
-          {!website ? <Chip tone="neutral">no confirmed website</Chip> : null}
+          {website ? (
+            <Chip
+              tone={websiteStatus(institution.websiteStatus).tone}
+              title={isVerifiedWebsite(institution.websiteStatus) ? websiteStatus(institution.websiteStatus).help : "A candidate website recorded by the directory, not yet confirmed as the institution's official site."}
+            >
+              {websiteStatus(institution.websiteStatus).label}
+            </Chip>
+          ) : (
+            <Chip tone="neutral">no confirmed website</Chip>
+          )}
         </div>
       </Link>
     </li>

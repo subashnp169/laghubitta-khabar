@@ -9,13 +9,16 @@
 // Run: npm run smoke:vocabulary
 // ============================================================================
 import {
+  BRANDING_NOTE,
   fieldState,
   institutionStatus,
   isCurrentInstitution,
+  isVerifiedWebsite,
   runStatus,
   sourceStatus,
   UNKNOWN_LABEL,
   verificationStatus,
+  websiteStatus,
 } from "../src/util/evidence";
 import { institutions } from "../src/data/institutions";
 
@@ -88,6 +91,34 @@ const CANONICAL_LIFECYCLE = new Set([
 ]);
 for (const inst of institutions) {
   check(`institution ${inst.slug} lifecycle canonical (${inst.licenseStatus})`, CANONICAL_LIFECYCLE.has(inst.licenseStatus));
+}
+
+// Digital presence (P2-3): a website is official only when verified, and no
+// brand asset is invented. `isVerifiedWebsite` is the single gate the pages use.
+for (const token of ["VERIFIED", "CONFIRMED", "OFFICIAL", "verified"]) {
+  check(`isVerifiedWebsite(${token}) is true`, isVerifiedWebsite(token));
+}
+for (const token of ["candidate", "UNVERIFIED", "", null, undefined, "pending_reverification"]) {
+  check(`isVerifiedWebsite(${String(token)}) is false`, !isVerifiedWebsite(token as string | null | undefined));
+}
+for (const token of ["verified", "candidate", "UNVERIFIED", null]) {
+  const s = websiteStatus(token);
+  check(`websiteStatus(${String(token)}) labelled`, s.label.length > 0 && s.label !== token);
+}
+check("websiteStatus(verified) tone positive", websiteStatus("verified").tone === "positive");
+check("websiteStatus(candidate) tone attention", websiteStatus("candidate").tone === "attention");
+check("websiteStatus(null) is neutral and not a raw token", websiteStatus(null).tone === "neutral" && !/null|undefined/i.test(websiteStatus(null).label));
+check("BRANDING_NOTE forbids guessed assets", /logo|colours/i.test(BRANDING_NOTE));
+// No published institution exposes a brand asset field: nothing to guess from.
+for (const inst of institutions) {
+  const record = inst as unknown as Record<string, unknown>;
+  check(`institution ${inst.slug} carries no logo/colour field`, record.logo === undefined && record.logoUrl === undefined && record.brandColor === undefined);
+}
+// A candidate website must never pass the official-website gate.
+for (const inst of institutions) {
+  if (inst.websiteStatus === "candidate") {
+    check(`institution ${inst.slug} candidate website is not verified`, !isVerifiedWebsite(inst.websiteStatus));
+  }
 }
 
 console.log(`\nsmoke:vocabulary: ${pass} passed, ${fail} failed`);
