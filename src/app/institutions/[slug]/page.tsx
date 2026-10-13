@@ -15,6 +15,7 @@ import { sourceStatus, verificationStatus, type Tone } from "@/util/evidence";
 import { hasSharedRole, maxSharedBy, roleLabels } from "@/util/roles";
 import { rateKindLabel, rateValueState } from "@/util/rates";
 import { PERIOD_DISCIPLINE_NOTE, financialPeriodLines, sourceOwnerLabel } from "@/util/financials";
+import { DOCUMENT_CLASS_DETAIL, DOCUMENT_CLASS_LABEL, documentTypeLabel } from "@/util/documents";
 import {
   displayHost,
   formatCrore,
@@ -179,8 +180,17 @@ export default async function InstitutionPage({
       }, new Map<string, number>()),
   ].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
 
-  const governanceDocs: DocumentDto[] = institutionGeneralDocuments(inst.slug).filter(
-    (doc) => /governance/i.test(doc.title),
+  // General (non-financial) documents observed as link titles on this
+  // institution's own site (P2-D). Financial reports and rate notices are their
+  // own panels (#financials, #interest-rates); this is everything else, split by
+  // the class the evidence carries — a notice title vs a document title — which
+  // is a fact about the assertion, not a guessed content category.
+  const institutionDocuments = institutionGeneralDocuments(inst.slug);
+  const generalNotices = institutionDocuments.filter((d) => d.doc_type === "NOTICE");
+  const generalLinks = institutionDocuments.filter((d) => d.doc_type !== "NOTICE");
+
+  const governanceDocs: DocumentDto[] = institutionDocuments.filter((doc) =>
+    /governance/i.test(doc.title),
   );
 
   const districts = [...new Set(publishedBranches.map((b) => b.district).filter(Boolean))].sort();
@@ -302,7 +312,7 @@ export default async function InstitutionPage({
     { href: "#financials", label: "Financials", count: finReports.length },
     { href: "#interest-rates", label: "Interest rates", count: finRates.length },
     { href: "#activity", label: "Activity", count: nrbEvents.length },
-    { href: "#documents", label: "Documents", count: institutionFinancials.length },
+    { href: "#documents", label: "Documents", count: institutionDocuments.length },
     { href: "#careers", label: "Careers", count: vacancyList.length },
     { href: "#regulatory", label: "Regulatory", count: nrbLinksFor.length },
     { href: "#timeline", label: "Timeline" },
@@ -874,57 +884,68 @@ export default async function InstitutionPage({
           <Panel
             id="documents"
             title="Documents"
-            count={`${institutionFinancials.length}`}
-            note="Catalogued from this institution's own site. Contents have not been read, so reporting periods and publication dates are not extracted."
+            count={`${institutionDocuments.length}`}
+            note="Link titles observed on this institution's own site (P2-D). The target address was never recorded, so there is nothing to open, and no source dated them — the date shown is when the link was observed."
           >
-            {institutionFinancials.length === 0 ? (
+            {institutionDocuments.length === 0 ? (
               <EmptyState
                 compact
-                title="No documents located"
-                detail="This institution links no report or rate notice we could record."
+                title="No further documents located"
+                detail="No notice or document links were recorded from this institution's own site."
               />
             ) : (
               <>
-                <ul className="lk-card lk-divide overflow-hidden">
-                  {[...finReports, ...finRates].slice(0, 12).map((doc) => (
-                    <li
-                      key={doc.id}
-                      className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1 px-3.5 py-2.5"
-                    >
-                      <span className="min-w-0 flex-1 break-words text-sm text-mfi-900">
-                        {doc.title}
-                      </span>
-                      <span className="flex shrink-0 items-center gap-2">
-                        <span className="text-xs text-mfi-500">
-                          observed {formatDate(doc.lastSeenAt) ?? "undated"}
-                        </span>
-                        <Chip tone={doc.kind === "REPORT" ? "info" : "attention"}>
-                          {doc.kind === "REPORT"
-                            ? doc.reportType
-                              ? humanize(doc.reportType)
-                              : "report"
-                            : "rate notice"}
-                        </Chip>
-                        {realUrl(doc.sourceDocument) ? (
-                          <a
-                            href={doc.sourceDocument as string}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-xs font-medium text-mfi-700 underline-offset-4 hover:underline"
+                {[
+                  {
+                    key: "notice" as const,
+                    docs: generalNotices,
+                  },
+                  {
+                    key: "document-link" as const,
+                    docs: generalLinks,
+                  },
+                ]
+                  .filter((group) => group.docs.length > 0)
+                  .map((group) => (
+                    <div key={group.key} className="mt-5 first:mt-0">
+                      <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1 border-b border-mfi-100 pb-1">
+                        <h3 className="text-xs font-semibold uppercase tracking-wide text-mfi-500">
+                          {DOCUMENT_CLASS_LABEL[group.key]}
+                        </h3>
+                        <span className="font-mono text-xs text-mfi-400">{group.docs.length}</span>
+                      </div>
+                      <p className="mt-1.5 text-xs leading-relaxed text-mfi-400">
+                        {DOCUMENT_CLASS_DETAIL[group.key]}
+                      </p>
+                      <ul className="lk-card lk-divide mt-2 overflow-hidden">
+                        {group.docs.slice(0, 12).map((doc) => (
+                          <li
+                            key={doc.id}
+                            className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1 px-3.5 py-2.5"
                           >
-                            {displayHost(doc.sourceDocument)} â†—
-                          </a>
-                        ) : null}
-                      </span>
-                    </li>
+                            <span className="min-w-0 flex-1 break-words text-sm text-mfi-900">
+                              {doc.title}
+                            </span>
+                            <span className="flex shrink-0 items-center gap-2">
+                              <Chip tone="neutral">{documentTypeLabel(doc.doc_type)}</Chip>
+                              <span className="font-mono text-xs text-mfi-500">
+                                observed {formatDate(doc.meta.last_verified_at) ?? "undated"}
+                              </span>
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                      {group.docs.length > 12 ? (
+                        <p className="mt-1.5 text-xs text-mfi-400">
+                          Showing 12 of {group.docs.length}.
+                        </p>
+                      ) : null}
+                    </div>
                   ))}
-                </ul>
-                <p className="mt-3 text-xs text-mfi-500">
-                  {institutionFinancials.length > 12
-                    ? `Showing 12 of ${institutionFinancials.length}. `
-                    : ""}
-                  <Link href="/financials" className="underline underline-offset-2">
-                    See all financial documents
+                <p className="mt-5 text-xs text-mfi-500">
+                  Financial reports and rate notices have their own panels above.{" "}
+                  <Link href="/documents" className="underline underline-offset-2">
+                    See the full document catalogue
                   </Link>
                   .
                 </p>

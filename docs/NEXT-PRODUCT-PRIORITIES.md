@@ -16,11 +16,11 @@ Ranked by impact/risk. P0 = factual risk; P1 = core; P2 = coverage; P3 = UX; P4 
 
 | # | Capability | Rationale | Effort | Owner logic | Done? |
 |---|---|---|---|---|---|
-| P1-1 | Branches as first-class (list + fields + evidence + status/events) on institution profile | Core ops; Unknown ≠ 0 | M | Institution model + UI | No |
-| P1-2 | Governance section explicit (Board/committees/CG report refs + evidence) | Governance required by directive | M | Institutions + Docs + People | Partial (People linked) |
+| P1-1 | Branches as first-class (list + fields + evidence + status/events) on institution profile | Core ops; Unknown ≠ 0 | M | Institution model + UI | Yes (branches panel: list + source link + verification status) |
+| P1-2 | Governance section explicit (Board/committees/CG report refs + evidence) | Governance required by directive | M | Institutions + Docs + People | Yes (Governance panel: board/officer counts, committees Not extracted, CG refs) |
 | P1-3 | Interest rates: full context + Unknown/Not extracted/NOT_FOUND; never naked % | Logical correctness; current 0% is design artifact to evolve | M | Data model + UI rules | Yes (context fields + `rateValue` rule; never naked %) |
 | P1-4 | Financial period discipline labeling (reporting period vs publication date vs as_of; NRB vs institution vs derived) | Comparability + correctness | M | Financials + Institution profile | Yes (period fields + `source_owner`; labelled reporting/pub/as-of/observed) |
-| P1-5 | Document taxonomy surfaced (class filters + institution profile grouping) | NRB requires separation (regulatory vs docs) | M | Documents + Institution | Partial (connectivity done) |
+| P1-5 | Document taxonomy surfaced (class filters + institution profile grouping) | NRB requires separation (regulatory vs docs) | M | Documents + Institution | Yes (evidence-derived classes + filters on `/documents`; institution Documents panel grouped by class) |
 | P1-6 | Regulatory Events vs News vs Documents separation (clear UI buckets + filters) | Semantics correct | M | NRB/News/Docs | Partial |
 | P1-7 | Uniform status vocabulary across all pages (use DATA-STATUS-VOCABULARY) | Semantic consistency | S | Shared constants + UI | No |
 | P1-8 | Timeline unified per institution (evidence-backed) | History coherent | M | Institution + Events | No |

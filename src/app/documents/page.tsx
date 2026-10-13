@@ -8,6 +8,14 @@ import { allPublishedDocuments } from "../../../lib/repository/static-documents"
 import { distinctNrbDocuments } from "@/util/activity";
 import { formatDate } from "@/util/format";
 import { institutionHrefForId } from "@/util/institution-profile";
+import {
+  DOCUMENT_CLASS_DETAIL,
+  DOCUMENT_CLASS_LABEL,
+  DOCUMENT_CLASS_ORDER,
+  financialDocumentClass,
+  generalDocumentClass,
+  nrbDocumentClass,
+} from "@/util/documents";
 
 const financials = allPublishedFinancials();
 const generalDocuments = allPublishedDocuments();
@@ -54,6 +62,7 @@ const NRB_ROWS: DocumentRow[] = distinctNrbDocuments().map((d) => ({
   size: d.size,
   url: d.officialUrl,
   origin: "nrb" as const,
+  docClass: nrbDocumentClass(d.docType),
 }));
 
 const ROWS: DocumentRow[] = [
@@ -67,6 +76,7 @@ const ROWS: DocumentRow[] = [
     size: null,
     url: d.sourceDocument,
     origin: "institution" as const,
+    docClass: financialDocumentClass(d),
     // The generator embedded the institution id in the record id, so the owning
     // institution is resolvable without shipping the directory to the browser.
     institutionProfileHref: institutionHrefForId(/^financial-([^|]+)\|/.exec(d.id)?.[1]),
@@ -86,9 +96,16 @@ const ROWS: DocumentRow[] = [
     // would go nowhere or somewhere wrong.
     url: null,
     origin: "institution" as const,
+    docClass: generalDocumentClass(d),
     institutionProfileHref: institutionHrefForId(d.institution_id),
   })),
 ];
+
+/** Classes actually present, in canonical order, with counts — for the legend. */
+const CLASS_SUMMARY = DOCUMENT_CLASS_ORDER.map((key) => ({
+  key,
+  count: ROWS.filter((r) => r.docClass === key).length,
+})).filter((c) => c.count > 0);
 
 export default function DocumentsPage() {
   return (
@@ -110,6 +127,18 @@ export default function DocumentsPage() {
             observation dates — when the link was seen — not publication dates; no source ever dated them.
           </p>
         ) : null}
+        <p className="mt-3 max-w-3xl text-sm leading-relaxed text-mfi-500">
+          Filter by class. A class is what the evidence says a document is — who published it and the type
+          its source assigned — not a content category read out of the document, because none has been read.
+          The {CLASS_SUMMARY.length} classes present here are{" "}
+          {CLASS_SUMMARY.map((c, i) => (
+            <span key={c.key} title={DOCUMENT_CLASS_DETAIL[c.key]}>
+              {i > 0 ? (i === CLASS_SUMMARY.length - 1 ? " and " : ", ") : ""}
+              <span className="text-mfi-700">{DOCUMENT_CLASS_LABEL[c.key]}</span> ({c.count})
+            </span>
+          ))}
+          .
+        </p>
       </PageHeader>
 
       <Container className="py-8 sm:py-10">
