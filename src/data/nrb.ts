@@ -1850,7 +1850,7 @@ export const nrbRegulatoryEvents: NrbRegulatoryEvent[] = [
     "eventType": "MERGED",
     "title": "RMDC Laghubitta Bittiya Sanstha Limited",
     "occurredAt": "2026-06-20",
-    "description": "Sana Kisan Bikas Laghubitta Bittiya Sanstha Limited and RMDC Laghubitta Bittiya Sanstha Limited were combined into Sana Kisan Bikas Laghubitta Bittiya Sanstha Limited. Evidence: hist-evt-006-sana-kisan-bikas-laghubitta"
+    "description": "Sana Kisan Bikas Laghubitta Bittiya Sanstha Limited and RMDC Laghubitta Bittiya Sanstha Limited were combined into Sana Kisan Bikas Laghubitta Bittiya Sanstha Limited."
   },
   {
     "id": "reg-172c6ccd",
@@ -1880,7 +1880,7 @@ export const nrbRegulatoryEvents: NrbRegulatoryEvent[] = [
     "eventType": "ACQUIRED",
     "title": "Mirmire Laghubitta Bittiya Sanstha Limited",
     "occurredAt": "2026-06-20",
-    "description": "Nerude Laghubitta Bittiya Sanstha Limited and Mirmire Laghubitta Bittiya Sanstha Limited were combined into Nerude Mirmire Laghubitta Bittiya Sanstha Limited. Evidence: hist-evt-033-mirmire-laghubitta"
+    "description": "Nerude Laghubitta Bittiya Sanstha Limited and Mirmire Laghubitta Bittiya Sanstha Limited were combined into Nerude Mirmire Laghubitta Bittiya Sanstha Limited."
   },
   {
     "id": "reg-3d47e58b",
@@ -1900,7 +1900,7 @@ export const nrbRegulatoryEvents: NrbRegulatoryEvent[] = [
     "eventType": "MERGED",
     "title": "Nerude Laghubitta Bittiya Sanstha Limited",
     "occurredAt": "2026-06-20",
-    "description": "Nerude Laghubitta Bittiya Sanstha Limited and Mirmire Laghubitta Bittiya Sanstha Limited were combined into Nerude Mirmire Laghubitta Bittiya Sanstha Limited. Evidence: hist-evt-039-nerude-mirmire-laghubitta"
+    "description": "Nerude Laghubitta Bittiya Sanstha Limited and Mirmire Laghubitta Bittiya Sanstha Limited were combined into Nerude Mirmire Laghubitta Bittiya Sanstha Limited."
   },
   {
     "id": "reg-cb16ef55",
@@ -2030,7 +2030,7 @@ export const nrbRegulatoryEvents: NrbRegulatoryEvent[] = [
     "eventType": "ACQUIRED",
     "title": "Sparsha Laghubitta Bittiya Sanstha Limited",
     "occurredAt": "2026-06-20",
-    "description": "Global IME Laghubitta Bittiya Sanstha Limited and Sparsha Laghubitta Bittiya Sanstha Limited were combined into Global IME Laghubitta Bittiya Sanstha Limited. Evidence: hist-evt-013-global-ime-laghubitta"
+    "description": "Global IME Laghubitta Bittiya Sanstha Limited and Sparsha Laghubitta Bittiya Sanstha Limited were combined into Global IME Laghubitta Bittiya Sanstha Limited."
   },
   {
     "id": "reg-2889147b",
@@ -2130,7 +2130,7 @@ export const nrbRegulatoryEvents: NrbRegulatoryEvent[] = [
     "eventType": "MERGED",
     "title": "Summit Laghubitta Bittiya Sanstha Limited",
     "occurredAt": "2026-06-20",
-    "description": "Summit Laghubitta Bittiya Sanstha Limited and Sajilo Laghubitta Bittiya Sanstha Limited were combined into Summit Laghubitta Bittiya Sanstha Limited. Evidence: hist-evt-021-summit-laghubitta"
+    "description": "Summit Laghubitta Bittiya Sanstha Limited and Sajilo Laghubitta Bittiya Sanstha Limited were combined into Summit Laghubitta Bittiya Sanstha Limited."
   },
   {
     "id": "reg-b46b722b",
@@ -2230,7 +2230,7 @@ export const nrbRegulatoryEvents: NrbRegulatoryEvent[] = [
     "eventType": "MERGED",
     "title": "Aarambha Laghubitta Bittiya Sanstha Ltd.",
     "occurredAt": "2026-06-20",
-    "description": "Aarambha Microfinance Bittiya Sanstha Limited and Chautari Laghubitta Bittiya Sanstha Limited were combined into Aarambha Chautari Laghubitta Bittiya Sanstha Limited. Evidence: evt-aarambha-chautari-merger"
+    "description": "Aarambha Microfinance Bittiya Sanstha Limited and Chautari Laghubitta Bittiya Sanstha Limited were combined into Aarambha Chautari Laghubitta Bittiya Sanstha Limited."
   },
   {
     "id": "reg-1066dfee",
@@ -2240,7 +2240,7 @@ export const nrbRegulatoryEvents: NrbRegulatoryEvent[] = [
     "eventType": "MERGED",
     "title": "Chautari Laghubitta Bittiya Sanstha Limited",
     "occurredAt": "2026-06-20",
-    "description": "Aarambha Microfinance Bittiya Sanstha Limited and Chautari Laghubitta Bittiya Sanstha Limited were combined into Aarambha Chautari Laghubitta Bittiya Sanstha Limited. Evidence: evt-aarambha-chautari-merger"
+    "description": "Aarambha Microfinance Bittiya Sanstha Limited and Chautari Laghubitta Bittiya Sanstha Limited were combined into Aarambha Chautari Laghubitta Bittiya Sanstha Limited."
   },
   {
     "id": "reg-b9b34e51",
@@ -2250,7 +2250,7 @@ export const nrbRegulatoryEvents: NrbRegulatoryEvent[] = [
     "eventType": "ACQUIRED",
     "title": "Deurali Laghubitta Bittiya Sanstha Limited",
     "occurredAt": "2026-06-20",
-    "description": "Aarambha Chautari Laghubitta Bittiya Sanstha Limited and Deurali Laghubitta Bittiya Sanstha Limited were combined into Aarambha Chautari Laghubitta Bittiya Sanstha Limited. Evidence: evt-deurali-acquisition"
+    "description": "Aarambha Chautari Laghubitta Bittiya Sanstha Limited and Deurali Laghubitta Bittiya Sanstha Limited were combined into Aarambha Chautari Laghubitta Bittiya Sanstha Limited."
   },
   {
     "id": "reg-f6f766d6",
@@ -2390,7 +2390,7 @@ export const nrbRegulatoryEvents: NrbRegulatoryEvent[] = [
     "eventType": "ACQUIRED",
     "title": "Jalpa Samudayik Laghubitta Bittiya Sanstha Limited",
     "occurredAt": "2026-06-20",
-    "description": "Kisan Laghubitta Bittiya Sanstha Limited and Jalpa Samudayik Laghubitta Bittiya Sanstha Limited were combined into Matribhumi Laghubitta Bittiya Sanstha Limited. Evidence: hist-evt-042-matribhumi-laghubitta"
+    "description": "Kisan Laghubitta Bittiya Sanstha Limited and Jalpa Samudayik Laghubitta Bittiya Sanstha Limited were combined into Matribhumi Laghubitta Bittiya Sanstha Limited."
   },
   {
     "id": "reg-4f43d0c5",
@@ -2400,7 +2400,7 @@ export const nrbRegulatoryEvents: NrbRegulatoryEvent[] = [
     "eventType": "MERGED",
     "title": "Kisan Microfinance Bittiya Sanstha Limited",
     "occurredAt": "2026-06-20",
-    "description": "Kisan Laghubitta Bittiya Sanstha Limited and Jalpa Samudayik Laghubitta Bittiya Sanstha Limited were combined into Matribhumi Laghubitta Bittiya Sanstha Limited. Evidence: hist-evt-026-kisan-laghubitta"
+    "description": "Kisan Laghubitta Bittiya Sanstha Limited and Jalpa Samudayik Laghubitta Bittiya Sanstha Limited were combined into Matribhumi Laghubitta Bittiya Sanstha Limited."
   },
   {
     "id": "reg-2efe4df2",

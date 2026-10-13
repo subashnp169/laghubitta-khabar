@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "npm run check:identity",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
@@ -65,7 +66,8 @@
     "smoke:canonical-links": "tsx scripts/smoke-canonical-links.ts",
     "api": "tsx scripts/api-server.ts",
     "smoke:api": "tsx scripts/smoke-api.ts",
-    "check:discipline": "node scripts/check-discipline.cjs"
+    "check:discipline": "node scripts/check-discipline.cjs",
+    "check:identity": "tsx scripts/check-institution-identity.ts"
   },
   "dependencies": {
     "next": "16.2.10",

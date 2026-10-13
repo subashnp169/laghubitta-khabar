@@ -51,6 +51,19 @@ const lastReport: ReportJson = (() => {
   return existsSync(p) ? (JSON.parse(readFileSync(p, "utf8")) as ReportJson) : {};
 })();
 
+/**
+ * Strip an internal evidence identifier from a reader-facing description.
+ *
+ * Ledger summaries end with `Evidence: <token>`. When the token is a real URL it
+ * is kept; when it is an internal ledger key (`hist-evt-…`, `evt-…`) it is a
+ * pilot identifier that must never be published, so the whole clause is dropped.
+ * This is the ledger→site publication boundary: the ledger row is untouched, only
+ * the emitted module is cleaned.
+ */
+function sanitizeDescription(description: string): string {
+  return description.replace(/\.\s*Evidence:\s*(?!https?:)[\w-]+/g, ".");
+}
+
 function main(): void {
   const ledgerPath = resolve(process.argv[2], "LK_NRB_LEDGER", (r) => r.ledgerDbPath, "ledger DB");
   const intakeTarget = process.argv[3] ?? process.env.LK_NRB_INTAKE ?? lastReport.intakeDbPath;
@@ -120,7 +133,7 @@ function main(): void {
       eventType: String(row.event_type),
       title: String(row.title),
       occurredAt: row.occurred_at ? String(row.occurred_at) : null,
-      description: row.description ? String(row.description) : "",
+      description: sanitizeDescription(row.description ? String(row.description) : ""),
     };
   });
 

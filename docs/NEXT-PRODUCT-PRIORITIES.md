@@ -6,8 +6,8 @@ Ranked by impact/risk. P0 = factual risk; P1 = core; P2 = coverage; P3 = UX; P4 
 
 | # | Capability | Rationale | Effort | Owner logic | Done? |
 |---|---|---|---|---|---|
-| P0-1 | Global institution identity audit (all refs resolve to canonical id/slug; reject unresolved; hunt for pilot IDs like `mfi-045`-style) | Wrong identity is highest risk. | M | Data + types + all pages | Partial (hub+backlinks done; full audit needed) |
-| P0-2 | Enforce "no unresolved institution identity published" (hard guard) | Prevents cross-entity mixups | S | Build-time/data validation | No |
+| P0-1 | Global institution identity audit (all refs resolve to canonical id/slug; reject unresolved; hunt for pilot IDs like `mfi-045`-style) | Wrong identity is highest risk. | M | Data + types + all pages | Yes (build gate scans every published `institution_id`/`institution_slug`; found + removed 10 internal `hist-evt-…`/`evt-…` keys leaked into reader-facing NRB event descriptions at the ledger→site boundary) |
+| P0-2 | Enforce "no unresolved institution identity published" (hard guard) | Prevents cross-entity mixups | S | Build-time/data validation | Yes (`scripts/check-institution-identity.ts` — canonical uniqueness, alias coherence, all 5488 refs resolve, no `mfi-…`-as-slug, no internal-id/bare-evidence text leaks; wired as `prebuild` so `npm run build` cannot publish a broken reference) |
 | P0-3 | Preserve M3.6B semantics; detect accidental drift | People correctness | S | Review only | Yes (frozen) |
 | P0-4 | Data-truth guardrails (no sentinel dates, Rs null/undefined/NaN, fabricated counts) | Already strong; codify as invariant checks | S | Discipline script + build checks | Strong (verified in build) |
 | P0-5 | Historical institutions not presented as current | Lifecycle status must be explicit | S | Institution profile + lists | Partial |
