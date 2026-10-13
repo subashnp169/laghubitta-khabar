@@ -1,5 +1,5 @@
 import { Chip, StatusChip } from "./Chip";
-import { TONE_DOT, verificationStatus } from "@/util/evidence";
+import { TONE_DOT, sourceStatus, verificationStatus } from "@/util/evidence";
 import {
   NOT_AVAILABLE,
   displayHost,
@@ -121,7 +121,7 @@ export function Provenance({
                     <span className="text-mfi-500">· seen {formatDateTime(source.observedAt)}</span>
                   ) : null}
                   {source.status ? (
-                    <span className="text-mfi-500">· {humanize(source.status) ?? statusLabel(source.status)}</span>
+                    <span className="text-mfi-500">· {sourceStatus(source.status).label}</span>
                   ) : null}
                 </li>
               ))}
@@ -131,8 +131,4 @@ export function Provenance({
       </div>
     </div>
   );
-}
-
-function statusLabel(status: string): string {
-  return status.replace(/_/g, " ").toLowerCase();
 }

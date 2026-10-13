@@ -100,6 +100,11 @@ const SOURCE_STATUS: Record<string, StatusPresentation> = {
     tone: "attention",
     help: "Recent checks against this source are failing, so its coverage may be behind.",
   },
+  UNHEALTHY: {
+    label: "Failing",
+    tone: "conflict",
+    help: "The most recent checks against this source failed.",
+  },
   ERROR: {
     label: "Failing",
     tone: "conflict",
@@ -110,11 +115,27 @@ const SOURCE_STATUS: Record<string, StatusPresentation> = {
     tone: "neutral",
     help: "Scheduled checks are switched off for this source.",
   },
+  NEVER_RUN: {
+    label: "Never run",
+    tone: "neutral",
+    help: "This source has not been checked yet, so it has no monitoring history.",
+  },
 };
+
+/**
+ * Normalise a stored status token for lookup: uppercase and hyphens folded to
+ * underscores, so `NEVER-RUN` and `never_run` find the same entry.
+ */
+function statusKey(status: string | null | undefined): string {
+  return String(status ?? "")
+    .trim()
+    .toUpperCase()
+    .replace(/-/g, "_");
+}
 
 /** Presentation for a crawl/source health status. */
 export function sourceStatus(status: string | null | undefined): StatusPresentation {
-  const key = String(status ?? "").toUpperCase();
+  const key = statusKey(status);
   return (
     SOURCE_STATUS[key] ?? {
       label: key ? key.replace(/_/g, " ").toLowerCase() : "Not monitored",
@@ -123,6 +144,84 @@ export function sourceStatus(status: string | null | undefined): StatusPresentat
     }
   );
 }
+
+const RUN_STATUS: Record<string, StatusPresentation> = {
+  SUCCESS: {
+    label: "Succeeded",
+    tone: "positive",
+    help: "The most recent run against this source completed.",
+  },
+  PARTIAL: {
+    label: "Partial",
+    tone: "attention",
+    help: "The most recent run completed but left gaps, so some coverage is missing.",
+  },
+  FAILED: {
+    label: "Failed",
+    tone: "conflict",
+    help: "The most recent run did not complete.",
+  },
+  SKIPPED: {
+    label: "Skipped",
+    tone: "neutral",
+    help: "The most recent run was skipped, so no check happened.",
+  },
+};
+
+/** Presentation for the outcome of a source's most recent run. */
+export function runStatus(status: string | null | undefined): StatusPresentation {
+  const key = statusKey(status);
+  return (
+    RUN_STATUS[key] ?? {
+      label: key ? key.replace(/_/g, " ").toLowerCase() : "Not run yet",
+      tone: "neutral",
+      help: "No run outcome has been recorded for this source yet.",
+    }
+  );
+}
+
+/**
+ * Presentation for a field's evidence state, as stored in the display evidence
+ * map (`candidate` / `verified` / `pending_reverification`). These are lowercase
+ * domain tokens, so they are mapped here rather than through the verification
+ * vocabulary — one place decides every status label and tone.
+ */
+const FIELD_STATE: Record<string, StatusPresentation> = {
+  VERIFIED: {
+    label: "Verified",
+    tone: "positive",
+    help: "This field was confirmed against its source.",
+  },
+  CANDIDATE: {
+    label: "Unverified",
+    tone: "neutral",
+    help: "Observed from a source snapshot but not yet independently confirmed.",
+  },
+  PENDING_REVERIFICATION: {
+    label: "Re-verification due",
+    tone: "attention",
+    help: "The source changed since this field was last confirmed, so it is due a re-check.",
+  },
+};
+
+/** Presentation for a display-evidence field state. */
+export function fieldState(status: string | null | undefined): StatusPresentation {
+  const key = statusKey(status);
+  return (
+    FIELD_STATE[key] ?? {
+      label: key ? key.replace(/_/g, " ").toLowerCase() : "Not reviewed",
+      tone: "neutral",
+      help: "No evidence state has been recorded for this field yet.",
+    }
+  );
+}
+
+/**
+ * The word a page shows when a status or value is genuinely unknown. Exported so
+ * no page invents its own variant ("status unknown", "n/a", …): the vocabulary
+ * document allows exactly this word.
+ */
+export const UNKNOWN_LABEL = "Unknown";
 
 /**
  * How many independent sources back a claim.

@@ -61,6 +61,7 @@
     "smoke:compare": "tsx scripts/smoke-compare.ts",
     "smoke:alerts": "tsx scripts/smoke-alerts.ts",
     "smoke:dataapi": "tsx scripts/smoke-dataapi.ts",
+    "smoke:vocabulary": "tsx scripts/smoke-vocabulary.ts",
     "api": "tsx scripts/api-server.ts",
     "smoke:api": "tsx scripts/smoke-api.ts",
     "check:discipline": "node scripts/check-discipline.cjs"

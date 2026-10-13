@@ -11,7 +11,7 @@ import { Row, Stat, StatGrid } from "@/components/ui/Stat";
 import { Chip, StatusChip } from "@/components/ui/Chip";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { Provenance } from "@/components/ui/Provenance";
-import { sourceStatus, verificationStatus, type Tone } from "@/util/evidence";
+import { fieldState, sourceStatus, UNKNOWN_LABEL, verificationStatus, type Tone } from "@/util/evidence";
 import { hasSharedRole, maxSharedBy, roleLabels } from "@/util/roles";
 import { rateKindLabel, rateValueState } from "@/util/rates";
 import { PERIOD_DISCIPLINE_NOTE, financialPeriodLines, sourceOwnerLabel } from "@/util/financials";
@@ -356,7 +356,7 @@ export default async function InstitutionPage({
 
           <div className="mt-4 flex flex-wrap gap-2">
             <Chip tone={inst.licenseStatus === "licensed" ? "info" : "attention"}>
-              {humanize(inst.licenseStatus) ?? "status unknown"}
+              {humanize(inst.licenseStatus) ?? UNKNOWN_LABEL}
             </Chip>
             {inst.licenseClass ? <Chip tone="neutral">Class {inst.licenseClass}</Chip> : null}
             {inst.coverageType ? <Chip tone="neutral">{humanize(inst.coverageType)} level</Chip> : null}
@@ -496,7 +496,11 @@ export default async function InstitutionPage({
                         Grade {row.grade}
                       </Chip>
                     ) : null}
-                    {row.state ? <Chip tone="attention">{humanize(row.state)}</Chip> : null}
+                    {row.state ? (
+                      <Chip tone={fieldState(row.state).tone} title={fieldState(row.state).help}>
+                        {fieldState(row.state).label}
+                      </Chip>
+                    ) : null}
                     {row.seen ? (
                       <span className="text-xs text-mfi-500">
                         as of {formatDate(row.seen) ?? row.seen}

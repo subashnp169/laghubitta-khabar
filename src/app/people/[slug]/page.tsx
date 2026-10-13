@@ -9,7 +9,7 @@ import { Container, PageHeader } from "@/components/ui/Section";
 import { Chip, StatusChip } from "@/components/ui/Chip";
 import { Provenance } from "@/components/ui/Provenance";
 import { verificationStatus } from "@/util/evidence";
-import { formatDate, humanize } from "@/util/format";
+import { formatDate } from "@/util/format";
 
 /**
  * Person profile.
@@ -169,7 +169,7 @@ export default async function PersonPage({ params }: { params: Promise<{ slug: s
           <div className="flex flex-wrap gap-x-2 py-1">
             <dt className="min-w-[150px] text-mfi-500">Verification status</dt>
             <dd className="text-mfi-800">
-              {humanize(person.meta.verification_status) ?? person.meta.verification_status}
+              {verificationStatus(person.meta.verification_status).label}
             </dd>
           </div>
         </dl>

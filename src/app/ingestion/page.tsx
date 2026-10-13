@@ -4,7 +4,7 @@ import { Container, PageHeader } from "@/components/ui/Section";
 import { Chip } from "@/components/ui/Chip";
 import { crawlSources, crawlSummary, institutions } from "@/lib/site-data";
 import { formatDateTime, humanize } from "@/util/format";
-import type { Tone } from "@/util/evidence";
+import { runStatus, sourceStatus, type Tone } from "@/util/evidence";
 import { Stat as MetricCell } from "@/components/ui/Stat";
 
 /**
@@ -33,19 +33,6 @@ function Stat(props: { term: string; value: string | number; tone?: Tone }) {
 export const metadata: Metadata = {
   title: "Ingestion control room",
   description: `Source-monitoring snapshot: what was fetched from ${crawlSummary.sources} institution websites, and what is still missing. All extracted assertions are UNVERIFIED until human review.`,
-};
-
-const HEALTH_TONE: Record<string, Tone> = {
-  HEALTHY: "positive",
-  DEGRADED: "attention",
-  UNHEALTHY: "conflict",
-  "NEVER-RUN": "neutral",
-};
-
-const LAST_RUN_TONE: Record<string, Tone> = {
-  SUCCESS: "positive",
-  PARTIAL: "attention",
-  FAILED: "conflict",
 };
 
 export default function IngestionPage() {
@@ -235,12 +222,18 @@ export default function IngestionPage() {
                       </td>
                       <td className="px-3 py-2.5 align-top">
                         <div className="flex flex-col items-start gap-1">
-                          <Chip tone={HEALTH_TONE[c.status] ?? "neutral"} dot>
-                            {humanize(c.status) ?? c.status}
-                          </Chip>
+                          {c.status ? (
+                            <Chip tone={sourceStatus(c.status).tone} title={sourceStatus(c.status).help} dot>
+                              {sourceStatus(c.status).label}
+                            </Chip>
+                          ) : (
+                            <Chip tone="neutral" dot>
+                              {sourceStatus(null).label}
+                            </Chip>
+                          )}
                           {c.lastStatus ? (
-                            <Chip tone={LAST_RUN_TONE[c.lastStatus] ?? "neutral"}>
-                              {humanize(c.lastStatus) ?? c.lastStatus}
+                            <Chip tone={runStatus(c.lastStatus).tone} title={runStatus(c.lastStatus).help}>
+                              {runStatus(c.lastStatus).label}
                             </Chip>
                           ) : null}
                         </div>
