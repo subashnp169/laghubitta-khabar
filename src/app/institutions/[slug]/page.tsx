@@ -3,8 +3,8 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import MovedInstitution from "@/components/institutions/MovedInstitution";
 import { institutions, getInstitutionBySlug, getInstitutionSlugRedirect, slugAliases, directorySource, crawlSources, crawlSummary, nrbInstitutionLinks, nrbRegulatoryEvents, jobs } from "@/lib/site-data";
-import { institutionLeadership, institutionBranches, allFinancialDocuments, type FinancialDocumentDto } from "../../../../lib/api/repository";
-import type { BranchDto, PersonDto } from "../../../../lib/repository/types";
+import { institutionLeadership, institutionBranches, allFinancialDocuments, institutionGeneralDocuments, type FinancialDocumentDto } from "../../../../lib/api/repository";
+import type { BranchDto, DocumentDto, PersonDto } from "../../../../lib/repository/types";
 import { Container } from "@/components/ui/Section";
 import { Breadcrumb, Panel, SectionNav, SectionSidebar } from "@/components/ui/Panel";
 import { Row, Stat, StatGrid } from "@/components/ui/Stat";
@@ -162,6 +162,25 @@ export default async function InstitutionPage({
     (r): r is FinancialDocumentDto & { kind: "RATE" } => r.kind === "RATE",
   );
 
+  // Governance (P1-2). The board and officer roster is the same validated People
+  // read model the Leadership section already uses, counted by role so the shape
+  // of the board is explicit. Committees have never been extracted from any
+  // readable source, so their absence is stated ("Not extracted") rather than
+  // shown as a zero. A corporate governance report is matched by the title the
+  // institution itself published — nothing is inferred from a sibling record.
+  const governanceRoleCounts = [
+    ...leadership
+      .flatMap((person) => person.positions)
+      .reduce((counts, position) => {
+        counts.set(position.title, (counts.get(position.title) ?? 0) + 1);
+        return counts;
+      }, new Map<string, number>()),
+  ].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+
+  const governanceDocs: DocumentDto[] = institutionGeneralDocuments(inst.slug).filter(
+    (doc) => /governance/i.test(doc.title),
+  );
+
   const districts = [...new Set(publishedBranches.map((b) => b.district).filter(Boolean))].sort();
   const operationDate =
     inst.operationDateStatus === "source_anomaly" ? null : formatDate(inst.operationDate);
@@ -276,6 +295,7 @@ export default async function InstitutionPage({
   const navItems = [
     { href: "#overview", label: "Overview" },
     { href: "#leadership", label: "Leadership", count: leadership.length },
+    { href: "#governance", label: "Governance" },
     { href: "#branches", label: "Branches", count: publishedBranches.length },
     { href: "#financials", label: "Financials", count: finReports.length },
     { href: "#interest-rates", label: "Interest rates", count: finRates.length },
@@ -542,6 +562,76 @@ export default async function InstitutionPage({
                 .
               </p>
             ) : null}
+          </Panel>
+
+          <Panel
+            id="governance"
+            title="Governance"
+            note="What the institution publishes about how it is governed. Recorded only where a readable source states it."
+          >
+            {governanceRoleCounts.length === 0 ? (
+              <EmptyState
+                compact
+                title="No board or officers recorded"
+                detail="No governance roster was read from a page we could read. That is a gap in what we found, not a claim that the institution has no board."
+              />
+            ) : (
+              <ul className="lk-divide">
+                {governanceRoleCounts.map(([title, count]) => (
+                  <li
+                    key={title}
+                    className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1 py-2.5"
+                  >
+                    <span className="text-sm text-mfi-900">{title}</span>
+                    <span className="text-xs text-mfi-500">
+                      {count === 1 ? "1 recorded" : `${count} recorded`}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            )}
+
+            <dl className="mt-4 space-y-2 border-t border-mfi-100 pt-4 text-xs">
+              <Row
+                term="Board and key officers"
+                value={leadership.length > 0 ? `${leadership.length} people` : "Not extracted"}
+              />
+              <Row term="Committees" value="Not extracted" />
+              <Row
+                term="Corporate governance report"
+                value={governanceDocs.length > 0 ? `${governanceDocs.length} linked` : "Not catalogued"}
+              />
+            </dl>
+
+            {governanceDocs.length > 0 ? (
+              <ul className="lk-card lk-divide mt-3 overflow-hidden">
+                {governanceDocs.map((doc) => (
+                  <li
+                    key={doc.id}
+                    className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1 px-3.5 py-2.5"
+                  >
+                    <span className="min-w-0 flex-1 break-words text-sm text-mfi-900">{doc.title}</span>
+                    {realUrl(doc.official_url) ? (
+                      <a
+                        href={doc.official_url as string}
+                        target="_blank"
+                        rel="noopener noreferrer nofollow"
+                        className="text-xs font-medium text-mfi-700 underline-offset-4 hover:underline"
+                      >
+                        {displayHost(doc.official_url)}
+                      </a>
+                    ) : (
+                      <span className="text-xs text-mfi-500">listed source</span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="mt-3 text-xs leading-relaxed text-mfi-500">
+                No corporate governance report from this institution has been catalogued. Committees are not
+                extracted either: no committee membership has been read from a source, so none is shown.
+              </p>
+            )}
           </Panel>
 
           <Panel

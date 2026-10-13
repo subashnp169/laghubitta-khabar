@@ -320,6 +320,17 @@ export function institutionJobs(
   return { status: 200, body: slicePage(jobsByInst(inst), p) };
 }
 
+/**
+ * General (non-financial) documents for one institution (P2-D read model).
+ * Title-gated evidence: every record is a document the institution's own site
+ * linked, so the filter is on the canonical institution slug and never on a
+ * pilot-numbered id. Used by the institution profile to surface governance
+ * references without inventing a document category.
+ */
+export function institutionGeneralDocuments(slug: string): DocumentDto[] {
+  return allPublishedDocuments().filter((d) => d.institution_slug === slug);
+}
+
 // ---------------------------------------------------------------------------
 // Financial documents + interest-rate notices (P2-C) — the single shared
 // FinancialDocumentDto projection (lib/repository/projection.ts) over the
