@@ -8,6 +8,8 @@ import { formatDate, humanize } from "@/util/format";
 import { institutionHrefForSlug } from "@/util/institution-profile";
 import type { Tone } from "@/util/evidence";
 import { Stat } from "@/components/ui/Stat";
+import { ContentBuckets } from "@/components/content/ContentBuckets";
+import { contentBucketCounts } from "@/util/buckets";
 
 /**
  * NRB snapshot.
@@ -27,7 +29,7 @@ import { Stat } from "@/components/ui/Stat";
 
 export const metadata: Metadata = {
   title: "NRB snapshot",
-  description: `Documents published by Nepal Rastra Bank and structural changes it recorded, ${distinctNrbDocuments().length} documents and ${nrbSummary.regulatoryEvents} events. Catalogued, not read.`,
+  description: `Documents published by Nepal Rastra Bank and the regulatory events it recorded, ${distinctNrbDocuments().length} documents and ${nrbSummary.regulatoryEvents} events. Catalogued, not read.`,
 };
 
 const DOC_TONE: Record<string, Tone> = {
@@ -65,7 +67,7 @@ export default function NrbPage() {
       >
         <p className="max-w-3xl text-base leading-relaxed text-mfi-600">
           {DOCS.length} documents published by Nepal Rastra Bank and{" "}
-          {nrbSummary.regulatoryEvents} structural changes it recorded across{" "}
+          {nrbSummary.regulatoryEvents} regulatory events it recorded across{" "}
           {nrbSummary.institutions} licensed institutions. Generated{" "}
           {formatDate(nrbSummary.generatedAt) ?? "at an unrecorded time"} from a universe observed{" "}
           {formatDate(nrbSummary.observedAt) ?? "at an unrecorded time"}. No PDF has been parsed and no OCR
@@ -88,10 +90,15 @@ export default function NrbPage() {
       <Container className="py-8 sm:py-10">
         <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-mfi-200 bg-mfi-200 lg:grid-cols-4">
           <Stat term="Documents" value={DOCS.length} />
-          <Stat term="Structural changes" value={nrbSummary.regulatoryEvents} />
+          <Stat term="Regulatory events" value={nrbSummary.regulatoryEvents} />
           <Stat term="Institutions licensed" value={nrbSummary.institutions} />
           <Stat term="Source lists read" value={nrbSummary.sources.length} />
         </dl>
+
+        <div className="mt-6">
+          <ContentBuckets counts={contentBucketCounts()} current="regulatory-events" />
+        </div>
+
 
         <nav aria-label="Jump to a category" className="mt-6 flex flex-wrap gap-2">
           {docTypes.map((type) => (
@@ -157,7 +164,7 @@ export default function NrbPage() {
         <section className="mt-12">
           <div className="flex flex-wrap items-baseline gap-2 border-b border-mfi-200 pb-2">
             <h2 className="text-base font-semibold tracking-tight text-mfi-900">
-              Structural changes
+              Regulatory events
             </h2>
             <span className="text-xs text-mfi-500">
               {nrbSummary.regulatoryEvents} events · {dated} dated by the event, {undated} undated

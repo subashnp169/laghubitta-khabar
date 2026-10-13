@@ -311,7 +311,7 @@ export default async function InstitutionPage({
     { href: "#branches", label: "Branches", count: publishedBranches.length },
     { href: "#financials", label: "Financials", count: finReports.length },
     { href: "#interest-rates", label: "Interest rates", count: finRates.length },
-    { href: "#activity", label: "Activity", count: nrbEvents.length },
+    { href: "#activity", label: "Regulatory events", count: nrbEvents.length },
     { href: "#documents", label: "Documents", count: institutionDocuments.length },
     { href: "#careers", label: "Careers", count: vacancyList.length },
     { href: "#regulatory", label: "Regulatory", count: nrbLinksFor.length },
@@ -842,14 +842,14 @@ export default async function InstitutionPage({
 
           <Panel
             id="activity"
-            title="Latest activity"
+            title="Regulatory events"
             count={`${nrbEvents.length}`}
-            note="Regulatory activity Nepal Rastra Bank has recorded against this institution."
+            note="Regulatory and structural changes the Nepal Rastra Bank directory records against this institution — mergers, acquisitions and renames."
           >
             {nrbEvents.length === 0 ? (
               <EmptyState
                 compact
-                title="No recorded activity"
+                title="No regulatory events recorded"
                 detail="The regulator's published lists record no event against this institution. Absence of a record is not evidence that nothing happened."
               />
             ) : (
@@ -1017,7 +1017,7 @@ export default async function InstitutionPage({
             id="regulatory"
             title="Regulatory record"
             count={`${nrbLinksFor.length}`}
-            note="Classifications and rulings the regulator's published lists attach to this institution. These are not documents we hold."
+            note="Classifications and rulings the regulator's published lists attach to this institution. These are not documents we hold, and are distinct from the regulatory events above."
           >
             {nrbLinksFor.length === 0 ? (
               <EmptyState

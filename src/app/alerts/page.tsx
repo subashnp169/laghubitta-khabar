@@ -49,7 +49,7 @@ export default function AlertsPage() {
         title="What changed, and what we still do not have"
       >
         <p className="max-w-2xl text-base leading-relaxed text-mfi-600">
-          Two kinds of alert, both derived directly from records: structural changes the NRB directory
+          Two kinds of alert, both derived directly from records: regulatory events the NRB directory
           recorded, and institutions whose pages we could not read. No interpretation, no recommendations.
         </p>
       </PageHeader>

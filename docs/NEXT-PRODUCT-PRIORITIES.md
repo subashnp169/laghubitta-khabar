@@ -21,7 +21,7 @@ Ranked by impact/risk. P0 = factual risk; P1 = core; P2 = coverage; P3 = UX; P4 
 | P1-3 | Interest rates: full context + Unknown/Not extracted/NOT_FOUND; never naked % | Logical correctness; current 0% is design artifact to evolve | M | Data model + UI rules | Yes (context fields + `rateValue` rule; never naked %) |
 | P1-4 | Financial period discipline labeling (reporting period vs publication date vs as_of; NRB vs institution vs derived) | Comparability + correctness | M | Financials + Institution profile | Yes (period fields + `source_owner`; labelled reporting/pub/as-of/observed) |
 | P1-5 | Document taxonomy surfaced (class filters + institution profile grouping) | NRB requires separation (regulatory vs docs) | M | Documents + Institution | Yes (evidence-derived classes + filters on `/documents`; institution Documents panel grouped by class) |
-| P1-6 | Regulatory Events vs News vs Documents separation (clear UI buckets + filters) | Semantics correct | M | NRB/News/Docs | Partial |
+| P1-6 | Regulatory Events vs News vs Documents separation (clear UI buckets + filters) | Semantics correct | M | NRB/News/Docs | Yes (shared content-bucket vocabulary + legend on `/nrb`/`/news`; consistent labels across `/alerts` + institution; kind filters) |
 | P1-7 | Uniform status vocabulary across all pages (use DATA-STATUS-VOCABULARY) | Semantic consistency | S | Shared constants + UI | No |
 | P1-8 | Timeline unified per institution (evidence-backed) | History coherent | M | Institution + Events | No |
 | P1-9 | Canonical hub completeness: ensure all cross-links use canonical identity | Connectivity solid; finish audit | S | All features | Partial |

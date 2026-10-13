@@ -54,8 +54,8 @@ export function ActivityFeed({ items }: { items: ActivityRow[] }) {
   const undated = visible.filter((i) => !i.occurredAt).length;
 
   const tabs: Array<{ key: Filter; label: string; blurb: string }> = [
-    { key: "all", label: "Everything", blurb: "Records and publications" },
-    { key: "regulatory", label: "Regulatory record", blurb: "Mergers, acquisitions, renames" },
+    { key: "all", label: "Everything", blurb: "Regulatory events and NRB documents" },
+    { key: "regulatory", label: "Regulatory events", blurb: "Mergers, acquisitions, renames" },
     { key: "publication", label: "NRB publications", blurb: "Documents the regulator published" },
   ];
 

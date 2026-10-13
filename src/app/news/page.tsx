@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Container, PageHeader } from "@/components/ui/Section";
 import { ActivityFeed, type ActivityRow } from "@/components/news/ActivityFeed";
+import { ContentBuckets } from "@/components/content/ContentBuckets";
 import { allActivity } from "@/util/activity";
+import { contentBucketCounts } from "@/util/buckets";
 import { institutionHrefForSlug } from "@/util/institution-profile";
 
 /**
@@ -25,7 +27,7 @@ import { institutionHrefForSlug } from "@/util/institution-profile";
 export const metadata: Metadata = {
   title: "News & notices",
   description:
-    "Structural changes recorded in the Nepal Rastra Bank BFI directory - mergers, acquisitions and renames - and documents published by the regulator, each dated and sourced.",
+    "Regulatory events recorded in the Nepal Rastra Bank BFI directory - mergers, acquisitions and renames - and documents published by the regulator, each dated and sourced.",
 };
 
 /**
@@ -48,14 +50,19 @@ export default function NewsPage() {
         title="What the sources have actually recorded"
       >
         <p className="max-w-3xl text-base leading-relaxed text-mfi-600">
-          Every item below is a record in this dataset, dated by the source that published it: a structural
-          change in the NRB BFI directory, or a document the regulator released. There is no commentary here
-          - if you want to know what changed in Nepal&apos;s microfinance sector, this is the record.
+          Every item below is a record in this dataset, dated by the source that published it: a
+          regulatory event in the NRB BFI directory, or a document the regulator released. There is no
+          commentary here - if you want to know what changed in Nepal&apos;s microfinance sector, this is
+          the record. No external media coverage is held, so the News &amp; activity bucket is empty.
         </p>
       </PageHeader>
 
       <Container className="py-8 sm:py-10">
-        <ActivityFeed items={ITEMS} />
+        <ContentBuckets counts={contentBucketCounts()} current="regulatory-events" />
+
+        <div className="mt-8">
+          <ActivityFeed items={ITEMS} />
+        </div>
 
         <p className="mt-10 text-xs leading-relaxed text-mfi-500">
           NRB document titles are recorded from the regulator&apos;s own listing. The documents themselves
