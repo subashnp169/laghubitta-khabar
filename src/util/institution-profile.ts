@@ -1,4 +1,4 @@
-import { institutions } from "@/lib/site-data";
+import { institutions, slugAliases } from "@/lib/site-data";
 import type { Institution } from "@/types";
 
 /**
@@ -8,8 +8,8 @@ import type { Institution } from "@/types";
  * whole 51-record directory — including every evidence object — into the browser
  * bundle. Client components must be handed an already-resolved boolean instead.
  *
- * Two different defects make a naive `/institutions/${slug}` link wrong, and both
- * were shipping live 404s before this existed:
+ * Three different defects make a naive `/institutions/${slug}` link wrong, and
+ * the first two were shipping live 404s before this existed:
  *
  * 1. `lib/alerts.ts` assigns `institutionSlug: s.institutionId` on coverage
  *    alerts, so those links read `/institutions/mfi-039`. That field holds an
@@ -21,17 +21,29 @@ import type { Institution } from "@/types";
  *    The event record itself is real and stays published; only the link is
  *    unavailable, and it must be omitted rather than left pointing at a 404.
  *
- * Both cases return `null` rather than a best guess. Fabricating a link to a
+ * 3. A reference may still hold a *superseded* slug (a corrected identity gives
+ *    the same institution a new canonical slug). The old slug is not a directory
+ *    row, but it is not unknown either: `slugAliases` records its `moved_to`
+ *    target, so the link is resolved to the canonical hub rather than dropped.
+ *
+ * Cases 2 and 3 return `null` rather than a best guess. Fabricating a link to a
  * similarly-named institution would be worse than having none.
  */
 
 const bySlug = new Map<string, Institution>(institutions.map((i) => [i.slug, i]));
 const byId = new Map<string, Institution>(institutions.map((i) => [i.id, i]));
+const movedTo = new Map<string, string>(slugAliases.map((a) => [a.old_slug, a.moved_to]));
 
-/** The profile path for a slug, or `null` when no directory page exists for it. */
+/**
+ * The profile path for a slug, or `null` when no directory page exists for it.
+ * A superseded slug resolves to its canonical target (case 3 above).
+ */
 export function institutionHrefForSlug(slug: string | null | undefined): string | null {
   if (!slug) return null;
-  return bySlug.has(slug) ? `/institutions/${slug}` : null;
+  if (bySlug.has(slug)) return `/institutions/${slug}`;
+  const canonical = movedTo.get(slug);
+  if (canonical && bySlug.has(canonical)) return `/institutions/${canonical}`;
+  return null;
 }
 
 /** The profile path for an institution id, or `null` when it is not in the directory. */
