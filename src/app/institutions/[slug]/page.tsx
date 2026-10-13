@@ -2,7 +2,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import MovedInstitution from "@/components/institutions/MovedInstitution";
-import { institutions, getInstitutionBySlug, getInstitutionSlugRedirect, slugAliases, directorySource, crawlSources, crawlSummary, nrbInstitutionLinks, nrbRegulatoryEvents, jobs } from "@/lib/site-data";
+import { institutions, getInstitutionBySlug, getInstitutionSlugRedirect, slugAliases, directorySource, crawlSources, crawlSummary, nrbInstitutionLinks, nrbRegulatoryEvents, nrbSummary, jobs } from "@/lib/site-data";
 import { institutionLeadership, institutionBranches, allFinancialDocuments, institutionGeneralDocuments, type FinancialDocumentDto } from "../../../../lib/api/repository";
 import type { BranchDto, DocumentDto, PersonDto } from "../../../../lib/repository/types";
 import { Container } from "@/components/ui/Section";
@@ -200,8 +200,15 @@ export default async function InstitutionPage({
   /**
    * Timeline events are assembled only from records this institution actually
    * has: the operation date we can evidence, branch establishments the branch
-   * read model published, and NRB regulatory events. An event with no date is
-   * not shown rather than being placed at an invented point in the sequence.
+   * read model published, and NRB regulatory events carrying a genuine date. An
+   * event with no date is not shown rather than being placed at an invented
+   * point in the sequence.
+   *
+   * NRB lineage events are undated by policy — `occurred_at` stays NULL and the
+   * published record only carries the observation date as a ledger fallback
+   * (`docs/data/TIMELINE-PROVENANCE.md`). That fallback is not a verifiable
+   * event date, so those events are excluded here and remain visible, undated,
+   * in the "Regulatory events" panel below.
    */
   const timelineEvents = [
     ...(operationDate
@@ -225,6 +232,7 @@ export default async function InstitutionPage({
         type: "BRANCH_ESTABLISHED",
       })),
     ...nrbEvents
+      .filter((e) => e.occurredAt && e.occurredAt !== nrbSummary.observedAt)
       .map((e) => ({
         id: e.id,
         date: e.occurredAt ? formatDate(e.occurredAt) ?? (e.occurredAt as string) : null,
