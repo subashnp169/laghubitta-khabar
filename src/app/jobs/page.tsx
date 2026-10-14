@@ -118,7 +118,11 @@ export default function JobsPage() {
           <p className="mt-1 text-xs leading-relaxed text-mfi-500">
             Notice links found on career pages. The documents themselves have not been opened, so no role,
             location or deadline below comes from reading them — the titles are filenames recorded from the
-            page.
+            page. The same links, catalogued beside each institution&apos;s other documents, are in the{" "}
+            <Link href="/documents" className="underline underline-offset-2">
+              document catalogue
+            </Link>
+            .
           </p>
 
           {NOTICES.length === 0 ? (

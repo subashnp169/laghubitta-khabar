@@ -13,6 +13,7 @@ import { EmptyState } from "@/components/ui/EmptyState";
 import { Provenance } from "@/components/ui/Provenance";
 import { fieldState, institutionStatus, isCurrentInstitution, isVerifiedWebsite, sourceStatus, verificationStatus, websiteStatus, BRANDING_NOTE, type Tone } from "@/util/evidence";
 import { branchCoverage } from "@/util/branches";
+import { careerDocumentLinks } from "@/util/linkage";
 import { hasSharedRole, maxSharedBy, roleLabels } from "@/util/roles";
 import { rateKindLabel, rateValueState } from "@/util/rates";
 import { PERIOD_DISCIPLINE_NOTE, financialPeriodLines, sourceOwnerLabel } from "@/util/financials";
@@ -195,6 +196,14 @@ export default async function InstitutionPage({
   const governanceDocs: DocumentDto[] = institutionDocuments.filter((doc) =>
     /governance/i.test(doc.title),
   );
+
+  // Careers and Documents are sibling records of the same institution; link them
+  // to each other when both have something to show (P2-5), through the canonical
+  // slug only.
+  const panelLinks = careerDocumentLinks(inst.slug, {
+    vacancies: vacancyList.length,
+    documents: institutionDocuments.length,
+  });
 
   const districts = [...new Set(publishedBranches.map((b) => b.district).filter(Boolean))].sort();
   const operationDate =
@@ -999,6 +1008,16 @@ export default async function InstitutionPage({
                     See the full document catalogue
                   </Link>
                   .
+                  {panelLinks.toCareers ? (
+                    <>
+                      {" "}
+                      {panelLinks.toCareers.note}{" "}
+                      <Link href={panelLinks.toCareers.href} className="underline underline-offset-2">
+                        {panelLinks.toCareers.label}
+                      </Link>
+                      .
+                    </>
+                  ) : null}
                 </p>
               </>
             )}
@@ -1062,6 +1081,15 @@ export default async function InstitutionPage({
                 ))}
               </ul>
             )}
+            {panelLinks.toDocuments ? (
+              <p className="mt-4 text-xs leading-relaxed text-mfi-500">
+                {panelLinks.toDocuments.note}{" "}
+                <Link href={panelLinks.toDocuments.href} className="underline underline-offset-2">
+                  {panelLinks.toDocuments.label}
+                </Link>
+                .
+              </p>
+            ) : null}
           </Panel>
 
           <Panel

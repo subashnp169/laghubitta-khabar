@@ -158,7 +158,11 @@ export default function DocumentsPage() {
           <Link href="/interest-rates" className="underline underline-offset-2">
             rate notices
           </Link>{" "}
-          have their own pages.
+          have their own pages; vacancy notices observed on career pages are on{" "}
+          <Link href="/jobs" className="underline underline-offset-2">
+            Vacancies
+          </Link>
+          .
         </p>
       </Container>
     </>
