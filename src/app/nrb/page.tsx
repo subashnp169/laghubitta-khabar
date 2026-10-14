@@ -4,9 +4,11 @@ import { Container, PageHeader } from "@/components/ui/Section";
 import { Chip } from "@/components/ui/Chip";
 import { nrbSummary, nrbRegulatoryEvents } from "@/lib/site-data";
 import { distinctNrbDocuments } from "@/util/activity";
+import { nrbCategory, nrbCategoryCoverage, type NrbCategoryKey } from "@/util/nrb";
 import { formatDate, humanize } from "@/util/format";
 import { institutionHrefForSlug } from "@/util/institution-profile";
 import type { Tone } from "@/util/evidence";
+import type { NrbDocument } from "@/types";
 import { Stat } from "@/components/ui/Stat";
 import { ContentBuckets } from "@/components/content/ContentBuckets";
 import { contentBucketCounts } from "@/util/buckets";
@@ -32,12 +34,6 @@ export const metadata: Metadata = {
   description: `Documents published by Nepal Rastra Bank and the regulatory events it recorded, ${distinctNrbDocuments().length} documents and ${nrbSummary.regulatoryEvents} events. Catalogued, not read.`,
 };
 
-const DOC_TONE: Record<string, Tone> = {
-  REPORT: "info",
-  KFI: "positive",
-  ENFORCEMENT: "conflict",
-};
-
 const EVENT_TONE: Record<string, Tone> = {
   MERGED: "info",
   ACQUIRED: "attention",
@@ -45,13 +41,23 @@ const EVENT_TONE: Record<string, Tone> = {
 };
 
 export default function NrbPage() {
-  // Deduplicated so the type counts and the rows below describe the same documents.
+  // Deduplicated so the category counts and the rows below describe the same
+  // documents. Grouping is by publication category (P2-6), not by file type:
+  // the file type is how NRB filed a PDF, the category is what it published.
   const DOCS = distinctNrbDocuments();
-  const docsByType = new Map<string, number>();
-  for (const d of DOCS) docsByType.set(d.docType, (docsByType.get(d.docType) ?? 0) + 1);
-  const docTypes = [...docsByType.entries()]
-    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
-    .map(([type]) => type);
+  const { categories, uncategorised } = nrbCategoryCoverage(DOCS);
+  const presentCategories = categories.filter((c) => c.present);
+  const absentCategories = categories.filter((c) => !c.present);
+
+  const docsByCategory = new Map<NrbCategoryKey, NrbDocument[]>();
+  for (const doc of DOCS) {
+    const key = nrbCategory(doc);
+    if (key === null) continue;
+    const bucket = docsByCategory.get(key);
+    if (bucket) bucket.push(doc);
+    else docsByCategory.set(key, [doc]);
+  }
+
   const eventTypes = Object.entries(nrbSummary.eventsByType)
     .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
     .map(([type]) => type);
@@ -101,10 +107,10 @@ export default function NrbPage() {
 
 
         <nav aria-label="Jump to a category" className="mt-6 flex flex-wrap gap-2">
-          {docTypes.map((type) => (
-            <a key={`d-${type}`} href={`#doc-${type.toLowerCase()}`}>
-              <Chip tone={DOC_TONE[type] ?? "neutral"}>
-                {humanize(type) ?? type} · {docsByType.get(type)}
+          {presentCategories.map(({ category, count }) => (
+            <a key={`d-${category.key}`} href={`#cat-${category.key}`} title={category.help}>
+              <Chip tone={category.tone}>
+                {category.label} · {count}
               </Chip>
             </a>
           ))}
@@ -117,18 +123,21 @@ export default function NrbPage() {
           ))}
         </nav>
 
-        {docTypes.map((type) => {
-          const docs = DOCS.filter((d) => d.docType === type);
+        {presentCategories.map(({ category, count }) => {
+          const docs = docsByCategory.get(category.key) ?? [];
           return (
-            <section key={type} id={`doc-${type.toLowerCase()}`} className="mt-10 scroll-mt-24">
+            <section key={category.key} id={`cat-${category.key}`} className="mt-10 scroll-mt-24">
               <div className="flex flex-wrap items-baseline gap-2 border-b border-mfi-200 pb-2">
                 <h2 className="text-base font-semibold tracking-tight text-mfi-900">
-                  {humanize(type) ?? type}
+                  {category.label}
                 </h2>
                 <span className="text-xs text-mfi-500">
-                  {docs.length} documents · titles and dates only
+                  {count} documents · titles and dates only
                 </span>
               </div>
+              <p className="mt-2 max-w-3xl text-xs leading-relaxed text-mfi-500">
+                {category.help} Maps to NRB-SOURCE-MAP: {category.sourceMapSection}.
+              </p>
               <ul className="lk-card lk-divide mt-3 overflow-hidden">
                 {docs.map((doc) => (
                   <li
@@ -146,7 +155,6 @@ export default function NrbPage() {
                       </a>
                     </span>
                     <span className="flex shrink-0 flex-wrap items-center gap-2">
-                      {doc.topic ? <Chip>{doc.topic}</Chip> : null}
                       {doc.size ? (
                         <span className="font-mono text-xs text-mfi-400">{doc.size}</span>
                       ) : null}
@@ -160,6 +168,23 @@ export default function NrbPage() {
             </section>
           );
         })}
+
+        {absentCategories.length > 0 || uncategorised > 0 ? (
+          <p className="mt-10 max-w-3xl text-xs leading-relaxed text-mfi-500">
+            {absentCategories.length > 0 ? (
+              <>
+                NRB also publishes{" "}
+                {absentCategories.map((c) => c.category.label).join(" and ")} (source map:{" "}
+                {[...new Set(absentCategories.map((c) => c.category.sourceMapSection))].join("; ")}).
+                This snapshot contains none, so no section is shown for them — a gap in this snapshot,
+                not a statement that they do not exist.{" "}
+              </>
+            ) : null}
+            {uncategorised > 0
+              ? `${uncategorised} document(s) matched no known series and are filed by type only.`
+              : null}
+          </p>
+        ) : null}
 
         <section className="mt-12">
           <div className="flex flex-wrap items-baseline gap-2 border-b border-mfi-200 pb-2">
