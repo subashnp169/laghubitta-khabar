@@ -52,7 +52,7 @@ Ranked by impact/risk. P0 = factual risk; P1 = core; P2 = coverage; P3 = UX; P4 
 |---|---|---|---|---|---|
 | P4-1 | Alerts driven by actual evidence changes (not fabricated) | Future | L | Alerts | Concept only |
 | P4-2 | Search: entity-type labels + coverage expansion (branches/reg events/metrics) | Discovery | M | Search | Done |
-| P4-3 | AI sits above evidence layer (never replaces) | Architecture | L | Future | Explicit rule |
+| P4-3 | AI sits above evidence layer (never replaces) | Architecture | L | Future | Done (`docs/AI-ABOVE-EVIDENCE.md` consolidates the rule from the 7 scattered docs into one accepted ADR: AI may propose claims but never publishes one, the read plane cannot see `data_assertions`, and M2.3 stays gated until UNVERIFIED assertions are reviewed) |
 
 ## Top 10 recommendation (next engineering cycle)
 
