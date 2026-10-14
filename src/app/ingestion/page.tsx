@@ -80,7 +80,7 @@ export default function IngestionPage() {
           <Stat term="Validation passed" value={crawlSummary.passCount} tone="positive" />
           <Stat term="Validation failed" value={crawlSummary.failCount} tone={crawlSummary.failCount > 0 ? "conflict" : "neutral"} />
           <Stat term="Awaiting review" value={crawlSummary.pendingCount} />
-          <Stat term="Open conflicts" value={crawlSummary.conflictsOpen} tone={crawlSummary.conflictsOpen === 0 ? "positive" : "conflict"} />
+          <Stat term="Open conflicts" value={crawlSummary.conflictsOpen} tone={crawlSummary.conflictsOpen > 0 ? "conflict" : "neutral"} />
         </dl>
 
         <p className="mt-3 text-xs leading-relaxed text-mfi-500">
@@ -88,7 +88,13 @@ export default function IngestionPage() {
           assertions have been checked, leaving {crawlSummary.pendingCount.toLocaleString()} awaiting a
           human. The two duplicate hash groups are identical page content recorded against different
           sources — expected where institutions share a template, and the reason{" "}
-          {crawlSummary.documents} documents is below the number of distinct pages fetched.
+          {crawlSummary.documents} documents is below the number of distinct pages fetched. &ldquo;Open
+          conflicts&rdquo; is a pipeline count from that same generation, so a zero is not a verified
+          all-clear: conflicts present in the evidence layer are surfaced on{" "}
+          <Link href="/alerts" className="underline underline-offset-2">
+            alerts
+          </Link>
+          .
         </p>
 
         <div className="mt-8 flex flex-wrap items-center gap-2">

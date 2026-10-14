@@ -68,5 +68,14 @@ const offenders = walk(join(root, "src"))
   .map((full) => full.slice(root.length + 1).replace(/\\/g, "/"));
 check(`no page hand-rolls an amber callout${offenders.length ? ` (offenders: ${offenders.join(", ")})` : ""}`, offenders.length === 0);
 
+// The ingestion room's "Open conflicts" figure is an unverified pipeline count
+// read from the last generation, not a measurement of the evidence layer. A zero
+// must never render as a positive/green health signal — absence of measurement is
+// not absence of problems (docs/data/CONFLICT-VISIBILITY-CHAIN.md).
+const ingestion = read("src/app/ingestion/page.tsx");
+check("ingestion page does not render a zero conflict count as positive", !/conflictsOpen === 0 \? "positive"/.test(ingestion));
+check("ingestion page renders a zero conflict count as neutral", /conflictsOpen > 0 \? "conflict" : "neutral"/.test(ingestion));
+check("ingestion page says a zero conflict count is not a verified all-clear", /a zero is not a verified\s+all-clear/.test(ingestion));
+
 console.log(`\nsmoke:ui-states: ${pass} passed, ${fail} failed`);
 if (fail > 0) process.exit(1);
