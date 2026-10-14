@@ -9,7 +9,7 @@ import { Container } from "@/components/ui/Section";
 import { Breadcrumb, Panel, SectionNav, SectionSidebar } from "@/components/ui/Panel";
 import { Row, Stat, StatGrid } from "@/components/ui/Stat";
 import { Chip, StatusChip } from "@/components/ui/Chip";
-import { EmptyState } from "@/components/ui/EmptyState";
+import { EmptyState, StateNote } from "@/components/ui/EmptyState";
 import { Provenance } from "@/components/ui/Provenance";
 import { fieldState, institutionStatus, isCurrentInstitution, isVerifiedWebsite, sourceStatus, verificationStatus, websiteStatus, BRANDING_NOTE, type Tone } from "@/util/evidence";
 import { branchCoverage } from "@/util/branches";
@@ -422,11 +422,11 @@ export default async function InstitutionPage({
           </p>
 
           {!isCurrentInstitution(inst.licenseStatus) ? (
-            <p className="mt-4 rounded-md border border-flag-200 bg-flag-50 px-3 py-2 text-sm leading-relaxed text-flag-700">
+            <StateNote className="mt-4">
               {inst.name} is recorded by the Nepal Rastra Bank as{" "}
               {institutionStatus(inst.licenseStatus).label.toLowerCase()}. It is kept here as a
               historical record and is not presented as a current institution.
-            </p>
+            </StateNote>
           ) : null}
 
           <StatGrid className="mt-6">

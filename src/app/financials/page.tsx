@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { Container, PageHeader } from "@/components/ui/Section";
 import { Chip } from "@/components/ui/Chip";
-import { EmptyState } from "@/components/ui/EmptyState";
+import { EmptyState, StateNote } from "@/components/ui/EmptyState";
 import { financialsProvenance, institutions } from "@/lib/site-data";
 import { allPublishedFinancials } from "../../../lib/repository/static-financials";
 import { displayHost, formatDate, humanize, realUrl } from "@/util/format";
@@ -59,12 +59,12 @@ export default function FinancialsPage() {
       </PageHeader>
 
       <Container className="py-8 sm:py-10">
-        <p className="rounded-md border border-flag-200 bg-flag-50 px-4 py-3 text-sm leading-relaxed text-flag-700">
+        <StateNote>
           <span className="font-semibold">Nothing here has been read.</span> These are catalogue entries:
           the document exists, we know which institution linked it and when we saw it. Any figure inside a
           PDF is unverified, because reading and checking those PDFs is not something this project does
           yet.
-        </p>
+        </StateNote>
 
         <p className="mt-3 text-xs leading-relaxed text-mfi-500">{PERIOD_DISCIPLINE_NOTE}</p>
 

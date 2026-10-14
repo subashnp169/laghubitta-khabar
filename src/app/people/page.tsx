@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { Container, PageHeader } from "@/components/ui/Section";
 import { Chip, StatusChip } from "@/components/ui/Chip";
-import { EmptyState } from "@/components/ui/EmptyState";
+import { EmptyState, StateNote } from "@/components/ui/EmptyState";
 import { allPublishedPeople } from "../../../lib/repository/static-people";
 import { institutions } from "@/lib/site-data";
 import { verificationStatus, sourceCount } from "@/util/evidence";
@@ -76,7 +76,7 @@ export default function PeoplePage() {
         </dl>
 
         {withoutLeadership.length > 0 ? (
-          <p className="mt-4 rounded-md border border-flag-200 bg-flag-50 px-4 py-3 text-sm leading-relaxed text-flag-700">
+          <StateNote className="mt-4">
             <span className="font-semibold">{withoutLeadership.length} licensed institutions publish no
               leadership page we could read.</span>{" "}
             They are missing from this list because the information was not found, not because they have no
@@ -85,7 +85,7 @@ export default function PeoplePage() {
               Browse all institutions
             </Link>
             .
-          </p>
+          </StateNote>
         ) : null}
 
         {groups.length === 0 ? (

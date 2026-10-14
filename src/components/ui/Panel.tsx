@@ -52,6 +52,11 @@ export function Panel({
  *
  * A client component only in that it highlights the section in view; the links
  * themselves are ordinary anchors, so they work with no JavaScript at all.
+ *
+ * The links carry a 44px minimum height: this bar is the only section
+ * navigation on phones, and a tap target below 44px is the first thing to fail
+ * on a small screen. The list scrolls horizontally rather than wrapping, so a
+ * long label can never push an entry off-screen at 320px.
  */
 export function SectionNav({
   items,
@@ -63,12 +68,12 @@ export function SectionNav({
   if (items.length < 2) return null;
   return (
     <nav aria-label={label} className="lk-scroll-x -mx-4 border-y border-mfi-100 bg-white/95 px-4 backdrop-blur-sm sm:mx-0 sm:rounded-lg sm:border">
-      <ul className="flex min-w-max items-center gap-1 py-1.5">
+      <ul className="flex min-w-max items-center gap-1 py-1">
         {items.map((item) => (
           <li key={item.href}>
             <a
               href={item.href}
-              className="inline-flex min-h-9 items-center gap-1.5 rounded-md px-2.5 text-sm font-medium text-mfi-700 transition-colors hover:bg-mfi-50 hover:text-mfi-900"
+              className="inline-flex min-h-11 items-center gap-1.5 rounded-md px-2.5 text-sm font-medium text-mfi-700 transition-colors hover:bg-mfi-50 hover:text-mfi-900"
             >
               {item.label}
               {item.count !== undefined ? (

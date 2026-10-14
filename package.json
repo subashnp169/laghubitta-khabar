@@ -67,6 +67,8 @@
     "smoke:linkage": "tsx scripts/smoke-linkage.ts",
     "smoke:branch-coverage": "tsx scripts/smoke-branch-coverage.ts",
     "smoke:nrb": "tsx scripts/smoke-nrb.ts",
+    "smoke:profile-nav": "tsx scripts/smoke-profile-nav.ts",
+    "smoke:ui-states": "tsx scripts/smoke-ui-states.ts",
     "smoke:canonical-links": "tsx scripts/smoke-canonical-links.ts",
     "api": "tsx scripts/api-server.ts",
     "smoke:api": "tsx scripts/smoke-api.ts",

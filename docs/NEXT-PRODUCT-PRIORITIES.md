@@ -42,9 +42,9 @@ Ranked by impact/risk. P0 = factual risk; P1 = core; P2 = coverage; P3 = UX; P4 
 | # | Capability | Rationale | Effort | Owner logic | Done? |
 |---|---|---|---|---|---|
 | P3-1 | Mobile nav/IA polish (drawer extras already added in source; keep consistent) | Usability | S | Layout | Done (source) |
-| P3-2 | Institution profile nav remains usable at 320–1440 | Mobile-first IA | S | CSS/layout | Partial (static only) |
+| P3-2 | Institution profile nav remains usable at 320–1440 | Mobile-first IA | S | CSS/layout | Yes (the mobile bar's targets are now 44px (`min-h-11`) and it scrolls rather than wraps (`lk-scroll-x` + `min-w-max`), so it works at 320; the desktop rail and the mobile bar are one list shown one-per-breakpoint (`hidden lg:block` / `lg:hidden`) and the sticky offset tracks the header height (`top-14`/`h-14`, `sm:top-16`/`sm:h-16`); `smoke:profile-nav` locks the tap target, the no-duplicate-links rule and that every `#anchor` resolves to a section id) |
 | P3-3 | Shared primitives (Stat/Panel/SectionNav/Breadcrumb) consistently applied | Uniformity | S | Components | Done |
-| P3-4 | Empty/Partial/Conflict states standardized | UX consistency | S | Shared | Partial |
+| P3-4 | Empty/Partial/Conflict states standardized | UX consistency | S | Shared | Yes (one `StateNote` primitive in `src/components/ui/EmptyState.tsx`, beside `EmptyState`; `tone` reuses the status vocabulary so amber = partial/attention and red = conflict, and the padding/size/colour live in exactly one place; the five pages that carried hand-rolled amber callouts now use it; `smoke:ui-states` locks the tones and fails any reintroduced ad-hoc callout) |
 
 ## P4 — Intelligence
 

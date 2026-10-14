@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { Container, PageHeader } from "@/components/ui/Section";
 import { Chip } from "@/components/ui/Chip";
-import { EmptyState } from "@/components/ui/EmptyState";
+import { EmptyState, StateNote } from "@/components/ui/EmptyState";
 import { allInterestRates } from "../../../lib/api/repository";
 import type { InterestRateDto } from "../../../lib/repository/types";
 import { formatDate, humanize, realUrl } from "@/util/format";
@@ -65,11 +65,11 @@ export default function InterestRatesPage() {
       </PageHeader>
 
       <Container className="py-8 sm:py-10">
-        <p className="rounded-md border border-flag-200 bg-flag-50 px-4 py-3 text-sm leading-relaxed text-flag-700">
+        <StateNote>
           <span className="font-semibold">We are not going to estimate these.</span> A sector average, a
           figure copied from a single lender, or a rate remembered from a news report would all read as
           data and none of them would be sourced. Each notice links to the document; open it for the rate.
-        </p>
+        </StateNote>
 
         <dl className="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-mfi-200 bg-mfi-200 sm:grid-cols-3">
           <Stat term="Notices located" value={String(rates.length)} />

@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import type { Tone } from "@/util/evidence";
 
 /**
  * The honest answer to "there is nothing here".
@@ -29,6 +30,50 @@ export function EmptyState({
       <p className={`font-medium text-mfi-800 ${compact ? "text-sm" : "text-base"}`}>{title}</p>
       {detail ? <p className="max-w-prose text-sm leading-relaxed text-mfi-600">{detail}</p> : null}
       {action ? <div className="mt-1">{action}</div> : null}
+    </div>
+  );
+}
+
+/**
+ * How each state tone is drawn. Kept beside EmptyState so a "partial" or
+ * "conflict" note has one look on every page instead of being re-typed with
+ * drifting padding, size and colour.
+ */
+const STATE_TONE: Record<Tone, string> = {
+  attention: "border-flag-200 bg-flag-50 text-flag-700",
+  conflict: "border-alert-200 bg-alert-50 text-alert-700",
+  positive: "border-nrb-200 bg-nrb-50 text-nrb-700",
+  info: "border-mfi-200 bg-mfi-50 text-mfi-700",
+  neutral: "border-mfi-200 bg-mfi-50 text-mfi-700",
+};
+
+/**
+ * An inline state note: the "this is partial / unresolved / conflicting" line
+ * that sits next to data rather than replacing it.
+ *
+ * `tone` follows the same vocabulary as a status chip, so amber still means
+ * "needs attention" and red still means "sources disagree". The tone is data,
+ * not decoration.
+ */
+export function StateNote({
+  tone = "attention",
+  size = "sm",
+  className = "",
+  children,
+}: {
+  tone?: Tone;
+  size?: "xs" | "sm";
+  className?: string;
+  children: ReactNode;
+}) {
+  return (
+    <div
+      role="note"
+      className={`rounded-md border px-4 py-3 leading-relaxed ${
+        size === "xs" ? "text-xs" : "text-sm"
+      } ${STATE_TONE[tone]} ${className}`}
+    >
+      {children}
     </div>
   );
 }

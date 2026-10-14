@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { Container } from "@/components/ui/Section";
 import { Chip } from "@/components/ui/Chip";
+import { StateNote } from "@/components/ui/EmptyState";
 import { nrbDocuments, nrbRegulatoryEvents } from "@/lib/site-data";
 import { formatDate, humanize, realUrl } from "@/util/format";
 import { institutionHrefForSlug } from "@/util/institution-profile";
@@ -160,11 +161,11 @@ export default async function ActivityDetailPage({
             <Field term="Size" value={doc.size ?? "Not recorded"} />
           </dl>
 
-          <p className="mt-6 rounded-md border border-flag-200 bg-flag-50 px-4 py-3 text-xs leading-relaxed text-flag-700">
+          <StateNote className="mt-6" size="xs">
             <span className="font-semibold">This document has not been read.</span>{" "}
             {doc.sourceTitle} is recorded as published on {formatDate(doc.publishedAt) ?? "an unrecorded date"}.
             Nothing on this page summarises it, because nothing here has read it.
-          </p>
+          </StateNote>
 
           {url ? (
             <a
