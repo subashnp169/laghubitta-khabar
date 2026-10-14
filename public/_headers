@@ -1,0 +1,38 @@
+# =============================================================================
+# Laghubitta Khabar — response security headers (Cloudflare Pages)
+# =============================================================================
+# WHY THIS FILE AND NOT src/middleware.ts
+#   next.config.ts sets `output: "export"`. Under a static export Next.js does
+#   NOT execute middleware at runtime, so a middleware.ts here would ship dead
+#   code. Cloudflare Pages reads this `_headers` file at deploy time and applies
+#   the rules at the edge. This is the platform equivalent of middleware.
+#
+#   docs/ARCHITECTURE.md names Cloudflare Pages as the supported host for the
+#   static export, which is why the rule set lives here.
+#
+# DEPLOYMENT REALITY CHECK
+#   GitHub Pages (.github/workflows/deploy.yml) IGNORES this file. GitHub Pages
+#   cannot set custom response headers at all. So on the GitHub Pages staging
+#   deploy these headers are ABSENT and the site has no CSP.
+#     -> staging on GitHub Pages  = no header protection
+#     -> Cloudflare Pages        = full protection below
+#   Treat Cloudflare Pages as the security baseline, not GitHub Pages.
+#
+# CSP notes
+#   script-src needs 'unsafe-inline': the App Router emits inline bootstrap
+#   scripts (self.__next_f.push) that cannot be nonced in a static export.
+#   style-src needs 'unsafe-inline' for React inline style attributes.
+#   img-src allows https: because institution logos and OG images are remote.
+#   frame-ancestors is CSP-only; X-Frame-Options is kept for old agents.
+# =============================================================================
+
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self'; media-src 'self' https:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=(), interest-cohort=()
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: same-origin
+  X-DNS-Prefetch-Control: off
