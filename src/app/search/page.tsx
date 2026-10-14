@@ -1,13 +1,7 @@
 import type { Metadata } from "next";
 import { Container, PageHeader } from "@/components/ui/Section";
-import { SearchIndex, type IndexEntry } from "@/components/search/SearchIndex";
-import { institutions, nrbRegulatoryEvents, jobs } from "@/lib/site-data";
-import { distinctNrbDocuments } from "@/util/activity";
-import { allPublishedPeople } from "../../../lib/repository/static-people";
-import { allPublishedFinancials } from "../../../lib/repository/static-financials";
-import { displayHost, formatDate, humanize, NOT_AVAILABLE } from "@/util/format";
-
-const financials = allPublishedFinancials();
+import { SearchIndex } from "@/components/search/SearchIndex";
+import { buildSearchEntries } from "@/util/search-index";
 
 /**
  * Search.
@@ -34,95 +28,16 @@ export const metadata: Metadata = {
   robots: { index: false, follow: true },
 };
 
-const people = allPublishedPeople();
-
-/**
- * People records carry an institution *slug*, not a name. Resolving it once here
- * keeps the search index honest — a reader searching an institution name should
- * see that name on the person row, and a slug would show as initials.
- */
-const nameByInstitutionSlug = new Map(institutions.map((i) => [i.slug, i.name]));
-
-const ENTRIES: IndexEntry[] = [
-  ...institutions.map((inst) => ({
-    id: inst.id,
-    kind: "institution" as const,
-    label: inst.name,
-    meta: [inst.workingArea, inst.headOffice].join(" · "),
-    href: `/institutions/${inst.slug}`,
-    // Aliases and the raw source name are searchable but never displayed, so a
-    // reader typing "MITHILA" finds the record without the card looking cluttered.
-    keywords: [...inst.aliases, inst.sourceNameRaw].join(" "),
-  })),
-  ...people.map((person) => {
-    const position = person.positions.find((p) => p.is_current) ?? person.positions[0];
-    const title = position ? humanize(position.title) : null;
-    return {
-      id: person.id,
-      kind: "person" as const,
-      label: person.name,
-      meta: `${title ?? NOT_AVAILABLE} · ${
-        nameByInstitutionSlug.get(person.institution_slug) ?? person.institution_slug
-      }`,
-      href: `/people/${person.slug}`,
-      keywords: person.institution_slug.replace(/-/g, " "),
-    };
-  }),
-  ...jobs.map((job) => ({
-    id: job.id,
-    kind: "job" as const,
-    label: job.title,
-    meta: `${job.institution} · ${job.kind === "POSTING" ? "parsed posting" : "unread notice"}`,
-    href: null,
-    keywords: `${humanize(job.location) ?? ""} ${displayHost(job.sourceDocument) ?? ""}`,
-  })),
-  ...nrbRegulatoryEvents.map((event) => ({
-    id: event.id,
-    kind: "event" as const,
-    label: `${humanize(event.eventType) ?? "Change"} — ${event.title}`,
-    meta: `${event.institutionName} · ${formatDate(event.occurredAt) ?? "undated"}`,
-    href: `/news/${event.id}`,
-    keywords: `${event.institutionName} ${event.eventType} merger acquisition rename`,
-  })),
-  ...distinctNrbDocuments().map((doc) => ({
-    id: doc.id,
-    kind: "document" as const,
-    label: doc.title,
-    meta: `${doc.sourceTitle} · ${formatDate(doc.publishedAt) ?? "undated"}`,
-    href: doc.officialUrl,
-    keywords: `${doc.docType} ${doc.topic ?? ""}`,
-  })),
-  ...financials.map((doc) => ({
-    id: doc.id,
-    kind: "document" as const,
-    label: doc.title,
-    meta: `${doc.institution} · ${
-      humanize(doc.reportType) ?? humanize(doc.rateKind) ?? "financial document"
-    }`,
-    href: doc.sourceDocument,
-    keywords: `${doc.institution} ${doc.kind} ${displayHost(doc.sourceDocument) ?? ""}`,
-  })),
-];
-
+const ENTRIES = buildSearchEntries();
 export default function SearchPage() {
   return (
-    <>
+    <Container>
       <PageHeader
-        eyebrow="Search"
-        title="Search the record"
-      >
-        <p className="max-w-2xl text-base leading-relaxed text-mfi-600">
-          Searches {institutions.length} institutions and their recorded aliases,{" "}
-          {people.length} published people, {jobs.length} vacancy records,{" "}
-          {nrbRegulatoryEvents.length} recorded changes and{" "}
-          {distinctNrbDocuments().length + financials.length} documents. Every result links to the page that holds its
-          sources.
-        </p>
-      </PageHeader>
-
-      <Container className="py-8 sm:py-10">
-        <SearchIndex entries={ENTRIES} />
-      </Container>
-    </>
+        title="Search"
+        description="Find institutions, people, documents, vacancies and regulatory activity across the record."
+      />
+      <SearchIndex entries={ENTRIES} />
+    </Container>
   );
 }
+

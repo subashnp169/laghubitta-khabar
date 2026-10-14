@@ -21,28 +21,8 @@ import { Chip } from "@/components/ui/Chip";
  * the unfiltered view is not hidden behind an input.
  */
 
-export type IndexKind = "institution" | "person" | "job" | "document" | "event";
-
-export interface IndexEntry {
-  id: string;
-  kind: IndexKind;
-  label: string;
-  /** One short line of context. Never a sentence built from unknown values. */
-  meta: string;
-  href: string | null;
-  /** Extra text folded into the haystack but not displayed. */
-  keywords?: string;
-}
-
-const KIND_LABEL: Record<IndexKind, string> = {
-  institution: "Institutions",
-  person: "People",
-  job: "Vacancies",
-  document: "Documents",
-  event: "Regulatory activity",
-};
-
-const KIND_ORDER: IndexKind[] = ["institution", "person", "job", "event", "document"];
+import type { IndexEntry, IndexKind } from "@/util/search-kinds";
+import { KIND_LABEL, KIND_ORDER } from "@/util/search-kinds";
 
 const MAX_PER_GROUP = 25;
 
