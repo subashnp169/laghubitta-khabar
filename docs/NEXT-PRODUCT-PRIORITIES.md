@@ -51,7 +51,7 @@ Ranked by impact/risk. P0 = factual risk; P1 = core; P2 = coverage; P3 = UX; P4 
 | # | Capability | Rationale | Effort | Owner logic | Done? |
 |---|---|---|---|---|---|
 | P4-1 | Alerts driven by actual evidence changes (not fabricated) | Future | L | Alerts | Concept only |
-| P4-2 | Search: entity-type labels + coverage expansion (branches/reg events/metrics) | Discovery | M | Search | Partial |
+| P4-2 | Search: entity-type labels + coverage expansion (branches/reg events/metrics) | Discovery | M | Search | Done |
 | P4-3 | AI sits above evidence layer (never replaces) | Architecture | L | Future | Explicit rule |
 
 ## Top 10 recommendation (next engineering cycle)
