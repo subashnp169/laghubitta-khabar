@@ -1,7 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { buildAlerts, countBySeverity } from "../../../lib/alerts";
-import { nrbRegulatoryEvents, crawlSources, institutions } from "@/lib/site-data";
+import type { ConflictAlertInput, ConflictRecordType } from "../../../lib/alerts";
+import {
+  nrbRegulatoryEvents,
+  crawlSources,
+  institutions,
+  openBranchConflicts,
+  openPeopleConflicts,
+  openFinancialConflicts,
+  openDocumentConflicts,
+} from "@/lib/site-data";
 import { Container, PageHeader } from "@/components/ui/Section";
 import { Chip } from "@/components/ui/Chip";
 import { EmptyState } from "@/components/ui/EmptyState";
@@ -26,8 +35,36 @@ import type { Tone } from "@/util/evidence";
 export const metadata: Metadata = {
   title: "Alerts",
   description:
-    "Regulatory events and coverage gaps derived from this project's records. Each alert links to the record that produced it.",
+    "Unresolved evidence conflicts, regulatory events and coverage gaps derived from this project's records. Each alert links to the record that produced it.",
 };
+
+/**
+ * A conflict row names the institution either by id (people) or inside an
+ * entity id (`mfi-001|…`, `financial-mfi-002|…`, `document-mfi-003|…`). One
+ * pattern reads the institution out of any of them, so no register needs a
+ * bespoke parser.
+ */
+const INSTITUTION_ID = /(mfi-\d+)/i;
+
+const institutionsById = new Map(institutions.map((i) => [i.id, i]));
+
+function conflictInput(
+  recordType: ConflictRecordType,
+  scope: string,
+  field: string,
+): ConflictAlertInput {
+  const match = scope.match(INSTITUTION_ID);
+  const institutionId = match ? match[1] : null;
+  const inst = institutionId ? institutionsById.get(institutionId) : undefined;
+  return {
+    id: `${scope}|${field}`,
+    recordType,
+    field,
+    institutionId,
+    institutionSlug: inst?.slug ?? null,
+    institutionName: inst?.name ?? null,
+  };
+}
 
 const SEVERITY_TONE: Record<string, Tone> = {
   high: "conflict",
@@ -36,9 +73,22 @@ const SEVERITY_TONE: Record<string, Tone> = {
 };
 
 export default function AlertsPage() {
-  const alerts = buildAlerts(nrbRegulatoryEvents, crawlSources);
+  // Open conflicts are real rows in the evidence layer: two sources asserting
+  // the same field differently. Today all four registers are empty, so this
+  // contributes nothing but still reports that honestly (see the note below the
+  // summary). It is wired, not faked — a conflict would appear the moment one is
+  // recorded, with no invented date.
+  const conflictInputs: ConflictAlertInput[] = [
+    ...openBranchConflicts.map((c) => conflictInput("branch", c.entity_id, c.field_name)),
+    ...openPeopleConflicts.map((c) => conflictInput("person", c.institution_id, c.field_name)),
+    ...openFinancialConflicts.map((c) => conflictInput("financial", c.entity_id, c.field_name)),
+    ...openDocumentConflicts.map((c) => conflictInput("document", c.entity_id, c.field_name)),
+  ];
+
+  const alerts = buildAlerts(nrbRegulatoryEvents, crawlSources, conflictInputs);
   const counts = countBySeverity(alerts);
   const nameByInst = new Map(institutions.map((i) => [i.id, i.name]));
+  const conflicts = alerts.filter((a) => a.kind === "EVIDENCE_CONFLICT");
   const coverage = alerts.filter((a) => a.kind === "COVERAGE");
   const events = alerts.filter((a) => a.kind === "REGULATORY_EVENT");
 
@@ -49,8 +99,9 @@ export default function AlertsPage() {
         title="What changed, and what we still do not have"
       >
         <p className="max-w-2xl text-base leading-relaxed text-mfi-600">
-          Two kinds of alert, both derived directly from records: regulatory events the NRB directory
-          recorded, and institutions whose pages we could not read. No interpretation, no recommendations.
+          Three kinds of alert, all derived directly from records: fields where sources disagree, regulatory
+          events the NRB directory recorded, and institutions whose pages we could not read. No
+          interpretation, no recommendations.
         </p>
       </PageHeader>
 
@@ -61,9 +112,17 @@ export default function AlertsPage() {
           <Chip tone="attention">{counts.medium} medium</Chip>
           <Chip tone="neutral">{counts.low} low</Chip>
           <span className="ml-auto text-xs text-mfi-500">
-            {events.length} regulatory · {coverage.length} coverage
+            {conflicts.length} conflicts · {events.length} regulatory · {coverage.length} coverage
           </span>
         </div>
+
+        {conflicts.length === 0 ? (
+          <p className="mt-4 max-w-2xl text-xs leading-relaxed text-mfi-500">
+            No unresolved evidence conflicts in this snapshot: across branches, leadership, financials and
+            documents, no field is currently asserted two different ways. When one is, it appears above as a
+            conflict — but only the disagreement is recorded, never an invented date for when it began.
+          </p>
+        ) : null}
 
         {alerts.length === 0 ? (
           <div className="mt-6">
@@ -72,6 +131,42 @@ export default function AlertsPage() {
               detail="Nothing is flagged: no regulatory events are recorded and no coverage gaps were detected in this snapshot."
             />
           </div>
+        ) : null}
+
+        {conflicts.length > 0 ? (
+          <AlertGroup
+            title="Evidence conflicts"
+            note="Fields two or more sources assert differently. The record is kept as-is and the disagreement is shown, never silently resolved to one value."
+          >
+            {conflicts.map((a) => {
+              const profile = institutionHrefForSlug(a.institutionSlug);
+              const name = a.institutionName ?? a.institutionId ?? "";
+              return (
+                <li key={a.id} className="flex items-start gap-3 px-4 py-4 sm:px-5">
+                  <Chip tone={SEVERITY_TONE[a.severity] ?? "neutral"} className="mt-0.5 shrink-0">
+                    {a.severity}
+                  </Chip>
+                  <div className="min-w-0">
+                    <p className="text-sm font-semibold text-mfi-900">{a.title}</p>
+                    <p className="mt-0.5 text-xs leading-relaxed text-mfi-600">{a.detail}</p>
+                    <p className="mt-1 flex flex-wrap items-center gap-x-2 text-[11px] text-mfi-500">
+                      {profile && name ? (
+                        <Link href={profile} className="font-medium text-mfi-700 underline underline-offset-2">
+                          {name.replace(/ Laghubitta Bittiya Sanstha( Ltd\.?)?$/i, "").trim()}
+                        </Link>
+                      ) : name ? (
+                        <span className="font-medium text-mfi-700">
+                          {name.replace(/ Laghubitta Bittiya Sanstha( Ltd\.?)?$/i, "").trim()}
+                        </span>
+                      ) : null}
+                      <span aria-hidden="true">·</span>
+                      <span>{a.source}</span>
+                    </p>
+                  </div>
+                </li>
+              );
+            })}
+          </AlertGroup>
         ) : null}
 
         {coverage.length > 0 ? (
@@ -165,9 +260,9 @@ export default function AlertsPage() {
         ) : null}
 
         <p className="mt-10 text-xs leading-relaxed text-mfi-500">
-          Alerts are derived from the NRB event ledger and the source-monitoring summary. This page is the
-          alert surface only — nothing is emailed, messaged or pushed anywhere, because the site is a static
-          build with no delivery channel.
+          Alerts are derived from the open conflict registers of the evidence layer, the NRB event ledger and
+          the source-monitoring summary. This page is the alert surface only — nothing is emailed, messaged or
+          pushed anywhere, because the site is a static build with no delivery channel.
         </p>
       </Container>
     </>

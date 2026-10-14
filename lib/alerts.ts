@@ -1,13 +1,15 @@
 // ============================================================================
-// Phase 2 (M2.2) — deterministic regulatory + coverage alerts. PURE domain
-// module (no infra imports, no randomness, no AI): rows of facts with evidence
-// anchors derived from the generated NRB ledger and pilot control-room data.
-// No free-text summaries, no recommender heuristics. See docs/PHASE-2-DESIGN.md §2.
+// Phase 2 (M2.2) — deterministic regulatory + coverage alerts, plus P4-1
+// evidence-conflict alerts. PURE domain module (no infra imports, no randomness,
+// no AI): rows of facts with evidence anchors derived from the generated NRB
+// ledger, the pilot control-room data, and the open conflict registers of the
+// evidence layer. No free-text summaries, no recommender heuristics.
+// See docs/PHASE-2-DESIGN.md §2 and docs/AI-ABOVE-EVIDENCE.md.
 // ============================================================================
 
 import type { CrawlSource, NrbRegulatoryEvent } from "@/types";
 
-export type AlertKind = "REGULATORY_EVENT" | "COVERAGE";
+export type AlertKind = "REGULATORY_EVENT" | "COVERAGE" | "EVIDENCE_CONFLICT";
 export type AlertSeverity = "high" | "medium" | "low";
 
 export const SEVERITY_RANK: Record<AlertSeverity, number> = { high: 0, medium: 1, low: 2 };
@@ -111,13 +113,74 @@ export function buildCoverageAlerts(sources: CrawlSource[]): AlertItem[] {
   });
 }
 
+// ---------------------------------------------------------------------------
+// Evidence conflicts (P4-1).
+//
+// The one alert kind that is driven by a *disagreement in the evidence layer*
+// rather than by a single record. Each input is an already-open conflict the
+// data modules carry (`open{Branch,People,Financial,Document}Conflicts`): two or
+// more sources assert the same field of the same record with different values.
+//
+// The producer is deliberately thin and cannot fabricate. It emits one high
+// severity alert per open conflict and nothing else: no inferred cause, no
+// chosen side, and — because the evidence layer records no timestamp for when a
+// disagreement arose — **no `occurredAt`**. An alert that invented a date would
+// be exactly the dishonesty this kind exists to prevent.
+// ---------------------------------------------------------------------------
+
+export type ConflictRecordType = "branch" | "person" | "financial" | "document";
+
+export interface ConflictAlertInput {
+  /** Stable identity of the conflicted row (entity id or `institution|field`). */
+  id: string;
+  recordType: ConflictRecordType;
+  /** The field two sources disagree on, as the evidence layer names it. */
+  field: string;
+  institutionId: string | null;
+  institutionSlug: string | null;
+  institutionName: string | null;
+}
+
+const CONFLICT_RECORD_LABEL: Record<ConflictRecordType, string> = {
+  branch: "branch",
+  person: "leadership",
+  financial: "financial",
+  document: "document",
+};
+
+/** One alert per open evidence conflict. Order in = a deterministic order out. */
+export function buildConflictAlerts(conflicts: ConflictAlertInput[]): AlertItem[] {
+  return conflicts.map((c) => {
+    const label = CONFLICT_RECORD_LABEL[c.recordType];
+    return {
+      id: `conf-${c.recordType}-${c.id}-${c.field}`,
+      kind: "EVIDENCE_CONFLICT" as const,
+      // A disagreement between sources is a correctness risk, not a style
+      // choice: it is ranked with the highest severity until it is resolved.
+      severity: "high" as const,
+      title: `Conflicting ${label} evidence`,
+      detail: `Two or more sources assert “${c.field}” differently for this ${label}; the disagreement is recorded and unresolved.`,
+      institutionId: c.institutionId,
+      institutionSlug: c.institutionSlug,
+      institutionName: c.institutionName,
+      // Unknown, and left unknown: the evidence layer does not timestamp when a
+      // conflict appeared, so any date here would be fabricated.
+      occurredAt: null,
+      source: "evidence layer · unresolved conflict",
+    };
+  });
+}
+
 /**
- * Combined feed: coverage first by severity/recency, then regulatory events by
- * severity/recency. Deterministic (separated groups, never interleaved).
+ * Combined feed: evidence conflicts first (an unresolved disagreement outranks
+ * any single-record signal), then coverage, then regulatory events. Each group
+ * is sorted by severity then recency; conflicts carry no date so they sort by
+ * id. Deterministic (separated groups, never interleaved).
  */
 export function buildAlerts(
   events: NrbRegulatoryEvent[],
   sources: CrawlSource[],
+  conflicts: ConflictAlertInput[] = [],
 ): AlertItem[] {
   const sortGroup = (items: AlertItem[]): AlertItem[] =>
     [...items].sort((a, b) => {
@@ -127,7 +190,11 @@ export function buildAlerts(
       if (ta !== tb) return ta < tb ? 1 : -1;
       return a.id < b.id ? -1 : 1;
     });
-  return [...sortGroup(buildCoverageAlerts(sources)), ...sortGroup(buildEventAlerts(events))];
+  return [
+    ...sortGroup(buildConflictAlerts(conflicts)),
+    ...sortGroup(buildCoverageAlerts(sources)),
+    ...sortGroup(buildEventAlerts(events)),
+  ];
 }
 
 export function countBySeverity(alerts: AlertItem[]): Record<AlertSeverity, number> {

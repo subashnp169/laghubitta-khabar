@@ -1,15 +1,25 @@
 // ============================================================================
-// Phase 2 (M2.2) — alert derivation acceptance. Fixture-only: deterministic,
-// no network, no AI. Proves lib/alerts.ts emits fact-backged alert rows:
+// Phase 2 (M2.2) + P4-1 — alert derivation acceptance. Fixture-only:
+// deterministic, no network, no AI. Proves lib/alerts.ts emits fact-backged
+// alert rows:
 //   01 regulatory events newest-first, severity map (MERGED/ACQUIRED=high,
 //      RENAMED=medium), missing occurredAt sorts last
 //   02 coverage derivation: UNHEALTHY=high, DEGRADED=medium, NEVER-RUN=medium,
 //      HEALTHY excluded
-//   03 combined feed groups coverage before events, deterministic ordering
-//   04 severity counters
+//   03 evidence conflicts (P4-1): one high alert per open conflict, no invented
+//      occurredAt, and an empty register yields nothing
+//   04 combined feed groups conflicts, then coverage, then events
+//   05 severity counters
 // ============================================================================
 
-import { buildAlerts, buildCoverageAlerts, buildEventAlerts, countBySeverity } from "../lib/alerts";
+import {
+  buildAlerts,
+  buildConflictAlerts,
+  buildCoverageAlerts,
+  buildEventAlerts,
+  countBySeverity,
+} from "../lib/alerts";
+import type { ConflictAlertInput } from "../lib/alerts";
 import type { CrawlSource, NrbRegulatoryEvent } from "../src/types";
 
 let passed = 0;
@@ -86,20 +96,56 @@ ok(cov[2].id === "cov-c-site" && cov[2].severity === "medium", "NEVER-RUN includ
 ok(cov.some((a) => a.detail.includes("(5 errors, 2 snapshots)")), "detail embeds evidence numbers");
 ok(cov.every((a) => a.source === "control room · /ingestion"), "evidence anchor attached");
 
+console.log("smoke:alerts — evidence conflicts");
+const conflicts: ConflictAlertInput[] = [
+  {
+    id: "mfi-001|kumaripati branch|lalitpur",
+    recordType: "branch",
+    field: "branch_name",
+    institutionId: "mfi-a",
+    institutionSlug: "a",
+    institutionName: "A Microfinance",
+  },
+  {
+    id: "mfi-b|ceo",
+    recordType: "person",
+    field: "ceo_name",
+    institutionId: "mfi-b",
+    institutionSlug: "b",
+    institutionName: "B Microfinance",
+  },
+];
+const conf = buildConflictAlerts(conflicts);
+ok(conf.length === 2, "one alert per open conflict");
+ok(conf.every((a) => a.kind === "EVIDENCE_CONFLICT"), "kind is EVIDENCE_CONFLICT");
+ok(conf.every((a) => a.severity === "high"), "unresolved conflict is high severity");
+ok(conf.every((a) => a.occurredAt === null), "no invented occurredAt");
+ok(conf.every((a) => a.source === "evidence layer · unresolved conflict"), "evidence anchor attached");
+ok(conf[0].title === "Conflicting branch evidence", "record type named in the title");
+ok(conf[1].title === "Conflicting leadership evidence", "person conflict reads as leadership");
+ok(new Set(conf.map((a) => a.id)).size === 2, "conflict ids unique");
+ok(buildConflictAlerts([]).length === 0, "no conflicts -> no alerts (never fabricated)");
+const conf2 = buildConflictAlerts(conflicts);
+ok(conf.map((a) => a.id).join(",") === conf2.map((a) => a.id).join(","), "conflict order deterministic");
+
 console.log("smoke:alerts — combined feed");
-const feed = buildAlerts(events, crawl);
-ok(feed.length === 6, "6 total alerts");
-ok(feed[0].kind === "COVERAGE" && feed[0].severity === "high", "coverage group first, high first");
-ok(feed[3].kind === "REGULATORY_EVENT", "events grouped after coverage");
-ok(feed[3].occurredAt === "2026-06-20", "event group itself newest-first");
+const feed = buildAlerts(events, crawl, conflicts);
+ok(feed.length === 8, "8 total alerts with conflicts");
+ok(feed[0].kind === "EVIDENCE_CONFLICT" && feed[0].severity === "high", "conflicts group first, high first");
+ok(feed[2].kind === "COVERAGE" && feed[2].severity === "high", "coverage grouped after conflicts");
+ok(feed[5].kind === "REGULATORY_EVENT", "events grouped last");
+ok(feed[5].occurredAt === "2026-06-20", "event group itself newest-first");
 const idsOnce = new Set(feed.map((a) => a.id));
 ok(idsOnce.size === feed.length, "unique alert ids");
-const feed2 = buildAlerts(events, crawl);
+const feed2 = buildAlerts(events, crawl, conflicts);
 ok(feed.map((a) => a.id).join(",") === feed2.map((a) => a.id).join(","), "deterministic across calls");
+// Back-compat: the two-argument call (no conflicts) still yields the original 6.
+const feedNoConf = buildAlerts(events, crawl);
+ok(feedNoConf.length === 6 && feedNoConf.every((a) => a.kind !== "EVIDENCE_CONFLICT"), "no conflicts param -> 6, none fabricated");
 
 console.log("smoke:alerts — counters");
 const counts = countBySeverity(feed);
-ok(counts.high === 3 && counts.medium === 3 && counts.low === 0, "severity counters match");
+ok(counts.high === 5 && counts.medium === 3 && counts.low === 0, "severity counters match");
 
 console.log(`\nsmoke:alerts: ${passed} passed, ${failed} failed`);
 if (failed > 0) process.exit(1);
