@@ -1,0 +1,627 @@
+{
+  "generated_by": "scripts/build-canonical-former-aliases.ts",
+  "purpose": "FORMER aliases from timeline_events predecessors (lineage closure)",
+  "count": 62,
+  "rows": [
+    {
+      "institution_id": "mfi-002",
+      "alias": "Adarsha Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "ACQUIRED",
+      "title": "Adarsha Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-005",
+      "alias": "RMDC Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "MERGED",
+      "title": "RMDC Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-006",
+      "alias": "Buddha Jyoti Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "ACQUIRED",
+      "title": "Buddha Jyoti Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-006",
+      "alias": "Cweda Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "ACQUIRED",
+      "title": "Cweda Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-006",
+      "alias": "Mirmire Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "ACQUIRED",
+      "title": "Mirmire Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-006",
+      "alias": "Nagbeli Laghubitta Bikas Bank Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "ACQUIRED",
+      "title": "Nagbeli Laghubitta Bikas Bank Limited"
+    },
+    {
+      "institution_id": "mfi-006",
+      "alias": "Nerude Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "MERGED",
+      "title": "Nerude Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-008",
+      "alias": "Janakpur Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "ACQUIRED",
+      "title": "Janakpur Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-010",
+      "alias": "Janasewi Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "MERGED",
+      "title": "Janasewi Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-012",
+      "alias": "Grameen Swayamsewak Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "MERGED",
+      "title": "Grameen Swayamsewak Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-012",
+      "alias": "Nagarik Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "MERGED",
+      "title": "Nagarik Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-012",
+      "alias": "Suryodaya Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "MERGED",
+      "title": "Suryodaya Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-012",
+      "alias": "Trilok Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "MERGED",
+      "title": "Trilok Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-012",
+      "alias": "Womi Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "MERGED",
+      "title": "Womi Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-014",
+      "alias": "Civil Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "RENAMED",
+      "title": "Civil Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-015",
+      "alias": "Naya Nepal Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "MERGED",
+      "title": "Naya Nepal Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-015",
+      "alias": "Naya Sarathi Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "MERGED",
+      "title": "Naya Sarathi Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-015",
+      "alias": "Sarathi Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "MERGED",
+      "title": "Sarathi Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-015",
+      "alias": "Satyawoti Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "MERGED",
+      "title": "Satyawoti Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-018",
+      "alias": "Sparsha Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "ACQUIRED",
+      "title": "Sparsha Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-019",
+      "alias": "Mahuli Samudayik Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "ACQUIRED",
+      "title": "Mahuli Samudayik Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-019",
+      "alias": "Nawa Kiran Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "ACQUIRED",
+      "title": "Nawa Kiran Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-021",
+      "alias": "Gharelu Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "MERGED",
+      "title": "Gharelu Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-021",
+      "alias": "Manakamana Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "MERGED",
+      "title": "Manakamana Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-021",
+      "alias": "Manakamana Smart Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "MERGED",
+      "title": "Manakamana Smart Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-021",
+      "alias": "Samata Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "MERGED",
+      "title": "Samata Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-021",
+      "alias": "Smart Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "MERGED",
+      "title": "Smart Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-024",
+      "alias": "Mahila Sahayatra Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "ACQUIRED",
+      "title": "Mahila Sahayatra Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-024",
+      "alias": "Sajilo Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "MERGED",
+      "title": "Sajilo Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-024",
+      "alias": "Summit Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "MERGED",
+      "title": "Summit Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-025",
+      "alias": "Madhya Paschimanchal Grameen Bikash Bank Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "MERGED",
+      "title": "Madhya Paschimanchal Grameen Bikash Bank Limited"
+    },
+    {
+      "institution_id": "mfi-025",
+      "alias": "Madhyamanchal Grameen Bikash Bank Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "MERGED",
+      "title": "Madhyamanchal Grameen Bikash Bank Limited"
+    },
+    {
+      "institution_id": "mfi-025",
+      "alias": "Paschimanchal Grameen Bikash Bank Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "MERGED",
+      "title": "Paschimanchal Grameen Bikash Bank Limited"
+    },
+    {
+      "institution_id": "mfi-025",
+      "alias": "Purwanchal Grameen Bikash Bank Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "MERGED",
+      "title": "Purwanchal Grameen Bikash Bank Limited"
+    },
+    {
+      "institution_id": "mfi-025",
+      "alias": "Sudur Paschimanchal Grameen Bikash Bank Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "MERGED",
+      "title": "Sudur Paschimanchal Grameen Bikash Bank Limited"
+    },
+    {
+      "institution_id": "mfi-026",
+      "alias": "Nepal Sewa Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "MERGED",
+      "title": "Nepal Sewa Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-026",
+      "alias": "WEAN Laghubitta Bittiya Sanstha Ltd.",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "MERGED",
+      "title": "WEAN Laghubitta Bittiya Sanstha Ltd."
+    },
+    {
+      "institution_id": "mfi-027",
+      "alias": "Sahakarya Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "MERGED",
+      "title": "Sahakarya Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-027",
+      "alias": "Unnati Microfinance Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "MERGED",
+      "title": "Unnati Microfinance Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-030",
+      "alias": "Aarambha Laghubitta Bittiya Sanstha Ltd.",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "MERGED",
+      "title": "Aarambha Laghubitta Bittiya Sanstha Ltd."
+    },
+    {
+      "institution_id": "mfi-030",
+      "alias": "Chautari Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "MERGED",
+      "title": "Chautari Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-030",
+      "alias": "Deurali Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "ACQUIRED",
+      "title": "Deurali Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-031",
+      "alias": "Rastra Utthan Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "ACQUIRED",
+      "title": "Rastra Utthan Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-034",
+      "alias": "Nepal Agro Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "ACQUIRED",
+      "title": "Nepal Agro Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-036",
+      "alias": "Aarthik Samriddhi Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "ACQUIRED",
+      "title": "Aarthik Samriddhi Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-036",
+      "alias": "Sabaiko Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "MERGED",
+      "title": "Sabaiko Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-036",
+      "alias": "Sadhana Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "ACQUIRED",
+      "title": "Sadhana Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-037",
+      "alias": "Swadeshi Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "MERGED",
+      "title": "Swadeshi Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-040",
+      "alias": "Ghodighoda Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "MERGED",
+      "title": "Ghodighoda Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-042",
+      "alias": "Khaptad Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "MERGED",
+      "title": "Khaptad Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-043",
+      "alias": "Adhikhola Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "MERGED",
+      "title": "Adhikhola Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-043",
+      "alias": "Shaligram Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "ACQUIRED",
+      "title": "Shaligram Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-047",
+      "alias": "Creative Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "MERGED",
+      "title": "Creative Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-047",
+      "alias": "Dibya Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "MERGED",
+      "title": "Dibya Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-047",
+      "alias": "Jalpa Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "ACQUIRED",
+      "title": "Jalpa Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-047",
+      "alias": "Jalpa Samudayik Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "ACQUIRED",
+      "title": "Jalpa Samudayik Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-047",
+      "alias": "Kisan Microfinance Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "MERGED",
+      "title": "Kisan Microfinance Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-047",
+      "alias": "Mahila Samudayik Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "ACQUIRED",
+      "title": "Mahila Samudayik Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-047",
+      "alias": "NRN Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "MERGED",
+      "title": "NRN Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-047",
+      "alias": "Rama Roshan Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "MERGED",
+      "title": "Rama Roshan Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-048",
+      "alias": "Garibi Niunikaran Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "MERGED",
+      "title": "Garibi Niunikaran Laghubitta Bittiya Sanstha Limited"
+    },
+    {
+      "institution_id": "mfi-048",
+      "alias": "Solve Laghubitta Bittiya Sanstha Limited",
+      "alias_type": "FORMER",
+      "is_active": 1,
+      "source_id": "nrb-bfi-mid-may-2026",
+      "reason": "timeline predecessor absorbed",
+      "event_type": "MERGED",
+      "title": "Solve Laghubitta Bittiya Sanstha Limited"
+    }
+  ]
+}

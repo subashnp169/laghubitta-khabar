@@ -1,0 +1,103 @@
+{
+  "generated_by": "scripts/build-canonical-slug-aliases.ts",
+  "purpose": "Canonical slug_aliases for renames (old slug -> moved_to)",
+  "count": 16,
+  "rows": [
+    {
+      "old_slug": "aadarsha-laghubitta-bittiya-sanstha-ltd",
+      "moved_to": "upakar-laghubitta-bittiya-sanstha-ltd",
+      "institution_id": "mfi-041",
+      "was": "Aadarsha Laghubitta Bittiya Sanstha Ltd."
+    },
+    {
+      "old_slug": "aadhibhumi-laghubitta-bittiya-sanstha-ltd",
+      "moved_to": "dhaulagiri-laghubitta-bittiya-sanstha-ltd",
+      "institution_id": "mfi-042",
+      "was": "Aadhibhumi Laghubitta Bittiya Sanstha Ltd."
+    },
+    {
+      "old_slug": "aamra-bikas-laghubitta-bittiya-sanstha-ltd",
+      "moved_to": "manushi-laghubitta-bittiya-sanstha-ltd",
+      "institution_id": "mfi-039",
+      "was": "Aamra Bikas Laghubitta Bittiya Sanstha Ltd."
+    },
+    {
+      "old_slug": "grameen-samanantar-laghubitta-bittiya-sanstha-ltd",
+      "moved_to": "jeevan-bikash-laghubitta-bittiya-sanstha-ltd",
+      "institution_id": "mfi-048",
+      "was": "Grameen Samanantar Laghubitta Bittiya Sanstha Ltd."
+    },
+    {
+      "old_slug": "janasahayog-laghubitta-bittiya-sanstha-ltd",
+      "moved_to": "unique-nepal-laghubitta-bittiya-sanstha-ltd",
+      "institution_id": "mfi-040",
+      "was": "Janasahayog Laghubitta Bittiya Sanstha Ltd."
+    },
+    {
+      "old_slug": "kisan-kalyan-laghubitta-bittiya-sanstha-ltd",
+      "moved_to": "aviyan-laghubitta-bittiya-sanstha-ltd",
+      "institution_id": "mfi-051",
+      "was": "Kisan Kalyan Laghubitta Bittiya Sanstha Ltd."
+    },
+    {
+      "old_slug": "manakamana-laghubitta-bittiya-sanstha-ltd",
+      "moved_to": "nic-asia-laghubitta-bittiya-sanstha-ltd",
+      "institution_id": "mfi-037",
+      "was": "Manakamana Laghubitta Bittiya Sanstha Ltd."
+    },
+    {
+      "old_slug": "naya-nepal-laghubitta-bittiya-sanstha-ltd",
+      "moved_to": "matribhumi-laghubitta-bittiya-sanstha-ltd",
+      "institution_id": "mfi-047",
+      "was": "Naya Nepal Laghubitta Bittiya Sanstha Ltd."
+    },
+    {
+      "old_slug": "nepal-sahakarya-laghubitta-bittiya-sanstha-ltd",
+      "moved_to": "cyc-nepal-laghubitta-bittiya-sanstha-ltd",
+      "institution_id": "mfi-043",
+      "was": "Nepal Sahakarya Laghubitta Bittiya Sanstha Ltd."
+    },
+    {
+      "old_slug": "nyadi-laghubitta-bittiya-sanstha-ltd",
+      "moved_to": "swastik-laghubitta-bittiya-sanstha-ltd",
+      "institution_id": "mfi-045",
+      "was": "Nyadi Laghubitta Bittiya Sanstha Ltd."
+    },
+    {
+      "old_slug": "sabase-laghubitta-bittiya-sanstha-ltd",
+      "moved_to": "sanjeevani-laghubitta-bittiya-sanstha-ltd",
+      "institution_id": "mfi-050",
+      "was": "Sabase Laghubitta Bittiya Sanstha Ltd."
+    },
+    {
+      "old_slug": "sahakarya-laghubitta-bittiya-sanstha-ltd",
+      "moved_to": "mahila-laghubitta-bittiya-sanstha-ltd",
+      "institution_id": "mfi-038",
+      "was": "Sahakarya Laghubitta Bittiya Sanstha Ltd."
+    },
+    {
+      "old_slug": "samaj-laghubitta-bittiya-sanstha-ltd",
+      "moved_to": "shrijanshil-laghubitta-bittiya-sanstha-ltd",
+      "institution_id": "mfi-046",
+      "was": "Samaj Laghubitta Bittiya Sanstha Ltd."
+    },
+    {
+      "old_slug": "samanat-laghubitta-bittiya-sanstha-ltd",
+      "moved_to": "nesdo-samriddha-laghubitta-bittiya-sanstha-ltd",
+      "institution_id": "mfi-044",
+      "was": "Samanat Laghubitta Bittiya Sanstha Ltd."
+    },
+    {
+      "old_slug": "srijil-laghubitta-bittiya-sanstha-ltd",
+      "moved_to": "aatmanirbhar-laghubitta-bittiya-sanstha-ltd",
+      "institution_id": "mfi-049",
+      "was": "Srijil Laghubitta Bittiya Sanstha Ltd."
+    },
+    {
+      "old_slug": "surya-jyoti-laghubitta-bittiya-sanstha-ltd",
+      "moved_to": "sampada-laghubitta-bittiya-sanstha-ltd",
+      "institution_id": "mfi-036",
+      "was": "Surya Jyoti Laghubitta Bittiya Sanstha Ltd."
+    }
+  ]
+}

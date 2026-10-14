@@ -1,0 +1,651 @@
+{
+  "generated_by": "scripts/build-disputed-identity-register.ts",
+  "purpose": "Identity conflict between src/data/institutions.ts (published) and data/master/master.json (NRB capture, source nrb-bfi-mid-may-2026). Recorded, NOT auto-resolved.",
+  "authority_rule": "master.json is the NRB capture and outranks the published module. Where the evidence layer backs master.json, the published identity is wrong. No disputed identity is deleted anywhere in this file.",
+  "not_auto_resolved_because": [
+    "master.json holds no paid-up capital figure; the published capital values cite nrb-kfi, a different NRB source, so capital cannot be re-attributed to the corrected identities offline.",
+    "The published slugs are in the live URL space, so correcting identity requires slug_aliases redirects — a routing decision, not a data edit."
+  ],
+  "inputs": {
+    "master_json_sha256": "db004145489066131cd18b65312d9038a0460efd5e3156121278b463ed253a33",
+    "published_module": "src/data/institutions.ts",
+    "evidence_databases_read": 13,
+    "evidence_databases_present": 13,
+    "historical_baseline": "14b96d4:src/data/institutions.ts"
+  },
+  "summary": {
+    "ids_compared": 51,
+    "identity_agreements": 51,
+    "identity_conflicts": 0,
+    "evidence_supports_master": 0,
+    "unresolved": 0,
+    "applied_corrections": 16,
+    "applied_evidence_supports_master": 16,
+    "non_identity_field_drift": 2,
+    "merge_predecessor_names_unreachable_by_alias": 0,
+    "merge_predecessor_names_closed_by_canonical_former": 62
+  },
+  "identity_conflicts": [],
+  "applied_identity_corrections": [
+    {
+      "id": "mfi-036",
+      "verdict": "EVIDENCE_SUPPORTS_MASTER",
+      "published": {
+        "name": "Surya Jyoti Laghubitta Bittiya Sanstha Ltd.",
+        "slug": "surya-jyoti-laghubitta-bittiya-sanstha-ltd",
+        "paidUpCapitalCrore": 26.31,
+        "capitalClaim": "grade A, sourceId nrb-bfi-mid-may-2026, asOf 2026-05-15"
+      },
+      "master": {
+        "name": "Sampada Laghubitta Bittiya Sanstha Ltd.",
+        "slug": "sampada-laghubitta-bittiya-sanstha-ltd",
+        "official_website": "https://www.sampadalaghubitta.com.np",
+        "operation_date": "2024-07-13"
+      },
+      "evidence": {
+        "domains": [
+          "sampadalaghubitta.com.np"
+        ],
+        "asserted_names": [
+          "Sampada Laghubitta Bittiya Sanstha Limited",
+          "info@sampadalaghubitta.com.np"
+        ],
+        "corroborates": "evidence asserts the legal name \"info@sampadalaghubitta.com.np\" from sampadalaghubitta.com.np, which is master.json's website"
+      },
+      "applied_correction": {
+        "corrected_to": {
+          "name": "Sampada Laghubitta Bittiya Sanstha Ltd.",
+          "slug": "sampada-laghubitta-bittiya-sanstha-ltd"
+        },
+        "slug_redirect": {
+          "old_slug": "surya-jyoti-laghubitta-bittiya-sanstha-ltd",
+          "moved_to": "sampada-laghubitta-bittiya-sanstha-ltd"
+        },
+        "capital_action": "nulled on correction — the claim cited nrb-kfi (a different NRB source) and cannot be re-attributed to the corrected identity offline",
+        "baseline": "git 14b96d4:src/data/institutions.ts (pre-correction published module)"
+      }
+    },
+    {
+      "id": "mfi-037",
+      "verdict": "EVIDENCE_SUPPORTS_MASTER",
+      "published": {
+        "name": "Manakamana Laghubitta Bittiya Sanstha Ltd.",
+        "slug": "manakamana-laghubitta-bittiya-sanstha-ltd",
+        "paidUpCapitalCrore": 13.8,
+        "capitalClaim": "grade A, sourceId nrb-bfi-mid-may-2026, asOf 2026-05-15"
+      },
+      "master": {
+        "name": "NIC Asia Laghubitta Bittiya Sanstha Ltd.",
+        "slug": "nic-asia-laghubitta-bittiya-sanstha-ltd",
+        "official_website": "https://www.nicasialaghubitta.com",
+        "operation_date": "2021-03-21"
+      },
+      "evidence": {
+        "domains": [
+          "nicasialaghubitta.com"
+        ],
+        "asserted_names": [
+          "NIC ASIA LAGHUBITTA BITTIYA SANSTHA LTD"
+        ],
+        "corroborates": "evidence binds mfi-037 to nicasialaghubitta.com (master.json's website); no evidence binds it to any published identity"
+      },
+      "applied_correction": {
+        "corrected_to": {
+          "name": "NIC Asia Laghubitta Bittiya Sanstha Ltd.",
+          "slug": "nic-asia-laghubitta-bittiya-sanstha-ltd"
+        },
+        "slug_redirect": {
+          "old_slug": "manakamana-laghubitta-bittiya-sanstha-ltd",
+          "moved_to": "nic-asia-laghubitta-bittiya-sanstha-ltd"
+        },
+        "capital_action": "nulled on correction — the claim cited nrb-kfi (a different NRB source) and cannot be re-attributed to the corrected identity offline",
+        "baseline": "git 14b96d4:src/data/institutions.ts (pre-correction published module)"
+      }
+    },
+    {
+      "id": "mfi-038",
+      "verdict": "EVIDENCE_SUPPORTS_MASTER",
+      "published": {
+        "name": "Sahakarya Laghubitta Bittiya Sanstha Ltd.",
+        "slug": "sahakarya-laghubitta-bittiya-sanstha-ltd",
+        "paidUpCapitalCrore": 31.04,
+        "capitalClaim": "grade A, sourceId nrb-bfi-mid-may-2026, asOf 2026-05-15"
+      },
+      "master": {
+        "name": "Mahila Laghubitta Bittiya Sanstha Ltd.",
+        "slug": "mahila-laghubitta-bittiya-sanstha-ltd",
+        "official_website": "https://www.mlbsl.com.np",
+        "operation_date": "2018-10-18"
+      },
+      "evidence": {
+        "domains": [
+          "mlbsl.com.np"
+        ],
+        "asserted_names": [
+          "Mahila Laghubitta Bittiya Sanstha Limited"
+        ],
+        "corroborates": "evidence binds mfi-038 to mlbsl.com.np (master.json's website); no evidence binds it to any published identity"
+      },
+      "applied_correction": {
+        "corrected_to": {
+          "name": "Mahila Laghubitta Bittiya Sanstha Ltd.",
+          "slug": "mahila-laghubitta-bittiya-sanstha-ltd"
+        },
+        "slug_redirect": {
+          "old_slug": "sahakarya-laghubitta-bittiya-sanstha-ltd",
+          "moved_to": "mahila-laghubitta-bittiya-sanstha-ltd"
+        },
+        "capital_action": "nulled on correction — the claim cited nrb-kfi (a different NRB source) and cannot be re-attributed to the corrected identity offline",
+        "baseline": "git 14b96d4:src/data/institutions.ts (pre-correction published module)"
+      }
+    },
+    {
+      "id": "mfi-039",
+      "verdict": "EVIDENCE_SUPPORTS_MASTER",
+      "published": {
+        "name": "Aamra Bikas Laghubitta Bittiya Sanstha Ltd.",
+        "slug": "aamra-bikas-laghubitta-bittiya-sanstha-ltd",
+        "paidUpCapitalCrore": 29.89,
+        "capitalClaim": "grade A, sourceId nrb-bfi-mid-may-2026, asOf 2026-05-15"
+      },
+      "master": {
+        "name": "Manushi Laghubitta Bittiya Sanstha Ltd.",
+        "slug": "manushi-laghubitta-bittiya-sanstha-ltd",
+        "official_website": "https://www.manushilbs.com",
+        "operation_date": "2018-11-17"
+      },
+      "evidence": {
+        "domains": [
+          "manushilbs.com"
+        ],
+        "asserted_names": [],
+        "corroborates": "evidence binds mfi-039 to manushilbs.com (master.json's website); no evidence binds it to any published identity"
+      },
+      "applied_correction": {
+        "corrected_to": {
+          "name": "Manushi Laghubitta Bittiya Sanstha Ltd.",
+          "slug": "manushi-laghubitta-bittiya-sanstha-ltd"
+        },
+        "slug_redirect": {
+          "old_slug": "aamra-bikas-laghubitta-bittiya-sanstha-ltd",
+          "moved_to": "manushi-laghubitta-bittiya-sanstha-ltd"
+        },
+        "capital_action": "nulled on correction — the claim cited nrb-kfi (a different NRB source) and cannot be re-attributed to the corrected identity offline",
+        "baseline": "git 14b96d4:src/data/institutions.ts (pre-correction published module)"
+      }
+    },
+    {
+      "id": "mfi-040",
+      "verdict": "EVIDENCE_SUPPORTS_MASTER",
+      "published": {
+        "name": "Janasahayog Laghubitta Bittiya Sanstha Ltd.",
+        "slug": "janasahayog-laghubitta-bittiya-sanstha-ltd",
+        "paidUpCapitalCrore": 6.01,
+        "capitalClaim": "grade A, sourceId nrb-bfi-mid-may-2026, asOf 2026-05-15"
+      },
+      "master": {
+        "name": "Unique Nepal Laghubitta Bittiya Sanstha Ltd.",
+        "slug": "unique-nepal-laghubitta-bittiya-sanstha-ltd",
+        "official_website": "https://uniquenepalmicrofinance.com.np",
+        "operation_date": "2022-01-14"
+      },
+      "evidence": {
+        "domains": [
+          "uniquenepalmicrofinance.com.np"
+        ],
+        "asserted_names": [
+          "Unique Nepal Laghubitta Bittiya Sanstha Limited"
+        ],
+        "corroborates": "evidence binds mfi-040 to uniquenepalmicrofinance.com.np (master.json's website); no evidence binds it to any published identity"
+      },
+      "applied_correction": {
+        "corrected_to": {
+          "name": "Unique Nepal Laghubitta Bittiya Sanstha Ltd.",
+          "slug": "unique-nepal-laghubitta-bittiya-sanstha-ltd"
+        },
+        "slug_redirect": {
+          "old_slug": "janasahayog-laghubitta-bittiya-sanstha-ltd",
+          "moved_to": "unique-nepal-laghubitta-bittiya-sanstha-ltd"
+        },
+        "capital_action": "nulled on correction — the claim cited nrb-kfi (a different NRB source) and cannot be re-attributed to the corrected identity offline",
+        "baseline": "git 14b96d4:src/data/institutions.ts (pre-correction published module)"
+      }
+    },
+    {
+      "id": "mfi-041",
+      "verdict": "EVIDENCE_SUPPORTS_MASTER",
+      "published": {
+        "name": "Aadarsha Laghubitta Bittiya Sanstha Ltd.",
+        "slug": "aadarsha-laghubitta-bittiya-sanstha-ltd",
+        "paidUpCapitalCrore": 17.13,
+        "capitalClaim": "grade A, sourceId nrb-bfi-mid-may-2026, asOf 2026-05-15"
+      },
+      "master": {
+        "name": "Upakar Laghubitta Bittiya Sanstha Ltd.",
+        "slug": "upakar-laghubitta-bittiya-sanstha-ltd",
+        "official_website": "https://www.ulbsl.com.np",
+        "operation_date": "2019-03-27"
+      },
+      "evidence": {
+        "domains": [
+          "ulbsl.com.np"
+        ],
+        "asserted_names": [],
+        "corroborates": "evidence binds mfi-041 to ulbsl.com.np (master.json's website); no evidence binds it to any published identity"
+      },
+      "applied_correction": {
+        "corrected_to": {
+          "name": "Upakar Laghubitta Bittiya Sanstha Ltd.",
+          "slug": "upakar-laghubitta-bittiya-sanstha-ltd"
+        },
+        "slug_redirect": {
+          "old_slug": "aadarsha-laghubitta-bittiya-sanstha-ltd",
+          "moved_to": "upakar-laghubitta-bittiya-sanstha-ltd"
+        },
+        "capital_action": "nulled on correction — the claim cited nrb-kfi (a different NRB source) and cannot be re-attributed to the corrected identity offline",
+        "baseline": "git 14b96d4:src/data/institutions.ts (pre-correction published module)"
+      }
+    },
+    {
+      "id": "mfi-042",
+      "verdict": "EVIDENCE_SUPPORTS_MASTER",
+      "published": {
+        "name": "Aadhibhumi Laghubitta Bittiya Sanstha Ltd.",
+        "slug": "aadhibhumi-laghubitta-bittiya-sanstha-ltd",
+        "paidUpCapitalCrore": 6.64,
+        "capitalClaim": "grade A, sourceId nrb-bfi-mid-may-2026, asOf 2026-05-15"
+      },
+      "master": {
+        "name": "Dhaulagiri Laghubitta Bittiya Sanstha Ltd.",
+        "slug": "dhaulagiri-laghubitta-bittiya-sanstha-ltd",
+        "official_website": "https://dhaulagiribank.com",
+        "operation_date": "2019-02-19"
+      },
+      "evidence": {
+        "domains": [
+          "dhaulagiribank.com"
+        ],
+        "asserted_names": [
+          "Annual Report - Dhaulagiri Laghubitta Bittiya Sanstha Limited",
+          "Branch Networks - Dhaulagiri Laghubitta Bittiya Sanstha Limited",
+          "Career - Dhaulagiri Laghubitta Bittiya Sanstha Limited",
+          "Compliance Report - Dhaulagiri Laghubitta Bittiya Sanstha Limited",
+          "Contact Us - Dhaulagiri Laghubitta Bittiya Sanstha Limited",
+          "Home - Dhaulagiri Laghubitta Bittiya Sanstha Limited",
+          "News/Events - Dhaulagiri Laghubitta Bittiya Sanstha Limited",
+          "Notices - Dhaulagiri Laghubitta Bittiya Sanstha Limited",
+          "Reports - Dhaulagiri Laghubitta Bittiya Sanstha Limited",
+          "Support Team - Dhaulagiri Laghubitta Bittiya Sanstha Limited"
+        ],
+        "corroborates": "evidence binds mfi-042 to dhaulagiribank.com (master.json's website); no evidence binds it to any published identity"
+      },
+      "applied_correction": {
+        "corrected_to": {
+          "name": "Dhaulagiri Laghubitta Bittiya Sanstha Ltd.",
+          "slug": "dhaulagiri-laghubitta-bittiya-sanstha-ltd"
+        },
+        "slug_redirect": {
+          "old_slug": "aadhibhumi-laghubitta-bittiya-sanstha-ltd",
+          "moved_to": "dhaulagiri-laghubitta-bittiya-sanstha-ltd"
+        },
+        "capital_action": "nulled on correction — the claim cited nrb-kfi (a different NRB source) and cannot be re-attributed to the corrected identity offline",
+        "baseline": "git 14b96d4:src/data/institutions.ts (pre-correction published module)"
+      }
+    },
+    {
+      "id": "mfi-043",
+      "verdict": "EVIDENCE_SUPPORTS_MASTER",
+      "published": {
+        "name": "Nepal Sahakarya Laghubitta Bittiya Sanstha Ltd.",
+        "slug": "nepal-sahakarya-laghubitta-bittiya-sanstha-ltd",
+        "paidUpCapitalCrore": 25.5,
+        "capitalClaim": "grade A, sourceId nrb-bfi-mid-may-2026, asOf 2026-05-15"
+      },
+      "master": {
+        "name": "CYC Nepal Laghubitta Bittiya Sanstha Ltd.",
+        "slug": "cyc-nepal-laghubitta-bittiya-sanstha-ltd",
+        "official_website": "https://cycnlbsl.org.np",
+        "operation_date": "2023-03-14"
+      },
+      "evidence": {
+        "domains": [
+          "cycnlbsl.org.np"
+        ],
+        "asserted_names": [],
+        "corroborates": "evidence binds mfi-043 to cycnlbsl.org.np (master.json's website); no evidence binds it to any published identity"
+      },
+      "applied_correction": {
+        "corrected_to": {
+          "name": "CYC Nepal Laghubitta Bittiya Sanstha Ltd.",
+          "slug": "cyc-nepal-laghubitta-bittiya-sanstha-ltd"
+        },
+        "slug_redirect": {
+          "old_slug": "nepal-sahakarya-laghubitta-bittiya-sanstha-ltd",
+          "moved_to": "cyc-nepal-laghubitta-bittiya-sanstha-ltd"
+        },
+        "capital_action": "nulled on correction — the claim cited nrb-kfi (a different NRB source) and cannot be re-attributed to the corrected identity offline",
+        "baseline": "git 14b96d4:src/data/institutions.ts (pre-correction published module)"
+      }
+    },
+    {
+      "id": "mfi-044",
+      "verdict": "EVIDENCE_SUPPORTS_MASTER",
+      "published": {
+        "name": "Samanat Laghubitta Bittiya Sanstha Ltd.",
+        "slug": "samanat-laghubitta-bittiya-sanstha-ltd",
+        "paidUpCapitalCrore": 16.39,
+        "capitalClaim": "grade A, sourceId nrb-bfi-mid-may-2026, asOf 2026-05-15"
+      },
+      "master": {
+        "name": "NESDO Samriddha Laghubitta Bittiya Sanstha Ltd.",
+        "slug": "nesdo-samriddha-laghubitta-bittiya-sanstha-ltd",
+        "official_website": "https://slbs.nesdonepal.org",
+        "operation_date": "2019-03-05"
+      },
+      "evidence": {
+        "domains": [
+          "slbs.nesdonepal.org"
+        ],
+        "asserted_names": [],
+        "corroborates": "evidence binds mfi-044 to slbs.nesdonepal.org (master.json's website); no evidence binds it to any published identity"
+      },
+      "applied_correction": {
+        "corrected_to": {
+          "name": "NESDO Samriddha Laghubitta Bittiya Sanstha Ltd.",
+          "slug": "nesdo-samriddha-laghubitta-bittiya-sanstha-ltd"
+        },
+        "slug_redirect": {
+          "old_slug": "samanat-laghubitta-bittiya-sanstha-ltd",
+          "moved_to": "nesdo-samriddha-laghubitta-bittiya-sanstha-ltd"
+        },
+        "capital_action": "nulled on correction — the claim cited nrb-kfi (a different NRB source) and cannot be re-attributed to the corrected identity offline",
+        "baseline": "git 14b96d4:src/data/institutions.ts (pre-correction published module)"
+      }
+    },
+    {
+      "id": "mfi-045",
+      "verdict": "EVIDENCE_SUPPORTS_MASTER",
+      "published": {
+        "name": "Nyadi Laghubitta Bittiya Sanstha Ltd.",
+        "slug": "nyadi-laghubitta-bittiya-sanstha-ltd",
+        "paidUpCapitalCrore": 6.56,
+        "capitalClaim": "grade A, sourceId nrb-bfi-mid-may-2026, asOf 2026-05-15"
+      },
+      "master": {
+        "name": "Swastik Laghubitta Bittiya Sanstha Ltd.",
+        "slug": "swastik-laghubitta-bittiya-sanstha-ltd",
+        "official_website": "https://swastiklbs.com.np",
+        "operation_date": "2019-03-26"
+      },
+      "evidence": {
+        "domains": [
+          "swastiklbs.com.np"
+        ],
+        "asserted_names": [],
+        "corroborates": "evidence binds mfi-045 to swastiklbs.com.np (master.json's website); no evidence binds it to any published identity"
+      },
+      "applied_correction": {
+        "corrected_to": {
+          "name": "Swastik Laghubitta Bittiya Sanstha Ltd.",
+          "slug": "swastik-laghubitta-bittiya-sanstha-ltd"
+        },
+        "slug_redirect": {
+          "old_slug": "nyadi-laghubitta-bittiya-sanstha-ltd",
+          "moved_to": "swastik-laghubitta-bittiya-sanstha-ltd"
+        },
+        "capital_action": "nulled on correction — the claim cited nrb-kfi (a different NRB source) and cannot be re-attributed to the corrected identity offline",
+        "baseline": "git 14b96d4:src/data/institutions.ts (pre-correction published module)"
+      }
+    },
+    {
+      "id": "mfi-046",
+      "verdict": "EVIDENCE_SUPPORTS_MASTER",
+      "published": {
+        "name": "Samaj Laghubitta Bittiya Sanstha Ltd.",
+        "slug": "samaj-laghubitta-bittiya-sanstha-ltd",
+        "paidUpCapitalCrore": 13.24,
+        "capitalClaim": "grade A, sourceId nrb-bfi-mid-may-2026, asOf 2026-05-15"
+      },
+      "master": {
+        "name": "Shrijanshil Laghubitta Bittiya Sanstha Ltd.",
+        "slug": "shrijanshil-laghubitta-bittiya-sanstha-ltd",
+        "official_website": "https://shrijanshil.org",
+        "operation_date": "2019-03-15"
+      },
+      "evidence": {
+        "domains": [
+          "shrijanshil.org"
+        ],
+        "asserted_names": [],
+        "corroborates": "evidence binds mfi-046 to shrijanshil.org (master.json's website); no evidence binds it to any published identity"
+      },
+      "applied_correction": {
+        "corrected_to": {
+          "name": "Shrijanshil Laghubitta Bittiya Sanstha Ltd.",
+          "slug": "shrijanshil-laghubitta-bittiya-sanstha-ltd"
+        },
+        "slug_redirect": {
+          "old_slug": "samaj-laghubitta-bittiya-sanstha-ltd",
+          "moved_to": "shrijanshil-laghubitta-bittiya-sanstha-ltd"
+        },
+        "capital_action": "nulled on correction — the claim cited nrb-kfi (a different NRB source) and cannot be re-attributed to the corrected identity offline",
+        "baseline": "git 14b96d4:src/data/institutions.ts (pre-correction published module)"
+      }
+    },
+    {
+      "id": "mfi-047",
+      "verdict": "EVIDENCE_SUPPORTS_MASTER",
+      "published": {
+        "name": "Naya Nepal Laghubitta Bittiya Sanstha Ltd.",
+        "slug": "naya-nepal-laghubitta-bittiya-sanstha-ltd",
+        "paidUpCapitalCrore": 20.31,
+        "capitalClaim": "grade A, sourceId nrb-bfi-mid-may-2026, asOf 2026-05-15"
+      },
+      "master": {
+        "name": "Matribhumi Laghubitta Bittiya Sanstha Ltd.",
+        "slug": "matribhumi-laghubitta-bittiya-sanstha-ltd",
+        "official_website": "https://matribhumimf.com.np",
+        "operation_date": "2024-07-10"
+      },
+      "evidence": {
+        "domains": [
+          "matribhumimf.com.np"
+        ],
+        "asserted_names": [
+          "Annual Reports - Matribhumi Laghubitta Bittiya Sanstha Ltd.",
+          "Branch Managers & Officers - Matribhumi Laghubitta Bittiya Sanstha Ltd.",
+          "Career Portal | Matribhumi Laghubitta Bittiya Sanstha Ltd.",
+          "Matribhumi Laghubitta Bittiya Sanstha Ltd.",
+          "News & Updates - Matribhumi Laghubitta",
+          "Notices & Announcements - Matribhumi Laghubitta",
+          "Our Branch Network - Matribhumi Laghubitta Bittiya Sanstha Ltd."
+        ],
+        "corroborates": "evidence binds mfi-047 to matribhumimf.com.np (master.json's website); no evidence binds it to any published identity"
+      },
+      "applied_correction": {
+        "corrected_to": {
+          "name": "Matribhumi Laghubitta Bittiya Sanstha Ltd.",
+          "slug": "matribhumi-laghubitta-bittiya-sanstha-ltd"
+        },
+        "slug_redirect": {
+          "old_slug": "naya-nepal-laghubitta-bittiya-sanstha-ltd",
+          "moved_to": "matribhumi-laghubitta-bittiya-sanstha-ltd"
+        },
+        "capital_action": "nulled on correction — the claim cited nrb-kfi (a different NRB source) and cannot be re-attributed to the corrected identity offline",
+        "baseline": "git 14b96d4:src/data/institutions.ts (pre-correction published module)"
+      }
+    },
+    {
+      "id": "mfi-048",
+      "verdict": "EVIDENCE_SUPPORTS_MASTER",
+      "published": {
+        "name": "Grameen Samanantar Laghubitta Bittiya Sanstha Ltd.",
+        "slug": "grameen-samanantar-laghubitta-bittiya-sanstha-ltd",
+        "paidUpCapitalCrore": 22.28,
+        "capitalClaim": "grade A, sourceId nrb-bfi-mid-may-2026, asOf 2026-05-15"
+      },
+      "master": {
+        "name": "Jeevan Bikash Laghubitta Bittiya Sanstha Ltd.",
+        "slug": "jeevan-bikash-laghubitta-bittiya-sanstha-ltd",
+        "official_website": "https://jeevanbikasmf.com",
+        "operation_date": "2020-09-07"
+      },
+      "evidence": {
+        "domains": [
+          "jeevanbikasmf.com"
+        ],
+        "asserted_names": [
+          "Jeevan Bikas Laghubitta Bittiya Sanstha Limited - Poverty Free Nepal"
+        ],
+        "corroborates": "evidence binds mfi-048 to jeevanbikasmf.com (master.json's website); no evidence binds it to any published identity"
+      },
+      "applied_correction": {
+        "corrected_to": {
+          "name": "Jeevan Bikash Laghubitta Bittiya Sanstha Ltd.",
+          "slug": "jeevan-bikash-laghubitta-bittiya-sanstha-ltd"
+        },
+        "slug_redirect": {
+          "old_slug": "grameen-samanantar-laghubitta-bittiya-sanstha-ltd",
+          "moved_to": "jeevan-bikash-laghubitta-bittiya-sanstha-ltd"
+        },
+        "capital_action": "nulled on correction — the claim cited nrb-kfi (a different NRB source) and cannot be re-attributed to the corrected identity offline",
+        "baseline": "git 14b96d4:src/data/institutions.ts (pre-correction published module)"
+      }
+    },
+    {
+      "id": "mfi-049",
+      "verdict": "EVIDENCE_SUPPORTS_MASTER",
+      "published": {
+        "name": "Srijil Laghubitta Bittiya Sanstha Ltd.",
+        "slug": "srijil-laghubitta-bittiya-sanstha-ltd",
+        "paidUpCapitalCrore": 14.56,
+        "capitalClaim": "grade A, sourceId nrb-bfi-mid-may-2026, asOf 2026-05-15"
+      },
+      "master": {
+        "name": "Aatmanirbhar Laghubitta Bittiya Sanstha Ltd.",
+        "slug": "aatmanirbhar-laghubitta-bittiya-sanstha-ltd",
+        "official_website": "https://aatmanirbhar.com.np",
+        "operation_date": "2019-04-15"
+      },
+      "evidence": {
+        "domains": [
+          "aatmanirbhar.com.np"
+        ],
+        "asserted_names": [
+          "Annual General Meeting | Aatmanirbhar Laghubitta Bittiya Sanstha Limited",
+          "Career | Aatmanirbhar Laghubitta Bittiya Sanstha Limited",
+          "Contact | Aatmanirbhar Laghubitta Bittiya Sanstha Limited",
+          "Home | Aatmanirbhar Laghubitta Bittiya Sanstha Limited",
+          "News and Update | Aatmanirbhar Laghubitta Bittiya Sanstha Limited",
+          "Notice | Aatmanirbhar Laghubitta Bittiya Sanstha Limited",
+          "Progress Report | Aatmanirbhar Laghubitta Bittiya Sanstha Limited",
+          "Quarterly Report | Aatmanirbhar Laghubitta Bittiya Sanstha Limited",
+          "Yearly Report | Aatmanirbhar Laghubitta Bittiya Sanstha Limited"
+        ],
+        "corroborates": "evidence binds mfi-049 to aatmanirbhar.com.np (master.json's website); no evidence binds it to any published identity"
+      },
+      "applied_correction": {
+        "corrected_to": {
+          "name": "Aatmanirbhar Laghubitta Bittiya Sanstha Ltd.",
+          "slug": "aatmanirbhar-laghubitta-bittiya-sanstha-ltd"
+        },
+        "slug_redirect": {
+          "old_slug": "srijil-laghubitta-bittiya-sanstha-ltd",
+          "moved_to": "aatmanirbhar-laghubitta-bittiya-sanstha-ltd"
+        },
+        "capital_action": "nulled on correction — the claim cited nrb-kfi (a different NRB source) and cannot be re-attributed to the corrected identity offline",
+        "baseline": "git 14b96d4:src/data/institutions.ts (pre-correction published module)"
+      }
+    },
+    {
+      "id": "mfi-050",
+      "verdict": "EVIDENCE_SUPPORTS_MASTER",
+      "published": {
+        "name": "Sabase Laghubitta Bittiya Sanstha Ltd.",
+        "slug": "sabase-laghubitta-bittiya-sanstha-ltd",
+        "paidUpCapitalCrore": 7.73,
+        "capitalClaim": "grade A, sourceId nrb-bfi-mid-may-2026, asOf 2026-05-15"
+      },
+      "master": {
+        "name": "Sanjeevani Laghubitta Bittiya Sanstha Ltd.",
+        "slug": "sanjeevani-laghubitta-bittiya-sanstha-ltd",
+        "official_website": "https://sanjeevanilaghubitta.com.np",
+        "operation_date": "2020-01-15"
+      },
+      "evidence": {
+        "domains": [
+          "sanjeevanilaghubitta.com.np"
+        ],
+        "asserted_names": [],
+        "corroborates": "evidence binds mfi-050 to sanjeevanilaghubitta.com.np (master.json's website); no evidence binds it to any published identity"
+      },
+      "applied_correction": {
+        "corrected_to": {
+          "name": "Sanjeevani Laghubitta Bittiya Sanstha Ltd.",
+          "slug": "sanjeevani-laghubitta-bittiya-sanstha-ltd"
+        },
+        "slug_redirect": {
+          "old_slug": "sabase-laghubitta-bittiya-sanstha-ltd",
+          "moved_to": "sanjeevani-laghubitta-bittiya-sanstha-ltd"
+        },
+        "capital_action": "nulled on correction — the claim cited nrb-kfi (a different NRB source) and cannot be re-attributed to the corrected identity offline",
+        "baseline": "git 14b96d4:src/data/institutions.ts (pre-correction published module)"
+      }
+    },
+    {
+      "id": "mfi-051",
+      "verdict": "EVIDENCE_SUPPORTS_MASTER",
+      "published": {
+        "name": "Kisan Kalyan Laghubitta Bittiya Sanstha Ltd.",
+        "slug": "kisan-kalyan-laghubitta-bittiya-sanstha-ltd",
+        "paidUpCapitalCrore": 31.21,
+        "capitalClaim": "grade A, sourceId nrb-bfi-mid-may-2026, asOf 2026-05-15"
+      },
+      "master": {
+        "name": "Aviyan Laghubitta Bittiya Sanstha Ltd.",
+        "slug": "aviyan-laghubitta-bittiya-sanstha-ltd",
+        "official_website": "https://www.aviyanlaghubitta.com",
+        "operation_date": "2019-12-17"
+      },
+      "evidence": {
+        "domains": [
+          "aviyanlaghubitta.com"
+        ],
+        "asserted_names": [],
+        "corroborates": "evidence binds mfi-051 to aviyanlaghubitta.com (master.json's website); no evidence binds it to any published identity"
+      },
+      "applied_correction": {
+        "corrected_to": {
+          "name": "Aviyan Laghubitta Bittiya Sanstha Ltd.",
+          "slug": "aviyan-laghubitta-bittiya-sanstha-ltd"
+        },
+        "slug_redirect": {
+          "old_slug": "kisan-kalyan-laghubitta-bittiya-sanstha-ltd",
+          "moved_to": "aviyan-laghubitta-bittiya-sanstha-ltd"
+        },
+        "capital_action": "nulled on correction — the claim cited nrb-kfi (a different NRB source) and cannot be re-attributed to the corrected identity offline",
+        "baseline": "git 14b96d4:src/data/institutions.ts (pre-correction published module)"
+      }
+    }
+  ],
+  "non_identity_field_drift": [
+    {
+      "id": "mfi-034",
+      "field": "operationDate",
+      "published": "1900-01-09",
+      "master": null
+    },
+    {
+      "id": "mfi-035",
+      "field": "workingArea",
+      "published": "National Level",
+      "master": "Province Level (Lumbini Province)"
+    }
+  ],
+  "merge_lineage_gap": {
+    "note": "timeline_events records these absorbed predecessor names. master.aliases[] carries only NAME_ALT and must not be edited (it is fingerprinted), so closure lives outside master.json: canonical-former-aliases.json (P1-B) + the durable store backfill (P1-F). predecessor_names lists only names still unreachable by BOTH.",
+    "predecessor_names": [],
+    "closed_by_canonical_former_aliases": 62,
+    "canonical_former_aliases_file": "data/master/canonical-former-aliases.json"
+  }
+}
