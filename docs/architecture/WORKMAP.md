@@ -1,0 +1,737 @@
+# WORKMAP — Phase P0.1 Freeze
+
+**Status:** P0.1 complete. Execution record and phase ordering.
+**Authority:** Master Architecture, Workmap & Execution Directive v1.0
+
+---
+
+## Priority model
+
+```
+P0 = architecture / safety
+P1 = canonical data foundation
+P2 = evidence / history
+P3 = public information modules
+P4 = contribution
+P5 = advanced intelligence
+P6 = monetization
+```
+
+No P5 feature may delay P0/P1 correctness.
+
+---
+
+## Phase status
+
+| Phase | Name | Status |
+|---|---|---|
+| P0 | Discovery / freeze inputs | Complete |
+| **P0.1** | **Architecture freeze** | **Complete — this document set** |
+| P0.2 | Canonical logical model | Complete |
+| **P0.3** | **Repository contract freeze** | **Complete** |
+| **P0.4** | **Source-of-truth reconciliation** | **Complete** |
+| **P0.5** | **Durable ingestion memory** | **Complete** |
+| P1 | Canonical institution base | Next |
+| P2 | People / leadership | Pending |
+| P3 | Branches / geography | Pending |
+| P4 | Financial intelligence | Pending |
+| P5 | Documents / notices | Pending |
+| P6 | News / jobs / official updates | Pending |
+| P7 | Digital / social / live coverage | Pending |
+| P8 | Corporate history | Pending |
+| P9 | Search / compare / research | Pending |
+| P10 | Activity / media | Pending — needs schema approval |
+| P11 | Contribution / auth / moderation | Pending |
+| P12 | R2 media | Pending |
+| P13 | API v1 | Pending |
+| P14 | Operator control panel | Pending |
+| P15 | SEO / information graph | Pending |
+| P16 | Data products / research | Pending |
+| P17 | Monetization | Pending |
+| P18 | Production hardening | Pending |
+| P19 | Production release | Pending — explicit approval required |
+
+### Ordering note
+
+P0.2 → P0.4 are analysis and reconciliation. **P0.5 is the structural blocker**:
+until evidence accumulates into one durable store, P1 re-seeds and P2 re-runs
+produce snapshots rather than history. Do not start P1 before P0.5 closes.
+
+---
+
+## P0 — DISCOVERY
+
+**Status:** complete.
+
+Measured, not assumed:
+
+| Store | Contents |
+|---|---|
+| `lk.db` (1 MB, 53 tables) | 51 institutions, 120 aliases, 62 timeline, 51 coverage, 51 official links, 51 outbound links, 21 sources, 10 ingestion sources, 8 policies. **44 tables empty** including `data_assertions`, `source_snapshots`, `data_conflicts`, `branches`, `people`, `financial_metrics`, `jobs` |
+| `data/pilot/evidence/*.db` (13 files, ~18 MB) | **5,083 `data_assertions`, 1,458 `source_snapshots`** (P0.2 measured) |
+| `data/master/master.json` (139 KB) | 51 institutions, 120 aliases, 51 official links, 62 timeline, 11 sources; `nrb-bfi-mid-may-2026`, observed 2026-06-20 |
+| `src/data/*.ts` (~1 MB) | What users see, generated from the above |
+
+Findings: 24 pages imported `@/data/*` with no enforcement; no `src/app/api`; no
+route handler; the 15,759-line `lib/` reached the site only via a 27-line
+`scripts/api-server.ts`; static export meant `middleware.ts` would be dead code;
+GitHub Pages cannot set headers so the site had no CSP; the Worker had no headers,
+no CORS, no rate limiting, and validated no `/go/` redirect targets.
+
+Security issues found: 5. All fixed and tested — see P0.1 report below.
+
+---
+
+## P0.1 — ARCHITECTURE FREEZE
+
+**Status:** COMPLETE.
+
+### Completed
+
+- Audited repository, schema, migrations, generated data, evidence stores,
+  ingestion, repository, API, Worker, frontend, and the old SENNA reference
+  project.
+- Created the freeze document set:
+  `SYSTEM-ARCHITECTURE.md`, `DOMAIN-MODEL.md`, `DATA-FLOW.md`,
+  `READ-WRITE-BOUNDARY.md`, `STORAGE-ADAPTER-STRATEGY.md`,
+  `ASSET-DECISION-MATRIX.md`, `WORKMAP.md`.
+- Classified every component KEEP / ADAPT / REPLACE / DEFER / REJECT.
+- Created `docs/security/SECURITY-POSTURE.md`.
+- Implemented and enforced the missing organizational boundary (**R6**).
+- Hardened the Worker with a tested security layer.
+- Added the static-site security header policy (`public/_headers`).
+- Wrote `scripts/smoke-worker-security.ts`.
+
+### Changed
+
+| Area | Change |
+|---|---|
+| `src/lib/site-data.ts` | New. Sole module permitted to import `@/data/*` |
+| 21 page/component/util files | Imports migrated to `@/lib/site-data`; duplicate imports merged |
+| `scripts/check-discipline.cjs` | New rule **R6**; verified to catch a deliberate violation |
+| `worker/src/security.ts` | New. Headers, CORS allowlist, token bucket, `safeRedirectTarget`, `safeSegment` |
+| `worker/src/index.ts` | Security wrapped around routing; `route()` split out; egress + segment validation |
+| `public/_headers` | New. CSP, HSTS, nosniff, frame-deny, Referrer-Policy, Permissions-Policy, COOP/CORP |
+| `scripts/smoke-worker-security.ts` | New. 60+ checks, all negative cases |
+| `package.json` | `smoke:worker-security` script |
+| `docs/OPERATIONS.md` | R6 documented; command reference updated |
+| `docs/internal/` | P0 audit, organization manual, asset matrix, security posture |
+
+### Files
+
+New: `src/lib/site-data.ts`, `worker/src/security.ts`,
+`scripts/smoke-worker-security.ts`, `public/_headers`, 7 architecture docs,
+`docs/security/SECURITY-POSTURE.md`, `docs/internal/ARCHITECTURE-AUDIT.md`,
+`docs/internal/FRONTEND-BACKEND-ORGANIZATION.md`.
+(`ASSET-DECISION-MATRIX.md` is one of the 7 architecture docs, per directive §49.)
+Modified: 21 frontend files, `worker/src/index.ts`,
+`scripts/check-discipline.cjs`, `package.json`, `docs/OPERATIONS.md`.
+
+### Tests
+
+```
+typecheck                0 errors
+check:discipline         0 violations (R1–R6)
+smoke                    79 passed, 0 failed
+smoke:worker             all passed
+smoke:worker-security    all passed  (new)
+smoke:people-lifecycle   64 passed, 0 failed
+smoke:ingest-security    50 ok / 0 fail
+build                    334 routes
+audit-export             335 pages, 13,783 links, 1,463 anchors, 0 failures
+```
+
+The export audit numbers are unchanged from before the refactor, which is the
+evidence that migrating 21 files moved no behaviour.
+
+### Data impact
+
+**NONE.** No dataset, migration, schema, or seed file was modified.
+`src/data/*` is byte-identical; only its importers changed.
+
+### Security impact
+
+| Finding | Control | Test |
+|---|---|---|
+| JSON responses could be sniffed as HTML | `nosniff` on every Worker response | ✓ |
+| No CSP anywhere (GitHub Pages cannot set headers) | `public/_headers` with CSP + HSTS + frame-deny + referrer + permissions + COOP/CORP | ships to `out/` |
+| CORS unrestricted | Allowlist via `ALLOWED_ORIGINS`; **no `*` fallback**; `Vary: Origin` | ✓ 5 cases |
+| No rate limiting | Per-IP token bucket, 429 + `Retry-After`, preflight exempt | ✓ 5 cases |
+| `/go/` open redirect from DB-controlled URL | `safeRedirectTarget()` — blocks `javascript:`, `data:`, `file:`, relative, `localhost`, `.local`, `.internal`, embedded credentials | ✓ 13 cases |
+| Path traversal in `/:slug` | `safeSegment()` | ✓ 10 cases |
+
+**Known limits, stated not hidden:** rate limiting is per-isolate (needs Durable
+Object/KV for global); CSP needs `'unsafe-inline'` (App Router inline bootstrap
+under static export); GitHub Pages ignores `_headers`, so the GitHub Pages deploy
+has no headers until CI moves to Cloudflare Pages.
+
+### Production impact
+
+**NONE.** No production resource was read or modified.
+`https://laghubitta.sennaplatform.com` untouched.
+
+### Known issues
+
+- `npm run lint` still fails on pre-existing `.cjs` errors (`require()` in ESM
+  scope, one `prefer-const`). `npx eslint src lib worker` is clean, 0 errors.
+  Tracked for P0.3.
+- `scripts/` remains ~57 flat files. Split deferred to P0.3.
+- Dead type surface in `src/types/index.ts` (`Post`, `Video`, `Document`,
+  `ResearchItem`, `ReportMetric`, `IndustryReport`, duplicate `Job`).
+- Repository/API layer still not the public site's read path; that is the
+  documented transitional state, resolved by P0.3/P0.5 decisions.
+
+### Deferred
+
+- All of P0.2 onward.
+- Production approval (never requested, never assumed).
+
+### Next phase
+
+**P0.2 — Canonical logical model.** Reconcile schema ↔ repository DTOs ↔
+frontend `Institution` ↔ D1 rows ↔ generated data ↔ evidence assertions. Produce
+`docs/data/CANONICAL-MODEL.md`, `FIELD-PROVENANCE-MODEL.md`, `HISTORY-MODEL.md`.
+Identify conflicts. **Do not silently resolve them, and do not modify
+migrations.**
+
+---
+
+## P0.2 — CANONICAL LOGICAL MODEL
+
+**Status:** COMPLETE.
+
+### Completed
+
+- Read-only inspection of all 53 schema tables, 7 frozen migrations, both
+  repository layers, all generated data modules, `master.json`, `lk.db`, and all
+  13 pilot evidence databases.
+- Classified all 26 required entities as IMPLEMENTED / EMPTY / ASSERTION-ONLY /
+  CONCEPTUAL / DEFERRED.
+- Defined the assertion → conflict → entity → projection chain and the
+  storage-independent repository boundary.
+- Documented 15 DTO/type reconciliation mismatches with recommended phase.
+- Recorded 10 FUTURE SCHEMA GAPs without touching any migration.
+
+### Changed
+
+Documentation only. **No schema, migration, dataset, seed, or code change.**
+Three new documents, plus corrections to three P0.1 documents where P0.2
+measurement contradicted them.
+
+### Files
+
+New: `docs/data/CANONICAL-MODEL.md`, `docs/data/FIELD-PROVENANCE-MODEL.md`,
+`docs/data/HISTORY-MODEL.md`.
+Corrected: `docs/architecture/DATA-FLOW.md`, `STORAGE-ADAPTER-STRATEGY.md`,
+`WORKMAP.md`, `ASSET-DECISION-MATRIX.md`, `docs/internal/ARCHITECTURE-AUDIT.md`
+(two contradicted claims + measurement totals).
+
+### Tests
+
+All nine required commands re-run. See the P0.2 completion report. `tsc`,
+discipline, build, export audit, and all five smoke suites unchanged from P0.1.
+
+### Data impact
+
+**NONE.** Two temporary read-only inspection scripts were created, run, and
+deleted. No dataset, migration, schema, seed, or evidence DB was modified.
+
+### Security impact
+
+**NONE.** No security behavior changed. `worker/src/security.ts` untouched.
+
+### Production impact
+
+**NONE.**
+
+### Known issues
+
+Two P0.1 claims were **wrong** and are corrected: `data_conflicts` is *not* never
+written (229 rows exist), and the evidence totals were ~5,076/1,391 when measured
+values are 5,083/1,458. The gap is smaller than P0.1 claimed in one place
+(detection works) and larger in another (there is no `as_of` column anywhere in
+the schema).
+
+**Retracted in P0.3 — one P0.2 finding was a false positive.** P0.2 reported
+MISMATCH-10 (`jobsProvenance` says 1 posting, array holds 2) and asserted 99.8%
+conflicts were open real disputes. Both were wrong:
+
+- The "2nd posting" was the `kind: "POSTING" | "DOCUMENT"` union inside
+  `export interface Job` (`src/data/jobs.ts:31`, interface at `:18`), not a
+  record. 36 DOCUMENT + 1 POSTING = 37 = array length = the string's own headline
+  count. **The provenance string was always correct.** All other `*Provenance`
+  exports were also audited and all match exactly.
+- All 229 conflicts have `source_a_id = source_b_id` (**cross-source count: 0 in
+  every database**). They are pre-fix artifacts of a detector bug that
+  `lib/ingestion/review.ts:208` has since fixed. They are not open disputes.
+
+The 229 rows still matter — they are why no conflict is resolvable — but the
+diagnosis changed from "operator must review 229 disputes" to "stale pre-fix
+artifacts with no review path and a green '0 open' badge". The 99.8%-unverified
+figure itself stands.
+
+### Deferred
+
+Durable ingestion memory (P0.5), all 10 schema gaps, all 15 type mismatches,
+conflict review surface, `as_of` persistence.
+
+### Next phase
+
+**P0.3 — Repository Contract Freeze.** Ownership boundary DOMAIN → PERSISTENCE →
+REPOSITORY → PROJECTION → DISPLAY; one canonical vocabulary; one authoritative
+Institution shape; one temporal vocabulary; assertion-vs-entity ownership; and the
+DB → contract → export → operator conflict-count chain. Documentation and
+type-contract analysis only. **No schema changes** — the 10 gaps stay deferred.
+
+### Architecture changes
+
+**NONE.** The freeze documents codify the existing architecture; they replace
+nothing.
+
+---
+
+## P0.3 — REPOSITORY CONTRACT FREEZE
+
+**Status:** COMPLETE. Documentation and type-contract analysis only.
+
+### Completed
+
+| Requested outcome | Where |
+|---|---|
+| One canonical domain vocabulary for entity/field names | `docs/data/DOMAIN-VOCABULARY.md` |
+| One authoritative Institution shape; persistence and display may differ deliberately | `docs/data/TYPE-LAYERS.md` §4 — **4 shapes found**, not 2 |
+| One temporal vocabulary, all seven dates | `docs/data/TEMPORAL-VOCABULARY.md` |
+| Clear assertion-vs-entity ownership | `docs/data/TYPE-LAYERS.md` §3 |
+| Projections must not become hidden competing domain models | `docs/data/TYPE-LAYERS.md` §7 |
+| Conflict-count chain: DB → contract → export → operator | `docs/data/CONFLICT-VISIBILITY-CHAIN.md` |
+| Provenance↔array integrity (`jobsProvenance`) | **Retracted** — false finding |
+| Ownership boundary `DOMAIN → PERSISTENCE → REPOSITORY → PROJECTION → DISPLAY` | `docs/data/TYPE-LAYERS.md` §1-2 |
+
+Also `docs/architecture/REPOSITORY-CONTRACT.md`: the read seam, 7 guarantees, 10
+expressiveness gaps, the adapter-parity rule, and 10 contract additions P0.4 must
+land.
+
+### Changed
+
+Documentation only. **No schema, migration, dataset, seed, or code change.** Two
+P0.2 findings retracted and corrected in place. Six P0.3 documents written.
+
+Two corrections worth naming because they change conclusions, not details:
+
+1. **`getRepository()` has zero callers.** The frozen contract is correct and has
+   exactly one production implementer — `worker/src/index.ts:61` constructs
+   `new D1InstitutionRepository(env.DB)` **directly**, bypassing the factory. The
+   `mock` adapter (the documented build default) has no caller and no test, and
+   `lib/api/repository.ts` builds the live read models from `@/data/*` instead of
+   the contract. The seam the architecture documents is not yet the seam the code
+   uses.
+2. **`valid_from` is NULL on all 5,083 assertions** and `valid_to` is set on 9.
+   The columns are right and nothing populates them, so a time-travel query would
+   confidently return today's rows for any past `T`.
+
+### Files
+
+New: `docs/data/DOMAIN-VOCABULARY.md`, `TYPE-LAYERS.md`,
+`TEMPORAL-VOCABULARY.md`, `CONFLICT-VISIBILITY-CHAIN.md`;
+`docs/architecture/REPOSITORY-CONTRACT.md`.
+Corrected: `docs/data/CANONICAL-MODEL.md`, `docs/data/FIELD-PROVENANCE-MODEL.md`
+(both retractions), `docs/architecture/WORKMAP.md`.
+
+### Tests
+
+All nine required commands re-run. Unchanged from P0.2: `tsc` 0 errors,
+discipline 0 violations, build 334 routes, export audit 335 pages / 13,783 links /
+1,463 anchors / 0 failures, smoke 79, worker smoke, worker-security smoke,
+people-lifecycle 64/0, ingest-security 50/0.
+
+### Data impact
+
+**NONE.** Two temporary read-only inspection scripts created, run, deleted. All
+SQLite opened `readonly: true`. `git status -- schema migrations data` empty.
+
+### Security impact
+
+**NONE.** No security behaviour changed.
+
+One finding to carry: `src/app/ingestion/page.tsx:96` renders
+`conflictsOpen === 0` in **green as a health signal**, where the zero is a count
+read from a database that no longer exists. Not fixed here (documentation phase);
+it is the highest-value P0.4 display change.
+
+### Production impact
+
+**NONE.**
+
+### Known issues
+
+- `npm run pilot:export` **fails outright** — `data/pilot/pilot-run-report.json:4`
+  points at a deleted `%TEMP%` DB. Pre-existing, unrelated to P0.3.
+- 4 `src/` files bypass `site-data.ts` and read `lib/api/repository` directly;
+  `lib/api/repository.ts` imports `src/` types back. **R6 catches none of it.**
+- `evidence` means per-field provenance in `src/types/index.ts:17` and crawl
+  counters in `lib/api/repository.ts:33-42`. Same name, two meanings.
+- `src/types/index.ts` `Institution` is a display projection misnamed as the
+  domain type; `InstitutionSummary`/`InstitutionDetail` are each declared twice.
+- 5 dead types confirmed (`Post`, `Video`, `ResearchItem`, `ReportMetric`,
+  `IndustryReport`); 4 live names are duplicated with real consumers on both
+  sides. Nothing deleted — documentation phase.
+- `src/data/institutions.ts` has **no generator**; `count: 51` at `:62` is a
+  hand-written literal beside 51 hand-written rows.
+- `d1.ts:183-184` expects a `people_a|people_b` conflict label that no row uses.
+
+### Deferred
+
+All 10 schema gaps — **explicitly unchanged by P0.3**, no migration proposed.
+MISMATCH-10 retracted; MISMATCH-9 mapping frozen; MISMATCH-3/14 consolidated to
+P1. New MISMATCH-16/17/18 recorded in `TYPE-LAYERS.md` §8. The 10 contract
+additions. R7 deep-import rule.
+
+### Next phase
+
+**P0.4 — Source-of-Truth Reconciliation.** Per the owner's confirmed sequence:
+P0.3 → P0.4 → P0.5 → P1. Vocabulary enforcement and alias mapping, `confidence`
+rubric, contract additions, conflict-visibility fixes 1-5, provenance↔array CI
+guard, R7. **P1 must not begin before P0.5 closes** — populating normalized tables
+while evidence lives in 13 isolated dated DBs would build on a pipeline whose
+durable provenance and lifecycle are not yet sound.
+
+### Architecture changes
+
+**NONE.** The freeze documents codify the existing architecture. Two places where
+the documentation and the code disagreed (the unused repository factory; the
+unenforced import boundary) are **recorded as P0.4/P1 work, not treated as
+architecture changes** — no boundary was crossed that was not already crossed.
+
+---
+
+## P0.4 - DATA SOURCE RECONCILIATION
+
+**Status:** COMPLETE. Documentation only.
+
+### Completed
+
+Mapped all five directive inputs into five authority classes. Every count measured
+read-only; every chain with a missing link has the missing link named.
+
+| Input | Verdict |
+|---|---|
+| `lk.db` | **DERIVED** — `seed.cjs` deletes and rebuilds it from `master.json`. 53 tables, **9 populated, 425 rows**; every evidence table is empty |
+| `data/pilot/evidence/*.db` | **AUTHORITATIVE** for assertions — the only primary record in the system. 5,083 assertions, 1,458 snapshots |
+| `src/data/*.ts` | 6 derived modules + **1 hand-written copy of a SENNA export** |
+| old SENNA data | **REFERENCE-ONLY** — 13 JSON files, **no database, no exports**; the pipeline that read them cannot run |
+| NRB sources | **REFERENCE-ONLY** — the ledger scratch DB is gone; `src/data/nrb.ts` is orphaned |
+
+Output: `docs/data/SOURCE-OF-TRUTH-MATRIX.md` — 21 sources classified, the
+identity chain drawn, three headline defects recorded.
+
+### Changed
+
+Documentation only. **No file moved, renamed, deleted, or edited** (directive line
+1870: "No destructive changes").
+
+1. **`mfi-036`…`mfi-051` are different institutions in the published site than in
+   the database.** 16 contiguous ids. The site publishes *Surya Jyoti*;
+   `lk.db` says *Sampada*. And nothing on disk can reconcile them: 120 aliases, all
+   `NAME_ALT`, none `FORMER`; `slug_aliases` empty; `timeline_events.occurred_at`
+   NULL in **62 of 62**. **The largest correctness defect found in any phase.**
+2. **The identity chain is severed at both ends.** `institutions_dump.json`,
+   `aliases_dump.json` and `source_registry_dump.json` no longer exist, so
+   `build-master.cjs` cannot run, so `seed.cjs` cannot run.
+   `data/master/master.json` is the only surviving carrier of the NRB identity
+   observation, has no backup inside it, and has no content hash.
+3. **Six keys in four committed reports point at three deleted `%TEMP%`
+   databases.** `npm run pilot:export` fails on one of them.
+
+### Files
+
+New: `docs/data/SOURCE-OF-TRUTH-MATRIX.md`.
+Corrected: `docs/architecture/WORKMAP.md` (this report).
+
+### Tests
+
+All nine required commands re-run, unchanged from P0.3: `tsc` 0 errors,
+discipline 0 violations, build 334 static pages, export audit 335 pages / 13,783
+links / 1,463 anchors / 0 failures, smoke 79/0, worker smoke pass, worker-security
+pass, people-lifecycle 64/0, ingest-security 50/0.
+
+### Data impact
+
+**NONE.** Five temporary read-only inspection scripts created, run, deleted. All
+SQLite opened `readonly: true`. `git status -- schema migrations data` empty.
+
+### Security impact
+
+**NONE.** No security behaviour changed.
+
+### Production impact
+
+**NONE.**
+
+### Known issues
+
+- 16 institutions published under identities the database rejects (§4b of the
+  matrix). **Fix needs no migration** — `alias_type` already accepts `'FORMER'`
+  and `slug_aliases` exists with 0 rows.
+- `src/data/institutions.ts` shares **2 key names** with the canonical shape
+  (`id`, `slug`). Its other 16 keys are pre-schema, and four of them
+  (`aliases`, `evidence`, `coverageType`, `headOffice`) nest structures `lk.db`
+  already holds as tables. `paidUpCapitalCrore` has **no column anywhere** in
+  `lk.db` — a financial fact on the identity record.
+- `master.json` ↔ `lk.db` agree on all 23 shared fields for all 51 rows, so the
+  database is faithful to the JSON. The divergence is `institutions.ts`, not the DB.
+- `lk.db`: `name_np`, `registration_number`, `nrb_license_number`,
+  `official_email`, `official_phone`, `logo_url` are empty in **51/51**.
+  `listed` is `"0"` in 51/51. `last_verified_at` is `2026-06-20` in 51/51.
+- `sources`: 21 rows over 13 recorded domains (12 logical hosts — `www.` and bare
+  spellings of one host are both present), `content_hash` 0/21, `r2_key` 0/21,
+  **`fetched_at` 0/21**. `www.nrb.org.np` carries 8 of the 21 source identities.
+- `institution_coverage`: 51 rows, all ten axes `NOT_STARTED`.
+- `data/master/index.ts` — 110 KB generated TS, 6 exports, **zero importers**.
+  Its only would-be reader, `mock.ts`, reads `master.json` instead, and the mock
+  is never constructed.
+- `pilot-branch-url-discovery-2026-09-27.db` uses the pre-freeze 6-column
+  assertion schema and holds 0 rows.
+
+### Deferred
+
+The 8 reconciliation actions in matrix §9, ordered. Items 1 (canonical
+`name`/`slug` for the 16 remapped ids + `FORMER` aliases + `slug_aliases`) and 2
+(`master.json` into version control with a hash + `observed_at`) are the two that
+cannot wait. Everything else is safe to sequence behind them.
+
+Also still open from earlier phases: the 10 repository-contract additions, the
+vocabulary enforcer + alias map, the `confidence` rubric, conflict-visibility
+fixes 1-5, the provenance↔array CI guard, and R7.
+
+### Next phase
+
+**P1 — Canonical Institution Base.** Per the owner's confirmed sequence:
+P0.3 → P0.4 → P0.5 → P1. The structural blocker is cleared: evidence now has one
+durable store and a query path. P1 makes institutions the first production-grade
+canonical entity, and it must first resolve the P0.4 item-1 defect — the 16
+contiguous ids (`mfi-036`…`mfi-051`) the published site and the database disagree
+about — because populating a canonical identity table while 16 of 51 identities
+are contested would encode the disagreement into the base.
+
+### Architecture changes
+
+**NONE.** Two structural observations recorded for P0.5 rather than acted on:
+evidence has no single writer or index, and `seed.cjs` treats a derived file as
+destructible local state. Neither crosses a boundary that is not already crossed,
+and both are fix-forward inside Plane A.
+
+---
+
+## P0.5 - DURABLE INGESTION MEMORY
+
+**Status:** COMPLETE. No schema change, no evidence destroyed.
+
+### Completed
+
+Measured the run spine in all 13 evidence databases, proved the merge safe, and
+built the merged store. The premise of the phase turned out to be half wrong, in
+the project's favour.
+
+**Durable run identity already existed.** 264 `ingestion_runs`, every `id` distinct
+(`run-<ISO timestamp>-<source slug>`), 0 collisions across 13 files, **0 of 264**
+left `RUNNING` (`completed_at` NULL in none). Status: 217 `SUCCESS`, 47 `PARTIAL`.
+The problem was never that runs lacked identity — it was that no two runs could
+see each other.
+
+**The consolidation is provably safe, not probably.** A primary-key collision
+audit over every row of every database found **0 collisions** in `ingestion_runs`
+(264), `source_snapshots` (1458), `ingestion_items` (1491), `data_assertions`
+(5083), `data_conflicts` (229), `audit_logs` (6767), `validation_results` (3970),
+`ingestion_errors` (78) — those 8 tables append verbatim. 4 tables (`sources`,
+`ingestion_sources`, `institutions`, `validation_rules`) carry the same id with
+**different** row content across databases and upsert chronologically instead.
+Assertion/snapshot/conflict ids embed a base-36 `unixepoch` token
+(`as-mui97agw-13`), so uniqueness is by construction.
+
+**The store exists.** `npm run durable:build` → `data/durable/store.db`,
+**19,506 rows**, `foreign_key_check` **0 violations**, rebuild **byte-identical**
+(`sha256 225f…c525`, 7,704,576 bytes). All 13 evidence databases sha256-verified
+**unchanged** before and after, checked by the script itself.
+
+**Cross-run correlation, which was impossible before:**
+
+| date | runs | items_seen | changed | new | distinct sources | errors |
+|---|---|---|---|---|---|---|
+| 2026-09-26 | 121 | 1273 | 87 | 602 | 51 | 74 |
+| 2026-09-27 | 100 | 168 | 0 | 91 | 25 | 0 |
+| 2026-10-01 | 43 | 97 | 4 | 89 | 33 | 4 |
+
+One source's 8 runs, from 6 different files, are now one timeline. `branch_name`
+has **2932** assertions from **20** sources with **1787** distinct values — a
+number that could not be produced at all before. 229 `OPEN` conflicts are visible
+in one query.
+
+**Two corrections to P0.4, issued on measurement.**
+
+1. `SOURCE-OF-TRUTH-MATRIX.md` §6 claimed "no content fingerprint anywhere" from
+   the `lk.db` registry alone. **Wrong in scope.** `source_snapshots.content_hash`
+   is a real sha256 on **1458/1458** rows (1144 distinct) and `parser_version` is
+   recorded on every snapshot and every run. Matrix §6 and §8.7 corrected.
+2. Matrix §7 was headed "Six deleted paths" over a table of **three** paths and
+   six keys. Heading corrected.
+
+### Changed
+
+**No schema change.** `schema/schema.sql` and all seven migrations untouched — the
+durable model needed no new table. Evidence databases byte-identical.
+
+1. **`scripts/build-durable-store.ts`** (new) — read-only importer, self-verifying:
+   row reconciliation per table, foreign-key check, evidence sha256 before/after,
+   abort on any mismatch. Chronology comes from each database's own newest run, not
+   from filenames (two evidence files carry no date, and
+   `pilot-people-ext-c-pass2` holds a later run than its alphabetical neighbours).
+2. **`package.json`** — added `durable:build`.
+3. **`docs/data/DURABLE-RUN-MODEL.md`** (new) — the conceptual model.
+4. **`docs/data/SOURCE-OF-TRUTH-MATRIX.md`** — §6 and §8.7 corrected per above.
+5. **`docs/architecture/WORKMAP.md`** — phase status, this report.
+
+### Files
+
+New: `scripts/build-durable-store.ts`, `docs/data/DURABLE-RUN-MODEL.md`,
+`data/durable/store.db` (gitignored, rebuildable).
+Modified: `package.json`, `docs/data/SOURCE-OF-TRUTH-MATRIX.md`,
+`docs/architecture/WORKMAP.md`.
+
+### Tests
+
+All nine required commands re-run: `tsc` **0 errors** · discipline **0 violations**
+· build **334 static pages** · export audit **335 pages / 13,783 links / 1,463
+anchors / 0 failures** · smoke **79/0** · worker smoke pass · worker-security pass
+· people-lifecycle **64/0** · ingest-security **50/0**. Plus
+`npm run durable:build` run 4× — 19,506 rows every time, byte-identical output,
+13/13 evidence hashes unchanged.
+
+### Data impact
+
+**Additive only, into a derived gitignored artifact.** `data/durable/store.db`
+(7.3 MB) created from `schema/schema.sql` + rows copied from the 13 evidence
+databases. No source database was opened for writing. `git status -- schema
+migrations data` empty.
+
+### Security impact
+
+**NONE.** No security behaviour changed. `guard-env.cjs` gates the script, so it
+refuses to run when `LK_ENV` is staging or production. No credentials, no
+network, no production D1.
+
+### Production impact
+
+**NONE.**
+
+### Known issues
+
+- **The evidence is not in version control.** `.gitignore:28` is `*.db`, so
+  `git ls-files -- data/pilot/evidence` returns **0 files**. A fresh clone has
+  **zero assertions**. The only authoritative record in the system is one
+  unversioned disk with no backup, and the durable store is derived from it.
+  **Highest-priority item found in this phase.**
+- **`relationship` has no table.** No generic edge; `parent_id`/`merged_into_id`
+  plus five narrow edge tables. Deferred — a generic edge table before canonical
+  entities exists produces a container nothing can fill correctly (P1).
+- **`review` has no table.** `data_conflicts.resolution_status` is the queue and
+  `audit_logs` the trail, but no reviewer/decision/reason/ordering. Deferred — this
+  is one operator, so workflow is specified with P1's conflict resolution (P1).
+- **A fingerprint is not the payload.** `content_hash` real on 1458/1458 but
+  `r2_key` NULL on **all 1458** — no retrieved page was retained. Directive §15's
+  "what did the source say at that time?" is unanswerable: the store proves a page
+  was read and that its bytes differed, not what they said.
+- **Two generators still read one arbitrary day.**
+  `build-financials-module.ts:31` and `build-jobs-module.ts:43` hardcode a single
+  evidence filename, so `src/data/financials.ts` and `src/data/jobs.ts` come from
+  a one-day slice of a now-queryable history. Unchanged: retargeting changes
+  published page content (P1+). **(Resolved in P1:** both generators now read
+  `data/durable/store.db` by default, with `M35_FINANCIALS_DB` / `M35_JOBS_DB`
+  overrides for a pinned rebuild and a guard that refuses a stale store. On current
+  evidence the regenerated modules are byte-identical. See `DURABLE-RUN-MODEL.md` §5.)
+- **`institutions` is a reference copy in the store** — 421 rows collapsed to 51.
+  370 entity versions are deliberately not carried; canonical entity state is P1's.
+- **Concurrency untested.** Every run was written by one operator to a private
+  scratch DB, so two simultaneous writers have never been exercised. A live writer
+  needs `BEGIN IMMEDIATE` around run creation.
+- `pilot-branch-url-discovery-2026-09-27.db` has no `ingestion_runs` table at all
+  (5 tables, legacy) and contributes 0 runs. Its `sources` rows carry 8 of 17
+  columns; the importer defaults the rest and never invents a value.
+
+### Deferred
+
+`DURABLE-RUN-MODEL.md` §7, ordered. Item 1 — **evidence into version control or an
+equivalent backup** — is the one that cannot wait; everything else in the memory
+model is rebuildable from it. Then: retarget the two generators at the store;
+decide whether the store is a build artifact or a tracked database; specify
+`review` with P1; add `IngestionRunRepository` when a caller needs it.
+
+Carried forward from P0.4: the 8 reconciliation actions, of which item 1 (canonical
+`name`/`slug` for the 16 remapped ids + `FORMER` aliases + `slug_aliases`) and item
+2 (`master.json` into version control with a hash) still cannot wait. Item 1 is now
+**a prerequisite for P1**, not merely urgent.
+
+### Next phase
+
+**P1 - CANONICAL INSTATION BASE.** The blocker is cleared. P1 populates the first
+production-grade canonical entity with identity, aliases, status, dates, official
+links, source, provenance, history, lineage and coverage — NRB primary, disputed
+identities retained, not deleted. Its first act is the P0.4 item-1 decision.
+
+### Architecture changes
+
+**NONE.** The durable store is built from the existing 53-table schema with no
+migration, so no boundary moved. What changed is *where evidence lives*: 13
+independent dated databases become one derived store with a cross-run query path,
+while the evidence files stay in place as the record. The importer is a new
+project-local script in the existing `scripts/` convention (`pilot:*`, `nrb:*`),
+not a new layer.
+
+---
+
+## Phase report format (mandatory, directive §53)
+
+Every phase from here reports:
+
+```
+PHASE:            STATUS:
+Completed:        Changed:        Files:        Tests:
+Data impact:      Security impact:               Production impact:
+Known issues:     Deferred:       Next phase:   Architecture changes:
+```
+
+If architecture must change, emit:
+
+```
+ARCHITECTURE CHANGE PROPOSED:
+WHY:              IMPACT:          ALTERNATIVES:
+RECOMMENDATION:   APPROVAL REQUIRED: YES
+```
+
+and stop.
+
+---
+
+## Git discipline
+
+Conventional commits, one logical purpose each:
+
+```
+architecture:  docs(architecture): freeze planes, boundaries and asset decisions
+security:      fix(security): harden worker redirect validation and add rate limiting
+data:          feat(data): establish canonical institution read model
+repository:    refactor(repository): unify institution projections
+frontend:      refactor(frontend): route all data reads through site-data facade
+testing:       test(security): cover edge policy with negative cases
+docs:          docs(operations): document R6 and the site-data seam
+```
+
+---
+
+## Production safety
+
+Production `https://laghubitta.sennaplatform.com` receives changes only after
+explicit approval. Staging `https://subashnp169.github.io/laghubitta-khabar/` is
+for validation.
+
+Never without approval: force-push, delete production data, rewrite migrations,
+change production schema, change DNS, change production secrets, deploy directly.
