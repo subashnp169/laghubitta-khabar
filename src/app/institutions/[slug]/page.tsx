@@ -19,6 +19,7 @@ import { rateKindLabel, rateValueState } from "@/util/rates";
 import { PERIOD_DISCIPLINE_NOTE, financialPeriodLines, sourceOwnerLabel } from "@/util/financials";
 import { DOCUMENT_CLASS_DETAIL, DOCUMENT_CLASS_LABEL, documentTypeLabel } from "@/util/documents";
 import { FORMER_NAME_NOTE, formerNameLabel, formerNameTone } from "@/util/history";
+import { institutionJsonLd } from "@/util/seo";
 import {
   displayHost,
   formatCrore,
@@ -346,8 +347,23 @@ export default async function InstitutionPage({
     { href: "#sources", label: "Sources" },
   ];
 
+  // Structured data (P15). Minimal and honest: it asserts only what the profile
+  // already shows, and links the official site (sameAs) only when the website is
+  // verified rather than a candidate — the other URL is a guess.
+  const jsonLd = institutionJsonLd({
+    name: inst.name,
+    slug: inst.slug,
+    websiteUrl,
+    websiteVerified,
+    headOffice: inst.headOffice,
+  });
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* Institutional identity block. Full width, because this is the page's subject. */}
       <header className="border-b border-mfi-100 bg-white">
         <Container className="py-6 sm:py-8">

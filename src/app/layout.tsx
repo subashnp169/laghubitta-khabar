@@ -3,6 +3,7 @@ import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { directorySource, financialsProvenance, jobsProvenance } from "@/lib/site-data";
+import { SITE_BASE_URL } from "@/util/seo";
 
 /**
  * Site metadata.
@@ -16,8 +17,9 @@ export const metadata: Metadata = {
   // basePath is "/laghubitta-khabar", and Next resolves "./" for canonical/og:url
   // against metadataBase *without* adding basePath itself — verified empirically.
   // Putting basePath in metadataBase is what makes every emitted URL carry it
-  // exactly once. Do not move this into next.config.ts or drop the path segment.
-  metadataBase: new URL("https://laghubitta.sennaplatform.com/laghubitta-khabar"),
+  // exactly once. The value lives in @/util/seo (SITE_BASE_URL) so the sitemap,
+  // robots and structured data share one definition. Do not drop the path segment.
+  metadataBase: new URL(SITE_BASE_URL),
   // Relative, so all 334 pages get their own correct canonical from one
   // declaration. Hardcoding per-page URLs is unnecessary and would rot.
   alternates: { canonical: "./" },

@@ -44,8 +44,8 @@ No P5 feature may delay P0/P1 correctness.
 | P11 | Contribution / auth / moderation | **Deferred — out of V1 scope.** `docs/FROZEN-SPEC.md` fixes a read-only public surface with no write path; a contribution + moderation design and an auth decision must precede it |
 | P12 | R2 media | **Blocked — infra + no media held.** Needs Cloudflare R2 bindings and credentials, and there are no media assets to serve |
 | P13 | API v1 | **Complete** — read-only contract + `GET /api` discovery + OpenAPI 3.1 (`docs/api/openapi.json`); guards `smoke:api-contract` (94) and `smoke:api-hardening` (22); server hardened (CORS allowlist, fixed-window rate limit, `/health`, graceful shutdown). Network deploy (host/TLS/proxy) is an ops step, not code |
-| P14 | Operator control panel | Pending |
-| P15 | SEO / information graph | Pending |
+| P14 | Operator control panel | **Complete (CLI).** The operator surface is the read-only ingestion control plane (`npm run control`) plus the guard-env-gated ops verbs (`npm run ops`; M1.6). A browser panel is out of scope for a static export with no auth |
+| P15 | SEO / information graph | **Complete.** `app/sitemap.ts` + `app/robots.ts` emit `sitemap.xml` / `robots.txt` at build; one base URL (`SITE_BASE_URL` in `@/util/seo`) is shared by the sitemap, robots, `layout.tsx` and the per-institution schema.org `Organization` JSON-LD (`sameAs` only when the website is verified). Guard `smoke:seo-p15` (37). Ops: copy `robots.txt` to the domain root (crawlers read `/robots.txt` outside the basePath) |
 | P16 | Data products / research | Pending |
 | P17 | Monetization | **Deferred — not in V1 scope.** No monetization surface exists in the frozen spec; a product decision precedes any work |
 | P18 | Production hardening | Pending |
