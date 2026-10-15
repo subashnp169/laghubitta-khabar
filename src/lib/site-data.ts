@@ -61,6 +61,13 @@ export type { Job } from "@/data/jobs";
 // lib/repository/static-documents (allPublishedDocuments).
 export { documentAssertions, openDocumentConflicts, documentsProvenance } from "@/data/documents";
 
+// --- Corporate history: predecessor names (src/data/former-names.ts) --------
+// The FORMER-alias lineage register (P8): the predecessor names a licensed
+// institution absorbed through a merger, acquisition or rename. Keyed by
+// canonical institution id. Read as `formerNames[institution.id]` ([] if none).
+export { formerNames, formerNamesProvenance } from "@/data/former-names";
+export type { FormerName, FormerEventType } from "@/data/former-names";
+
 // --- NRB regulatory layer (src/data/nrb.ts) -------------------------------
 export {
   nrbSummary,

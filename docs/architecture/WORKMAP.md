@@ -31,15 +31,15 @@ No P5 feature may delay P0/P1 correctness.
 | **P0.3** | **Repository contract freeze** | **Complete** |
 | **P0.4** | **Source-of-truth reconciliation** | **Complete** |
 | **P0.5** | **Durable ingestion memory** | **Complete** |
-| P1 | Canonical institution base | Next |
-| P2 | People / leadership | Pending |
-| P3 | Branches / geography | Pending |
-| P4 | Financial intelligence | Pending |
-| P5 | Documents / notices | Pending |
-| P6 | News / jobs / official updates | Pending |
-| P7 | Digital / social / live coverage | Pending |
-| P8 | Corporate history | Pending |
-| P9 | Search / compare / research | Pending |
+| P1 | Canonical institution base | **Complete** — audit CLOSED (`docs/data/P1-CANONICAL-INSTITUTION-BASE-AUDIT.md`); landed `25fe424` |
+| P2 | People / leadership | **Complete** — audit CLOSED (`docs/data/P2-A-PEOPLE-POSITIONS-AUDIT.md`); landed `3a0c864` |
+| P3 | Branches / geography | **Complete** — audit CLOSED (`docs/data/P2-B-BRANCHES-AUDIT.md`); landed `3a0c864` |
+| P4 | Financial intelligence | **Complete** — audit CLOSED (`docs/data/P2-C-FINANCIAL-AUDIT.md`); landed `3a0c864` |
+| P5 | Documents / notices | **Complete** — audit CLOSED (`docs/data/P2-D-DOCUMENTS-JOBS-AUDIT.md`); landed `3a0c864` |
+| P6 | News / jobs / official updates | **Complete** — audit CLOSED (`docs/data/P2-E-NEWS-CONTENT-AUDIT.md`); landed `3a0c864` |
+| P7 | Digital / social / live coverage | Partial — official-website verification + branding rule on the profile (`isVerifiedWebsite`, `BRANDING_NOTE`); social directory not built |
+| P8 | Corporate history | **Complete** — per-institution timeline (P1-8) + `docs/data/HISTORY-MODEL.md` + a "Corporate history" profile panel surfacing the 62 FORMER/predecessor names (merger/acquisition/rename) from the lineage register (`src/data/former-names.ts`, `smoke:history-p8`) |
+| P9 | Search / compare / research | **Complete** — search (P4-2), compare (`lib/compare.ts`), research (`/research`); landed earlier |
 | P10 | Activity / media | Pending — needs schema approval |
 | P11 | Contribution / auth / moderation | Pending |
 | P12 | R2 media | Pending |

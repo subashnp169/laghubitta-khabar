@@ -2,7 +2,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import MovedInstitution from "@/components/institutions/MovedInstitution";
-import { institutions, getInstitutionBySlug, getInstitutionSlugRedirect, slugAliases, directorySource, crawlSources, crawlSummary, nrbInstitutionLinks, nrbRegulatoryEvents, nrbSummary, jobs } from "@/lib/site-data";
+import { institutions, getInstitutionBySlug, getInstitutionSlugRedirect, slugAliases, directorySource, crawlSources, crawlSummary, nrbInstitutionLinks, nrbRegulatoryEvents, nrbSummary, jobs, formerNames } from "@/lib/site-data";
 import { institutionLeadership, institutionBranches, allFinancialDocuments, institutionGeneralDocuments, type FinancialDocumentDto } from "../../../../lib/api/repository";
 import type { BranchDto, DocumentDto, PersonDto } from "../../../../lib/repository/types";
 import { Container } from "@/components/ui/Section";
@@ -18,6 +18,7 @@ import { hasSharedRole, maxSharedBy, roleLabels } from "@/util/roles";
 import { rateKindLabel, rateValueState } from "@/util/rates";
 import { PERIOD_DISCIPLINE_NOTE, financialPeriodLines, sourceOwnerLabel } from "@/util/financials";
 import { DOCUMENT_CLASS_DETAIL, DOCUMENT_CLASS_LABEL, documentTypeLabel } from "@/util/documents";
+import { FORMER_NAME_NOTE, formerNameLabel, formerNameTone } from "@/util/history";
 import {
   displayHost,
   formatCrore,
@@ -197,6 +198,11 @@ export default async function InstitutionPage({
     /governance/i.test(doc.title),
   );
 
+  // Corporate history (P8). Predecessor names come from the FORMER-alias lineage
+  // register, keyed by canonical institution id. An empty list means the register
+  // holds no absorbed name for this institution, not that it never absorbed one.
+  const formerNameList = formerNames[inst.id] ?? [];
+
   // Careers and Documents are sibling records of the same institution; link them
   // to each other when both have something to show (P2-5), through the canonical
   // slug only.
@@ -328,6 +334,7 @@ export default async function InstitutionPage({
     { href: "#overview", label: "Overview" },
     { href: "#leadership", label: "Leadership", count: leadership.length },
     { href: "#governance", label: "Governance" },
+    { href: "#history", label: "Corporate history", count: formerNameList.length },
     { href: "#branches", label: "Branches", count: publishedBranches.length },
     { href: "#financials", label: "Financials", count: finReports.length },
     { href: "#interest-rates", label: "Interest rates", count: finRates.length },
@@ -698,6 +705,44 @@ export default async function InstitutionPage({
                 extracted either: no committee membership has been read from a source, so none is shown.
               </p>
             )}
+          </Panel>
+
+          <Panel
+            id="history"
+            title="Corporate history"
+            count={
+              formerNameList.length > 0
+                ? `${formerNameList.length} former name${formerNameList.length === 1 ? "" : "s"}`
+                : undefined
+            }
+            note={FORMER_NAME_NOTE}
+          >
+            {formerNameList.length === 0 ? (
+              <EmptyState
+                compact
+                title="No predecessor names recorded"
+                detail="The regulator's lineage record carries no name this institution absorbed. That is a gap in the lineage we hold, not a claim that it never absorbed another institution."
+              />
+            ) : (
+              <ul className="lk-card lk-divide overflow-hidden">
+                {formerNameList.map((name) => (
+                  <li
+                    key={`${name.alias}|${name.eventType}`}
+                    className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1 px-3.5 py-2.5"
+                  >
+                    <span className="min-w-0 flex-1 break-words text-sm text-mfi-900">{name.alias}</span>
+                    <Chip tone={formerNameTone(name.eventType)} title={formerNameLabel(name.eventType)}>
+                      {formerNameLabel(name.eventType)}
+                    </Chip>
+                  </li>
+                ))}
+              </ul>
+            )}
+            {inst.aliases.length > 0 ? (
+              <p className="mt-3 text-xs leading-relaxed text-mfi-500">
+                Other spellings of the current name: {inst.aliases.join(" · ")}.
+              </p>
+            ) : null}
           </Panel>
 
           <Panel
