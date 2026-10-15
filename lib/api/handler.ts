@@ -21,6 +21,7 @@ import {
   search,
 } from "./repository";
 import { errorEnvelope } from "./contract";
+import { buildDiscoveryDocument } from "./routes";
 
 export interface ApiRequest {
   method: string;
@@ -59,6 +60,11 @@ export function handleApiRequest(req: ApiRequest): ApiResponse {
 
   if (segs[0] !== "api") return respond(errorEnvelope("NOT_FOUND", `Unknown path '${pathname}'`));
 
+  // GET /api — discovery index (P13). The only non-enveloped response: it is a
+  // description of the API itself, not an evidence-backed resource, so it carries
+  // no fabricated `meta`.
+  if (segs.length === 1) return respond({ status: 200, body: buildDiscoveryDocument() });
+
   switch (segs[1]) {
     case "institutions": {
       if (segs.length === 2) {
@@ -87,8 +93,6 @@ export function handleApiRequest(req: ApiRequest): ApiResponse {
           return respond(institutionJobs(slug, requested));
         case "leadership":
           return respond(institutionLeadership(slug, requested));
-        case "branches":
-          return respond(institutionBranches(slug, requested));
         case "financials":
           return respond(institutionFinancials(slug, requested));
         case "interest-rates":

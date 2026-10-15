@@ -43,7 +43,7 @@ No P5 feature may delay P0/P1 correctness.
 | P10 | Activity / media | Pending — needs schema approval |
 | P11 | Contribution / auth / moderation | Pending |
 | P12 | R2 media | Pending |
-| P13 | API v1 | Pending |
+| P13 | API v1 | Partial — read-only contract + `GET /api` discovery + OpenAPI 3.1 (`docs/api/openapi.json`) + `smoke:api-contract` guard; server hardening/deploy pending |
 | P14 | Operator control panel | Pending |
 | P15 | SEO / information graph | Pending |
 | P16 | Data products / research | Pending |

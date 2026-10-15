@@ -86,6 +86,20 @@ ingestion populates them.
 - The Solid/D1-backed adapter behind the repository (`/api/db/*` contract notes) stays
   future work; today repository reads the generated modules exactly like the pages do.
 
+## P13 — API v1 completion (discovery + machine-readable contract)
+
+The read-only surface is now self-describing and locked:
+
+- `GET /api` returns a discovery index (name, `version: v1`, `read_only`, every endpoint).
+- `docs/api/openapi.json` is an OpenAPI 3.1 document generated from
+  `lib/api/routes.ts` by `npm run build:openapi`.
+- `lib/api/routes.ts` is the single source of truth: the router, the discovery
+  index, the OpenAPI document and the guard all read from it.
+- `npm run smoke:api-contract` fails if the published spec drifts from the
+  builder, if any documented route is not implemented, if any route is
+  undocumented, if a non-GET verb is accepted, or if search without `q` is not
+  422. It also confirms the router still serves a reachable route for every entry.
+
 ## Non-goals this slice
 
 AuthN/AuthZ/key issuance, rate limiting, caching/CDN config, the news/source-tier

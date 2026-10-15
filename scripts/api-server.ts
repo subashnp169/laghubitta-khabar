@@ -28,5 +28,5 @@ const server = createServer((req, res) => {
 
 server.listen(PORT, HOST, () => {
   console.log(`laghubitta-khabar B2B API listening on http://${HOST}:${PORT} (read-only, deterministic)`);
-  console.log("endpoints: /api/institutions, /api/institutions/:slug{/documents,/events,/jobs,/branches,/leadership,/financials}, /api/interest-rates, /api/search?q=");
+  console.log("endpoints: /api (discovery), /api/institutions, /api/institutions/:slug{/documents,/events,/jobs,/branches,/leadership,/financials}, /api/interest-rates, /api/search?q=");
 });
