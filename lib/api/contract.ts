@@ -77,6 +77,15 @@ export function emptyCollection(page: number, limit: number): CollectionEnvelope
 }
 
 export function errorEnvelope(code: string, message: string): { status: number; body: ErrorEnvelope } {
-  const status = code === "NOT_FOUND" ? 404 : code === "VALIDATION" ? 422 : code === "METHOD_NOT_ALLOWED" ? 405 : 500;
+  const status =
+    code === "NOT_FOUND"
+      ? 404
+      : code === "VALIDATION"
+        ? 422
+        : code === "METHOD_NOT_ALLOWED"
+          ? 405
+          : code === "RATE_LIMITED"
+            ? 429
+            : 500;
   return { status, body: { error: { code, message } } };
 }

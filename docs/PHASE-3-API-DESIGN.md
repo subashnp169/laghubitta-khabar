@@ -80,9 +80,10 @@ ingestion populates them.
 - `lib/api/*` are pure (no I/O, no randomness, no AI); the only I/O is the Node server's
   request/response plumbing. `handleApiRequest` is importable so smokes never touch a socket.
 - No schema change, no DB writes, no new dependencies (`node:http` builtin only).
-- `scripts/api-server.ts` binds `127.0.0.1`, port `PORT` env or `8787`, JSON content-type,
-  permissive `Access-Control-Allow-Origin` for public read data, and logs
-  `METHOD path → status` per request.
+- `scripts/api-server.ts` binds `HOST` (default `127.0.0.1`; binding a public
+  interface is opt-in), port `PORT` env or `8787`, JSON content-type, and logs
+  `METHOD path → status` per request. The server policy (CORS, rate limit,
+  liveness) lives in the pure, testable `lib/api/server-policy.ts`.
 - The Solid/D1-backed adapter behind the repository (`/api/db/*` contract notes) stays
   future work; today repository reads the generated modules exactly like the pages do.
 
@@ -99,6 +100,29 @@ The read-only surface is now self-describing and locked:
   builder, if any documented route is not implemented, if any route is
   undocumented, if a non-GET verb is accepted, or if search without `q` is not
   422. It also confirms the router still serves a reachable route for every entry.
+
+## P13 — server hardening
+
+The route table is frozen; hardening lives in the server shell and the pure
+`lib/api/server-policy.ts`, so the contract cannot drift:
+
+- **CORS** is an allowlist from `LK_API_ALLOWED_ORIGINS` (comma separated). Unset
+  or blank means the local-dev wildcard; a set value is strict, so a
+  misconfigured deploy exposes nothing rather than everything. A refused origin
+  gets no `Access-Control-Allow-Origin` header. `OPTIONS` preflight is answered
+  `204` for `GET, HEAD, OPTIONS` only.
+- **Rate limit** is an in-process fixed-window limiter (`LK_API_RATE_LIMIT` per
+  minute; `0` or unset = disabled). Over-limit callers get a structured `429`
+  `RATE_LIMITED` error with `Retry-After`, never a silent failure.
+- **Liveness** is `GET /health`, returning `{ status, read_only, api_version,
+  endpoints }` — about the process, not the data, and deliberately free of any
+  timestamp or record count, so it is deterministic and cannot read as a
+  freshness or coverage claim.
+- **Lifecycle**: `SIGINT`/`SIGTERM` drain connections and exit. Responses carry
+  `Cache-Control: no-store`, `Vary: Origin`, `X-Content-Type-Options: nosniff`.
+- `npm run smoke:api-hardening` locks all of the above without binding a socket.
+
+Network deployment (host, TLS, reverse proxy) is an operations step, not code.
 
 ## Non-goals this slice
 

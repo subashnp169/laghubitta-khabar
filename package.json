@@ -76,6 +76,7 @@
     "build:openapi": "tsx scripts/build-openapi.ts",
     "smoke:api": "tsx scripts/smoke-api.ts",
     "smoke:api-contract": "tsx scripts/smoke-api-contract.ts",
+    "smoke:api-hardening": "tsx scripts/smoke-api-hardening.ts",
     "check:discipline": "node scripts/check-discipline.cjs",
     "check:identity": "tsx scripts/check-institution-identity.ts",
     "check:datatruth": "tsx scripts/check-data-truth.ts"

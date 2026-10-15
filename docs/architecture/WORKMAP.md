@@ -40,16 +40,16 @@ No P5 feature may delay P0/P1 correctness.
 | P7 | Digital / social / live coverage | Partial — official-website verification + branding rule on the profile (`isVerifiedWebsite`, `BRANDING_NOTE`); social directory not built |
 | P8 | Corporate history | **Complete** — per-institution timeline (P1-8) + `docs/data/HISTORY-MODEL.md` + a "Corporate history" profile panel surfacing the 62 FORMER/predecessor names (merger/acquisition/rename) from the lineage register (`src/data/former-names.ts`, `smoke:history-p8`) |
 | P9 | Search / compare / research | **Complete** — search (P4-2), compare (`lib/compare.ts`), research (`/research`); landed earlier |
-| P10 | Activity / media | Pending — needs schema approval |
-| P11 | Contribution / auth / moderation | Pending |
-| P12 | R2 media | Pending |
-| P13 | API v1 | Partial — read-only contract + `GET /api` discovery + OpenAPI 3.1 (`docs/api/openapi.json`) + `smoke:api-contract` guard; server hardening/deploy pending |
+| P10 | Activity / media | **Blocked — needs schema approval.** The media/activity tables (`videos`, `posts`, `digital_services`) exist but are empty and have no populated source; a schema/ingestion decision by the owner is required before any build |
+| P11 | Contribution / auth / moderation | **Deferred — out of V1 scope.** `docs/FROZEN-SPEC.md` fixes a read-only public surface with no write path; a contribution + moderation design and an auth decision must precede it |
+| P12 | R2 media | **Blocked — infra + no media held.** Needs Cloudflare R2 bindings and credentials, and there are no media assets to serve |
+| P13 | API v1 | **Complete** — read-only contract + `GET /api` discovery + OpenAPI 3.1 (`docs/api/openapi.json`); guards `smoke:api-contract` (94) and `smoke:api-hardening` (22); server hardened (CORS allowlist, fixed-window rate limit, `/health`, graceful shutdown). Network deploy (host/TLS/proxy) is an ops step, not code |
 | P14 | Operator control panel | Pending |
 | P15 | SEO / information graph | Pending |
 | P16 | Data products / research | Pending |
-| P17 | Monetization | Pending |
+| P17 | Monetization | **Deferred — not in V1 scope.** No monetization surface exists in the frozen spec; a product decision precedes any work |
 | P18 | Production hardening | Pending |
-| P19 | Production release | Pending — explicit approval required |
+| P19 | Production release | **Gated — explicit owner approval required;** not self-executable |
 
 ### Ordering note
 
