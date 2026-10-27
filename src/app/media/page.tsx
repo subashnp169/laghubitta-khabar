@@ -4,6 +4,7 @@ import { Container, PageHeader } from "@/components/ui/Section";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { videos, posts, digitalServices, mediaProvenance } from "@/lib/site-data";
 import { institutionHrefForSlug } from "@/util/institution-profile";
+import { isR2Configured, R2_STATUS_NOTE } from "../../../lib/storage/r2";
 
 export const metadata: Metadata = {
   title: "Media & activity",
@@ -100,6 +101,9 @@ export default function MediaPage() {
           ))}
         </Section>
 
+        {!isR2Configured() ? (
+          <p className="text-xs leading-relaxed text-mfi-500">{R2_STATUS_NOTE}</p>
+        ) : null}
         <p className="text-xs leading-relaxed text-mfi-500">{mediaProvenance}</p>
       </Container>
     </>
