@@ -76,6 +76,7 @@
     "smoke:media-p10": "tsx scripts/smoke-media-p10.ts",
     "smoke:digital-p7": "tsx scripts/smoke-digital-p7.ts",
     "smoke:data-products-p16": "tsx scripts/smoke-data-products-p16.ts",
+    "smoke:support-p17": "tsx scripts/smoke-support-p17.ts",
     "smoke:contribute-p11": "tsx scripts/smoke-contribute-p11.ts",
     "smoke:r2-p12": "tsx scripts/smoke-r2-p12.ts",
     "smoke:a11y": "tsx scripts/smoke-a11y.ts",
