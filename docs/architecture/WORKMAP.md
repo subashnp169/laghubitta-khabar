@@ -48,7 +48,7 @@ No P5 feature may delay P0/P1 correctness.
 | P15 | SEO / information graph | **Complete.** `app/sitemap.ts` + `app/robots.ts` emit `sitemap.xml` / `robots.txt` at build; one base URL (`SITE_BASE_URL` in `@/util/seo`) is shared by the sitemap, robots, `layout.tsx` and the per-institution schema.org `Organization` JSON-LD (`sameAs` only when the website is verified). Guard `smoke:seo-p15` (37). Ops: copy `robots.txt` to the domain root (crawlers read `/robots.txt` outside the basePath) |
 | P16 | Data products / research | **Deferred — business decision.** `research`/`posts` have no authoring workflow (research is currently static pages) and paid data products require validated demand before building commerce (§33, `ASSET-DECISION-MATRIX.md`). No code until that decision is made |
 | P17 | Monetization | **Deferred — not in V1 scope.** No monetization surface exists in the frozen spec; a product decision precedes any work |
-| P18 | Production hardening | Pending |
+| P18 | Production hardening | **Complete.** Custom on-brand `src/app/not-found.tsx` (no metadata export — not allowed in not-found); global `robots` removed from `layout.tsx` so it no longer collides with the 404's noindex (single robots meta, noindex). Deploy-surface smoke `smoke:prod-p18` (34): `_headers` security set (CSP self-first, frame-ancestors none, object-src none, HSTS preload), static-export contract (output export, basePath, trailingSlash, unoptimized), CI build, no dead middleware, generated robots/sitemap routes, built 404 carries exactly one noindex robots meta |
 | P19 | Production release | **Gated — explicit owner approval required;** not self-executable |
 
 ### Ordering note
