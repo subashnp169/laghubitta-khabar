@@ -68,6 +68,10 @@ export { documentAssertions, openDocumentConflicts, documentsProvenance } from "
 export { formerNames, formerNamesProvenance } from "@/data/former-names";
 export type { FormerName, FormerEventType } from "@/data/former-names";
 
+// --- Snapshot diff (P4-1): what changed between two dated evidence runs -------
+export { diffChanges, diffAlertsSource } from "@/data/diff-alerts";
+export type { DiffChange } from "../../lib/diff";
+
 // --- NRB regulatory layer (src/data/nrb.ts) -------------------------------
 export {
   nrbSummary,

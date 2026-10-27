@@ -8,8 +8,9 @@
 // ============================================================================
 
 import type { CrawlSource, NrbRegulatoryEvent } from "@/types";
+import type { DiffChange } from "./diff";
 
-export type AlertKind = "REGULATORY_EVENT" | "COVERAGE" | "EVIDENCE_CONFLICT";
+export type AlertKind = "REGULATORY_EVENT" | "COVERAGE" | "EVIDENCE_CONFLICT" | "SNAPSHOT_DIFF";
 export type AlertSeverity = "high" | "medium" | "low";
 
 export const SEVERITY_RANK: Record<AlertSeverity, number> = { high: 0, medium: 1, low: 2 };
@@ -171,16 +172,55 @@ export function buildConflictAlerts(conflicts: ConflictAlertInput[]): AlertItem[
   });
 }
 
+// ---------------------------------------------------------------------------
+// Snapshot-diff alerts (P4-1).
+//
+// "What changed since the last run" — derived from a real diff of two dated
+// evidence databases, not from a guess. Each change carries the REAL
+// `observed_at` of the row that moved; a change whose row has no timestamp is
+// dropped rather than given a fabricated date. The producer is thin: one alert
+// per changed assertion identity, with the before/after values in the detail so a
+// reader can see exactly what moved.
+// ---------------------------------------------------------------------------
+export function buildDiffAlerts(changes: DiffChange[]): AlertItem[] {
+  const out: AlertItem[] = [];
+  for (const c of changes) {
+    const instMatch = c.entityId.match(/mfi-\d+/i);
+    const institutionId = instMatch ? instMatch[0].toLowerCase() : null;
+    const verb = c.kind === "added" ? "added" : "removed";
+    out.push({
+      id: `diff-${c.kind}-${c.entityType}-${c.entityId}-${c.fieldName}-${c.value}`.slice(0, 120),
+      kind: "SNAPSHOT_DIFF",
+      severity: c.kind === "removed" ? "medium" : "low",
+      title: `Evidence ${verb}: ${c.fieldName}`,
+      detail: `${c.entityType} ${c.entityId} — “${c.fieldName}” ${verb} “${c.value}” (source ${c.sourceId}).`,
+      institutionId,
+      institutionSlug: null,
+      institutionName: null,
+      occurredAt: c.observedAt,
+      source: "snapshot diff · dated evidence runs",
+    });
+  }
+  return out.sort((a, b) => {
+    const ta = a.occurredAt ?? "";
+    const tb = b.occurredAt ?? "";
+    if (ta !== tb) return ta < tb ? 1 : -1;
+    return a.id < b.id ? -1 : 1;
+  });
+}
+
 /**
  * Combined feed: evidence conflicts first (an unresolved disagreement outranks
- * any single-record signal), then coverage, then regulatory events. Each group
- * is sorted by severity then recency; conflicts carry no date so they sort by
- * id. Deterministic (separated groups, never interleaved).
+ * any single-record signal), then coverage, then regulatory events, then
+ * snapshot-diff changes. Each group is sorted by severity then recency; conflicts
+ * carry no date so they sort by id. Deterministic (separated groups, never
+ * interleaved).
  */
 export function buildAlerts(
   events: NrbRegulatoryEvent[],
   sources: CrawlSource[],
   conflicts: ConflictAlertInput[] = [],
+  diffChanges: DiffChange[] = [],
 ): AlertItem[] {
   const sortGroup = (items: AlertItem[]): AlertItem[] =>
     [...items].sort((a, b) => {
@@ -194,6 +234,7 @@ export function buildAlerts(
     ...sortGroup(buildConflictAlerts(conflicts)),
     ...sortGroup(buildCoverageAlerts(sources)),
     ...sortGroup(buildEventAlerts(events)),
+    ...sortGroup(buildDiffAlerts(diffChanges)),
   ];
 }
 

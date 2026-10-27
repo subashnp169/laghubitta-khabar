@@ -10,6 +10,7 @@ import {
   openPeopleConflicts,
   openFinancialConflicts,
   openDocumentConflicts,
+  diffChanges,
 } from "@/lib/site-data";
 import { Container, PageHeader } from "@/components/ui/Section";
 import { Chip } from "@/components/ui/Chip";
@@ -85,12 +86,13 @@ export default function AlertsPage() {
     ...openDocumentConflicts.map((c) => conflictInput("document", c.entity_id, c.field_name)),
   ];
 
-  const alerts = buildAlerts(nrbRegulatoryEvents, crawlSources, conflictInputs);
+  const alerts = buildAlerts(nrbRegulatoryEvents, crawlSources, conflictInputs, diffChanges);
   const counts = countBySeverity(alerts);
   const nameByInst = new Map(institutions.map((i) => [i.id, i.name]));
   const conflicts = alerts.filter((a) => a.kind === "EVIDENCE_CONFLICT");
   const coverage = alerts.filter((a) => a.kind === "COVERAGE");
   const events = alerts.filter((a) => a.kind === "REGULATORY_EVENT");
+  const diff = alerts.filter((a) => a.kind === "SNAPSHOT_DIFF");
 
   return (
     <>
@@ -112,7 +114,7 @@ export default function AlertsPage() {
           <Chip tone="attention">{counts.medium} medium</Chip>
           <Chip tone="neutral">{counts.low} low</Chip>
           <span className="ml-auto text-xs text-mfi-500">
-            {conflicts.length} conflicts · {events.length} regulatory · {coverage.length} coverage
+            {conflicts.length} conflicts · {events.length} regulatory · {coverage.length} coverage · {diff.length} snapshot changes
           </span>
         </div>
 
@@ -256,6 +258,34 @@ export default function AlertsPage() {
                 </li>
               );
             })}
+          </AlertGroup>
+        ) : null}
+
+        {diff.length > 0 ? (
+          <AlertGroup
+            title="Snapshot changes"
+            note="Assertions that appeared or disappeared between two dated evidence runs. Each carries the real observation timestamp of the row that moved; nothing is invented."
+          >
+            {diff.map((a) => (
+              <li key={a.id} className="flex items-start gap-3 px-4 py-4 sm:px-5">
+                <Chip tone={SEVERITY_TONE[a.severity] ?? "neutral"} className="mt-0.5 shrink-0">
+                  {a.severity}
+                </Chip>
+                <div className="min-w-0">
+                  <p className="text-sm font-semibold text-mfi-900">{a.title}</p>
+                  <p className="mt-0.5 text-xs leading-relaxed text-mfi-600">{a.detail}</p>
+                  <p className="mt-1 flex flex-wrap items-center gap-x-2 text-[11px] text-mfi-500">
+                    {a.occurredAt ? (
+                      <>
+                        <span>observed {formatDate(a.occurredAt)}</span>
+                        <span aria-hidden="true">·</span>
+                      </>
+                    ) : null}
+                    <span>{a.source}</span>
+                  </p>
+                </div>
+              </li>
+            ))}
           </AlertGroup>
         ) : null}
 
