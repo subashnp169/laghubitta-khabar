@@ -71,6 +71,7 @@
     "smoke:profile-nav": "tsx scripts/smoke-profile-nav.ts",
     "smoke:history-p8": "tsx scripts/smoke-history-p8.ts",
     "smoke:seo-p15": "tsx scripts/smoke-seo-p15.ts",
+    "smoke:prod-p18": "tsx scripts/smoke-prod-p18.ts",
     "smoke:ui-states": "tsx scripts/smoke-ui-states.ts",
     "smoke:canonical-links": "tsx scripts/smoke-canonical-links.ts",
     "api": "tsx scripts/api-server.ts",

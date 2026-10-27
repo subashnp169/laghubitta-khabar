@@ -39,8 +39,11 @@ export const metadata: Metadata = {
     description:
       "Source-linked records for Nepal's licensed microfinance institutions, built on the Nepal Rastra Bank BFI directory.",
   },
-  // Nothing here is user-specific, and the whole dataset is public information.
-  robots: { index: true, follow: true },
+  // No global `robots` here on purpose. Declaring `index, follow` at the root
+  // emitted a second, conflicting <meta name="robots"> on the generated 404,
+  // which Next already stamps `noindex`; a page must not carry both. Omitting it
+  // leaves the whole site indexable by default (the crawler default) and lets the
+  // 404 keep the single `noindex` that is the only correct value for it.
 };
 
 export const viewport: Viewport = {
