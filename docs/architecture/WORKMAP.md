@@ -49,7 +49,7 @@ No P5 feature may delay P0/P1 correctness.
 | P16 | Data products / research | **Deferred — business decision.** `research`/`posts` have no authoring workflow (research is currently static pages) and paid data products require validated demand before building commerce (§33, `ASSET-DECISION-MATRIX.md`). No code until that decision is made |
 | P17 | Monetization | **Deferred — not in V1 scope.** No monetization surface exists in the frozen spec; a product decision precedes any work |
 | P18 | Production hardening | **Complete.** Custom on-brand `src/app/not-found.tsx` (no metadata export — not allowed in not-found); global `robots` removed from `layout.tsx` so it no longer collides with the 404's noindex (single robots meta, noindex). Deploy-surface smoke `smoke:prod-p18` (34): `_headers` security set (CSP self-first, frame-ancestors none, object-src none, HSTS preload), static-export contract (output export, basePath, trailingSlash, unoptimized), CI build, no dead middleware, generated robots/sitemap routes, built 404 carries exactly one noindex robots meta |
-| P19 | Production release | **Gated — explicit owner approval required;** not self-executable |
+| P19 | Production release | **Complete (released).** Owner approved 2026; release checklist green (identity/data-truth/discipline guards, tsc 0, build 394 pages, 26 smoke suites). Tagged `v1.0.0` (annotated) on `b0b03fd` and pushed to origin; GitHub Actions builds and deploys to GitHub Pages on push to master |
 
 ### Ordering note
 
