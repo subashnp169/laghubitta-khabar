@@ -39,6 +39,7 @@ interface Db {
   prepare(sql: string): { all(...a: unknown[]): Row[]; get(...a: unknown[]): Row };
   close(): void;
 }
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const Database = require("better-sqlite3") as new (p: string, o?: { readonly?: boolean; fileMustExist?: boolean }) => Db;
 
 const ROOT = resolve(__dirname, "..");
@@ -107,7 +108,6 @@ const slugAliases = loadSlugAliases();
 // ---------------------------------------------------------------------------
 const domains = new Map<string, Set<string>>();
 const asserted = new Map<string, Set<string>>();
-const assertionsByDomain = new Map<string, number>();
 let dbCount = 0;
 
 for (const f of readdirSync(EVIDENCE_DIR).filter((f) => f.endsWith(".db"))) {

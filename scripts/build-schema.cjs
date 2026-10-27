@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 // Regenerates schema/schema.sql from migrations/*.sql (canonical source).
 // Usage: node scripts/build-schema.cjs
 const fs = require('fs');

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 // Generates canonical master data TS files under data/master/ from the old
 // senna-mfi-db exports (institutions_dump.json, aliases_dump.json,
 // source_registry_dump.json). Selective import only — every row carries the

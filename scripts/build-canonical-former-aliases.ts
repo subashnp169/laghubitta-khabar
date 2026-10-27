@@ -7,9 +7,13 @@ const OUT_JSON = join(ROOT, "data/master/canonical-former-aliases.json");
 
 const master = JSON.parse(readFileSync(MASTER, "utf8"));
 const timeline = master.timeline || [];
-const existing = new Set(master.aliases.map((a:any)=>(a.institution_id+':'+a.normalized_alias||a.alias.toLowerCase())));
+const existing = new Set(
+  (master.aliases as Array<{ institution_id: string; normalized_alias?: string; alias: string }>).map(
+    (a) => a.institution_id + ":" + (a.normalized_alias || a.alias.toLowerCase()),
+  ),
+);
 
-const rows:any[] = [];
+const rows: Array<{ institution_id: string; alias: string; alias_type: string; event_type: string; source_id: string }> = [];
 for (const ev of timeline) {
   const pid = ev.institution_id;
   const pred = ev.predecessor_name;

@@ -41,7 +41,7 @@ const Database = require("better-sqlite3") as new (p: string) => {
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const fs = require("node:fs") as typeof import("node:fs");
 
-let SCHEDULE = 0;
+const SCHEDULE = 0;
 class FakeFetcher {
   private readonly rules: Record<string, { status: number; body: string; contentType: string } | { fail: string }>;
   private attempts = 0;

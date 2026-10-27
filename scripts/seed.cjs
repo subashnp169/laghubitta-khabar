@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 // =============================================================================
 // scripts/seed.cjs — idempotent Phase A seed for the canonical universe.
 // Usage: node scripts/seed.cjs [path-to-db-file]

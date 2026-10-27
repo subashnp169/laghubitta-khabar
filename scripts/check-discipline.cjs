@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 // ============================================================================
 // scripts/check-discipline.cjs — static enforcement of the engineering rules
 // in docs/OPERATIONS.md, runnable in CI (npm run check:discipline).

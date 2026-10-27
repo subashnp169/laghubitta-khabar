@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 // Post-build audit for the static export. Verifies the invariants the product
 // depends on: page count, single h1, main landmark, skip link, canonical/og
 // consistency, in-page anchors that resolve, internal links that resolve, and

@@ -73,6 +73,8 @@
     "smoke:seo-p15": "tsx scripts/smoke-seo-p15.ts",
     "smoke:prod-p18": "tsx scripts/smoke-prod-p18.ts",
     "smoke:diff-alerts": "tsx scripts/smoke-diff-alerts.ts",
+    "smoke:a11y": "tsx scripts/smoke-a11y.ts",
+    "smoke:perf": "tsx scripts/smoke-perf.ts",
     "smoke:ui-states": "tsx scripts/smoke-ui-states.ts",
     "smoke:canonical-links": "tsx scripts/smoke-canonical-links.ts",
     "api": "tsx scripts/api-server.ts",

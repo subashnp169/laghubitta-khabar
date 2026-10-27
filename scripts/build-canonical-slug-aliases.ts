@@ -7,10 +7,15 @@ const INSTIT = join(ROOT, "src", "data", "institutions.ts");
 const OUT_JSON = join(ROOT, "data", "master", "canonical-slug-aliases.json");
 
 type Row = { old_slug: string; moved_to: string; institution_id: string; was: string };
-const { identity_conflicts = [] } = JSON.parse(readFileSync(DISPUTED, "utf8"));
-const rows: Row[] = identity_conflicts
-  .filter((c: any) => c.published?.slug && c.master?.slug && c.id)
-  .map((c: any) => ({
+interface ConflictRow {
+  id?: string;
+  published?: { slug?: string };
+  master?: { slug?: string };
+}
+const { identity_conflicts = [] } = JSON.parse(readFileSync(DISPUTED, "utf8")) as { identity_conflicts?: ConflictRow[] };
+const rows: Row[] = (identity_conflicts as ConflictRow[])
+  .filter((c) => Boolean(c.published?.slug && c.master?.slug && c.id))
+  .map((c) => ({
     old_slug: c.published.slug,
     moved_to: c.master.slug,
     institution_id: c.id,
