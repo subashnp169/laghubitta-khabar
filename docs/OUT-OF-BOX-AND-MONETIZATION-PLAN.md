@@ -127,5 +127,3 @@ V1 is complete and released (v1.0.0). The OOTB plan above is the V2 target.
 Nothing further is buildable without either (a) new data, (b) infra/credentials,
 or (c) an explicit product decision — and all three are now documented as the
 remaining setup, not as unfinished code.
-EOF
-echo "written"
