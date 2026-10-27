@@ -2,7 +2,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import MovedInstitution from "@/components/institutions/MovedInstitution";
-import { institutions, getInstitutionBySlug, getInstitutionSlugRedirect, slugAliases, directorySource, crawlSources, crawlSummary, nrbInstitutionLinks, nrbRegulatoryEvents, nrbSummary, jobs, formerNames } from "@/lib/site-data";
+import { institutions, getInstitutionBySlug, getInstitutionSlugRedirect, slugAliases, directorySource, crawlSources, nrbInstitutionLinks, nrbRegulatoryEvents, nrbSummary, jobs, formerNames } from "@/lib/site-data";
 import { institutionLeadership, institutionBranches, allFinancialDocuments, institutionGeneralDocuments, type FinancialDocumentDto } from "../../../../lib/api/repository";
 import type { BranchDto, DocumentDto, PersonDto } from "../../../../lib/repository/types";
 import { Container } from "@/components/ui/Section";
