@@ -33,6 +33,7 @@ export default function Footer() {
         { href: "/documents", label: "Documents" },
         { href: "/reports", label: "Reports" },
         { href: "/research", label: "Research" },
+        { href: "/data-products", label: "Data products" },
       ],
     },
     {
