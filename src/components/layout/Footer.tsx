@@ -21,6 +21,7 @@ export default function Footer() {
         { href: "/people", label: "People" },
         { href: "/nrb", label: "NRB & regulatory" },
         { href: "/media", label: "Media & activity" },
+        { href: "/digital", label: "Digital presence" },
       ],
     },
     {

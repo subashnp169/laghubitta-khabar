@@ -68,6 +68,10 @@ export { documentAssertions, openDocumentConflicts, documentsProvenance } from "
 export { formerNames, formerNamesProvenance } from "@/data/former-names";
 export type { FormerName, FormerEventType } from "@/data/former-names";
 
+// --- Digital / social presence (P7) ---------------------------------------
+export { officialWebsites, socialAccounts, digitalProvenance } from "@/data/social";
+export type { OfficialWebsite, SocialAccount } from "@/data/social";
+
 // --- Media / activity (P10): videos, posts, digital services ---------------
 export { videos, posts, digitalServices, mediaProvenance } from "@/data/media";
 export type { MediaVideo, MediaPost, MediaDigitalService } from "@/data/media";
