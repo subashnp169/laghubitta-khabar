@@ -75,6 +75,7 @@
     "smoke:diff-alerts": "tsx scripts/smoke-diff-alerts.ts",
     "smoke:media-p10": "tsx scripts/smoke-media-p10.ts",
     "smoke:digital-p7": "tsx scripts/smoke-digital-p7.ts",
+    "smoke:contribute-p11": "tsx scripts/smoke-contribute-p11.ts",
     "smoke:a11y": "tsx scripts/smoke-a11y.ts",
     "smoke:perf": "tsx scripts/smoke-perf.ts",
     "smoke:ui-states": "tsx scripts/smoke-ui-states.ts",

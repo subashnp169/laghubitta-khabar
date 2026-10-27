@@ -45,6 +45,7 @@ export default function Footer() {
         { href: "/alerts", label: "Alerts" },
         { href: "/compare", label: "Compare" },
         { href: "/search", label: "Search" },
+        { href: "/contribute", label: "Contribute" },
       ],
     },
   ];
