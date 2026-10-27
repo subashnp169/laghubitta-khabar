@@ -68,6 +68,10 @@ export { documentAssertions, openDocumentConflicts, documentsProvenance } from "
 export { formerNames, formerNamesProvenance } from "@/data/former-names";
 export type { FormerName, FormerEventType } from "@/data/former-names";
 
+// --- Media / activity (P10): videos, posts, digital services ---------------
+export { videos, posts, digitalServices, mediaProvenance } from "@/data/media";
+export type { MediaVideo, MediaPost, MediaDigitalService } from "@/data/media";
+
 // --- Snapshot diff (P4-1): what changed between two dated evidence runs -------
 export { diffChanges, diffAlertsSource } from "@/data/diff-alerts";
 export type { DiffChange } from "../../lib/diff";

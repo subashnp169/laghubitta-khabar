@@ -20,6 +20,7 @@ export default function Footer() {
         { href: "/institutions", label: "Institutions" },
         { href: "/people", label: "People" },
         { href: "/nrb", label: "NRB & regulatory" },
+        { href: "/media", label: "Media & activity" },
       ],
     },
     {
