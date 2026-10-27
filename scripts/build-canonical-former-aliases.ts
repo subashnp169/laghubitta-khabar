@@ -13,7 +13,17 @@ const existing = new Set(
   ),
 );
 
-const rows: Array<{ institution_id: string; alias: string; alias_type: string; event_type: string; source_id: string }> = [];
+const rows: Array<{
+  institution_id: string;
+  alias: string;
+  alias_type: string;
+  is_active: number;
+  source_id: string;
+  reason: string;
+  event_type: string;
+  title: string;
+  evidence: string;
+}> = [];
 for (const ev of timeline) {
   const pid = ev.institution_id;
   const pred = ev.predecessor_name;

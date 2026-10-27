@@ -16,10 +16,10 @@ const { identity_conflicts = [] } = JSON.parse(readFileSync(DISPUTED, "utf8")) a
 const rows: Row[] = (identity_conflicts as ConflictRow[])
   .filter((c) => Boolean(c.published?.slug && c.master?.slug && c.id))
   .map((c) => ({
-    old_slug: c.published.slug,
-    moved_to: c.master.slug,
-    institution_id: c.id,
-    was: c.published.name,
+    old_slug: c.published!.slug as string,
+    moved_to: c.master!.slug as string,
+    institution_id: c.id as string,
+    was: c.published!.slug as string,
   }));
 
 // Also read from current code (TypeScript export) in case source of truth differs? but institutions.ts has 16.
