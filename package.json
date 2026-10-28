@@ -90,6 +90,8 @@
     "build:social": "tsx scripts/build-social-module.ts",
     "report:data-quality": "tsx scripts/report-data-quality.ts",
     "triage:conflicts": "tsx scripts/triage-conflicts.ts",
+    "smoke:recovery-manifest": "tsx scripts/smoke-recovery-manifest.ts",
+    "recovery:manifest": "tsx scripts/recovery-manifest.ts",
     "smoke:triage-conflicts": "tsx scripts/smoke-triage-conflicts.ts",
     "smoke:data-quality": "tsx scripts/smoke-data-quality.ts",
     "build:source-field-groups": "tsx scripts/build-source-field-groups.ts",
