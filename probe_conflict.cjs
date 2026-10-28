@@ -1,0 +1,17 @@
+const Database = require('better-sqlite3');
+const db = new Database('data/durable/store.db', { readonly: true });
+console.log("=== conflicts by entity_type ===");
+console.log(db.prepare("SELECT entity_type, COUNT(*) c FROM data_conflicts GROUP BY entity_type").all());
+console.log("=== conflicts by field_name ===");
+console.log(db.prepare("SELECT field_name, COUNT(*) c FROM data_conflicts GROUP BY field_name").all());
+console.log("=== sample conflict row ===");
+console.log(JSON.stringify(db.prepare("SELECT * FROM data_conflicts LIMIT 1").all(), null, 2));
+console.log("=== distinct source_a/source_b pairs ===");
+console.log(db.prepare("SELECT source_a_id, source_b_id, COUNT(*) c FROM data_conflicts GROUP BY source_a_id, source_b_id").all());
+console.log("=== conflicts with same source (a=b) ===");
+console.log(db.prepare("SELECT COUNT(*) c FROM data_conflicts WHERE source_a_id = source_b_id").get());
+console.log("=== conflicts with resolved_by set ===");
+console.log(db.prepare("SELECT COUNT(*) c FROM data_conflicts WHERE resolved_by IS NOT NULL").get());
+console.log("=== conflicts with resolution_note ===");
+console.log(db.prepare("SELECT COUNT(*) c FROM data_conflicts WHERE resolution_note IS NOT NULL AND resolution_note != ''").get());
+db.close();

@@ -316,6 +316,36 @@ is.
 Per directive: trace, not fix. The four defects above are recorded for P0.4.
 No code change was made in this phase.
 
+---
+
+## 9. V1.1.1 conflict triage (read-only)
+
+A deterministic triage report was produced from `data/durable/store.db` without
+mutating any conflict status, evidence, assertion, history or source record.
+
+- **Verified baseline:** 229 conflict rows, all `entity_type = 'institution'`,
+  `field_name = 'people_ceo'`, `resolution_status = 'OPEN'`,
+  `resolved_by`/`resolved_at` null on all, all `source_a_id = source_b_id`.
+- **Categories:** 229 "same-source parser disagreement (pre-fix artifact)"
+  (10 distinct sources: swastiklbs 191, swbbl 19, gilb 3, nationalmicrofinance 6,
+  samata 3, supportmicrofinance 3, cyc 1, dhaulagiribank 1, kalikabank 1, nirdhan 1).
+  0 cross-source, 0 indeterminate.
+- **How determined:** source identity equality plus the `resolution_note` text
+  (which names two parsers of the same page, e.g. people-html-v1/people-json-v1).
+  Per CONFLICT-VISIBILITY-CHAIN §2 these are detector artifacts, not disputes.
+- **Recommendation labels (report only, not applied):** IGNORE_CANDIDATE for all
+  229. No status was changed.
+- **Limitations:** no per-value observation timestamp exists in `data_conflicts`
+  (only `detected_at`). Institution names resolved from the durable store;
+  pilot stubs appear by id. Classification relies on source identity + note text.
+- **Owner-review register:** `docs/data/CONFLICT-TRIAGE.csv` (one row per conflict,
+  full values, no truncation) and `docs/data/CONFLICT-TRIAGE-SUMMARY.md`.
+- **Explicit statement:** No conflict statuses, source data, evidence, assertions,
+  history, or validation results were changed by this triage. Recommendations
+  are labels in the report only.
+- **Guard:** `npm run smoke:triage-conflicts` (11 checks) locks row count,
+  categories, determinism, and the no-mutation statement.
+
 **The one-line highest-value change for P0.4:** invert
 `src/app/ingestion/page.tsx:96` so an unverified-zero does not render green. It is
 a display change with no schema dependency and it stops the platform from
