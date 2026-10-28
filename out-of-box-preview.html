@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Laghubitta Khabar — Out-of-the-box preview</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        mfi: {
+          50: "#f7f9fc", 100: "#eef2f7", 200: "#d9e2ec", 300: "#bcccdc",
+          400: "#9fb3c8", 500: "#829ab1", 600: "#627d98", 700: "#486581",
+          800: "#334e68", 900: "#243b53", 950: "#102a43"
+        },
+        alert: { 50: "#fef2f2", 200: "#fecaca", 700: "#b91c1c" }
+      }
+    }
+  }
+}
+</script>
+<style>
+  body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  .lk-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #627d98; }
+  .lk-monogram { display: inline-flex; align-items: center; justify-content: center; border-radius: 6px; background: #243b53; color: #fff; font-weight: 700; letter-spacing: -0.02em; }
+  .lk-card { border: 1px solid #eef2f7; border-radius: 10px; background: #fff; }
+  .lk-divide > li + li { border-top: 1px solid #eef2f7; }
+  .lk-nav-link { color: #486581; font-size: 14px; font-weight: 500; }
+  .lk-nav-link:hover { color: #243b53; }
+  .lk-scroll-x { overflow-x: auto; }
+  .lk-scroll-x::-webkit-scrollbar { height: 6px; }
+  .lk-scroll-x::-webkit-scrollbar-thumb { background: #bcccdc; border-radius: 3px; }
+  .chip { display: inline-flex; align-items: center; border-radius: 9999px; padding: 2px 8px; font-size: 11px; font-weight: 600; border: 1px solid #d9e2ec; background: #f7f9fc; color: #486581; }
+  .chip.positive { border-color: #bbf7d0; background: #f0fdf4; color: #15803d; }
+  .chip.attention { border-color: #fde68a; background: #fffbeb; color: #b45309; }
+  .chip.conflict { border-color: #fecaca; background: #fef2f2; color: #b91c1c; }
+  .chip.neutral { border-color: #d9e2ec; background: #f7f9fc; color: #627d98; }
+  .state-note { border: 1px solid #fde68a; background: #fffbeb; border-radius: 8px; padding: 10px 12px; font-size: 12px; color: #78350f; }
+  .provenance { font-size: 11px; line-height: 1.6; color: #627d98; }
+  .provenance span.label { font-weight: 600; color: #486581; }
+  .section-title { font-size: 16px; font-weight: 600; letter-spacing: -0.01em; color: #243b53; }
+  .page-h1 { font-size: 26px; font-weight: 600; letter-spacing: -0.02em; color: #243b53; }
+  .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; }
+  .stat { border: 1px solid #eef2f7; border-radius: 8px; padding: 10px 12px; background: #fff; }
+  .stat .k { font-size: 11px; color: #627d98; text-transform: uppercase; letter-spacing: 0.08em; }
+  .stat .v { font-size: 20px; font-weight: 600; color: #243b53; margin-top: 2px; }
+  .nav-tabs { display: flex; gap: 4px; overflow-x: auto; }
+  .nav-tab { padding: 6px 12px; font-size: 13px; font-weight: 500; color: #627d98; border-radius: 6px; white-space: nowrap; }
+  .nav-tab.active { background: #eef2f7; color: #243b53; }
+  .panel { border: 1px solid #eef2f7; border-radius: 10px; background: #fff; padding: 16px; }
+  .empty { border: 1px dashed #bcccdc; border-radius: 8px; padding: 16px; text-align: center; color: #627d98; font-size: 13px; background: #f7f9fc; }
+  .breadcrumb { font-size: 12px; color: #627d98; }
+  .breadcrumb a { color: #486581; text-decoration: underline; text-underline-offset: 2px; }
+  .lk-card li { padding: 12px 16px; }
+  .anchor { color: #486581; text-decoration: underline; text-underline-offset: 2px; font-size: 13px; }
+  @media (max-width: 768px) { .desktop-nav { display: none; } }
+</style>
+</head>
+<body class="bg-mfi-50 text-mfi-900 min-h-screen flex flex-col">
+
+<!-- ============================== HEADER ============================== -->
+<header class="sticky top-0 z-50 border-b border-mfi-100 bg-white/95 backdrop-blur-sm">
+  <div class="mx-auto flex h-14 w-full max-w-[1240px] items-center gap-3 px-4 sm:h-16 sm:px-6">
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-2 focus:z-50 focus:rounded focus:bg-mfi-900 focus:px-3 focus:py-2 focus:text-sm focus:text-white">Skip to content</a>
+    <a class="flex shrink-0 items-center gap-2" href="#">
+      <span class="lk-monogram size-8 text-[13px] sm:size-9 sm:text-sm">LK</span>
+      <span class="flex flex-col leading-none">
+        <span class="text-[15px] font-bold tracking-tight text-mfi-900">Laghubitta Khabar</span>
+        <span class="mt-0.5 hidden text-[10px] font-medium uppercase tracking-[0.14em] text-mfi-400 sm:block">MFI intelligence</span>
+      </span>
+    </a>
+    <nav aria-label="Primary" class="desktop-nav ml-4 flex flex-1 items-center gap-5 lg:gap-7">
+      <a class="lk-nav-link" href="#institutions">Institutions</a>
+      <a class="lk-nav-link" href="#people">People</a>
+      <a class="lk-nav-link" href="#news">News</a>
+      <a class="lk-nav-link" href="#documents">Documents</a>
+      <a class="lk-nav-link" href="#jobs">Jobs</a>
+      <a class="lk-nav-link" href="#financials">Financials</a>
+      <a class="lk-nav-link" href="#rates">Rates</a>
+    </nav>
+    <div class="ml-auto flex items-center gap-2">
+      <a class="group inline-flex h-9 items-center gap-2 rounded-md border border-mfi-200 bg-white pl-2.5 pr-2 text-sm text-mfi-500 hover:border-mfi-300 hover:bg-mfi-50" href="#search">
+        <svg aria-hidden="true" viewBox="0 0 20 20" class="size-4 shrink-0 text-mfi-400" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="9" r="5.5"></circle><path d="m13.5 13.5 3 3" stroke-linecap="round"></path></svg>
+        <span class="hidden sm:inline">Search</span>
+        <kbd class="hidden rounded border border-mfi-200 bg-mfi-50 px-1.5 py-0.5 font-sans text-[10px] font-medium text-mfi-500 md:inline">/</kbd>
+      </a>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="flex-1">
+
+<!-- ============================== HOME ============================== -->
+<section class="mx-auto w-full max-w-[1240px] px-4 py-10 sm:px-6 sm:py-14">
+  <p class="lk-eyebrow">Laghubitta Khabar</p>
+  <h1 class="page-h1 mt-2">Nepal's microfinance institution records, traced to source</h1>
+  <p class="mt-3 max-w-2xl text-base leading-relaxed text-mfi-600">
+    A source-linked record of Nepal's licensed microfinance institutions: leadership, branch networks,
+    published documents and vacancies, each traced to the source it came from. 51 institutions, as of the
+    NRB BFI directory published 12 Jun 2026.
+  </p>
+  <div class="mt-6 flex flex-wrap gap-2">
+    <a class="inline-flex items-center rounded-md bg-mfi-900 px-4 py-2 text-sm font-medium text-white hover:bg-mfi-800" href="#institutions">Browse institutions</a>
+    <a class="inline-flex items-center rounded-md border border-mfi-200 bg-white px-4 py-2 text-sm font-medium text-mfi-700 hover:bg-mfi-50" href="#search">Search records</a>
+    <a class="inline-flex items-center rounded-md border border-mfi-200 bg-white px-4 py-2 text-sm font-medium text-mfi-700 hover:bg-mfi-50" href="#compare">Compare</a>
+  </div>
+
+  <div class="stat-grid mt-8">
+    <div class="stat"><div class="k">Institutions</div><div class="v">51</div></div>
+    <div class="stat"><div class="k">Regulatory events</div><div class="v">62</div></div>
+    <div class="stat"><div class="k">NRB documents</div><div class="v">97</div></div>
+    <div class="stat"><div class="k">Financial docs</div><div class="v">48</div></div>
+    <div class="stat"><div class="k">Vacancies</div><div class="v">99</div></div>
+    <div class="stat"><div class="k">Sources</div><div class="v">51</div></div>
+  </div>
+
+  <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <div class="panel">
+      <p class="lk-eyebrow">How to read a record</p>
+      <p class="mt-2 text-sm leading-relaxed text-mfi-600">Every field states its source and its state — Verified, Candidate, Unknown, Not extracted. Nothing is inferred from a sibling record.</p>
+    </div>
+    <div class="panel">
+      <p class="lk-eyebrow">What we do not claim</p>
+      <p class="mt-2 text-sm leading-relaxed text-mfi-600">No "verified" badge an institution can buy. No fabricated counts. No invented dates. Candidate websites are leads, not confirmations.</p>
+    </div>
+    <div class="panel">
+      <p class="lk-eyebrow">Coverage honesty</p>
+      <p class="mt-2 text-sm leading-relaxed text-mfi-600">An institution with no published leadership page shows none — not an assumed value. Coverage varies by source; the ingestion page shows exactly which.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== INSTITUTION PROFILE ============================== -->
+<section id="institutions" class="mx-auto w-full max-w-[1240px] px-4 py-10 sm:px-6 border-t border-mfi-100">
+  <p class="lk-eyebrow">Institution profile</p>
+  <h2 class="page-h1 mt-2">Nirdhan Utthan Laghubitta Bittiya Sanstha Ltd.</h2>
+  <p class="mt-1 text-sm text-mfi-500">Also recorded as Nirdhan Utthan · Nirdhan Utthan Laghubitta Bittiya Sanstha Limited · Nirdhan Uthhan</p>
+  <div class="mt-4 flex flex-wrap gap-2">
+    <span class="chip positive">ACTIVE</span>
+    <span class="chip neutral">License D</span>
+    <span class="chip neutral">National level</span>
+    <span class="chip attention">Website: candidate (unconfirmed)</span>
+  </div>
+
+  <div class="mt-6 grid gap-4 lg:grid-cols-[220px_1fr]">
+    <nav class="lk-card p-3">
+      <p class="lk-eyebrow mb-2">Sections</p>
+      <ul class="space-y-1 text-sm">
+        <li><a class="nav-tab active block" href="#overview">Overview</a></li>
+        <li><a class="nav-tab block" href="#leadership">Leadership</a></li>
+        <li><a class="nav-tab block" href="#governance">Governance</a></li>
+        <li><a class="nav-tab block" href="#branches">Branches</a></li>
+        <li><a class="nav-tab block" href="#financials">Financials</a></li>
+        <li><a class="nav-tab block" href="#rates">Interest rates</a></li>
+        <li><a class="nav-tab block" href="#history">Corporate history</a></li>
+        <li><a class="nav-tab block" href="#timeline">Timeline</a></li>
+        <li><a class="nav-tab block" href="#activity">Regulatory events</a></li>
+        <li><a class="nav-tab block" href="#documents">Documents</a></li>
+        <li><a class="nav-tab block" href="#careers">Careers</a></li>
+        <li><a class="nav-tab block" href="#regulatory">Regulatory</a></li>
+        <li><a class="nav-tab block" href="#sources">Sources</a></li>
+      </ul>
+    </nav>
+
+    <div class="space-y-4">
+      <div class="panel">
+        <h3 class="section-title">Overview</h3>
+        <div class="stat-grid mt-3">
+          <div class="stat"><div class="k">Head office</div><div class="v" style="font-size:14px">Naxal, Kathmandu</div></div>
+          <div class="stat"><div class="k">Paid-up capital</div><div class="v" style="font-size:14px">Rs 274.27 Cr</div></div>
+          <div class="stat"><div class="k">Operation date</div><div class="v" style="font-size:14px">1999-07-17</div></div>
+          <div class="stat"><div class="k">Working area</div><div class="v" style="font-size:14px">National</div></div>
+        </div>
+        <p class="mt-3 text-xs text-mfi-500">Official website: <span class="chip attention">unconfirmed</span> — a candidate URL is shown as a lead, never as the official site.</p>
+      </div>
+
+      <div class="panel">
+        <h3 class="section-title">Corporate history</h3>
+        <p class="mt-2 text-xs text-mfi-500">Predecessor names absorbed through merger, acquisition or rename. Sourced from the NRB BFI directory lineage register; no dates are invented.</p>
+        <ul class="mt-3 space-y-2">
+          <li class="flex items-center gap-2 text-sm"><span class="chip neutral">MERGED</span> Nirdhan Utthan Laghubitta (predecessor)</li>
+          <li class="flex items-center gap-2 text-sm"><span class="chip neutral">RENAMED</span> Nirdhan Utthan Bittiya Sanstha</li>
+        </ul>
+      </div>
+
+      <div class="panel">
+        <h3 class="section-title">Branches</h3>
+        <div class="state-note mt-3">Partial — 12 of ~40 branches extracted. Shown as a coverage state, not a claim that the institution has only 12.</div>
+        <ul class="lk-card lk-divide mt-3">
+          <li class="flex items-center justify-between text-sm"><span>Naxal branch</span><span class="text-xs text-mfi-500">est. 1999</span></li>
+          <li class="flex items-center justify-between text-sm"><span>Bhaktapur branch</span><span class="text-xs text-mfi-500">est. 2003</span></li>
+        </ul>
+      </div>
+
+      <div class="panel">
+        <h3 class="section-title">Financials</h3>
+        <div class="empty mt-3">No financial documents extracted for this institution yet — a coverage gap, not a zero.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== ALERTS ============================== -->
+<section id="alerts" class="mx-auto w-full max-w-[1240px] px-4 py-10 sm:px-6 border-t border-mfi-100">
+  <p class="lk-eyebrow">Alerts</p>
+  <h2 class="page-h1 mt-2">What changed, and what we still do not have</h2>
+  <div class="mt-4 flex flex-wrap items-center gap-2">
+    <span class="chip conflict">0 high</span>
+    <span class="chip attention">3 medium</span>
+    <span class="chip neutral">12 low</span>
+    <span class="ml-auto text-xs text-mfi-500">0 conflicts · 62 regulatory · 5 coverage · 87 snapshot changes</span>
+  </div>
+  <div class="mt-6 space-y-6">
+    <div>
+      <h3 class="section-title border-b border-mfi-200 pb-2">Snapshot changes</h3>
+      <p class="mt-1 text-xs text-mfi-500">Assertions that appeared or disappeared between two dated evidence runs. Each carries the real observation timestamp.</p>
+      <ul class="lk-card lk-divide mt-3">
+        <li class="text-sm"><span class="font-semibold">Evidence added: people_director</span> <span class="text-xs text-mfi-500">mfi-001 · observed 2026-09-28</span></li>
+        <li class="text-sm"><span class="font-semibold">Evidence removed: people_director</span> <span class="text-xs text-mfi-500">mfi-002 · observed 2026-09-27</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== FOOTER ============================== -->
+<footer class="mt-16 border-t border-mfi-800 bg-mfi-950 text-mfi-200">
+  <div class="mx-auto w-full max-w-[1240px] px-4 py-12 sm:px-6">
+    <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="lg:pr-8">
+        <p class="text-base font-bold tracking-tight text-white">Laghubitta Khabar</p>
+        <p class="mt-2 text-sm leading-relaxed text-mfi-300">A record of Nepal's licensed microfinance institutions: who runs them, what they publish, and which source each statement came from.</p>
+      </div>
+      <nav aria-label="Sector">
+        <h2 class="lk-eyebrow text-mfi-400">Sector</h2>
+        <ul class="mt-3 space-y-2">
+          <li><a class="text-sm text-mfi-300 hover:text-white hover:underline" href="#news">News &amp; notices</a></li>
+          <li><a class="text-sm text-mfi-300 hover:text-white hover:underline" href="#institutions">Institutions</a></li>
+          <li><a class="text-sm text-mfi-300 hover:text-white hover:underline" href="#people">People</a></li>
+          <li><a class="text-sm text-mfi-300 hover:text-white hover:underline" href="#nrb">NRB &amp; regulatory</a></li>
+          <li><a class="text-sm text-mfi-300 hover:text-white hover:underline" href="#media">Media &amp; activity</a></li>
+          <li><a class="text-sm text-mfi-300 hover:text-white hover:underline" href="#digital">Digital presence</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Information">
+        <h2 class="lk-eyebrow text-mfi-400">Information</h2>
+        <ul class="mt-3 space-y-2">
+          <li><a class="text-sm text-mfi-300 hover:text-white hover:underline" href="#financials">Financial information</a></li>
+          <li><a class="text-sm text-mfi-300 hover:text-white hover:underline" href="#rates">Interest rates</a></li>
+          <li><a class="text-sm text-mfi-300 hover:text-white hover:underline" href="#jobs">Vacancies</a></li>
+          <li><a class="text-sm text-mfi-300 hover:text-white hover:underline" href="#documents">Documents</a></li>
+          <li><a class="text-sm text-mfi-300 hover:text-white hover:underline" href="#reports">Reports</a></li>
+          <li><a class="text-sm text-mfi-300 hover:text-white hover:underline" href="#research">Research</a></li>
+          <li><a class="text-sm text-mfi-300 hover:text-white hover:underline" href="#data-products">Data products</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Tools">
+        <h2 class="lk-eyebrow text-mfi-400">Tools</h2>
+        <ul class="mt-3 space-y-2">
+          <li><a class="text-sm text-mfi-300 hover:text-white hover:underline" href="#ingestion">Ingestion</a></li>
+          <li><a class="text-sm text-mfi-300 hover:text-white hover:underline" href="#alerts">Alerts</a></li>
+          <li><a class="text-sm text-mfi-300 hover:text-white hover:underline" href="#compare">Compare</a></li>
+          <li><a class="text-sm text-mfi-300 hover:text-white hover:underline" href="#search">Search</a></li>
+          <li><a class="text-sm text-mfi-300 hover:text-white hover:underline" href="#contribute">Contribute</a></li>
+          <li><a class="text-sm text-mfi-300 hover:text-white hover:underline" href="#support">Support</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="mt-10 space-y-2 border-t border-mfi-800 pt-6 text-xs leading-relaxed text-mfi-400">
+      <p><span class="font-medium text-mfi-200">Institution directory:</span> Laghubitta Khabar MFI Directory, as of 15 May 2026; published by Nepal Rastra Bank on 12 Jun 2026.</p>
+      <p><span class="font-medium text-mfi-200">Financial records:</span> 48 current financial document record(s) (40 report document(s), 8 rate notice(s), 14 institution(s)); all UNVERIFIED, contents never read.</p>
+      <p><span class="font-medium text-mfi-200">Vacancies:</span> 99 current vacancy record(s) as of 2026-10-01 (63 posting(s) with a title read from an institution's own page, 36 unread vacancy notice(s), 19 institution(s)); all UNVERIFIED.</p>
+      <p><span class="font-medium text-mfi-200">Source monitoring:</span> 51 sources checked, 688 page snapshots stored, last report 26 Sep 2026.</p>
+      <p class="pt-2 text-mfi-500">Records are transcribed from the sources listed on each page. Coverage varies by source: an institution with no published leadership page shows none rather than an assumed value.</p>
+    </div>
+  </div>
+</footer>
+
+</main>
+</body>
+</html>

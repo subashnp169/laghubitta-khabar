@@ -88,6 +88,7 @@
     "build:diff-alerts": "tsx scripts/build-diff-alerts.ts",
     "build:media": "tsx scripts/build-media-module.ts",
     "build:social": "tsx scripts/build-social-module.ts",
+    "report:data-quality": "tsx scripts/report-data-quality.ts",
     "smoke:api": "tsx scripts/smoke-api.ts",
     "smoke:api-contract": "tsx scripts/smoke-api-contract.ts",
     "smoke:api-hardening": "tsx scripts/smoke-api-hardening.ts",
