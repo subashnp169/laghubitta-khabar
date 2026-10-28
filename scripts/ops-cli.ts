@@ -8,6 +8,7 @@
 //   npm run ops -- schedule --db <path>        schedule manifest + report json
 //   npm run ops -- run                         engine runs for due, enabled sources
 //   npm run ops -- run --all | --source=X      run every enabled / one source
+//   npm run ops -- run --source=X --reextract  force re-extraction of unchanged content (single source only)
 //   npm run ops -- retry <source>              force a run now (paused -> refused)
 //   npm run ops -- pause <source|--all>        enabled = 0
 //   npm run ops -- resume <source|--all>       enabled = 1
@@ -78,12 +79,14 @@ interface CliArgs {
   db: string | null;
   source: string | null;
   all: boolean;
+  reextract: boolean;
 }
 
 function parseArgs(argv: string[]): CliArgs {
-  const out: CliArgs = { verb: argv[0] ?? "", db: null, source: null, all: false };
+  const out: CliArgs = { verb: argv[0] ?? "", db: null, source: null, all: false, reextract: false };
   for (const a of argv.slice(1)) {
     if (a === "--all") out.all = true;
+    else if (a === "--reextract") out.reextract = true;
     else if (a.startsWith("--db=")) out.db = a.slice("--db=".length);
     else if (a.startsWith("--source=")) out.source = a.slice("--source=".length);
     else if (!a.startsWith("--") && out.source === null) out.source = a;
@@ -293,7 +296,7 @@ interface RunOutcome {
   errors: number;
 }
 
-async function runSource(dbPath: string, s: SourceRow, now: string): Promise<RunOutcome> {
+async function runSource(dbPath: string, s: SourceRow, now: string, forceReextract = false): Promise<RunOutcome> {
   const budget = budgetFor(s);
   const host = new URL(s.url).hostname;
   const apex = host.replace(/^www\./i, "");
@@ -323,7 +326,7 @@ async function runSource(dbPath: string, s: SourceRow, now: string): Promise<Run
   };
   const engine = buildEngine(deps);
   const runId = `run-${Date.now()}-${s.id}`;
-  const out = await engine.runSource(s.id, { budget, now });
+  const out = await engine.runSource(s.id, { budget, now, forceReextract });
   const fetched = out.items.filter((i) => i.lifecycle !== "DISCOVERED").length;
 
   let status = out.ok ? "SUCCESS" : "PARTIAL";
@@ -439,6 +442,10 @@ async function main(): Promise<void> {
     requireDb(dbPath);
     const sources = listSources(dbPath, now);
     let selected: ListSource[];
+    if (args.reextract && !args.source) {
+      console.error(`ops ${verb}: --reextract requires --source=<id> (bulk re-extraction is not allowed)`);
+      process.exit(1);
+    }
     if (args.source) {
       const hit = sources.find((s) => s.id === args.source);
       if (!hit) {
@@ -462,7 +469,7 @@ async function main(): Promise<void> {
     console.log(`ops ${verb}: ${selected.length} source(s): ${selected.map((s) => s.id).join(", ")}`);
     const outcomes: RunOutcome[] = [];
     for (const s of selected) {
-      outcomes.push(await runSource(dbPath, s, now));
+      outcomes.push(await runSource(dbPath, s, now, args.reextract));
     }
     console.log(`ops ${verb}: done. ${outcomes.filter((o) => o.status === "SUCCESS").length}/${outcomes.length} SUCCESS`);
     return;

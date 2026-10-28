@@ -451,6 +451,8 @@ export interface EngineOptions {
   /** Per-run crawl budget (overrides source.config_json.budget for this run). */
   budget?: CrawlBudget;
   dryRun?: boolean; // discover + fetch only; never persist
+  /** Force re-extraction of unchanged content (bypasses the hash idempotency short-circuit). Append-only: existing snapshots/assertions are preserved; assertions are deduplicated by the adapter. */
+  forceReextract?: boolean;
   now?: string; // injectable clock for deterministic tests
 }
 

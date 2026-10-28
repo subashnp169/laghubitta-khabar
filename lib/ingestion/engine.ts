@@ -371,7 +371,11 @@ export class GenericIngestionEngine {
       ? await this.deps.canonicalizer.hash(fetched.contentType, fetched.body)
       : fetched.contentHash;
     const priorHash = await this.priorHash(source.id, target.url);
-    const unchanged = priorHash !== null && priorHash === comparisonHash;
+    // Re-extraction opt-in: when forceReextract is set, bypass the unchanged
+    // short-circuit so extraction runs again on identical content. Default
+    // behaviour (hash-based idempotency) is unchanged. Append-only: a new
+    // snapshot row is appended; assertions are deduplicated by the adapter.
+    const unchanged = !opts.forceReextract && priorHash !== null && priorHash === comparisonHash;
     await this.deps.writer.saveItem({
       runId, url: target.url, itemType: target.capability, status: unchanged ? "UNCHANGED" : "CHANGED", contentHash: comparisonHash,
     } satisfies ItemInput);
