@@ -32,6 +32,7 @@ check("CSV has PILOT_STUB rows", csv.includes("PILOT_STUB"));
 
 // Determinism
 const before = csv;
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const { execSync } = require("node:child_process");
 execSync("npm run recovery:manifest", { cwd: root, stdio: "pipe" });
 const after = read("docs/data/RECOVERY-MANIFEST.csv");

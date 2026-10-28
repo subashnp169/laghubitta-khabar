@@ -217,6 +217,7 @@ function main(): void {
 
 // helper needed before main (hoisted function declaration)
 function db2errs(runId: string): Array<{ error_type: string; error_message: string; retry_count: number }> {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   const db = new (require("better-sqlite3"))(resolve(ROOT, "data/durable/store.db"), { readonly: true });
   const r = db.prepare("SELECT error_type, error_message, retry_count FROM ingestion_errors WHERE run_id=?").all(runId) as Array<{ error_type: string; error_message: string; retry_count: number }>;
   db.close();

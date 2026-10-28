@@ -37,6 +37,7 @@ const after = read("docs/data/CONFLICT-TRIAGE.csv");
 check("triage is deterministic (byte-identical on re-run)", before === after);
 
 function execSyncSafe() {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   const { execSync } = require("node:child_process");
   execSync("npm run triage:conflicts", { cwd: root, stdio: "pipe" });
 }

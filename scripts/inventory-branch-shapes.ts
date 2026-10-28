@@ -36,6 +36,7 @@ import {
 import { analyzeBranchPage, BRANCH_PARSER_ID } from "../lib/ingestion/structured";
 import { peopleExtractor } from "../lib/ingestion/people";
 
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const require = createRequire(import.meta.url);
 const Database = require("better-sqlite3") as new (p: string) => {
   prepare(s: string): { run(...a: unknown[]): unknown; all(...a: unknown[]): Array<Record<string, unknown>>; get(...a: unknown[]): Record<string, unknown> };
