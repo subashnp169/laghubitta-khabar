@@ -15,7 +15,7 @@ const Database = require("better-sqlite3") as new (p: string, o?: { readonly?: b
   prepare: (sql: string) => { all: (...args: unknown[]) => unknown[]; get: (...args: unknown[]) => unknown };
   close: () => void;
 };
-import { writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 const ROOT = resolve(__dirname, "..");
@@ -49,8 +49,25 @@ function main(): void {
 
   const runsBySource = db.prepare("SELECT ingestion_source_id, COUNT(*) c, SUM(CASE WHEN status='SUCCESS' THEN 1 ELSE 0 END) succ, MAX(started_at) last FROM ingestion_runs GROUP BY ingestion_source_id ORDER BY ingestion_source_id").all() as Array<{ ingestion_source_id: string; c: number; succ: number; last: string }>;
 
-  const snapshots = (db.prepare("SELECT COUNT(*) c FROM source_snapshots").get() as { c: number }).c;
+  // Source -> field-group mapping (built by build:source-field-groups).
   const policies = db.prepare("SELECT field_group, refresh_days FROM field_refresh_policies ORDER BY field_group").all() as Array<{ field_group: string; refresh_days: number }>;
+  const mappingDoc = JSON.parse(readFileSync(resolve(ROOT, "data/master/source-field-groups.json"), "utf8")) as { mapping: Record<string, string[]> };
+  const refreshDays = new Map(policies.map((p) => [p.field_group, p.refresh_days]));
+  const asOfMs = new Date(lastRun.mx).getTime();
+  const staleRows: Array<{ source: string; days: number; groups: string[] }> = [];
+  for (const r of runsBySource) {
+    if (r.succ === 0) continue;
+    const days = Math.floor((asOfMs - new Date(r.last).getTime()) / (24 * 60 * 60 * 1000));
+    const groups = mappingDoc.mapping[r.ingestion_source_id] ?? [];
+    const staleGroups = groups.filter((g) => {
+      const thr = refreshDays.get(g);
+      return thr !== undefined && days > thr;
+    });
+    if (staleGroups.length > 0) staleRows.push({ source: r.ingestion_source_id, days, groups: staleGroups });
+  }
+  staleRows.sort((a, b) => b.days - a.days || a.source.localeCompare(b.source));
+
+  const snapshots = (db.prepare("SELECT COUNT(*) c FROM source_snapshots").get() as { c: number }).c;
 
   const jobs = (db.prepare("SELECT COUNT(*) c FROM jobs").get() as { c: number }).c;
   const officialLinks = (db.prepare("SELECT COUNT(*) c FROM official_links").get() as { c: number }).c;
@@ -107,6 +124,33 @@ function main(): void {
   lines.push("| source | runs | success | last run |");
   lines.push("|---|---|---|---|");
   for (const r of runsBySource) lines.push(`| ${r.ingestion_source_id} | ${r.c} | ${r.succ} | ${r.last} |`);
+  lines.push("");
+  lines.push("## 6b. Staleness (source-field-groups mapping + field_refresh_policies)");
+  lines.push("");
+  lines.push(`Stale (source, field-group) pairs: **${staleRows.length}** across ${new Set(staleRows.map((r) => r.source)).size} source(s).`);
+  lines.push("A source is stale for a group when days-since-last-successful-run > refresh_days for that group.");
+  lines.push("");
+  if (staleRows.length === 0) {
+    lines.push("No stale sources.");
+  } else {
+    lines.push("| source | days since run | stale groups |");
+    lines.push("|---|---|---|");
+    for (const r of staleRows.slice(0, 40)) lines.push(`| ${r.source} | ${r.days} | ${r.groups.join(", ")} |`);
+    if (staleRows.length > 40) lines.push(`| ... and ${staleRows.length - 40} more | | |`);
+  }
+  lines.push("");
+  lines.push("");
+  lines.push(`Stale (source, field-group) pairs: **${staleRows.length}** across ${new Set(staleRows.map((r) => r.source)).size} source(s).`);
+  lines.push("A source is stale for a group when `days since last successful run > refresh_days` for that group.");
+  lines.push("");
+  if (staleRows.length === 0) {
+    lines.push("No stale sources.");
+  } else {
+    lines.push("| source | days since run | stale groups |");
+    lines.push("|---|---|---|");
+    for (const r of staleRows.slice(0, 40)) lines.push(`| ${r.source} | ${r.days} | ${r.groups.join(", ")} |`);
+    if (staleRows.length > 40) lines.push(`| ... and ${staleRows.length - 40} more | | |`);
+  }
   lines.push("");
   lines.push("## 7. Freshness policy (existing, not invented)");
   lines.push("");

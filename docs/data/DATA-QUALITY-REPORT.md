@@ -105,6 +105,47 @@ Reference "as of": latest ingestion run `2026-10-01T14:08:24.773Z` (wall clock i
 | vlbs-website | 2 | 2 | 2026-09-26T10:45:06.794Z |
 | weannepal-website | 7 | 7 | 2026-10-01T08:05:09.341Z |
 
+## 6b. Staleness (source-field-groups mapping + field_refresh_policies)
+
+Stale (source, field-group) pairs: **13** across 13 source(s).
+A source is stale for a group when days-since-last-successful-run > refresh_days for that group.
+
+| source | days since run | stale groups |
+|---|---|---|
+| aviyan-website | 5 | JOBS, NEWS |
+| deproscbank-website | 5 | JOBS, NEWS |
+| fmdb-website | 5 | JOBS, NEWS |
+| ganapatimicro-website | 5 | JOBS, NEWS |
+| jeevanbikasmf-website | 5 | JOBS, NEWS |
+| mlbbank-website | 5 | JOBS, NEWS |
+| mlbsl-website | 5 | JOBS, NEWS |
+| nicasialaghubitta-website | 5 | JOBS, NEWS |
+| nmbmicrofinance-website | 5 | JOBS, NEWS |
+| shrijanshil-website | 5 | JOBS, NEWS |
+| slbbl-website | 5 | JOBS, NEWS |
+| vlbs-website | 5 | JOBS, NEWS |
+| infinity-website | 4 | JOBS, NEWS |
+
+
+Stale (source, field-group) pairs: **13** across 13 source(s).
+A source is stale for a group when `days since last successful run > refresh_days` for that group.
+
+| source | days since run | stale groups |
+|---|---|---|
+| aviyan-website | 5 | JOBS, NEWS |
+| deproscbank-website | 5 | JOBS, NEWS |
+| fmdb-website | 5 | JOBS, NEWS |
+| ganapatimicro-website | 5 | JOBS, NEWS |
+| jeevanbikasmf-website | 5 | JOBS, NEWS |
+| mlbbank-website | 5 | JOBS, NEWS |
+| mlbsl-website | 5 | JOBS, NEWS |
+| nicasialaghubitta-website | 5 | JOBS, NEWS |
+| nmbmicrofinance-website | 5 | JOBS, NEWS |
+| shrijanshil-website | 5 | JOBS, NEWS |
+| slbbl-website | 5 | JOBS, NEWS |
+| vlbs-website | 5 | JOBS, NEWS |
+| infinity-website | 4 | JOBS, NEWS |
+
 ## 7. Freshness policy (existing, not invented)
 
 | field group | refresh days |

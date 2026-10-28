@@ -1,0 +1,543 @@
+{
+  "generatedBy": "scripts/build-source-field-groups.ts",
+  "rationale": "MFB website sources feed all institution-level field groups; NRB sources feed NEWS+ANNUAL_REPORT; market providers feed FINANCIALS; the NRB BFI master source feeds none (refreshed by master rebuild).",
+  "mapping": {
+    "aarambha-website": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "aatmanirbhar-website": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "asha-website": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "aviyan-website": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "chhimek-website": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "cyc-website": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "deproscbank-website": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "dhaulagiribank-website": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "fmdb-website": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "forwardmfbank-website": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "ganapatimicro-website": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "gblbs-website": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "gilb-website": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "guranslaghubitta-website": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "himalayanlaghubitta-website": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "infinity-website": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "jeevanbikasmf-website": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "jucbank-website": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "kalikabank-website": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "laxmilaghu-website": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "manushilbs-website": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "matribhumi-website": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "mero-lagani": [
+      "FINANCIALS"
+    ],
+    "mero-website": [
+      "FINANCIALS"
+    ],
+    "mfi-003-official": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "mfi-005-official": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "mlbbank-website": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "mlbsl-website": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "mslbsl-website": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "nadeplaghubitta-website": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "nationalmicrofinance-website": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "nerudemirmire-website": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "nicasialaghubitta-website": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "nirdhan-website": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "nmbmicrofinance-website": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "nrb-bank-list": [
+      "NEWS",
+      "ANNUAL_REPORT"
+    ],
+    "nrb-bfi-mid-may-2026": [
+      "NEWS",
+      "ANNUAL_REPORT"
+    ],
+    "rsdcmf-website": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "samata-website": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "sampadalaghubitta-website": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "sanjeevanilaghubitta-website": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "share-sansar": [
+      "FINANCIALS"
+    ],
+    "shrijanshil-website": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "skbbl-website": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "slbbl-website": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "slbs-website": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "slbsl-website": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "supportmicrofinance-website": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "swabhimaanlaghubitta-website": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "swastiklbs-website": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "swbbl-website": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "swmfi-website": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "ulbsl-website": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "uniquenepalmicrofinance-website": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "unnatislbs-website": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "vlbs-website": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ],
+    "weannepal-website": [
+      "BRANCHES",
+      "CEO",
+      "FINANCIALS",
+      "JOBS",
+      "NEWS",
+      "CONTACT",
+      "SOCIAL",
+      "ANNUAL_REPORT"
+    ]
+  }
+}
