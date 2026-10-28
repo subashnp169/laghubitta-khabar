@@ -1,0 +1,37 @@
+name: Data quality report
+
+on:
+  schedule:
+    # Weekly, Monday 03:00 UTC. Reports only; no ingestion, no data mutation.
+    - cron: "0 3 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: npm ci
+      - name: Generate data-quality report
+        run: npm run report:data-quality
+      - name: Generate conflict triage
+        run: npm run triage:conflicts
+      - name: Generate recovery manifest
+        run: npm run recovery:manifest
+      - name: Commit reports if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/data/DATA-QUALITY-REPORT.md docs/data/CONFLICT-TRIAGE.csv docs/data/CONFLICT-TRIAGE-SUMMARY.md docs/data/RECOVERY-MANIFEST.csv docs/data/RECOVERY-MANIFEST-SUMMARY.md data/master/source-field-groups.json
+          if git diff --cached --quiet; then
+            echo "No report changes."
+            exit 0
+          fi
+          git commit -m "chore: weekly data-quality report refresh"
+          git push
