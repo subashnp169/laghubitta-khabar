@@ -89,6 +89,7 @@
     "build:media": "tsx scripts/build-media-module.ts",
     "build:social": "tsx scripts/build-social-module.ts",
     "report:data-quality": "tsx scripts/report-data-quality.ts",
+    "smoke:data-quality": "tsx scripts/smoke-data-quality.ts",
     "build:source-field-groups": "tsx scripts/build-source-field-groups.ts",
     "smoke:api": "tsx scripts/smoke-api.ts",
     "smoke:api-contract": "tsx scripts/smoke-api-contract.ts",
