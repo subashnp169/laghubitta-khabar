@@ -80,6 +80,10 @@ export type { MediaVideo, MediaPost, MediaDigitalService } from "@/data/media";
 export { diffChanges, diffAlertsSource } from "@/data/diff-alerts";
 export type { DiffChange } from "../../lib/diff";
 
+// --- Stale sources (V1.1): (source, field-group) pairs past refresh threshold ---
+export { staleSources, staleSourcesAsOf } from "@/data/stale-sources";
+export type { StaleSource } from "@/data/stale-sources";
+
 // --- NRB regulatory layer (src/data/nrb.ts) -------------------------------
 export {
   nrbSummary,

@@ -9,8 +9,9 @@
 
 import type { CrawlSource, NrbRegulatoryEvent } from "@/types";
 import type { DiffChange } from "./diff";
+import type { StaleSource } from "@/data/stale-sources";
 
-export type AlertKind = "REGULATORY_EVENT" | "COVERAGE" | "EVIDENCE_CONFLICT" | "SNAPSHOT_DIFF";
+export type AlertKind = "REGULATORY_EVENT" | "COVERAGE" | "EVIDENCE_CONFLICT" | "SNAPSHOT_DIFF" | "STALE_SOURCE";
 export type AlertSeverity = "high" | "medium" | "low";
 
 export const SEVERITY_RANK: Record<AlertSeverity, number> = { high: 0, medium: 1, low: 2 };
@@ -209,6 +210,37 @@ export function buildDiffAlerts(changes: DiffChange[]): AlertItem[] {
   });
 }
 
+// ---------------------------------------------------------------------------
+// Stale-source alerts (V1.1).
+//
+// "A source has not been re-run within its field group's refresh window." Each
+// stale (source, field-group) pair becomes one alert carrying the REAL
+// last-successful-run timestamp. Nothing is invented.
+// ---------------------------------------------------------------------------
+export function buildStaleSourceAlerts(stale: StaleSource[]): AlertItem[] {
+  const out: AlertItem[] = [];
+  for (const s of stale) {
+    out.push({
+      id: `stale-${s.source}-${s.groups.join("+")}`,
+      kind: "STALE_SOURCE",
+      severity: s.days > 30 ? "medium" : "low",
+      title: `Source stale: ${s.source}`,
+      detail: `${s.source} has not run successfully in ${s.days} day(s); stale for ${s.groups.join(", ")}.`,
+      institutionId: null,
+      institutionSlug: null,
+      institutionName: null,
+      occurredAt: s.lastRun,
+      source: "ingestion runs · field_refresh_policies",
+    });
+  }
+  return out.sort((a, b) => {
+    const ta = a.occurredAt ?? "";
+    const tb = b.occurredAt ?? "";
+    if (ta !== tb) return ta < tb ? 1 : -1;
+    return a.id < b.id ? -1 : 1;
+  });
+}
+
 /**
  * Combined feed: evidence conflicts first (an unresolved disagreement outranks
  * any single-record signal), then coverage, then regulatory events, then
@@ -221,6 +253,7 @@ export function buildAlerts(
   sources: CrawlSource[],
   conflicts: ConflictAlertInput[] = [],
   diffChanges: DiffChange[] = [],
+  staleSources: StaleSource[] = [],
 ): AlertItem[] {
   const sortGroup = (items: AlertItem[]): AlertItem[] =>
     [...items].sort((a, b) => {
@@ -235,6 +268,7 @@ export function buildAlerts(
     ...sortGroup(buildCoverageAlerts(sources)),
     ...sortGroup(buildEventAlerts(events)),
     ...sortGroup(buildDiffAlerts(diffChanges)),
+    ...sortGroup(buildStaleSourceAlerts(staleSources)),
   ];
 }
 
